@@ -19,19 +19,15 @@ r.init(config.get('rethinkdb'), [
       indexes: ['companyID']
     },
     {
-      name: 'services',
+      name: 'connector',
       indexes: ['name']
     },
     {
-      name: 'actions',
-      indexes: ['serviceID']
+      name: 'integration',
+      indexes: ['clientID']
     },
     {
-      name: 'triggers',
-      indexes: ['serviceID']
-    },
-    {
-      name: 'integrations',
+      name: 'clientAuth',
       indexes: ['clientID']
     },
   ]

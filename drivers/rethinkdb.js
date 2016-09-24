@@ -1,5 +1,8 @@
 'use strict';
-let r = require('rethinkdb');
 
+let config = require('config');
+let r = require('rethinkdbdash')();
 
-module.exports = r;
+r.connect(config.get('rethinkdb'));
+
+module.exports = r
