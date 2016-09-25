@@ -13,6 +13,7 @@
     "config": "^1.21.0",
     "guid": "0.0.12",
     "passport-headerapikey": "^1.0.3",
+    "request": "^2.75.0",
     "rethinkdb": "^2.3.3",
     "rethinkdbdash": "^2.3.23"
   },

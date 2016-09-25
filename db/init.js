@@ -17,7 +17,7 @@ r.init(config.get('rethinkdb')['servers'][0], [
     },
     {
       name: 'client',
-      indexes: ['companyID']
+      indexes: ['companyID', 'apiKey']
     },
     {
       name: 'connector',
@@ -34,7 +34,7 @@ r.init(config.get('rethinkdb')['servers'][0], [
   ]
 )
 .then(function (conn) {
-	console.log('all tables created', conn)
+	console.log('all tables created')
   return seed.run()
 });
 
