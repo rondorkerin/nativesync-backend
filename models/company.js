@@ -5,7 +5,6 @@ let guid = require('guid');
 
 exports.create = (name, url) => {
   let data = { name: name, url: url, apiKey: guid.create().value};
-  debugger;
   return r.db('nativesync').table('company').insert(data).run();
 }
 
@@ -13,4 +12,6 @@ exports.getByAPIKey = (apiKey) => {
   return r.db('nativesync').table('company').getAll(apiKey, {index: 'apiKey'}).run();
 }
 
-exports.getAll = r.db('nativesync').table('company').run
+exports.getAll = () => {
+  return r.db('nativesync').table('company').run();
+}

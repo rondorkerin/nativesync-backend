@@ -1,11 +1,12 @@
 'use strict';
 
 let config = require('config');
+let seed = require('./seed');
 var r = require('rethinkdb');
 require('rethinkdb-init')(r);
 console.log(config.get('rethinkdb'))
  
-r.init(config.get('rethinkdb'), [
+r.init(config.get('rethinkdb')['servers'][0], [
     {
       name: 'user',
       indexes: ['companyID']
@@ -34,5 +35,6 @@ r.init(config.get('rethinkdb'), [
 )
 .then(function (conn) {
 	console.log('all tables created', conn)
+  return seed.run()
 });
 

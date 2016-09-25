@@ -1,7 +1,15 @@
 {
+  "port": 8083,
   "rethinkdb": {
-		"host": "localhost",
-		"port": 28015,
-		"db": "nativesync"
-	}
+    "servers": [
+      {
+        "host": "localhost",
+        "port": 28015,
+        "db": "nativesync",
+        "authKey": ""
+      }
+		],
+    "buffer": 10,
+    "max": 1000
+  }
 }

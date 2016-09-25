@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "config": "^1.21.0",
     "guid": "0.0.12",
+    "passport-headerapikey": "^1.0.3",
     "rethinkdb": "^2.3.3",
     "rethinkdbdash": "^2.3.23"
   },
