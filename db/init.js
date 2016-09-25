@@ -31,6 +31,14 @@ r.init(config.get('rethinkdb')['servers'][0], [
       name: 'clientAuth',
       indexes: ['clientID']
     },
+    {
+      name: 'service',
+      indexes: ['name']
+    },
+    {
+      name: 'clientDatastore',
+      indexes: ['clientID']
+    },
   ]
 )
 .then(function (conn) {

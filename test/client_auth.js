@@ -1,14 +1,12 @@
 let request = require('request');
 require('request-debug')(request);
+
 var apikey = require('./apikey');
 
 var options = {
-  uri: 'http://localhost:8083/connector/test/echo',
-  method: 'POST',
-  json: {
-    "hello": "world",
-    'test': 'struff'
-  },
+  uri: 'http://localhost:8083/clientAuths',
+  method: 'GET',
+  json: {},
   headers: {
     'X-Api-Key': apikey 
   }  
