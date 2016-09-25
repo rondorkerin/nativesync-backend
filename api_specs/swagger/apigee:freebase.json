@@ -1,0 +1,351 @@
+{
+  "type": "api",
+  "key": "apigee:freebase",
+  "info": {
+    "title": "Freebase",
+    "description": "Read and write access to the Freebase graph of people, places and things."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "www.googleapis.com",
+    "basePath": "/freebase/v1",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/search": {
+        "parameters": [
+          {
+            "name": "query",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "The text you want to match against freebase entities."
+          },
+          {
+            "name": "callback",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "JS method name for JSONP callbacks."
+          },
+          {
+            "name": "domain",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "A comma separated list of domain IDs. Search results must include these domains."
+          },
+          {
+            "name": "exact",
+            "required": false,
+            "in": "query",
+            "type": "boolean",
+            "default": false,
+            "description": "Matches only the name, and keys 'exactly'. No normalization of any kind is done at indexing and query time. The text is only broken up on space characters."
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "A Filter s-expression."
+          },
+          {
+            "name": "html_escape",
+            "required": false,
+            "in": "query",
+            "type": "boolean",
+            "default": true,
+            "description": "Whether or not to escape entities."
+          },
+          {
+            "name": "indent",
+            "required": false,
+            "in": "query",
+            "type": "boolean",
+            "default": false,
+            "description": "Whether to indent the json."
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 20,
+            "description": "Return up to this number of results. (integer >= 1)"
+          },
+          {
+            "name": "mql_output",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "A MQL query thats extracts entity information."
+          },
+          {
+            "name": "prefixed",
+            "required": false,
+            "in": "query",
+            "type": "boolean",
+            "default": false,
+            "description": "Whether or not to match by name prefix (used for autosuggest)."
+          },
+          {
+            "name": "start",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 0,
+            "description": "Allows paging through results. (integer >= 0)"
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "A comma seperated list of type IDs. Search results must include these types."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Find entities by keyword search.",
+          "externalDocs": {
+            "url": "http://wiki.freebase.com/wiki/ApiSearch"
+          }
+        }
+      },
+      "/mqlread": {
+        "parameters": [
+          {
+            "name": "query",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "A valid MQL query in the json format."
+          },
+          {
+            "name": "as_of_time",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Run the query as it would've been run at the specified point in time. Must be a valid timestamp (e.g. \"2007-01-09T22\" or \"2007-02\")."
+          },
+          {
+            "name": "callback",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "JS method name for JSONP callbacks."
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Provides a mechanism for \"paging\" out results (can be used in conjunction with \"limit\" directive in MQL). No value (for the first request) OR a valid cursor returned by a previous request."
+          },
+          {
+            "name": "html_escape",
+            "required": false,
+            "in": "query",
+            "type": "boolean",
+            "default": true,
+            "description": "Whether or not to escape entities."
+          },
+          {
+            "name": "indent",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": false,
+            "description": "How many spaces to indent the JSON. (integer 0-10)"
+          },
+          {
+            "name": "lang",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "/lang/en",
+            "description": "Return strings in the language requested (if a given object has no name in the requested language, null will be returned)."
+          },
+          {
+            "name": "cost",
+            "required": false,
+            "in": "query",
+            "type": "boolean",
+            "default": false,
+            "description": "Whether or not to show the costs."
+          },
+          {
+            "name": "uniqueness_failure",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "hard",
+            "description": "How MQL responds to uniqueness failures.",
+            "enum": [
+              "hard",
+              "soft"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieve detailed structured data about entities or collections of entities using the Metaweb Query Language (MQL).",
+          "externalDocs": {
+            "url": "http://wiki.freebase.com/wiki/MQL_Read_Service"
+          }
+        }
+      },
+      "/mqlwrite": {
+        "parameters": [
+          {
+            "name": "query",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "A valid MQL query in the json format."
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Perform insertions, deletions and updates of Metaweb Query Language (MQL).",
+          "externalDocs": {
+            "url": "http://www.freebase.com/docs/mqlwrite"
+          }
+        }
+      },
+      "/text{id}": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The id of the entity that you want a description for."
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "raw",
+            "description": "Sanitizing transformation.",
+            "enum": [
+              "html",
+              "plain",
+              "raw"
+            ]
+          },
+          {
+            "name": "lang",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "/lang/en",
+            "description": "The desired language of the content."
+          },
+          {
+            "name": "maxlength",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 200,
+            "description": "The max number of characters to return. Valid only for 'plain' format. (integer 0-4,294,967,295)"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get short textual descriptions for entities.",
+          "externalDocs": {
+            "url": "http://wiki.freebase.com/wiki/ApiText"
+          }
+        }
+      },
+      "/image{id}": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The id of an entity for which you want an image. Alternatively, you may pass the id of the content node for a specific image."
+          },
+          {
+            "name": "fallbackid",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Use the image associated with this secondary id if no image is associated with the primary id."
+          },
+          {
+            "name": "maxheight",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Maximum height in pixels for resulting image. (integer 0 - 4,096)"
+          },
+          {
+            "name": "maxwidth",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Maximum width in pixels for resulting image. (integer 0 - 4,096)"
+          },
+          {
+            "name": "mode",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Method used to scale or crop image.",
+            "enum": [
+              "fill",
+              "fillcrop",
+              "fillcropmid",
+              "fit"
+            ]
+          },
+          {
+            "name": "pad",
+            "required": false,
+            "in": "query",
+            "type": "boolean",
+            "description": "Whether the resulting image should be padded up to the requested dimensions. (boolean as 0 or 1)"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get representative thumbnail images for entities.",
+          "externalDocs": {
+            "url": "http://wiki.freebase.com/wiki/ApiImage"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "Freebase",
+      "description": "Read and write access to the Freebase graph of people, places and things."
+    }
+  },
+  "public": true
+}

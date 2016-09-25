@@ -1,0 +1,290 @@
+{
+  "type": "api",
+  "key": "apigee:weatherbug",
+  "info": {
+    "title": "WeatherBug",
+    "description": "Develop weather applications or integrate localized, global weather conditions, forecasts and alerts into your apps.  Including Spark with near Real-Time location based Lightning Alerts."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "api.wxbug.net",
+    "basePath": "/",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/getLocationsXML.aspx": {
+        "parameters": [
+          {
+            "name": "SearchString",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "Parameter used to search for locations. Only U.S. zipcodes and citynames can be searched. SearchString is not case-sensitive and accepts blank spaces."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns the location based on U.S. and international city name. The soundex system allows searching for a city based on phonetics rather than spelling.",
+          "externalDocs": {
+            "url": "http://weather.weatherbug.com/corporate/products/API/help.aspx#searchloc"
+          }
+        }
+      },
+      "/getStationsXML.aspx": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "lat",
+              "required": true,
+              "in": "query",
+              "description": "Location of a place north or south of the equator. Minimum value: -90. Maximum value: 90."
+            },
+            {
+              "name": "long",
+              "required": true,
+              "in": "query",
+              "description": "Location of a place east or west of the prime meridian. Minimum value -180. Maximum value: 180."
+            }
+          ],
+          "description": "For a given latitude/longitude, returns the weather stations in the area.",
+          "externalDocs": {
+            "url": "http://weather.weatherbug.com/corporate/products/API/help.aspx#searchstations"
+          }
+        }
+      },
+      "/getLiveWeatherRSS.aspx": {
+        "parameters": [
+          {
+            "name": "UnitType",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 0,
+            "description": "UnitType= 0 — U.S. customary units (miles, °F, etc...) [default]. UnitType= 1 — Metric system units (kms, °C, etc...)."
+          },
+          {
+            "name": "OutputType",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "0",
+            "description": "OutputType= 0 — Returns the RSS with the XML embedded inside it starting with \"<aws:weather>\" [default]. OutputType= 1 — Returns pure xml beginning with \"<aws:weather>\"."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "lat",
+              "required": true,
+              "in": "query",
+              "description": "Location of a place north or south of the equator. Minimum value: -90. Maximum value: 90."
+            },
+            {
+              "name": "long",
+              "required": true,
+              "in": "query",
+              "description": "Location of a place east or west of the prime meridian. Minimum value -180. Maximum value: 180."
+            }
+          ],
+          "description": "Returns detailed live weather conditions for the chosen location.",
+          "externalDocs": {
+            "url": "http://weather.weatherbug.com/corporate/products/API/help.aspx#wx"
+          }
+        }
+      },
+      "/getLiveCompactWeatherRSS.aspx": {
+        "parameters": [
+          {
+            "name": "UnitType",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 0,
+            "description": "UnitType= 0 — U.S. customary units (miles, °F, etc...) [default]. UnitType= 1 — Metric system units (kms, °C, etc...)."
+          },
+          {
+            "name": "OutputType",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "0",
+            "description": "OutputType= 0 — Returns the RSS with the XML embedded inside it starting with \"<aws:weather>\" [default]. OutputType= 1 — Returns pure xml beginning with \"<aws:weather>\"."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "lat",
+              "required": true,
+              "in": "query",
+              "description": "Location of a place north or south of the equator. Minimum value: -90. Maximum value: 90."
+            },
+            {
+              "name": "long",
+              "required": true,
+              "in": "query",
+              "description": "Location of a place east or west of the prime meridian. Minimum value -180. Maximum value: 180."
+            }
+          ],
+          "description": "Returns concise live weather conditions for the chosen location.",
+          "externalDocs": {
+            "url": "http://weather.weatherbug.com/corporate/products/API/help.aspx#compactwx"
+          }
+        }
+      },
+      "/getForecastRSS.aspx": {
+        "parameters": [
+          {
+            "name": "UnitType",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 0,
+            "description": "UnitType= 0 — U.S. customary units (miles, °F, etc...) [default]. UnitType= 1 — Metric system units (kms, °C, etc...)."
+          },
+          {
+            "name": "OutputType",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "0",
+            "description": "OutputType= 0 — Returns the RSS with the XML embedded inside it starting with \"<aws:weather>\" [default]. OutputType= 1 — Returns pure xml beginning with \"<aws:weather>\"."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "lat",
+              "required": true,
+              "in": "query",
+              "description": "Location of a place north or south of the equator. Minimum value: -90. Maximum value: 90."
+            },
+            {
+              "name": "long",
+              "required": true,
+              "in": "query",
+              "description": "Location of a place east or west of the prime meridian. Minimum value -180. Maximum value: 180."
+            }
+          ],
+          "description": "Returns the 7-day forecast for a latitude/longitude.",
+          "externalDocs": {
+            "url": "http://weather.weatherbug.com/corporate/products/API/help.aspx#forecast"
+          }
+        }
+      },
+      "/getCamerasXML.aspx": {
+        "parameters": [
+          {
+            "name": "UnitType",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 0,
+            "description": "UnitType= 0 — U.S. customary units (miles, °F, etc...) [default]. UnitType= 1 — Metric system units (kms, °C, etc...)."
+          },
+          {
+            "name": "OutputType",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "0",
+            "description": "OutputType= 0 — Returns the RSS with the XML embedded inside it starting with \"<aws:weather>\" [default]. OutputType= 1 — Returns pure xml beginning with \"<aws:weather>\"."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "lat",
+              "required": true,
+              "in": "query",
+              "description": "Location of a place north or south of the equator. Minimum value: -90. Maximum value: 90."
+            },
+            {
+              "name": "long",
+              "required": true,
+              "in": "query",
+              "description": "Location of a place east or west of the prime meridian. Minimum value -180. Maximum value: 180."
+            }
+          ],
+          "description": "For a given latitude/longitude, this call returns a list of available weather cameras (U.S. Only).",
+          "externalDocs": {
+            "url": "http://weather.weatherbug.com/corporate/products/API/help.aspx#camlist"
+          }
+        }
+      },
+      "/getAlertsRSS.aspx": {
+        "parameters": [
+          {
+            "name": "UnitType",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 0,
+            "description": "UnitType= 0 — U.S. customary units (miles, °F, etc...) [default]. UnitType= 1 — Metric system units (kms, °C, etc...)."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "lat",
+              "required": true,
+              "in": "query",
+              "description": "Location of a place north or south of the equator. Minimum value: -90. Maximum value: 90."
+            },
+            {
+              "name": "long",
+              "required": true,
+              "in": "query",
+              "description": "Location of a place east or west of the prime meridian. Minimum value -180. Maximum value: 180."
+            }
+          ],
+          "description": "Returns weather alert information for a given latitude/longitude (U.S. Only).",
+          "externalDocs": {
+            "url": "http://weather.weatherbug.com/corporate/products/API/help.aspx#alerts"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "WeatherBug",
+      "description": "Develop weather applications or integrate localized, global weather conditions, forecasts and alerts into your apps.  Including Spark with near Real-Time location based Lightning Alerts."
+    }
+  },
+  "public": true
+}

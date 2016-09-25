@@ -1,0 +1,85 @@
+{
+  "type": "feed",
+  "key": "feed:www.dictionary.com",
+  "info": {
+    "title": "Dictionary.com Word of the Day",
+    "x-logo": {
+      "url": "http://www.logoeps.net/wp-content/uploads/2013/04/dictionary-com-logo.jpg"
+    }
+  },
+  "public": true,
+  "swagger": {
+    "swagger": "2.0",
+    "host": "www.dictionary.com",
+    "basePath": "/",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/wordoftheday/wotd.rss": {
+        "get": {
+          "parameters": [],
+          "responses": {
+            "200": {
+              "schema": {
+                "properties": {
+                  "feed": {
+                    "properties": {
+                      "feedUrl": {
+                        "type": "string",
+                        "example": "http://www.reddit.com/r/all/.rss"
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "all subreddits"
+                      },
+                      "link": {
+                        "type": "string",
+                        "example": "http://www.reddit.com/r/all/"
+                      },
+                      "author": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "entries": {
+                        "type": "array",
+                        "items": {
+                          "properties": {
+                            "title": {
+                              "type": "string",
+                              "example": "How to pass time at the airport"
+                            },
+                            "link": {
+                              "type": "string",
+                              "example": "http://i.imgur.com/LRBtkiW.gif"
+                            },
+                            "author": {
+                              "type": "string"
+                            },
+                            "publishedDate": {
+                              "type": "string",
+                              "example": "Mon, 09 Nov 2015 10:30:22 -0800"
+                            },
+                            "content": "<p>Some text</p>"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "Dictionary.com Word of the Day",
+      "x-logo": {
+        "url": "http://www.logoeps.net/wp-content/uploads/2013/04/dictionary-com-logo.jpg"
+      }
+    }
+  }
+}

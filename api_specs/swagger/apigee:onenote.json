@@ -1,0 +1,927 @@
+{
+  "type": "api",
+  "key": "apigee:onenote",
+  "info": {
+    "title": "OneNote",
+    "description": "Easily capture content into OneNote with this REST API."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "www.onenote.com",
+    "basePath": "/api/v1.0/me/notes/",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/pages": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "multipart/form-data; boundary=NewPart",
+              "description": "Required: indicates type of content sent"
+            },
+            {
+              "name": "sectionName",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Optional: indicates the name of the section in the default notebook that the page should be created in. This section will be created if it does not already exist."
+            }
+          ],
+          "description": "Creates a new page in the default notebook and section.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "description": "true, to return the number of entities in the collection."
+            },
+            {
+              "name": "filter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The filter for the query. Example: title eq 'Homework'"
+            },
+            {
+              "name": "orderby",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The property to order by. Default is \"lastModifiedTime desc\". Example: createdTime desc"
+            },
+            {
+              "name": "select",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The properties to return. Example: title,self,createdTime"
+            },
+            {
+              "name": "top",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to return from the result set. Default is 20, maximum is 100. Example: 10"
+            },
+            {
+              "name": "search",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The term or phrase to search for. Example: todo"
+            },
+            {
+              "name": "skip",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to skip in the result set. Example: 10"
+            }
+          ],
+          "description": "Get the pages (metadata) from all notebooks in OneDrive that are owned by the user.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      },
+      "/sections/{sectionId}/pages": {
+        "parameters": [
+          {
+            "name": "sectionId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "",
+            "description": "Specifies the section that contains the pages."
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "multipart/form-data; boundary=NewPart",
+              "description": "Required: indicates type of content sent"
+            }
+          ],
+          "description": "Creates a new page in a specific section.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "description": "true, to return the number of entities in the collection."
+            },
+            {
+              "name": "filter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The filter for the query. Example: title eq 'Homework'"
+            },
+            {
+              "name": "orderby",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The property to order by. Default is \"lastModifiedTime desc\". Example: createdTime desc"
+            },
+            {
+              "name": "select",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The properties to return. Example: title,self,createdTime"
+            },
+            {
+              "name": "top",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to return from the result set. Default is 20, maximum is 100. Example: 10"
+            },
+            {
+              "name": "search",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The term or phrase to search for. Example: todo"
+            },
+            {
+              "name": "skip",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to skip in the result set. Example: 10"
+            }
+          ],
+          "description": "Get the pages (metadata) in the specified section.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      },
+      "/pages/{pageId}": {
+        "parameters": [
+          {
+            "name": "pageId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "",
+            "description": "Specifies the page to delete."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "select",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The properties to return. Example: title,contentUrl,links"
+            }
+          ],
+          "description": "Returns the specified page.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Deletes the specified page.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      },
+      "/pages/{pageId}/content": {
+        "parameters": [
+          {
+            "name": "pageId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "",
+            "description": "Specifies the page whose content you want to retrieve."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Accept",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "text/html",
+              "description": "Required: indicates type of content returned in the response."
+            },
+            {
+              "name": "includeIDs",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "false",
+              "description": "Optional: set to true to get generated IDs to use for PATCH operations."
+            }
+          ],
+          "description": "Returns HTML content of the specified page.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      },
+      "/notebooks": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Required: indicates type of content being sent"
+            }
+          ],
+          "description": "Creates a new notebook.",
+          "externalDocs": {
+            "url": "http://msdn.microsoft.com/en-us/library/office/dn790583(v=office.15).aspx"
+          }
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "description": "true, to return the number of entities in the collection."
+            },
+            {
+              "name": "filter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The filter for the query. Example: createdTime ge 2015-09-01"
+            },
+            {
+              "name": "orderby",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The property to order by. Default is \"name asc\". Example: lastModifiedTime desc"
+            },
+            {
+              "name": "select",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The properties to return. Example: name,self,links"
+            },
+            {
+              "name": "top",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to return from the result set. Example: 10"
+            },
+            {
+              "name": "expand",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The navigation properties (sections or sectionGroups) to return inline in the response. Example: sections"
+            },
+            {
+              "name": "skip",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to skip in the result set. Example: 10"
+            }
+          ],
+          "description": "Returns a collection of notebooks.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      },
+      "/notebooks/{notebookId}": {
+        "parameters": [
+          {
+            "name": "notebookId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "",
+            "description": "Specifies the specific notebook"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "select",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The properties to return. Example: name,sectionsUrl,links"
+            },
+            {
+              "name": "expand",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The navigation properties (sections and sectionGroups) to return inline in the response. Example: sections,sectionGroups"
+            }
+          ],
+          "description": "Returns a specific notebook object.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      },
+      "/notebooks/{notebookId}/sections": {
+        "parameters": [
+          {
+            "name": "notebookId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "",
+            "description": "Specifies the notebook."
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Required: indicates type of content being sent"
+            }
+          ],
+          "description": "Creates a new section in a specific notebook.",
+          "externalDocs": {
+            "url": "http://msdn.microsoft.com/en-us/library/office/dn790584(v=office.15).aspx"
+          }
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "description": "true, to return the number of entities in the collection."
+            },
+            {
+              "name": "filter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The filter for the query. Example: createdTime ge 2015-09-01"
+            },
+            {
+              "name": "orderby",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The property to order by. Default is \"name asc\". Example: lastModifiedTime desc"
+            },
+            {
+              "name": "select",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The properties to return. Example: name,pagesUrl,createdTime"
+            },
+            {
+              "name": "top",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to return from the result set. Example: 10"
+            },
+            {
+              "name": "expand",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The navigation properties (parentNotebook or parentSectionGroup) to return inline in the response. The default query expands parentNotebook and parentSectionGroup, and selects their id, name, and self properties."
+            },
+            {
+              "name": "skip",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to skip in the result set. Example: 10"
+            }
+          ],
+          "description": "Returns a collection of sections within a specific notebook.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      },
+      "/notebooks/{notebookId}/sectiongroups": {
+        "parameters": [
+          {
+            "name": "notebookId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "",
+            "description": "Specifies the notebook."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "description": "true, to return the number of entities in the collection."
+            },
+            {
+              "name": "filter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The filter for the query. Example: createdTime ge 2015-09-01"
+            },
+            {
+              "name": "orderby",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The property to order by. Default is \"name asc\". Example: lastModifiedTime desc"
+            },
+            {
+              "name": "select",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The properties to return. Example: name,sectionsUrl,createdTime"
+            },
+            {
+              "name": "top",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to return from the result set. Example: 10"
+            },
+            {
+              "name": "expand",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The navigation properties (sections, sectionGroups, parentNotebook, or parentSectionGroup) to return inline in the response. The default query expands parentNotebook and parentSectionGroup, and selects their id, name, and self properties.  Example: sections,sectionGroups"
+            },
+            {
+              "name": "skip",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to skip in the result set. Example: 10"
+            }
+          ],
+          "description": "Returns a collection of section groups within a specific notebook.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      },
+      "/sectionGroups/": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "description": "true, to return the number of entities in the collection."
+            },
+            {
+              "name": "filter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The filter for the query. Example: createdTime ge 2015-09-01"
+            },
+            {
+              "name": "orderby",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The property to order by. Default is \"name asc\". Example: lastModifiedTime desc"
+            },
+            {
+              "name": "select",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The properties to return. Example: name,sectionsUrl,createdTime"
+            },
+            {
+              "name": "top",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to return from the result set. Example: 10"
+            },
+            {
+              "name": "expand",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The navigation properties (sections, sectionGroups, parentNotebook, or parentSectionGroup) to return inline in the response. The default query expands parentNotebook and parentSectionGroup, and selects their id, name, and self properties.  Example: sections,sectionGroups"
+            },
+            {
+              "name": "skip",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to skip in the result set. Example: 10"
+            }
+          ],
+          "description": "Returns a collection of section groups.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      },
+      "/sectionGroups/{sectionGroupId}": {
+        "parameters": [
+          {
+            "name": "sectionGroupId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "",
+            "description": "Specifies the specific section group"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "select",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The properties to return. Example: name,sectionsUrl,createdTime"
+            },
+            {
+              "name": "expand",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The navigation properties (sections, sectionGroups, parentNotebook, or parentSectionGroup) to return inline in the response. Example: sections,parentNotebook"
+            }
+          ],
+          "description": "Returns a specific section group object.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      },
+      "/sectionGroups/{sectionGroupId}/sections": {
+        "parameters": [
+          {
+            "name": "sectionGroupId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "",
+            "description": "Specifies the section group."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "description": "true, to return the number of entities in the collection."
+            },
+            {
+              "name": "filter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The filter for the query. Example: createdTime ge 2015-09-01"
+            },
+            {
+              "name": "orderby",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The property to order by. Default is \"name asc\". Example: lastModifiedTime desc"
+            },
+            {
+              "name": "select",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The properties to return. Example: name,pagesUrl,createdTime"
+            },
+            {
+              "name": "top",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to return from the result set. Example: 10"
+            },
+            {
+              "name": "expand",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The navigation properties (parentNotebook or parentSectionGroup) to return inline in the response. The default query expands parentNotebook and parentSectionGroup, and selects their id, name, and self properties."
+            },
+            {
+              "name": "skip",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to skip in the result set. Example: 10"
+            }
+          ],
+          "description": "Returns a collection of sections within a specific section group.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      },
+      "/sectionGroups/{sectionGroupId}/sectionGroups": {
+        "parameters": [
+          {
+            "name": "sectionGroupId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "",
+            "description": "Specifies the section group."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "description": "true, to return the number of entities in the collection."
+            },
+            {
+              "name": "filter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The filter for the query. Example: createdTime ge 2015-09-01"
+            },
+            {
+              "name": "orderby",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The property to order by. Default is \"name asc\". Example: lastModifiedTime desc"
+            },
+            {
+              "name": "select",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The properties to return. Example: name,sectionsUrl,createdTime"
+            },
+            {
+              "name": "top",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to return from the result set. Example: 10"
+            },
+            {
+              "name": "expand",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The navigation properties (sections, sectionGroups, parentNotebook, or parentSectionGroup) to return inline in the response. The default query expands parentNotebook and parentSectionGroup, and selects their id, name, and self properties.  Example: sections,sectionGroups"
+            },
+            {
+              "name": "skip",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to skip in the result set. Example: 10"
+            }
+          ],
+          "description": "Returns a collection of section groups within a specific section group.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      },
+      "/sections/": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "description": "true, to return the number of entities in the collection."
+            },
+            {
+              "name": "filter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The filter for the query. Example: createdTime ge 2015-09-01"
+            },
+            {
+              "name": "orderby",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The property to order by. Default is \"name asc\". Example: lastModifiedTime desc"
+            },
+            {
+              "name": "select",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The properties to return. Example: name,pagesUrl,createdTime"
+            },
+            {
+              "name": "top",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to return from the result set. Example: 10"
+            },
+            {
+              "name": "expand",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The navigation properties (parentNotebook or parentSectionGroup) to return inline in the response. The default query expands parentNotebook and parentSectionGroup, and selects their id, name, and self properties."
+            },
+            {
+              "name": "skip",
+              "required": false,
+              "in": "query",
+              "description": "The number of entities to skip in the result set. Example: 10"
+            }
+          ],
+          "description": "Returns a collection of sections.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      },
+      "/sections/{sectionId}": {
+        "parameters": [
+          {
+            "name": "sectionId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "",
+            "description": "Specifies the specific Section"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "select",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The properties to return. Example: name,pagesUrl,createdTime"
+            },
+            {
+              "name": "expand",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The navigation properties (parentNotebook, or parentSectionGroup) to return inline in the response. Example: parentNotebook"
+            }
+          ],
+          "description": "Returns a specific section.",
+          "externalDocs": {
+            "url": "http://go.microsoft.com/fwlink/?LinkID=390181"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "OneNote",
+      "description": "Easily capture content into OneNote with this REST API."
+    }
+  },
+  "public": true
+}

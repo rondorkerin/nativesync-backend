@@ -1,0 +1,561 @@
+{
+  "type": "api",
+  "key": "apigee:rhapsody",
+  "info": {
+    "title": "Rhapsody",
+    "description": "Access Rhapsody technologies and content, including metadeta, search and music player."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "api.rhapsody.com",
+    "basePath": "/v1",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/artists/top": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "",
+            "description": ""
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a list of top artists.",
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#artists"
+          }
+        }
+      },
+      "/artists/{art.id}": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#artists"
+          }
+        }
+      },
+      "/artists/{art.id}/full": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#artists"
+          }
+        }
+      },
+      "/artists/{art.id}/albums": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#artists"
+          }
+        }
+      },
+      "/artists/{art.id}/recommendations": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#artists"
+          }
+        }
+      },
+      "/artists/{art.id}/similar": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#artists"
+          }
+        }
+      },
+      "/artists/{art.id}/tracks/top": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "",
+            "description": ""
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#artists"
+          }
+        }
+      },
+      "/albums/top": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "",
+            "description": ""
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a list of top albums.",
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs"
+          }
+        }
+      },
+      "/albums/new": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#albums"
+          }
+        }
+      },
+      "/albums/{alb.id}": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#albums"
+          }
+        }
+      },
+      "/albums/{alb.id}/tracks": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#albums"
+          }
+        }
+      },
+      "/albums/{alb.id}/similar": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#albums"
+          }
+        }
+      },
+      "/albums/{alb.id}/recommendations": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#albums"
+          }
+        }
+      },
+      "/albums/{alb.id}/reviews": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#albums"
+          }
+        }
+      },
+      "/search/typeahead": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "q",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": "weezer",
+            "description": "Typeahead search term."
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "",
+            "description": ""
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a list of tracks, artists and albums based on the search term for authenticated users.",
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#search"
+          }
+        }
+      },
+      "/tracks/top": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "",
+            "description": ""
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a list of top tracks.",
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#tracks"
+          }
+        }
+      },
+      "/tracks/{tra.id}": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "",
+            "description": ""
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#tracks"
+          }
+        }
+      },
+      "/tracks/{tra.id}/recommendations": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "",
+            "description": ""
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#tracks"
+          }
+        }
+      },
+      "/genres": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a list of available genres.",
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#genres"
+          }
+        }
+      },
+      "/genres/{g.id}": {
+        "parameters": [
+          {
+            "name": "apikey",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "externalDocs": {
+            "url": "http://developer.rhapsody.com/docs#genres"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "Rhapsody",
+      "description": "Access Rhapsody technologies and content, including metadeta, search and music player."
+    }
+  },
+  "public": true
+}

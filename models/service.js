@@ -2,8 +2,12 @@
 
 let r = require('../drivers/rethinkdb');
 
-exports.create = (name, driver, spec) => {
-  return r.db('nativesync').table('service').insert({name: name, driver: driver, spec: spec}).run();
+exports.create = (name, driver, spec, triggers, actions, auth) => {
+  return r.db('nativesync').table('service').insert({name: name, driver: driver, spec: spec, triggers: triggers, actions: actions, auth: auth}).run();
+}
+
+exports.getAll = () => {
+  return r.db('nativesync').table('service').run()
 }
 
 
