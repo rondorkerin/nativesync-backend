@@ -4,8 +4,7 @@ class CustomDriver {
   }
 
   call(userAuth, functionName, args) {
-    let CustomAPIConnector = require(`./custom_drivers/${this.serviceDescription.service}`);
-    debugger;
+    let CustomAPIConnector = require(`./custom_drivers/${this.serviceDescription.name}`);
     return new CustomAPIConnector(userAuth)[functionName].call(args);
   }
 }

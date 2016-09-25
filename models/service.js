@@ -9,4 +9,7 @@ exports.create = (name, driver, spec) => {
 
 exports.get = (name) => {
   return r.db('nativesync').table('service').getAll(name, {index: 'name'}).run()
+  .then((result) => {
+    return result[0];
+  })
 }

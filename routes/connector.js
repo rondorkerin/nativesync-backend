@@ -13,6 +13,7 @@ module.exports = function(app, passport, helpers) {
       return new ConnectorService(clientAuth).call(service, functionName, req.body)
     })
     .then(function(result) {
+      debugger;
       return res.json({result: result});
     })
     .catch(function(error) {

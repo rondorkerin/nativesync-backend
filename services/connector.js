@@ -8,7 +8,7 @@ class Connector {
 
   call(service, functionName, args) {
     return Service.get(service)
-    .then(function(serviceDescription) {
+    .then((serviceDescription) => {
       // route to external Connector
       let Driver = require(`./connector_drivers/${serviceDescription.driver}`)
       return new Driver(serviceDescription).call(this.clientAuth, functionName, args)
