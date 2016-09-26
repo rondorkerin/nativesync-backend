@@ -46,8 +46,6 @@ class SwaggerCompiler {
 						if (method == 'parameters') { continue; }
 						var op = data.paths[path][method];
 						var parameters = (op.parameters || []).concat(params);
-						// TODO: fix this case
-						if (service['name'] == 'New York Times') { debugger; } 
 						service['actions'].push({
 							functionName: `${method}_${path}`,
 							inputs: parameters,
