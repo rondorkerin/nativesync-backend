@@ -8,14 +8,14 @@ class SwaggerCompiler {
   createAll() {
 		var fs = require('fs');
 		var fileNames = fs.readdirSync('./api_specs/swagger');
-		Promise.each(fileNames, (fileName) => {
+		return Promise.each(fileNames, (fileName) => {
 			let file = fs.readFileSync(`./api_specs/swagger/${fileName}`, {encoding: 'utf8'});
 			return this.create(file);
 		})
   }
 
   create(file) {
-    return this.compile(file).then(Service.insert);
+    return this.compile(file).then(Service.upsert);
   }
 
   compile(file) {
@@ -28,7 +28,7 @@ class SwaggerCompiler {
 		}
     let service = {
       driver: 'swagger',
-      spec: parsed['swagger'],
+      spec: JSON.stringify(parsed['swagger']),
       name: parsed['info']['title'],
       logo: logoURL,
       version: parsed['info']['version'],
@@ -41,7 +41,7 @@ class SwaggerCompiler {
     return SwaggerParser.parse(parsed['swagger']).then(function(data) {
       return SwaggerParser.dereference(data).then(function(data) {
         for (var path in data.paths) {
-          var params = data.paths[path].parameters;
+          var params = data.paths[path].parameters || [];
 					for (var method in data.paths[path]) {
 						if (method == 'parameters') { continue; }
 						var op = data.paths[path][method];
@@ -51,7 +51,7 @@ class SwaggerCompiler {
 						service['actions'].push({
 							functionName: `${method}_${path}`,
 							inputs: parameters,
-							outputs: {}
+							outputs: []
 						});
 					}
 				}
