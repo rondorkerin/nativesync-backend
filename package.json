@@ -15,7 +15,8 @@
     "passport-headerapikey": "^1.0.3",
     "request": "^2.75.0",
     "rethinkdb": "^2.3.3",
-    "rethinkdbdash": "^2.3.23"
+    "rethinkdbdash": "^2.3.23",
+    "swagger-parser": "^3.4.1"
   },
   "devDependencies": {
     "rethinkdb-init": "^0.2.2"

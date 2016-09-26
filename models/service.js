@@ -6,6 +6,10 @@ exports.create = (name, driver, spec, triggers, actions, auth) => {
   return r.db('nativesync').table('service').insert({name: name, driver: driver, spec: spec, triggers: triggers, actions: actions, auth: auth}).run();
 }
 
+exports.insert = (service) => {
+  return r.db('nativesync').table('service').insert(service).run();
+}
+
 exports.getAll = () => {
   return r.db('nativesync').table('service').run()
 }
