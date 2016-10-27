@@ -1,21 +1,24 @@
 'use strict';
 
-let r = require('../drivers/rethinkdb');
+let postgres = require('../drivers/postgres');
+let Sequelize = require('sequelize')
 let guid = require('guid');
+var Client = postgres.define('client', {
+  partner_id: {
+    type: Sequelize.INTEGER
+  },
+  name: {
+    type: Sequelize.STRING
+  },
+  api_key: {
+    type: Sequelize.STRING
+  },
+  url: {
+    type: Sequelize.STRING
+  },
+}, {
+  freezeTableName: true,
+  indexes: [{fields: ['partner_id']}, {fields: ['api_key'], unique: true}]
+});
 
-exports.create = (companyID, name, url) => {
-  debugger;
-  let data = { companyID: companyID, name: name, url: url, apiKey: `c${guid.create().value}` };
-  return r.db('nativesync').table('client').insert(data).run();
-}
-
-exports.getByAPIKey = (apiKey) => {
-  return r.db('nativesync').table('client').getAll(apiKey, {index: 'apiKey'}).run()
-  .then(function(result) {
-    return result[0];
-  })
-}
-
-exports.getAll = () => {
-  return r.db('nativesync').table('client').run();
-}
+module.exports = Client

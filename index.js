@@ -2,8 +2,11 @@ let passport = require('passport');
 let HeaderAPIKeyStrategy = require('passport-headerapikey').HeaderAPIKeyStrategy;
 let config = require('config');
 
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
 let express = require('express');
 let app = express();
+var Client = require('./models/client');
 
 let server = require('http').createServer(app).listen(config.get('port'), function(req, res) {
   console.log('running on port', config.get('port'))
@@ -20,24 +23,12 @@ require('./routes')(app, passport);
 passport.use(new HeaderAPIKeyStrategy(
   {header: 'X-Api-Key', prefix: ''},
   false,
-  function(apikey, done) {
-    if (apikey[0] == 'o') {
-      var model = require('./models/company');
+  async ((apikey, done) => {
+    let clients = await (Client.findAll({ where: { api_key: apiKey } }))
+    if (clients.length) {
+      done(null, clients[0]);
     } else {
-      var model = require('./models/client')
+      done('invalid api key');
     }
-    model.getByAPIKey(apikey)
-		.then(function(result) {
-			if (result) {
-        if (apikey[0] == 'o') {
-          result['company'] = true;
-        } else {
-          result['client'] = true;
-        }
-				done(null, result);
-			} else {
-				done('invalid api key');
-			}
-    });
-  }
+  })
 ));

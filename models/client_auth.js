@@ -1,24 +1,23 @@
 'use strict';
 
-let r = require('../drivers/rethinkdb');
+let postgres = require('../drivers/postgres');
+let Sequelize = require('sequelize')
+var ClientAuth = postgres.define('client_auth', {
+  client_id: {
+    type: Sequelize.INTEGER
+  },
+  service_id: {
+    type: Sequelize.INTEGER
+  },
+  service_auth_id: {
+    type: Sequelize.INTEGER
+  },
+  value: {
+    type: Sequelize.STRING
+  },
+}, {
+  freezeTableName: true,
+  indexes: [{fields: ['client_id', 'service_id']}]
+});
 
-exports.upsert = (clientAuth) => {
-  if (clientAuth.id) {
-    return r.db('nativesync').table('clientAuth').get(clientAuth.id).update(clientAuth).run();
-  } else {
-    return r.db('nativesync').table('clientAuth').insert(clientAuth).run();
-  }
-}
-
-exports.getAllForClient = (clientID) => {
-  return r.db('nativesync').table('clientAuth').getAll(clientID, {index: 'clientID'}).run();
-}
-
-exports.getForClient = (clientID, service) => {
-  return r.db('nativesync').table('clientAuth').getAll(clientID, {index: 'clientID'})
-    .filter({service: service}).run()
-  .then(function(clientAuthList) {
-    debugger;
-    return clientAuthList[0];
-  })
-}
+module.exports = ClientAuth

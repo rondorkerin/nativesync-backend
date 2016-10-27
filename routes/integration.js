@@ -1,19 +1,16 @@
 let Integration = require('../models/integration');
 
-module.exports = function(app, passport, helpers) {
-  app.post('/integration', helpers.checkauth(passport), function(req, res) {
-    var clientID = helpers.clientID(req);
+module.exports = (app, passport, helpers) => {
+  app.post('/integration', helpers.checkauth(passport), (req, res) => {
     var integration = req.body.integration;
-    integration.clientID = clientID;
-    return Integration.upsert(integration)
-    .then(function(results) {
+    integration.client_id = req.user.id;
+    return Integration.create(integration).then((results) => {
       return res.json({success: true});
     })
   });
 
-  app.get('/integrations', helpers.checkauth(passport), function(req, res) {
-    var clientID = helpers.clientID(req);
-    return Integration.getAllForClient(clientID)
+  app.get('/integrations', helpers.checkauth(passport), (req, res) => {
+    return Integration.findAll({where: {client_id: req.user.id}})
     .then(function(results) {
       return res.json(results);
     })

@@ -1,15 +1,22 @@
 'use strict';
 
-let r = require('../drivers/rethinkdb');
+let postgres = require('../drivers/postgres');
+let Sequelize = require('sequelize')
+var Integration = postgres.define('integration', {
+  client_id: {
+    type: Sequelize.INTEGER
+  },
+  type: {
+    type: Sequelize.STRING
+  },
+  scheduling_info: {
+    type: Sequelize.JSON
+  },
+  integration: {
+    type: Sequelize.JSON
+  },
+}, {
+  freezeTableName: true
+});
 
-exports.upsert = (integration) => {
-  if (integration.id) {
-    return r.db('nativesync').table('integration').get(integration.id).update(integration).run();
-  } else {
-    return r.db('nativesync').table('integration').insert(clientAuth).run();
-  }
-}
-
-exports.getAllForClient = (clientID) => {
-  return r.db('nativesync').table('integration').getAll(clientID, {index: 'clientID'}).run();
-}
+module.exports = Integration

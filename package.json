@@ -9,16 +9,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "asyncawait": "^1.0.6",
     "body-parser": "^1.15.2",
     "config": "^1.21.0",
     "guid": "0.0.12",
     "passport-headerapikey": "^1.0.3",
+    "pg": "^6.1.0",
+    "pg-hstore": "^2.3.2",
+    "pg-promise": "^5.3.5",
     "request": "^2.75.0",
     "rethinkdb": "^2.3.3",
     "rethinkdbdash": "^2.3.23",
+    "sequelize": "^3.24.6",
     "swagger-parser": "^3.4.1"
   },
   "devDependencies": {
+    "node-pg-migrate": "0.0.10",
     "rethinkdb-init": "^0.2.2"
   }
 }

@@ -1,20 +1,22 @@
 let ClientAuth = require('../models/client_auth');
 
-module.exports = function(app, passport, helpers) {
-  app.post('/clientAuth', helpers.checkauth(passport), function(req, res) {
-    var clientID = helpers.clientID(req);
-    var auth = req.body.auth;
-    auth.clientID = clientID;
-    return ClientAuth.upsert(clientAuth)
-    .then(function(results) {
+module.exports = (app, passport, helpers) => {
+  app.post('/auth_credentials', helpers.checkauth(passport), (req, res) => {
+    var credentials = req.body.credentials;
+    credentials.client_id = req.user.id;
+    return ClientAuth.create(credentials).then((results) => {
       return res.json({success: true});
     })
   });
 
-  app.get('/clientAuths', helpers.checkauth(passport), function(req, res) {
-    var clientID = helpers.clientID(req);
-    return ClientAuth.getAllForClient(clientID)
-    .then(function(results) {
+  app.get('/auth_credentials', helpers.checkauth(passport), (req, res) => {
+    return ClientAuth.findAll({where: {client_id: req.user.id}}).then((results) => {
+      return res.json(results);
+    })
+  });
+
+  app.get('/auth_credentials/:service', helpers.checkauth(passport), (req, res) => {
+    return ClientAuth.findAll({where: {client_id: req.user.id, service: req.params['service']}}).then((results) => {
       return res.json(results);
     })
   });
