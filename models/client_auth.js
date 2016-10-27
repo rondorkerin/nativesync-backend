@@ -20,4 +20,9 @@ var ClientAuth = postgres.define('client_auth', {
   indexes: [{fields: ['client_id', 'service_id']}]
 });
 
+ClientAuth._getAllForService = (client_id, service_name) {
+  return postgres.query(`select * from client_auth inner join service on service.id = client_auth.service_id where service.name = '${service_name}' and client_auth.client_id = ${client_id}`);
+
+}
+
 module.exports = ClientAuth

@@ -24,9 +24,9 @@ passport.use(new HeaderAPIKeyStrategy(
   {header: 'X-Api-Key', prefix: ''},
   false,
   async ((apikey, done) => {
-    let clients = await (Client.findAll({ where: { api_key: apiKey } }))
-    if (clients.length) {
-      done(null, clients[0]);
+    let client = await (Client.findOne({ where: { api_key: apikey } }))
+    if (client) {
+      done(null, client);
     } else {
       done('invalid api key');
     }

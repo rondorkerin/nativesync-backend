@@ -1,7 +1,7 @@
 let Integration = require('../models/integration');
 
 module.exports = (app, passport, helpers) => {
-  app.post('/integration', helpers.checkauth(passport), (req, res) => {
+  app.post('/integrations', helpers.checkauth(passport), (req, res) => {
     var integration = req.body.integration;
     integration.client_id = req.user.id;
     return Integration.create(integration).then((results) => {

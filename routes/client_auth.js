@@ -16,7 +16,7 @@ module.exports = (app, passport, helpers) => {
   });
 
   app.get('/auth_credentials/:service', helpers.checkauth(passport), (req, res) => {
-    return ClientAuth.findAll({where: {client_id: req.user.id, service: req.params['service']}}).then((results) => {
+    return ClientAuth._getAllForService(req.user.id, req.params['service']).then((results) => {
       return res.json(results);
     })
   });
