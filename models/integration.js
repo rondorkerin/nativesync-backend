@@ -13,7 +13,7 @@ var Integration = postgres.define('integration', {
     type: Sequelize.JSON
   },
   integration: {
-    type: Sequelize.JSON
+    type: Sequelize.TEXT
   },
 }, {
   freezeTableName: true

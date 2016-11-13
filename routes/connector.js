@@ -12,10 +12,10 @@ module.exports = function(app, passport, helpers) {
   }));
 
   app.post('/connector/:id', helpers.checkauth(passport), async (function(req, res) {
-    // TODO: look up official connectors for the given service with the given function name
     let connector = await(Connector.find(req.params['id']))
-    var result = {}
-    return res.json({result: result});
+    let Request = require(`../services/request`)
+    output = Request.new(connector).send(req.params['input'])
+    return res.json(output);
   }));
 
   app.post('/connector/:service/:function', helpers.checkauth(passport), async (function(req, res) {

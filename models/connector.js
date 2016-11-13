@@ -6,6 +6,18 @@ var Connector = postgres.define('connector', {
   service_id: {
     type: Sequelize.INTEGER
   },
+  schemes: {
+    type: Sequelize.JSON
+  },
+  host: {
+    type: Sequelize.STRING
+  },
+  path: {
+    type: Sequelize.STRING
+  },
+  method: {
+    type: Sequelize.STRING
+  },
   creator_user_id: {
     type: Sequelize.INTEGER
   },
@@ -18,8 +30,11 @@ var Connector = postgres.define('connector', {
   type: {
     type: Sequelize.STRING
   },
-  configuration: {
-    type: Sequelize.JSON
+  version: {
+    type: Sequelize.STRING
+  },
+  description: {
+    type: Sequelize.TEXT
   },
   input: {
     type: Sequelize.JSON

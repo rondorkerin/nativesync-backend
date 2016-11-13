@@ -4,6 +4,7 @@ var Service = require('../../../models/service');
 var Promise = require('bluebird');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
+const pathCommand = require('path');
 
 class SwaggerCompiler { 
   constructor() { }
@@ -35,7 +36,7 @@ class SwaggerCompiler {
         for (var path in data.paths) {
           var params = data.paths[path].parameters || [];
 					for (var method in data.paths[path]) {
-						if (method == 'parameters') { continue; }
+						if (method == 'parameters' || !path || !parsed['swagger']['basePath']) { continue; }
 						var op = data.paths[path][method];
 						var parameters = (op.parameters || []).concat(params);
 					//		logo: logoURL,
@@ -43,18 +44,24 @@ class SwaggerCompiler {
 						let service_name = parsed['info']['title']
 						let service = await(Service.findOrCreate({where: {name: service_name}}))
 						let connector = {
+              schemes: parsed['swagger']['schemes'],
+              host: parsed['swagger']['host'],
+              path: pathCommand.join(parsed['swagger']['basePath'], path),
 							type: 'swagger',
 							service_id: service.id, // todo: upsert service
 							service_name: service.name,
+              method: method,
 							function_name: `${method}_${path}`,
 							version: parsed['info']['version'],
 							description: parsed['info']['description'],
 							input: parameters,
-							output: {},
-							configuration: {},
+							output: op['responses'],
+              input_content_type: 'application/json',
+              output_content_type: 'application/json',
 							official: false,
 							creator_user_id: 1
 						}
+            debugger;
 						try { 
 							let result = await(Connector.upsert(connector));
 						} catch(e) {
