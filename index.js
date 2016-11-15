@@ -10,7 +10,9 @@ let express = require('express');
 let app = express();
 var Client = require('./models/client');
 
-let server = require('http').createServer(app).listen(config.get('port'), function(req, res) {
+app.set('port', (process.env.PORT || config.get('port')))
+
+let server = require('http').createServer(app).listen(app.get('port'), function(req, res) {
   console.log('running on port', config.get('port'))
 });
 
