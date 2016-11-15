@@ -12,7 +12,7 @@ let server = require('http').createServer(app).listen(config.get('port'), functi
   console.log('running on port', config.get('port'))
 });
 
-app.use(passport.initialize()) 
+app.use(passport.initialize())
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '50mb'}));
