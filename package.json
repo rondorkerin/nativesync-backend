@@ -22,7 +22,8 @@
     "rethinkdb": "^2.3.3",
     "rethinkdbdash": "^2.3.23",
     "sequelize": "^3.24.6",
-    "swagger-parser": "^3.4.1"
+    "swagger-parser": "^3.4.1",
+    "use-strict": "^1.0.1"
   },
   "devDependencies": {
     "node-pg-migrate": "0.0.10",

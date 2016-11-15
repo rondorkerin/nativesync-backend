@@ -3,6 +3,7 @@ let passport = require('passport');
 let HeaderAPIKeyStrategy = require('passport-headerapikey').HeaderAPIKeyStrategy;
 let config = require('config');
 
+require('use-strict')
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 let express = require('express');
