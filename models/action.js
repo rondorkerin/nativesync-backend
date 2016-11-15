@@ -2,7 +2,7 @@
 
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
-var Connector = postgres.define('connector', {
+var Action = postgres.define('action', {
   service_id: {
     type: Sequelize.INTEGER
   },
@@ -43,11 +43,11 @@ var Connector = postgres.define('connector', {
     type: Sequelize.JSON
   },
   official: {
-    type: Sequelize.BOOLEAN 
+    type: Sequelize.BOOLEAN
   },
 }, {
   freezeTableName: true,
   indexes: [{fields: ['function_name'], unique: true}, {fields: ['service_id']}, {fields: ['service_name', 'function_name']}, {fields: ['creator_user_id']}]
 });
 
-module.exports = Connector
+module.exports = Action

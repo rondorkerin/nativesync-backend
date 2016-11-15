@@ -4,7 +4,7 @@ module.exports = function(app, passport) {
   });
   var helpers = require('../helpers/');
 
-  var connector = require('./connector')(app, passport, helpers);
+  var action = require('./action')(app, passport, helpers);
   var integration = require('./integration')(app, passport, helpers);
   var clientAuth = require('./client_auth')(app, passport, helpers);
 

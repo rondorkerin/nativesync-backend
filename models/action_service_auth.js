@@ -2,8 +2,8 @@
 
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
-var ConnectorServiceAuth = postgres.define('connector_service_auth', {
-  connector_id: {
+var ActionServiceAuth = postgres.define('action_service_auth', {
+  action_id: {
     type: Sequelize.INTEGER
   },
   service_auth_id: {
@@ -13,4 +13,4 @@ var ConnectorServiceAuth = postgres.define('connector_service_auth', {
   freezeTableName: true
 });
 
-module.exports = ConnectorServiceAuth
+module.exports = ActionServiceAuth
