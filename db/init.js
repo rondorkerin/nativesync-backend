@@ -1,3 +1,4 @@
+require('use-strict');
 let force;
 if (process.env['NODE_ENV'] == 'production') {
   force = false;
