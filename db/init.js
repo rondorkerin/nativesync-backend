@@ -1,3 +1,4 @@
+"use strict"
 require('use-strict');
 let force;
 if (process.env['NODE_ENV'] == 'production') {
