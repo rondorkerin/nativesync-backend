@@ -1,3 +1,4 @@
+'use strict'
 let passport = require('passport');
 let HeaderAPIKeyStrategy = require('passport-headerapikey').HeaderAPIKeyStrategy;
 let config = require('config');
