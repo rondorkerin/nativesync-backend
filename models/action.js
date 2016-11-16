@@ -9,6 +9,9 @@ var Action = postgres.define('action', {
   schemes: {
     type: Sequelize.JSON
   },
+  headers: {
+    type: Sequelize.JSON
+  },
   host: {
     type: Sequelize.STRING
   },
@@ -28,6 +31,12 @@ var Action = postgres.define('action', {
     type: Sequelize.STRING,
   },
   type: {
+    type: Sequelize.STRING
+  },
+  input_content_type: {
+    type: Sequelize.STRING
+  },
+  output_content_type: {
     type: Sequelize.STRING
   },
   version: {
