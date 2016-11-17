@@ -13,8 +13,8 @@ module.exports = function(app, passport, helpers) {
 
   app.post('/action/:id', helpers.checkauth(passport), async (function(req, res) {
     let action = await(Action.find(req.params['id']))
-    let Request = require(`../services/request`)
-    output = Request.new(action).send(req.params['input'])
+    let Request = require('../services/request')
+    output = new Request(action).send(req.params['input'])
     return res.json(output);
   }));
 }

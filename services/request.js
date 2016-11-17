@@ -1,6 +1,5 @@
-var SwaggerParser = require('swagger-parser');
-var Connector = require('../../../models/connector');
-var Service = require('../../../models/service');
+var Action = require('../models/action');
+var Service = require('../models/service');
 var Promise = require('bluebird');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
@@ -14,16 +13,17 @@ function RequiredParameterMissingException(message) {
 }
 
 class Request {
-  constructor(connector) { this.action = action; }
+  constructor(action) { this.action = action; }
 
   send(input) {
-    var headers = this.action['headers'] ?: {};
+    var headers = this.action['headers'] ? this.action['headers'] : {}
     var formData = {};
-    var query = this.action['query'] ?: {};
+    var query = this.action['query'] ? this.action['query'] : {};
     var body = '';
     var requestObject = {}
     var path = this.action['path'];
-    for (let actionInput of this.action['inputs']) {
+    debugger;
+    for (let actionInput of this.action['input']) {
       var fieldName = actionInput['name'];
       let value = input[fieldName];
       if (actionInput['default'] && !value) {
@@ -39,6 +39,7 @@ class Request {
       } else if (actionInput['in'] == 'body') {
         body = input[fieldName]
       } else if (actionInput['in'] == 'path') {
+        path = path.replace(`{${fieldName}}`, value)
       }
     }
     if (this.action['input_content_type'] == 'json') {
@@ -63,8 +64,16 @@ class Request {
     requestObject['headers'] = headers;
     let response = await(request(requestObject));
 
+    var output = {};
+    if (this.action['output_content_type'] == 'json') {
+      output = JSON.parse(response.body)
+    } else if (this.action['output_content_type'] == 'xml') {
+      // todo: parse XML
+      output = response.body;
+    }
+
     return response;
   }
 }
 
-module.exports = SwaggerCompiler
+module.exports = Request

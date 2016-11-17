@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "node-pg-migrate": "0.0.10",
-    "rethinkdb-init": "^0.2.2"
+    "rethinkdb-init": "^0.2.2",
+    "tape": "^4.6.2"
   }
 }

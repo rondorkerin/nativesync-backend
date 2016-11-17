@@ -17,6 +17,9 @@ module.exports = {
       return queryInterface.addColumn('action', 'input_content_type', Sequelize.STRING)
     })
     .then(function() {
+      return queryInterface.addColumn('action', 'query', Sequelize.JSON)
+    })
+    .then(function() {
       return queryInterface.addColumn('action', 'output_content_type', Sequelize.STRING)
     })
     .then(function() {
@@ -31,6 +34,9 @@ module.exports = {
     })
     .then(function() {
       return queryInterface.removeColumn('action', 'headers')
+    })
+    .then(function() {
+      return queryInterface.removeColumn('action', 'query')
     })
     /*
       Add reverting commands here.
