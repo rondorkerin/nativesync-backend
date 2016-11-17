@@ -54,6 +54,12 @@ var Action = postgres.define('action', {
   output: {
     type: Sequelize.JSON
   },
+  input_example: {
+    type: Sequelize.JSON
+  },
+  output_example: {
+    type: Sequelize.JSON
+  },
   official: {
     type: Sequelize.BOOLEAN
   },

@@ -22,6 +22,7 @@ class Request {
     var query = this.action['query'] ?: {};
     var body = '';
     var requestObject = {}
+    var path = this.action['path'];
     for (let actionInput of this.action['inputs']) {
       var fieldName = actionInput['name'];
       let value = input[fieldName];
@@ -37,6 +38,7 @@ class Request {
         formData[fieldName] = value;
       } else if (actionInput['in'] == 'body') {
         body = input[fieldName]
+      } else if (actionInput['in'] == 'path') {
       }
     }
     if (this.action['input_content_type'] == 'json') {
@@ -53,10 +55,11 @@ class Request {
       protocol: this.action['schemes'][0],
       slashes: true,
       host: this.action['host'],
-      pathname: this.action['path'],
+      pathname: path,
       query: query,
       body: body
     })
+    requestObject['resolveWithFullResponse'] = true;
     requestObject['headers'] = headers;
     let response = await(request(requestObject));
 

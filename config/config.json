@@ -1,0 +1,12 @@
+{
+  "development": {
+    "host": "localhost",
+    "username": "nickbryant",
+    "password": null,
+    "database": "nativesync",
+    "dialect": "postgres"
+  },
+  "production": {
+    "use_env_variable": "HEROKU_POSTGRESQL_YELLOW_URL"
+  }
+}

@@ -4,7 +4,7 @@ let force;
 if (process.env['NODE_ENV'] == 'production') {
   force = false;
 } else {
-  force = true;
+  force = false;
 }
 
 let models = [
