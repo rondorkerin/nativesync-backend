@@ -17,16 +17,4 @@ module.exports = function(app, passport, helpers) {
     output = Request.new(action).send(req.params['input'])
     return res.json(output);
   }));
-
-  app.post('/action/:service/:function', helpers.checkauth(passport), async (function(req, res) {
-    // TODO: look up official actions for the given service with the given function name
-    let action = await(Action.findAll({
-      where: {
-        service_name: req.params['service'],
-        function_name: req.params['function']
-      }
-    }))
-    var result = {}
-    return res.json({result: result});
-  }));
 }

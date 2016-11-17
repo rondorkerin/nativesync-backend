@@ -12,6 +12,9 @@ var Action = postgres.define('action', {
   headers: {
     type: Sequelize.JSON
   },
+  query: {
+    type: Sequelize.JSON
+  },
   host: {
     type: Sequelize.STRING
   },
