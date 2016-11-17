@@ -5,11 +5,12 @@ var Service = require('../../models/service')
 var Action = require('../../models/action')
 
 var x = async(() => {
-  var ip_api = await(Service.upsert({name: 'IP-API'}))
+  var result = await(Service.upsert({name: 'IP-API'}))
+  var ip_api = await(Service.findOne({where: {name: 'IP-API'}}))
   Action.upsert({
     service_id: ip_api.id,
     schemes: ['http'],
-    headers: {'Content Type': 'application/json'},
+    headers: {'Content-Type': 'application/json'},
     query: [],
     host: 'ip-api.com',
     path: '/json/{ip}',

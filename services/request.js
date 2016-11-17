@@ -43,14 +43,14 @@ class Request {
       }
     }
     if (this.action['input_content_type'] == 'json') {
-      headers['Content Type'] == 'application/json';
+      headers['Content-Type'] == 'application/json';
     } else if (this.action['input_content_type'] == 'xml') {
-      headers['Content Type'] == 'application/xml';
+      headers['Content-Type'] == 'application/xml';
     } else if (this.action['input_content_type'] == 'form') {
       headers['Content-Type'] == 'application/x-www-form-urlencoded';
       body = querystring.stringify(formData);
     }
-    headers['Content-Length'] = body.length();
+    headers['Content-Length'] = body.length;
     requestObject['method'] = this.action['method'];
     requestObject['uri'] = url.format({
       protocol: this.action['schemes'][0],
@@ -62,6 +62,7 @@ class Request {
     })
     requestObject['resolveWithFullResponse'] = true;
     requestObject['headers'] = headers;
+    debugger;
     let response = await(request(requestObject));
 
     var output = {};
