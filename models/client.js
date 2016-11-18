@@ -5,7 +5,7 @@ let Sequelize = require('sequelize')
 let guid = require('guid');
 var Client = postgres.define('client', {
   partner_id: {
-    type: Sequelize.INTEGER
+    type: Sequelize.BIGINT
   },
   name: {
     type: Sequelize.STRING

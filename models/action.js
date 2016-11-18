@@ -4,7 +4,7 @@ let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
 var Action = postgres.define('action', {
   service_id: {
-    type: Sequelize.INTEGER
+    type: Sequelize.BIGINT
   },
   schemes: {
     type: Sequelize.JSON
@@ -25,7 +25,7 @@ var Action = postgres.define('action', {
     type: Sequelize.STRING
   },
   creator_user_id: {
-    type: Sequelize.INTEGER
+    type: Sequelize.BIGINT
   },
   service_name: {
     type: Sequelize.STRING,
