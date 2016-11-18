@@ -33,12 +33,18 @@ class Request {
     var requestObject = {}
     var path = this.action['path'];
     for (let serviceAuth of this.serviceAuths) {
-      let clientAuth = {}
+      let clientAuth = this.clientAuths.find((clientAuth) => {
+        clientAuth.service_auth_id == servieAuth.id;
+      })
       if (!clientAuth) {
         throw new RequiredParameterMissingException(serviceAuth['name']));
       }
       if (serviceAuth['type'] == 'apiKey') {
-
+        if (serviceAuth['details']['in'] == 'header') {
+          headers[serviceAuth['details']['name']] = clientAuth['value'];
+        } else if (serviceAuth['details']['in'] == 'query') {
+          query[serviceAuth['details']['name']] = clientAuth['value'];
+        }
       }
     }
     for (let actionInput of this.action['input']) {
