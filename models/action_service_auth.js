@@ -4,10 +4,10 @@ let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
 var ActionServiceAuth = postgres.define('action_service_auth', {
   action_id: {
-    type: Sequelize.INTEGER
+    type: Sequelize.BIGINT
   },
   service_auth_id: {
-    type: Sequelize.INTEGER
+    type: Sequelize.BIGINT
   }
 }, {
   freezeTableName: true

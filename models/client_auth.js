@@ -4,13 +4,13 @@ let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
 var ClientAuth = postgres.define('client_auth', {
   client_id: {
-    type: Sequelize.INTEGER
+    type: Sequelize.BIGINT
   },
   service_id: {
-    type: Sequelize.INTEGER
+    type: Sequelize.BIGINT
   },
   service_auth_id: {
-    type: Sequelize.INTEGER
+    type: Sequelize.BIGINT
   },
   value: {
     type: Sequelize.STRING

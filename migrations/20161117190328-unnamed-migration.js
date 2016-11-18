@@ -4,7 +4,7 @@ module.exports = {
   up: function (queryInterface, Sequelize) {
 		queryInterface.createTable('action', {
 			service_id: {
-				type: Sequelize.INTEGER
+				type: Sequelize.BIGINT
 			},
 			schemes: {
 				type: Sequelize.JSON
@@ -25,7 +25,7 @@ module.exports = {
 				type: Sequelize.STRING
 			},
 			creator_user_id: {
-				type: Sequelize.INTEGER
+				type: Sequelize.BIGINT
 			},
 			service_name: {
 				type: Sequelize.STRING,

@@ -5,10 +5,10 @@ let Sequelize = require('sequelize')
 let guid = require('guid');
 var UserPartner = postgres.define('user_partner', {
   user_id: {
-    type: Sequelize.INTEGER
+    type: Sequelize.BIGINT
   },
   partner_id: {
-    type: Sequelize.INTEGER
+    type: Sequelize.BIGINT
   },
 }, {
   freezeTableName: true,
