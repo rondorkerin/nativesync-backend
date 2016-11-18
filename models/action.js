@@ -5,6 +5,10 @@ let Sequelize = require('sequelize')
 let ServiceAuth = require('./service_auth');
 
 var Action = postgres.define('action', {
+  id: {
+    type: Sequelize.BIGINT,
+    primaryKey: true
+  },
   service_id: {
     type: Sequelize.BIGINT
   },

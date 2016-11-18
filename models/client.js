@@ -4,6 +4,10 @@ let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
 let guid = require('guid');
 var Client = postgres.define('client', {
+  id: {
+    type: Sequelize.BIGINT,
+    primaryKey: true
+  },
   partner_id: {
     type: Sequelize.BIGINT
   },

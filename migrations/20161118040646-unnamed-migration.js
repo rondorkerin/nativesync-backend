@@ -3,6 +3,10 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
     queryInterface.createTable('client', {
+      id: {
+        type: Sequelize.BIGINT,
+        primaryKey: true
+      },
       partner_id: {
         type: Sequelize.BIGINT
       },

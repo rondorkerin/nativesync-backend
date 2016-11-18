@@ -3,6 +3,10 @@
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
 var ServiceAuth = postgres.define('service_auth', {
+  id: {
+    type: Sequelize.BIGINT,
+    primaryKey: true
+  },
   service_id: {
     type: Sequelize.BIGINT
   },

@@ -4,6 +4,10 @@ let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
 let guid = require('guid');
 var Service = postgres.define('service', {
+  id: {
+    type: Sequelize.BIGINT,
+    primaryKey: true
+  },
   name: {
     type: Sequelize.STRING,
     unique: true

@@ -3,6 +3,10 @@
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
 var Integration = postgres.define('integration', {
+  id: {
+    type: Sequelize.BIGINT,
+    primaryKey: true
+  },
   client_id: {
     type: Sequelize.BIGINT
   },
