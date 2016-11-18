@@ -73,7 +73,7 @@ class Request {
       output = response.body;
     }
 
-    return response;
+    return output;
   }
 }
 

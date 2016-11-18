@@ -9,6 +9,7 @@ test('ip_api', async(function (t) {
     var input = {ip: '200.1.1.1'}
     let action = await(Action.findOne({where: {function_name: 'IP Location Lookup'}}))
     let Request = require('../services/request')
-    output = new Request(action).send(input)
+    var output = new Request(action).send(input)
+    debugger;
     t.equal(output['status'], 'success');
 }));
