@@ -12,9 +12,10 @@ module.exports = function(app, passport, helpers) {
   }));
 
   app.post('/action/:id', helpers.checkauth(passport), async (function(req, res) {
+    let clientID = req.user.id
     let action = await(Action.find(req.params['id']))
     let Request = require('../services/request')
-    output = new Request(action).send(req.params['input'])
+    output = new Request(client_id, action).send(req.params['input'])
     return res.json(output);
   }));
 }

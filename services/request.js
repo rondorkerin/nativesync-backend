@@ -12,8 +12,18 @@ function RequiredParameterMissingException(message) {
    this.name = "RequiredParameterMissingException";
 }
 
+function RequiredAuthMissingException(message) {
+   this.message = message;
+   this.name = "RequiredAuthMissingException";
+}
+
 class Request {
-  constructor(action) { this.action = action; }
+  constructor(clientID, action) {
+    this.action = action;
+    this.clientID = clientID;
+    this.serviceAuths = this.action.getServiceAuths();
+    this.clientAuths = this.serviceAuths.getClientAuths({where: {client_id: clientID}})
+  }
 
   send(input) {
     var headers = this.action['headers'] ? this.action['headers'] : {}
@@ -22,7 +32,15 @@ class Request {
     var body = '';
     var requestObject = {}
     var path = this.action['path'];
-    debugger;
+    for (let serviceAuth of this.serviceAuths) {
+      let clientAuth = {}
+      if (!clientAuth) {
+        throw new RequiredParameterMissingException(serviceAuth['name']));
+      }
+      if (serviceAuth['type'] == 'apiKey') {
+
+      }
+    }
     for (let actionInput of this.action['input']) {
       var fieldName = actionInput['name'];
       let value = input[fieldName];

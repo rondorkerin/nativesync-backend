@@ -9,6 +9,9 @@ var ServiceAuth = postgres.define('service_auth', {
   type: {
     type: Sequelize.STRING
   },
+  details: {
+    type: Sequelize.JSON
+  },
   name: {
     type: Sequelize.STRING
   }

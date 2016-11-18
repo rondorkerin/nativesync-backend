@@ -9,6 +9,9 @@ module.exports = {
       type: {
         type: Sequelize.STRING
       },
+      details: {
+        type: Sequelize.JSON
+      },
       name: {
         type: Sequelize.STRING
       }

@@ -2,6 +2,8 @@
 
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
+let ServiceAuth = require('./service_auth');
+
 var Action = postgres.define('action', {
   service_id: {
     type: Sequelize.BIGINT
@@ -67,5 +69,7 @@ var Action = postgres.define('action', {
   freezeTableName: true,
   indexes: [{fields: ['function_name'], unique: true}, {fields: ['service_id']}, {fields: ['service_name', 'function_name']}, {fields: ['creator_user_id']}]
 });
+
+Action.belongsToMany(ServiceAuth, {through: 'ActionServiceAuth'});
 
 module.exports = Action
