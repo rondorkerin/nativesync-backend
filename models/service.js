@@ -3,6 +3,7 @@
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
 let guid = require('guid');
+let ServiceAuth = require('./service_auth');
 var Service = postgres.define('service', {
   id: {
     type: Sequelize.BIGINT,
@@ -29,5 +30,7 @@ var Service = postgres.define('service', {
   freezeTableName: true,
   indexes: [{fields: ['name']}]
 });
+
+Service.hasMany(ServiceAuth, { as: 'ServiceAuths', foreignKey: 'service_id'})
 
 module.exports = Service

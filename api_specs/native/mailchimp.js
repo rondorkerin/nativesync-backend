@@ -7,10 +7,10 @@ var ActionServiceAuth = require('../../models/action_service_auth')
 var ServiceAuth = require('../../models/service_auth')
 
 var x = async(() => {
-  var result = await(Service.create({name: 'Mailchimp'}))
+  var result = await(Service.upsert({name: 'Mailchimp'}))
   var mailchimp = await(Service.findOne({where: {name: 'Mailchimp'}}))
   await(Action.upsert({
-    service_id: ip_api.id,
+    service_id: mailchimp.id,
     schemes: ['https'],
     headers: {'Content-Type': 'application/json'},
     query: [],
@@ -34,9 +34,9 @@ var x = async(() => {
 
 
   var action = await(Action.findOne({where: {function_name: 'Get lists'}}))
-  await(ServiceAuth.create({service_id: mailchimp.id, name: 'Basic Auth', type: 'basic', details: {username: 'string', password: 'string'}}))
+  await(ServiceAuth.upsert({service_id: mailchimp.id, name: 'Basic Auth', type: 'basic', details: {username: 'string', password: 'string'}}))
   var serviceAuth = await(ServiceAuth.findOne({where: {service_id: mailchimp.id, name: 'Basic Auth'}}))
-  await(ActionServiceAuth.create({action_id: action.id, service_auth_id: serviceAuth.id}))
+  await(ActionServiceAuth.upsert({action_id: action.id, service_auth_id: serviceAuth.id}))
 
 })
 

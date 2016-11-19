@@ -18,7 +18,8 @@ var Partner = postgres.define('partner', {
     type: Sequelize.DATE
   }
 }, {
-  freezeTableName: true
+  freezeTableName: true,
+  indexes: [{fields: ['name'], unique: true}]
 });
 
 module.exports = Partner

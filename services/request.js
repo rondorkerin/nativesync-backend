@@ -21,23 +21,26 @@ class Request {
   constructor(clientID, action) {
     this.action = action;
     this.clientID = clientID;
-    this.serviceAuths = this.action.getServiceAuths();
-    this.clientAuths = this.serviceAuths.getClientAuths({where: {client_id: clientID}})
   }
 
   send(input) {
+    debugger;
+    var serviceAuths = await(this.action.getServiceAuths());
+    var clientAuths = await(serviceAuths.getClientAuths({where: {client_id: this.clientID}}))
+
     var headers = this.action['headers'] ? this.action['headers'] : {}
     var formData = {};
     var query = this.action['query'] ? this.action['query'] : {};
+    var host = this.action['host'] ? this.action['host'] : {};
     var body = '';
     var requestObject = {}
     var path = this.action['path'];
-    for (let serviceAuth of this.serviceAuths) {
-      let clientAuth = this.clientAuths.find((clientAuth) => {
+    for (let serviceAuth of serviceAuths) {
+      let clientAuth = clientAuths.find((clientAuth) => {
         clientAuth.service_auth_id == servieAuth.id;
       })
-      if (!clientAuth) {
-        throw new RequiredParameterMissingException(serviceAuth['name']));
+      if (!clientAuth && serviceAuth['required']) {
+        throw new RequiredAuthMissingException(serviceAuth['name']);
       }
       if (serviceAuth['type'] == 'apiKey') {
         if (serviceAuth['details']['in'] == 'header') {
@@ -64,6 +67,8 @@ class Request {
         body = input[fieldName]
       } else if (actionInput['in'] == 'path') {
         path = path.replace(`{${fieldName}}`, value)
+      } else if (actionInput['in'] == 'host') {
+        host = host.replace(`{${fieldName}}`, value)
       }
     }
     if (this.action['input_content_type'] == 'json') {
@@ -79,7 +84,7 @@ class Request {
     requestObject['uri'] = url.format({
       protocol: this.action['schemes'][0],
       slashes: true,
-      host: this.action['host'],
+      host: host,
       pathname: path,
       query: query,
       body: body

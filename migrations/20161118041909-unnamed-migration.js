@@ -17,6 +17,9 @@ module.exports = {
       details: {
         type: Sequelize.JSON
       },
+      required: {
+        type: Sequelize.BOOLEAN
+      },
       name: {
         type: Sequelize.STRING
       },

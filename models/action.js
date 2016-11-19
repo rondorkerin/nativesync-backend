@@ -3,6 +3,7 @@
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
 let ServiceAuth = require('./service_auth');
+var ActionServiceAuth = require('./action_service_auth');
 
 var Action = postgres.define('action', {
   id: {
@@ -74,6 +75,6 @@ var Action = postgres.define('action', {
   indexes: [{fields: ['function_name'], unique: true}, {fields: ['service_id']}, {fields: ['service_name', 'function_name']}, {fields: ['creator_user_id']}]
 });
 
-Action.belongsToMany(ServiceAuth, {through: 'ActionServiceAuth'});
+Action.belongsToMany(ServiceAuth, {as: 'ServiceAuths', through: ActionServiceAuth, foreignKey: 'action_id', otherKey: 'service_id'});
 
 module.exports = Action
