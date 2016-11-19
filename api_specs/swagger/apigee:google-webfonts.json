@@ -1,0 +1,59 @@
+{
+  "type": "api",
+  "key": "apigee:google-webfonts",
+  "info": {
+    "title": "Google Web Fonts",
+    "description": "Include high-quality web fonts in any web page."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "www.googleapis.com",
+    "basePath": "/webfonts/v1",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/webfonts": {
+        "parameters": [
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Enables sorting of the list.",
+            "enum": [
+              "alpha",
+              "date",
+              "popularity",
+              "style",
+              "trending"
+            ]
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Selector specifying which fields to include in a partial response."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves the list of fonts.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/webfonts/docs/developer_api.html#Example"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "Google Web Fonts",
+      "description": "Include high-quality web fonts in any web page."
+    }
+  },
+  "public": true
+}

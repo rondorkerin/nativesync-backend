@@ -1,0 +1,4445 @@
+{
+  "type": "api",
+  "key": "apigee:github",
+  "info": {
+    "title": "GitHub v3",
+    "description": "Perform secure source code hosting and collaborative development with GitHub v3 API."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "api.github.com",
+    "basePath": "/",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/repos?page={num}&per_page={perPage}": {
+        "parameters": [
+          {
+            "name": "num",
+            "required": true,
+            "in": "query",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 30
+          },
+          {
+            "name": "perPage",
+            "required": true,
+            "in": "query",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 100
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Return multiple items will be paginated with the page parameter and set a custom page size up to 100\n                    with the per_page parameter.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/issues": {
+        "parameters": [
+          {
+            "name": "username",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "reponame",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "filter",
+              "required": false,
+              "in": "query"
+            },
+            {
+              "name": "state",
+              "required": false,
+              "in": "query"
+            },
+            {
+              "name": "sort",
+              "required": false,
+              "in": "query"
+            },
+            {
+              "name": "direction",
+              "required": false,
+              "in": "query"
+            }
+          ],
+          "description": "List your issues.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/"
+          }
+        }
+      },
+      "/user/issues": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "filter",
+              "required": false,
+              "in": "query"
+            },
+            {
+              "name": "state",
+              "required": false,
+              "in": "query"
+            },
+            {
+              "name": "sort",
+              "required": false,
+              "in": "query"
+            },
+            {
+              "name": "direction",
+              "required": false,
+              "in": "query"
+            }
+          ],
+          "description": "List all issues across owned and member repositories for the authenticated user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/"
+          }
+        }
+      },
+      "/orgs/{org}/issues": {
+        "parameters": [
+          {
+            "name": "org",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "org"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "filter",
+              "required": false,
+              "in": "query"
+            },
+            {
+              "name": "state",
+              "required": false,
+              "in": "query"
+            },
+            {
+              "name": "sort",
+              "required": false,
+              "in": "query"
+            },
+            {
+              "name": "direction",
+              "required": false,
+              "in": "query"
+            }
+          ],
+          "description": "List all issues for a given organization for the authenticated user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/issues": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "state",
+              "required": false,
+              "in": "query"
+            },
+            {
+              "name": "sort",
+              "required": false,
+              "in": "query"
+            },
+            {
+              "name": "direction",
+              "required": false,
+              "in": "query"
+            }
+          ],
+          "description": "List issues for this Repository.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create an Issue.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/issues/{id}": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a single Issue.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/issues/comments": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List comments in a repository.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/comments/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/issues/{id}/comments": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns comments for an Issue.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/comments/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a comment for an Issue.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/comments/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/issues/comments/{id}": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a single Issue Comment.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/comments/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete an Issue Comment.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/comments/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/labels": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a list all Labels for this Repository.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/labels/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a Label.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/labels/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/labels/{id}": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a single Label.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/labels/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete a label.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/labels/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/issues/{id}/labels": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List labels on the Issue.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/labels/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Add Labels to an Issue.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/labels/"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Replace all Labels for an Issue.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/labels/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Remove all Labels from an Issue.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/labels/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/issues/{id}/labels/{id}": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          }
+        ],
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Remove a Label from an Issue.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/labels/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/milestones/{id}/labels": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns Labels for every Issue in a Milestone.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/labels/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/milestones": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "state",
+              "required": false,
+              "in": "query"
+            },
+            {
+              "name": "sort",
+              "required": false,
+              "in": "query"
+            },
+            {
+              "name": "direction",
+              "required": false,
+              "in": "query"
+            }
+          ],
+          "description": "List Milestones for an Issue.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/milestones/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a Milestone.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/milestones/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/milestones/{id}": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a single Milestone.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/milestones/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete a Milestone.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/milestones/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/issues/{issueId}/events": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "issueId",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns Events for an Issue.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/events/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/issues/events": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List issue events for a repository.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/events/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/issues/events/{id}": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "Hello-World"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a single Issue Event.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/issues/events/"
+          }
+        }
+      },
+      "/users/{userName}/gists": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List a user's gists",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a new gist.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/"
+          }
+        }
+      },
+      "/gists": {
+        "parameters": [
+          {
+            "name": "username",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List the authenticated user���s gists or if called anonymously, this will returns all public gists.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/"
+          }
+        }
+      },
+      "/gists/public": {
+        "parameters": [
+          {
+            "name": "username",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List all public gists.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/"
+          }
+        }
+      },
+      "/gists/starred": {
+        "parameters": [
+          {
+            "name": "username",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List the authenticated user���s starred gists.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/"
+          }
+        }
+      },
+      "/gists/{id}": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a single gist.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete a gist.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/"
+          }
+        }
+      },
+      "/gists/{id}/star": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Star a gist.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Unstar a gist.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/"
+          }
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Check if a gist is starred.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/"
+          }
+        }
+      },
+      "/gists/{id}/fork": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Fork a gist.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/"
+          }
+        }
+      },
+      "/gists/{gistId}/comments": {
+        "parameters": [
+          {
+            "name": "gistId",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List Gist Comments.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/comments/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a Gist Comment",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/comments/"
+          }
+        }
+      },
+      "/gists/{gistId}/comments/{id}": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          },
+          {
+            "name": "gistId",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a Gist Comment.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/comments/"
+          }
+        }
+      },
+      "/gists/comments/{id}": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647,
+            "default": 1
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete a Gist Comment.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/gists/comments/"
+          }
+        }
+      },
+      "/user": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get the authenticated user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/users/{userName}": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a single user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/user/emails": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List email addresses for a user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Add email address(es).",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Delete email address(es).",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/users/{userName}/followers": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List a user's followers.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/user/followers": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": "octocat"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List the authenticated user's followers.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/users/{userName}/following": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List who a user is following.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/user/following": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List who the authenicated user is following.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/user/following/{userName}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          }
+        ],
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Follow a user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Unfollow a user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Check if you are following a user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/user/{user}/keys": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "user",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List public keys for a user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/user/keys": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": "octocat"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List public keys.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a public key.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/user/keys/{id}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "octocat"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a single public key.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete a public key.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/git/blobs/{sha}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "sha",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a Blob.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/git/blobs": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a Blob.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/git/commits/{sha}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "sha",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a Commit.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/git/commits": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a Commit.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/git/refs/{ref}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "ref",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a Reference.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete a Reference.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/git/refs": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get all References.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a Reference.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/git/refs/tags": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get all the tag references.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/git/tags/{sha}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "sha",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a Tag.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/git/tags": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a Tag Object.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/git/trees/{sha}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "sha",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a Tree.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/git/trees/{sha}?recursive=1": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "sha",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a Tree Recursively.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/git/trees": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a Tree.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/users/{userName}/orgs": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List all public organizations for a user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/user/orgs": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List public and private organizations for the authenticated user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/orgs/{org}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "org",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves an Organization.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/orgs/{org}/members": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "org",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List all users who are members of an organization.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/orgs/{org}/members/{userName}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "org",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get member.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Remove a member.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/teams/{id}/members/{user}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          }
+        ],
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Add a member.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/orgs/{org}/public_members": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "org",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List public members.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/orgs/{org}/public_members/{userName}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "org",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get if a user is a public member.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Publicize a user���s membership",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Conceal a user���s membership",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/orgs/{org}/teams": {
+        "parameters": [
+          {
+            "name": "org",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List teams.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create team.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/teams/{id}": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get team.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete team.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/teams/{id}/members": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List team members.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/teams/{id}/members/{userName}": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get team member.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Add team member.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Remove team member.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/teams/{id}/repos": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List team repos.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/teams/{id}/repos/{userName}/{repoName}": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get team repo.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Add team repo.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Remove team repo.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/pulls": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List pull requests.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a pull request.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/pulls/{id}": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a single comment.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/pulls/{id}/commits": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List commits on a pull request.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/pulls/{id}/files": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List pull requests files.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/pulls/{id}/merge": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get if a pull request has been merged.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Merge a pull request.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/pulls/{id}/comments": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List comments on a pull request.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/orgs/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a comment.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/pulls/comments/{id}": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete a comment.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/"
+          }
+        }
+      },
+      "/events": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List public events.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/events/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/events": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List repository events.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/events/"
+          }
+        }
+      },
+      "/networks/{userName}/{repoName}/events": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List public events for a network of repositories.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/events/"
+          }
+        }
+      },
+      "/orgs/{org}/events": {
+        "parameters": [
+          {
+            "name": "org",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List public events for an organization.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/events/"
+          }
+        }
+      },
+      "/users/{userName}/received_events": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List events that a user has received.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/events/"
+          }
+        }
+      },
+      "/users/{userName}/received_events/public": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List public events that a user has received.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/events/"
+          }
+        }
+      },
+      "/users/{userName}/events": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List events performed by a user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/events/"
+          }
+        }
+      },
+      "/users/{userName}/events/public": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List public events performed by a user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/events/"
+          }
+        }
+      },
+      "/users/{userName}/events/orgs/{org}": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "org",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List events for an organization.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/events/"
+          }
+        }
+      },
+      "/user/repos": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List repositories for the authenticated user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a new repository for the authenticated user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/"
+          }
+        }
+      },
+      "/users/{userName}/repos": {
+        "parameters": [
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List public repositories for the specified user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/"
+          }
+        }
+      },
+      "/orgs/{org}/repos": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "org",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List repositories for the specified org.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a new repository in this organization.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/"
+          }
+        }
+      },
+      "/repositories": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "This provides a dump of every repository, in the order that they were created.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a User Repo.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete a Repository.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/contributors": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List contributors.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/languages": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List languages.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/teams": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List Teams.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/tags": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List Tags.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/branches": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List Branches.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/collaborators": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List Repo Collaborators.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/collaborators/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/collaborators/{user}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "user",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get Repo Collaborator.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/collaborators/"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Add Repo Collaborator.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/collaborators/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Remove Repo Collaborator.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/collaborators/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/commits": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List commits on a repository.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/commits/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/commits/{sha}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "sha",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a single commit.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/commits/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/comments": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List commit comments for a repository.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/commits/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/commits/{sha}/comments": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "user",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List comments for a single commit.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/commits/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a commit comment.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/commits/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/comments/{id}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a single commit comment.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/commits/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete a commit comment.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/commits/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/compare/{base}...{head}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "base",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "head",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Compare two commits.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/commits/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/downloads": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List downloads for a repository.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/downloads/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a new download (Part 1: Create the resource)",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/downloads/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/downloads/{id}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get a single download.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/downloads/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete a download.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/downloads/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/forks": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List forks.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/forks/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "org",
+              "required": false,
+              "in": "query"
+            }
+          ],
+          "description": "Create a fork.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/forks/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/keys": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List Repo Deploy Keys.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/keys/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create Repo Deploy Keys.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/keys/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/keys/{id}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get Repo Deploy Keys.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/keys/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete Repo Deploy Keys.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/keys/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/watchers": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List watchers.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/watching/"
+          }
+        }
+      },
+      "/users/{userName}/watched": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List repos being watched.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/watching/"
+          }
+        }
+      },
+      "/user/watched": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List repos being watched by the authenticated user.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/watching/"
+          }
+        }
+      },
+      "/user/watched/{userName}/{repoName}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Check if you are watching a repo.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/watching/"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Watch a repo.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/watching/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Stop watching a repo.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/watching/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/hooks": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "List Repo Hooks.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/hooks/"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Create a hook.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/hooks/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/hooks/{id}": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Get single hook.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/hooks/"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete a hook.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/hooks/"
+          }
+        }
+      },
+      "/repos/{userName}/{repoName}/hooks/{id}/test": {
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "required": true,
+            "in": "header"
+          },
+          {
+            "name": "userName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "repoName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Test a hook.",
+          "externalDocs": {
+            "url": "http://developer.github.com/v3/repos/hooks/"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "GitHub v3",
+      "description": "Perform secure source code hosting and collaborative development with GitHub v3 API."
+    }
+  },
+  "public": true
+}

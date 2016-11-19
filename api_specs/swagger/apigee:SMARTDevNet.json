@@ -1,0 +1,367 @@
+{
+  "type": "api",
+  "key": "apigee:SMARTDevNet",
+  "info": {
+    "title": "SMARTDevNet",
+    "description": "The SMARTDevNet APIs provide capability for developers to utilize SMART Communications Inc.'s SMS, MMS & other network capabilities"
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "x.smart.com.ph",
+    "basePath": "/",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/oauth/authorize": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "client_id",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "default": "{api-key}",
+              "description": "Client Id / API Key that you got when you registered your app"
+            },
+            {
+              "name": "client_secret",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "default": "{secret}",
+              "description": "Client Secret that you got when you registered your app"
+            },
+            {
+              "name": "scope",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "default": "{scope}",
+              "description": "Requested scope of access token. Can be SMS+MMS"
+            },
+            {
+              "name": "redirect_uri",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "default": "https://developer.smart.com.ph/",
+              "description": "Redirect URI of your application. Ensure this is the same as what was registered at Smart developer portal"
+            },
+            {
+              "name": "response_type",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "default": "code",
+              "description": "Response type"
+            }
+          ],
+          "description": "OAuth Authorize",
+          "externalDocs": {
+            "url": "https://x.smart.com.ph"
+          }
+        }
+      },
+      "/oauth/token": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "client_id",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "default": "{api-key}",
+              "description": "Client Id / API Key that you got when you registered your app"
+            },
+            {
+              "name": "client_secret",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "default": "{secret}",
+              "description": "Client Secret that you got when you registered your app"
+            },
+            {
+              "name": "scope",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "default": "{scope}",
+              "description": "Requested scope of access token. Can be SMS+MMS"
+            },
+            {
+              "name": "redirect_uri",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "default": "https://developer.smart.com.ph/",
+              "description": "Redirect URI of your application. Ensure this is the same as what was registered at Smart developer portal"
+            },
+            {
+              "name": "grant_type",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "default": "authorization_code",
+              "description": "Grant Type. Smart supports authorization_code grant type"
+            },
+            {
+              "name": "code",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "default": "{fill from authorize call response}",
+              "description": "Authorization Code got from OAuth authorize call"
+            }
+          ],
+          "description": "OAuth Get Access Token call",
+          "externalDocs": {
+            "url": "https://x.smart.com.ph"
+          }
+        }
+      },
+      "/1/smsmessaging/outbound/{senderAddress}/requests": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "senderAddress",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "default": "40689871",
+              "description": "Sender address given by the Operator"
+            },
+            {
+              "name": "Authorization",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "Bearer {access-token}",
+              "description": "AccessToken"
+            },
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Content-Type"
+            },
+            {
+              "name": "Accept",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Accept format - application/xml or application/json"
+            }
+          ],
+          "description": "Send SMS",
+          "externalDocs": {
+            "url": "https://x.smart.com.ph"
+          }
+        }
+      },
+      "/1/smsmessaging/outbound/{senderAddress}/requests/{requestId}/deliveryInfos": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "senderAddress",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "default": "40689871",
+              "description": "Sender address given by the Operator"
+            },
+            {
+              "name": "requestId",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "default": "{request-id-from-send-sms-payload}",
+              "description": "Request id that was in Send SMS response payload"
+            },
+            {
+              "name": "Authorization",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "Bearer {access-token}",
+              "description": "AccessToken"
+            },
+            {
+              "name": "Accept",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Accept format - application/json or application/xml"
+            }
+          ],
+          "description": "Get delivery information",
+          "externalDocs": {
+            "url": "https://x.smart.com.ph"
+          }
+        }
+      },
+      "/1/messaging/outbound/{senderAddress}/requests": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "senderAddress",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "default": "5626987",
+              "description": "Sender address given by the Operator"
+            },
+            {
+              "name": "Authorization",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "Bearer {access-token}",
+              "description": "AccessToken"
+            },
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "multipart/form-data",
+              "description": "Content-Type"
+            },
+            {
+              "name": "Accept",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Accept format - application/json"
+            }
+          ],
+          "description": "Send MMS With Attachment",
+          "externalDocs": {
+            "url": "https://x.smart.com.ph"
+          }
+        }
+      },
+      "/1/messaging/outbound/{senderAddress}/requests/{requestId}/deliveryInfos": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "senderAddress",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "default": "5626987",
+              "description": "Sender address given by the Operator"
+            },
+            {
+              "name": "requestId",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "default": "{request-id-from-send-mms-payload}",
+              "description": "Request id that was in Send MMS response payload"
+            },
+            {
+              "name": "Authorization",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "Bearer {access-token}",
+              "description": "AccessToken"
+            },
+            {
+              "name": "Accept",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Accept format - application/json"
+            }
+          ],
+          "description": "Get delivery information",
+          "externalDocs": {
+            "url": "https://x.smart.com.ph"
+          }
+        }
+      },
+      "/payment/v1/{MSISDN}/transactions/amount": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "MSISDN",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "default": "tel:%2B63{phone-number}",
+              "description": "Telephone number of the subscriber"
+            },
+            {
+              "name": "apikey",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "{api-key}",
+              "description": "Client Secret that you got when you registered your app"
+            }
+          ],
+          "description": "Request to Charge To Bill Call. Will return redirect URL of consent page.",
+          "externalDocs": {
+            "url": "https://x.smart.com.ph"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "SMARTDevNet",
+      "description": "The SMARTDevNet APIs provide capability for developers to utilize SMART Communications Inc.'s SMS, MMS & other network capabilities"
+    }
+  },
+  "public": true
+}

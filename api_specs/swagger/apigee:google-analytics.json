@@ -1,0 +1,337 @@
+{
+  "type": "api",
+  "key": "apigee:google-analytics",
+  "info": {
+    "title": "Google Analytics",
+    "description": "Extend the functionality of Google Analytics by accessing profile and reporting data."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "www.googleapis.com",
+    "basePath": "/analytics/v3",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/data/ga": {
+        "parameters": [
+          {
+            "name": "ids",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "Unique table ID for retrieving Analytics data. Table ID is of the form ga:XXXX, where XXXX is the Analytics profile ID. (string)"
+          },
+          {
+            "name": "start-date",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "Start date for fetching Analytics data. All requests should specify a start date formatted as YYYY-MM-DD. (string)"
+          },
+          {
+            "name": "end-date",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "End date for fetching Analytics data. All requests should specify an end date formatted as YYYY-MM-DD. (string)"
+          },
+          {
+            "name": "metrics",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "A comma-separated list of Analytics metrics. E.g., 'ga:visits,ga:pageviews'. At least one metric must be specified. (string)"
+          },
+          {
+            "name": "dimensions",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "A comma-separated list of Analytics dimensions. E.g., 'ga:browser,ga:city'. (string)"
+          },
+          {
+            "name": "filters",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "A comma-separated list of dimension or metric filters to be applied to Analytics data. (string)"
+          },
+          {
+            "name": "max-results",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "The maximum number of entries to include in this response. (integer)"
+          },
+          {
+            "name": "segment",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "An Analytics advanced segment to be applied to data. (string)"
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "A comma-separated list of dimensions or metrics that determine the sort order for Analytics data. (string)"
+          },
+          {
+            "name": "start-index",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. (integer, 1+)"
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Selector specifying which fields to include in a partial response."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns Analytics data for a profile.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/analytics/docs/gdata/v3/reference.html#data_request"
+          }
+        }
+      },
+      "/management/accounts": {
+        "parameters": [
+          {
+            "name": "max-results",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "The maximum number of entries to include in this response. (integer)"
+          },
+          {
+            "name": "start-index",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. (integer, 1+)"
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Selector specifying which fields to include in a partial response."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Lists all accounts to which the user has access.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/analytics/docs/mgmt/v3/mgmtReference.html#collection_accounts"
+          }
+        }
+      },
+      "/management/accounts/{accountId}/webproperties/{webPropertyId}/profiles/{profileId}/goals": {
+        "parameters": [
+          {
+            "name": "accountId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Account ID for the web properties to retrieve. Can either be a specific account ID or '~all', which refers to all the accounts to which the user has access. (string)"
+          },
+          {
+            "name": "webPropertyId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Web property ID for the web properties to retrieve. Can either be a specific web property ID or '~all', which refers to all the web properties to which the user has access. (string)"
+          },
+          {
+            "name": "profileId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Profile ID for the web properties to retrieve. Can either be a specific profile ID or '~all', which refers to all the profiles to which the user has access. (string)"
+          },
+          {
+            "name": "max-results",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "The maximum number of entries to include in this response. (integer)"
+          },
+          {
+            "name": "start-index",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. (integer, 1+)"
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Selector specifying which fields to include in a partial response."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Lists goals to which the user has access.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/analytics/docs/mgmt/v3/mgmtReference.html#collection_goals"
+          }
+        }
+      },
+      "/management/accounts/{accountId}/webproperties/{webPropertyId}/profiles": {
+        "parameters": [
+          {
+            "name": "accountId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Account ID for the web properties to retrieve. Can either be a specific account ID or '~all', which refers to all the accounts to which the user has access. (string)"
+          },
+          {
+            "name": "webPropertyId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Web property ID for the web properties to retrieve. Can either be a specific web property ID or '~all', which refers to all the web properties to which the user has access. (string)"
+          },
+          {
+            "name": "max-results",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "The maximum number of entries to include in this response. (integer)"
+          },
+          {
+            "name": "start-index",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. (integer, 1+)"
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Selector specifying which fields to include in a partial response."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Lists profiles to which the user has access.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/analytics/docs/mgmt/v3/mgmtReference.html#collection_profiles"
+          }
+        }
+      },
+      "/management/segments": {
+        "parameters": [
+          {
+            "name": "max-results",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "The maximum number of entries to include in this response. (integer)"
+          },
+          {
+            "name": "start-index",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. (integer, 1+)"
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Selector specifying which fields to include in a partial response."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Lists advanced segments to which the user has access.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/analytics/docs/mgmt/v3/mgmtReference.html#collection_segments"
+          }
+        }
+      },
+      "/management/accounts/{accountId}/webproperties": {
+        "parameters": [
+          {
+            "name": "accountId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Account ID for the web properties to retrieve. Can either be a specific account ID or '~all', which refers to all the accounts to which the user has access. (string)"
+          },
+          {
+            "name": "max-results",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "The maximum number of entries to include in this response. (integer)"
+          },
+          {
+            "name": "start-index",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. (integer, 1+)"
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Selector specifying which fields to include in a partial response."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Lists web properties to which the user has access.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/analytics/docs/mgmt/v3/mgmtReference.html#collection_webproperties"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "Google Analytics",
+      "description": "Extend the functionality of Google Analytics by accessing profile and reporting data."
+    }
+  },
+  "public": true
+}

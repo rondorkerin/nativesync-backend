@@ -1,0 +1,443 @@
+{
+  "type": "api",
+  "key": "apigee:donorschoose",
+  "info": {
+    "title": "DonorsChoose.org",
+    "description": "Help classroom projects by integrating project information and donation functionality into your app."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "api.donorschoose.org",
+    "basePath": "/common",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/json_feed.html": {
+        "parameters": [
+          {
+            "name": "callback",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "If you wish to wrap your response in a callback function, include the name here."
+          },
+          {
+            "name": "index",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 0,
+            "description": "By default, the start index of the result set is 0; for example, by setting index=10 and max=10, you can return rows 10-19."
+          },
+          {
+            "name": "max",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 10,
+            "description": "By default, the maximum number of projects returned is 10; you can request up to 50 rows at a time."
+          },
+          {
+            "name": "showSynopsis",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "To show the synopsis for each project listing set this to true."
+          },
+          {
+            "name": "showFacetCounts",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "To show facet counts set this to true. They will appear after the project listings."
+          },
+          {
+            "name": "showZeroFacetCountsForSchools",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Facet counts will be displayed for all schools--including those with zero live projects--if this parameter is set to true and showFacetCounts is set to true and school counts are displayed because there is a community parameter in the search parameters."
+          },
+          {
+            "name": "keywords",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "To search for a phrase, enclose it in quotes. It gets a list of projects where the keyword search matches any of the following fields:\n- id\n- title\n- synopsis (full length project essay; not returned in JSON)\n- short description\n- fulfillment trailer\n- school name\n- teacher's first name (not returned in JSON)\n- teacher's last name (only initial returned in JSON)\n- city\n- county (not returned in JSON)\n- district (not returned in JSON)\n- ward/neighborhood (not returned in JSON)\n- state (e.g. TX)\n- zip (not returned in JSON)\n- subject name"
+          },
+          {
+            "name": "subject1",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Search for subjects:\nMusic & The Arts - subject1=-1 \nPerforming Arts  - subject1=1 \nVisual Arts      - subject1=11 \nMusic            - subject1=12",
+            "enum": [
+              "-1",
+              "1",
+              "11",
+              "12"
+            ]
+          },
+          {
+            "name": "subject2",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Search for subjects:\nHealth & Sports   - subject2=-2\nSports            - subject2=2\nHealth & Wellness - subject2=27  \nNutrition         - subject2=28 \nGym & Fitness\t  - subject2=29",
+            "enum": [
+              "-2",
+              "2",
+              "27",
+              "28",
+              "29"
+            ]
+          },
+          {
+            "name": "subject3",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Search for subjects:\nHistory & Civics    - subject3=-3\nHistory & Geography - subject3=9\nCivics & Government - subject3=13\nEconomics           - subject3=14\nSocial Sciences     - subject3=15",
+            "enum": [
+              "-3",
+              "9",
+              "13",
+              "14",
+              "15"
+            ]
+          },
+          {
+            "name": "subject4",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Search for subjects:\nMath & Science        - subject4=-4 \nHealth & Life Science - subject4=4\nApplied Science       - subject4=6\nEnvironmental Science - subject4=7\nMathematics\t          - subject4=8",
+            "enum": [
+              "-4",
+              "4",
+              "6",
+              "7",
+              "8"
+            ]
+          },
+          {
+            "name": "subject5",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Search for subjects:\nApplied Learning      - subject5=-5\nEarly Development     - subject5=18\nCommunity Service     - subject5=21\nCharacter Education   - subject5=26\nCollege & Career Prep - subject5=16 \nExtra Curricular      - subject5=17\nParental Involvement  - subject5=20\nOther                 - subject5=19",
+            "enum": [
+              "-5",
+              "18",
+              "21",
+              "26",
+              "16",
+              "17",
+              "20",
+              "19"
+            ]
+          },
+          {
+            "name": "subject6",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Search for subjects:\nLiteracy & Language  - subject6=-6\nLiteracy             - subject6=10\nLiterature & Writing - subject6=3 \nForeign Languages    - subject6=22\nESL\t                 - subject6=25",
+            "enum": [
+              "-6",
+              "10",
+              "3",
+              "22",
+              "25"
+            ]
+          },
+          {
+            "name": "subject7",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Search for subjects:\nSpecial Needs - subject7=-7",
+            "enum": [
+              "-7"
+            ]
+          },
+          {
+            "name": "partiallyFunded",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Some Received: Projects that have already received partial donations - partiallyFunded=yes\t\nNone Yet: Projects that haven't yet received a donation - partiallyFunded=no",
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          {
+            "name": "partiallyFunded",
+            "required": false,
+            "in": "query",
+            "type": "boolean",
+            "description": "High Level of Poverty. Projects from high need and high poverty schools (40% or more students receive free lunch)."
+          },
+          {
+            "name": "teacherNotFunded",
+            "required": false,
+            "in": "query",
+            "type": "boolean",
+            "description": "Never Before Funded. Projects from teachers that have never had a project funded."
+          },
+          {
+            "name": "costToComplete",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "$99 or less -\tcostToComplete=1\n$100-$200 - costToComplete=2\n$200-$1,000 - costToComplete=3\n$1,000-above - costToComplete=4",
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4"
+            ]
+          },
+          {
+            "name": "costToCompleteRange",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Cost to Complete Range. Example: costToCompleteRange=0+TO+400. Please note that when costToCompleteRange is set, costToComplete is ignored."
+          },
+          {
+            "name": "proposalType",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Books - proposalType=1\nTechnology - proposalType=2\nSupplies - proposalType=3\nTrips - proposalType=4\nVisitors - proposalType=5\nOther - proposalType=6",
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
+            ]
+          },
+          {
+            "name": "proposalTypeCombo",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Trips & Visitors - proposalTypeCombo=TripsVisitors\nSupplies - proposalTypeCombo=Supplies",
+            "enum": [
+              "TripsVisitors",
+              "Supplies"
+            ]
+          },
+          {
+            "name": "gradeType",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Grades PreK-2\t - gradeType=1\nGrades 3-5\t- gradeType=2\nGrades 6-8\t- gradeType=3\nHigh School\t- gradeType=4\nAdult Ed\t- gradeType=5",
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ]
+          },
+          {
+            "name": "resourceUsage",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Essential - resourceUsage=1\nEnrichment - resourceUsage=2",
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "name": "teacherType",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Teach For America\t - teacherType=1",
+            "enum": [
+              "1"
+            ]
+          },
+          {
+            "name": "schoolType",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Charter School - schoolType=1\nMagnet School - schoolType=4\nYear Round School - schoolType=5",
+            "enum": [
+              "1",
+              "4",
+              "5"
+            ]
+          },
+          {
+            "name": "challengeId",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Giving Page ID. Example: challengeId=18369"
+          },
+          {
+            "name": "matchingId",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Example: matchingId=6. Please use the \"Match Offers\" filter on our Search Projects page to get the matching grant value you need."
+          },
+          {
+            "name": "state",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "To search by state code (e.g. TX) you can either do a keyword search or use the state parameter (e.g. state=TX)."
+          },
+          {
+            "name": "community",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Use the \"Community\" filter on our Search Projects page to get the community values you need."
+          },
+          {
+            "name": "cityName",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "City Name."
+          },
+          {
+            "name": "countyName",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "County Name."
+          },
+          {
+            "name": "school",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "to identify a specific school."
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "You can sort your results by:\n- Urgency: Shows projects with higher urgency at the top - sortBy=0\n- Poverty: Shows projects from schools with the highest levels of poverty at the top - sortBy=1\n- Cost: Shows projects with the lowest cost to complete at the top - sortBy=2\n- Popularity: Shows projects with higher numbers of donors at the top - sortBy=4",
+            "enum": [
+              "0",
+              "1",
+              "2",
+              "4"
+            ]
+          },
+          {
+            "name": "historical",
+            "required": false,
+            "in": "query",
+            "type": "boolean",
+            "description": "The historical=true parameter returns completed projects only. Without adding that parameter, the default behavior is to always return projects in need of funding."
+          },
+          {
+            "name": "nwLat",
+            "required": false,
+            "in": "query",
+            "description": "Specify the NW point using the parameters nwLat and nwLng."
+          },
+          {
+            "name": "nwLng",
+            "required": false,
+            "in": "query",
+            "description": "Specify the NW point using the parameters nwLat and nwLng."
+          },
+          {
+            "name": "seLat",
+            "required": false,
+            "in": "query",
+            "description": "Specify the SE point using seLat and seLng."
+          },
+          {
+            "name": "seLng",
+            "required": false,
+            "in": "query",
+            "description": "Specify the SE point using seLat and seLng."
+          },
+          {
+            "name": "centerLat",
+            "required": false,
+            "in": "query",
+            "description": "Specify the center point using the parameters centerLat and centerLng."
+          },
+          {
+            "name": "centerLng",
+            "required": false,
+            "in": "query",
+            "description": "Specify the center point using the parameters centerLat and centerLng."
+          },
+          {
+            "name": "radius",
+            "required": false,
+            "in": "query",
+            "description": "Specify the radius using radius."
+          },
+          {
+            "name": "concise",
+            "required": false,
+            "in": "query",
+            "type": "boolean",
+            "description": "If you are plotting potentially many points on a map, we recommend you use add the concise=true."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Specify the center point using the parameters centerLat and centerLng. Leave out the \"radius\" parameter.",
+          "externalDocs": {
+            "url": "http://developer.donorschoose.org/documentation/project-listing/json-feeds/json-requests#TOC-Geo:-Projects-Near-Me-Searches"
+          }
+        }
+      },
+      "/json_challenge.html": {
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "Giving Page ID."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieve a Giving Page.",
+          "externalDocs": {
+            "url": "http://developer.donorschoose.org/documentation/giving-pages"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "DonorsChoose.org",
+      "description": "Help classroom projects by integrating project information and donation functionality into your app."
+    }
+  },
+  "public": true
+}

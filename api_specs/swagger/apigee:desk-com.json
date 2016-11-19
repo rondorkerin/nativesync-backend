@@ -1,0 +1,2180 @@
+{
+  "type": "api",
+  "key": "apigee:desk-com",
+  "info": {
+    "title": "Desk.com",
+    "description": "Integrate Desk.com's customer service tools directly into your Web site or application. Create cases, customer profiles, content, macros & track interactions."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "{subdomain}.desk.com",
+    "basePath": "/api/%7Bversion%7D",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/cases.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Searches cases based on a combination of parameters with pagination.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/cases"
+          }
+        }
+      },
+      "/cases/{id}.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The case ID."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "by",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "id",
+              "description": "Specify what to find the case by. Can either be 'id' or 'external_id'. If none specified, defaults to 'id'.",
+              "enum": [
+                "id",
+                "external_id"
+              ]
+            }
+          ],
+          "description": "Shows the case.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/cases/show"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "subject",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The case's subject."
+            },
+            {
+              "name": "external_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The cases external_id."
+            },
+            {
+              "name": "description",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The case's description."
+            },
+            {
+              "name": "priority",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The case's priority (1-10).",
+              "enum": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10"
+              ]
+            },
+            {
+              "name": "labels",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "general,must reply,customer",
+              "description": "The case's labels. This is a comma delimited list of label names. Any existing labels that are not specified will be removed, and any new labels will be added."
+            },
+            {
+              "name": "custom_key",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The custom field identified by key."
+            },
+            {
+              "name": "case_status_type_id",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The case's status type identifier. Can be one of the following: 10 (New), 30 (Open), 50 (Pending), 70 (Resolved).",
+              "enum": [
+                "10",
+                "30",
+                "50",
+                "70"
+              ]
+            },
+            {
+              "name": "user_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The case's assigned user id."
+            },
+            {
+              "name": "group_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The case's assigned group id."
+            },
+            {
+              "name": "language",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "en",
+              "description": "The case's language. This will only be accepted if the multi-language support is turned on for the site and the language is enabled from the Admin."
+            }
+          ],
+          "description": "Updates an existing case.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/cases/update"
+          }
+        }
+      },
+      "/customers.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "custom_key",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Match customers by a custom field value denoted by key."
+            },
+            {
+              "name": "since_created_at",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "minimum": -9223372036854776000,
+              "maximum": 9223372036854776000,
+              "description": "Match customers with a created date (in unix time) greater than (that is, more recent than) the specified Date."
+            },
+            {
+              "name": "max_created_at",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "minimum": -9223372036854776000,
+              "maximum": 9223372036854776000,
+              "description": "Match customers with a created timestamp (in unix time) less than (that is, older than) or equal to the specified Date."
+            },
+            {
+              "name": "since_updated_at",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "minimum": -9223372036854776000,
+              "maximum": 9223372036854776000,
+              "description": "Match customers with an updated timestamp (in unix time) greater than (that is, more recent than) the specified Date."
+            },
+            {
+              "name": "max_updated_at",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "minimum": -9223372036854776000,
+              "maximum": 9223372036854776000,
+              "description": "Match customers with an updated timestamp (in unix time) less than (that is, older than) or equal to the specified Date."
+            },
+            {
+              "name": "since_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Match customers with ID greater than (that is, more recent than) the specified ID."
+            },
+            {
+              "name": "max_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Match customers with ID less than (that is, older than) or equal to the specified ID."
+            },
+            {
+              "name": "email",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Match customers by a comma separated list of email addresses."
+            },
+            {
+              "name": "twitter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Match customers by a comma separated list of twitter logins."
+            },
+            {
+              "name": "phone",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Match customers by a comma separated list of phone numbers."
+            },
+            {
+              "name": "external_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Match customers by a comma separated list of external ids."
+            },
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "Specifies the number of records to retrieve. May not be greater than 100."
+            },
+            {
+              "name": "page",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "Specifies the page of results to retrieve. Note: there are pagination limits. See the FAQ for details."
+            }
+          ],
+          "description": "Searches and returns a paginated collection of customers.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/customers"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "name",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The customer's full name."
+            },
+            {
+              "name": "company",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The customer's company."
+            },
+            {
+              "name": "title",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The customer's title."
+            },
+            {
+              "name": "description",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The customer's background information."
+            },
+            {
+              "name": "external_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The customer's external identifier."
+            },
+            {
+              "name": "email",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Additionally create the customer's default email address. This will eventually be deprecated in favor of customers/emails/create."
+            },
+            {
+              "name": "phone",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Additionally create the customer's default phone number. This will eventually be deprecated in favor of customers/phones/create."
+            },
+            {
+              "name": "twitter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The customer's twitter account. This will create an associated twitter account to the customer. An associated twitter account can not be created if it is already assigned to an existing customer."
+            },
+            {
+              "name": "language",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "en",
+              "description": "The customer's language. This will only be accepted if the multi-language support is turned on for the site and the language is one of the supported languages."
+            },
+            {
+              "name": "custom_key",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The custom field identified by key."
+            }
+          ],
+          "description": "Creates a new customer.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/customers/create"
+          }
+        }
+      },
+      "/customers/{id}.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The customer ID."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a single customer, specified by the ID parameter.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/customers/show"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "name",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The customer's full name."
+            },
+            {
+              "name": "company",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The customer's company."
+            },
+            {
+              "name": "title",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The customer's title."
+            },
+            {
+              "name": "description",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The customer's background information."
+            },
+            {
+              "name": "external_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The customer's external_id. This represents the customer's unique ID in your client application."
+            },
+            {
+              "name": "language",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "en",
+              "description": "The customer's language. This will only be accepted if the multi-language support is turned on for the site and the language is one of the supported languages."
+            },
+            {
+              "name": "custom_key",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The custom field identified by key."
+            }
+          ],
+          "description": "Updates an existing customer.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/customers/update"
+          }
+        }
+      },
+      "/customers/{customer_id}/emails.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "customer_id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The customer ID."
+          },
+          {
+            "name": "email",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "The email address of the customer. An email address cannot be created if it is already assigned to an existing customer."
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Creates a new customer contact email.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/customers/emails/create"
+          }
+        }
+      },
+      "/customers/{customer_id}/emails/{id}.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "customer_id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The customer ID."
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The customer email ID."
+          },
+          {
+            "name": "email",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "The email address of the customer. An email address cannot be created if it is already assigned to an existing customer."
+          }
+        ],
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Updates an existing customer contact email.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/customers/emails/update"
+          }
+        }
+      },
+      "/customers/{customer_id}/phones.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "customer_id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The customer ID."
+          },
+          {
+            "name": "phone",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "The phone number."
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Creates a new customer contact phone number.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/customers/phones/create"
+          }
+        }
+      },
+      "/customers/{customer_id}/phones/{id}.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "customer_id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The customer ID."
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The customer email ID."
+          },
+          {
+            "name": "phone",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "The phone number."
+          }
+        ],
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Updates an existing customer contact phone.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/customers/phones/update"
+          }
+        }
+      },
+      "/interactions.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "case_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The numerical ID of the desired case interactions."
+            },
+            {
+              "name": "channels",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "email,twitter",
+              "description": "Channel types (comma delimited list of channels)."
+            },
+            {
+              "name": "since_created_at",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "minimum": -9223372036854776000,
+              "maximum": 9223372036854776000,
+              "default": 12345,
+              "description": "Returns results with an Create Date greater than (that is, more recent than) the specified Date."
+            },
+            {
+              "name": "max_created_at",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "minimum": -9223372036854776000,
+              "maximum": 9223372036854776000,
+              "default": 54321,
+              "description": "Returns results with an Create Date less than (that is, older than) or equal to the specified Date."
+            },
+            {
+              "name": "since_updated_at",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "minimum": -9223372036854776000,
+              "maximum": 9223372036854776000,
+              "default": 12345,
+              "description": "Returns results with an Update Date greater than (that is, more recent than) the specified Date."
+            },
+            {
+              "name": "max_updated_at",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "minimum": -9223372036854776000,
+              "maximum": 9223372036854776000,
+              "default": 54321,
+              "description": "Returns results with an Update Date less than (that is, older than) or equal to the specified Date."
+            },
+            {
+              "name": "since_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "12345",
+              "description": "Returns results with an ID greater than (that is, more recent than) the specified ID."
+            },
+            {
+              "name": "max_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "54321",
+              "description": "Returns results with an ID less than (that is, older than) or equal to the specified ID."
+            },
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "default": 100,
+              "description": "Specifies the number of records to retrieve. May not be greater than 100."
+            },
+            {
+              "name": "page",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "default": 1,
+              "description": "Specifies the page of results to retrieve. Note: there are pagination limits. See the FAQ for details."
+            }
+          ],
+          "description": "Returns the first X interactions within the system with pagination.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/interactions"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "interaction_subject",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The subject of the new interaction."
+            },
+            {
+              "name": "customer_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The numerical ID of the customer you wish to link this new with. At least one of Customer ID, Customer Email, Customer Twitter, or Case ID must be supplied. If you supply case ID and customer information, the case ID will take precedence and use the existing customer linked to the case, ignoring all other customer API parameters."
+            },
+            {
+              "name": "customer_twitter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The twitter screenname of the customer you wish to create or link the new case to. At least one of Customer ID, Customer Email, Customer Twitter, or Case ID must be supplied. If you supply case ID and customer information, the case ID will take precedence and use the existing customer linked to the case, ignoring all other customer API parameters."
+            },
+            {
+              "name": "customer_email",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The email address of the customer you wish to create or link the new case to. At least one of Customer ID, Customer Email, Customer Twitter, or Case ID must be supplied. If you supply case ID and customer information, the case ID will take precedence and use the existing customer linked to the case, ignoring all other customer API parameters."
+            },
+            {
+              "name": "case_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The numerical ID of the case to associate this new interaction with."
+            },
+            {
+              "name": "customer_name",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The full name of the customer (Create customer only)."
+            },
+            {
+              "name": "customer_custom_key",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The custom customer field identified by key (updates custom fields for the customer if it already exists, otherwise, will be initialized for a new customer record)."
+            },
+            {
+              "name": "customer_language",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "en",
+              "description": "The customer's language. This will only be accepted if the multi-language support is turned on for the site and the language is one of the supported languages."
+            },
+            {
+              "name": "external_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "A string ID (max of 64 characters) of the case to associate this new interaction with. External IDs can be used to associate cases with IDs used within another external system."
+            },
+            {
+              "name": "case_labels",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The labels to associate with the new case (create case only)."
+            },
+            {
+              "name": "case_custom_key",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The custom case field identified by key (create case only)."
+            },
+            {
+              "name": "case_language",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "en",
+              "description": "The case's language. This will only be accepted if the multi-language support is turned on for the site and the language is enabled from the Admin. If no language is supplied, the case will be created with the customers assigned language."
+            },
+            {
+              "name": "interaction_channel",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "email",
+              "description": "The channel type of the new interaction (\"email\" or \"phone\"). Defaults to \"email\".",
+              "enum": [
+                "email",
+                "phone"
+              ]
+            },
+            {
+              "name": "interaction_body",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The full content of the interaction (email body or phone summary depending on channel type)."
+            }
+          ],
+          "description": "Creates a new interaction either by creating a new case or linking to an existing one.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/interactions/create"
+          }
+        }
+      },
+      "/groups.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 100,
+            "description": "Specifies the number of records to retrieve. May not be greater than 100."
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 1,
+            "description": "Specifies the page of results to retrieve. Note: there are pagination limits. See the FAQ for details."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a paginated list of groups.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/groups"
+          }
+        }
+      },
+      "/groups/{id}.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The group ID."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a single group, specified by the ID parameter.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/groups/show"
+          }
+        }
+      },
+      "/users.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 100,
+            "description": "Specifies the number of records to retrieve. May not be greater than 100."
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 1,
+            "description": "Specifies the page of results to retrieve. Note: there are pagination limits. See the FAQ for details."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a paginated list of users (Agents / Admins).",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/users"
+          }
+        }
+      },
+      "/users/{id}.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The user ID."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a single user (Agent / Admin), specified by the ID parameter.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/users/show"
+          }
+        }
+      },
+      "/topics.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "default": 100,
+              "description": "Specifies the number of records to retrieve. May not be greater than 100."
+            },
+            {
+              "name": "page",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "default": 1,
+              "description": "Specifies the page of results to retrieve. Note: there are pagination limits. See the FAQ for details."
+            }
+          ],
+          "description": "Returns the first X topics within the system with pagination.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/topics"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "name",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The topic's name."
+            },
+            {
+              "name": "description",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The topic's description."
+            },
+            {
+              "name": "show_in_portal",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "default": true,
+              "description": "Show the topic in the portal."
+            }
+          ],
+          "description": "Creates a new topic.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/topics/create"
+          }
+        }
+      },
+      "/topics/{id}.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The topic ID."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a single topic, specified by the ID parameter.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/topics/show"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "name",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The topic's name."
+            },
+            {
+              "name": "description",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The topic's description."
+            },
+            {
+              "name": "show_in_portal",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "default": true,
+              "description": "Show the topic in the portal."
+            },
+            {
+              "name": "language",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "en",
+              "description": "The topic's language. This will only be accepted if the multi-language support is turned on for the site and the language is enabled from the Admin."
+            }
+          ],
+          "description": "Updates an existing topic.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/topics/update"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Destroys an existing topic.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/topics/destroy"
+          }
+        }
+      },
+      "/topics/{topic_id}/articles.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "topic_id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The topic ID."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "default": 100,
+              "description": "Specifies the number of records to retrieve. May not be greater than 100."
+            },
+            {
+              "name": "page",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "default": 1,
+              "description": "Specifies the page of results to retrieve. Note: there are pagination limits. See the FAQ for details."
+            }
+          ],
+          "description": "Returns the first X articles for a given topic with pagination.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/topics/articles"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "subject",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The subject of the article."
+            },
+            {
+              "name": "main_content",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The main content of the article."
+            },
+            {
+              "name": "published",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "default": false,
+              "description": "Whether or not to publish this article. Defaults to false (draft)."
+            },
+            {
+              "name": "show_in_portal",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "default": false,
+              "description": "Whether or not to display this article in the Portal."
+            },
+            {
+              "name": "agent_content",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Any private content only viewable by agents."
+            },
+            {
+              "name": "email",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Email response template when replying to an email case. Defaults to main_content."
+            },
+            {
+              "name": "chat",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Chat response template when replying to a chat case. Defaults to main_content (truncates and provides an URL to public article)."
+            },
+            {
+              "name": "twitter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Twitter response template when replying to a tweet case. Defaults to main_content (truncates and provides a URL to public article)."
+            },
+            {
+              "name": "question",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Question/Answer response template when replying to a Portal Question/Answer case. Defaults to main_content."
+            },
+            {
+              "name": "phone",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Phone response template when replying to a Phone case. Defaults to main_content."
+            },
+            {
+              "name": "quickcode",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Quickcode for the article."
+            }
+          ],
+          "description": "Creates a new article for a topic.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/topics/articles/create"
+          }
+        }
+      },
+      "/articles/{id}.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The article ID."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a single article, specified by the ID parameter.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/articles/show"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "subject",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The subject of the article."
+            },
+            {
+              "name": "main_content",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The main content of the article."
+            },
+            {
+              "name": "published",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "default": false,
+              "description": "Whether or not to publish this article. Defaults to false (draft)."
+            },
+            {
+              "name": "show_in_portal",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "default": false,
+              "description": "Whether or not to display this article in the Portal."
+            },
+            {
+              "name": "agent_content",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Any private content only viewable by agents."
+            },
+            {
+              "name": "email",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Email response template when replying to an email case. Defaults to main_content."
+            },
+            {
+              "name": "chat",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Chat response template when replying to a chat case. Defaults to main_content (truncates and provides an URL to public article)."
+            },
+            {
+              "name": "twitter",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Twitter response template when replying to a tweet case. Defaults to main_content (truncates and provides a URL to public article)."
+            },
+            {
+              "name": "question",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Question/Answer response template when replying to a Portal Question/Answer case. Defaults to main_content."
+            },
+            {
+              "name": "phone",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Phone response template when replying to a Phone case. Defaults to main_content."
+            },
+            {
+              "name": "quickcode",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Quickcode for the article."
+            },
+            {
+              "name": "topic_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Parent topic id for the article. This allows you to move an article to a different topic on your site."
+            },
+            {
+              "name": "language",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "en",
+              "description": "The article's language. This will only be accepted if the multi-language support is turned on for the site and the language is enabled from the Admin."
+            },
+            {
+              "name": "mark_translations_outdated",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "description": "Set to 'true' when updating the default language (or not specifying one) to mark all article translations as out-of-date. NOTE: translations are only marked as out-of-date if at least one attribute is changed on the articles default langauge. If content is changed on a translated version of the article this flag is ignored."
+            }
+          ],
+          "description": "Updates an existing article.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/articles/update"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Deletes a single article, specified by the ID.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/articles/destroy"
+          }
+        }
+      },
+      "/macros.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "default": 100,
+              "description": "Specifies the number of records to retrieve. May not be greater than 100."
+            },
+            {
+              "name": "page",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "default": 1,
+              "description": "Specifies the page of results to retrieve. Note: there are pagination limits. See the FAQ for details."
+            }
+          ],
+          "description": "Returns the first X macros within the system with pagination.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/macros"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "name",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The name of the macro."
+            },
+            {
+              "name": "enable",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "default": false,
+              "description": "Enable/Disable macro. Defaults to false."
+            },
+            {
+              "name": "labels",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Sets labels for the macro. Accepts a comma separated list of label names. Any labels that do not exist will be created."
+            }
+          ],
+          "description": "Creates a new macro.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/macros/create"
+          }
+        }
+      },
+      "/macros/{id}.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The macro ID."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a single macro, specified by the ID parameter.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/macros/show"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "name",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The name of the macro."
+            },
+            {
+              "name": "enable",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "default": false,
+              "description": "Enable/Disable macro. Defaults to false."
+            },
+            {
+              "name": "labels",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Sets labels for the macro. Accepts a comma separated list of label names. Any labels that do not exist will be created."
+            }
+          ],
+          "description": "Updates an existing macro.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/macros/update"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Destroys an existing macro.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/macros/destroy"
+          }
+        }
+      },
+      "/macros/{macro_id}/actions.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "macro_id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The macro ID."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns actions for a given macro.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/macros/actions"
+          }
+        }
+      },
+      "/macros/{macro_id}/actions/{type}.{format}": {
+        "parameters": [
+          {
+            "name": "subdomain",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The subdomain configured for your Desk.com application."
+          },
+          {
+            "name": "version",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "v1",
+            "description": "The API version.",
+            "enum": [
+              "v1"
+            ]
+          },
+          {
+            "name": "format",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "The response format.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "macro_id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The macro ID."
+          },
+          {
+            "name": "type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The action type slug.",
+            "enum": [
+              "set-case-description",
+              "set-case-labels",
+              "append-case-labels",
+              "set-case-priority",
+              "set-case-status",
+              "set-case-agent",
+              "set-case-group",
+              "append-case-article",
+              "set-case-quick-reply",
+              "set-case-outbound-email-subject",
+              "set-case-custom-key"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a single macro action, specified by the macro ID and one of the action type slugs below:\n- set-case-description: The description to be applied to a case.\n- set-case-labels: The labels to be set on a case, removing any labels already applied to the case. Value must be a comma separated list of label names. New labels will be created if they do not exist.\n- append-case-labels: The labels to be appended to a case, keeping any labels already applied to the case. Value must be a comma separated list of label names. New labels will be created if they do not exist. \n- set-case-priority: The priority to be applied to a case. Value must be a number (1-10) representing the priority (1 being lowest, 10 being highest).\n- set-case-status: The status to be applied to a case. Value must be one of the following status IDs: 30 (Open), 50 (Pending), 70 (Resolved).\n- set-case-agent: The agent to be assigned to a case. Value must be the ID of the agent.\n- set-case-group: The group to apply to the case. Value must be the ID of the group.\n- append-case-article: The article to be appended to a case. Value must be the ID of the article.\n- set-case-quick-reply: Quick reply on a case.\n- set-case-outbound-email-subject: Set the case's outbound email subject.\n- set-case-custom-key: Set the case's custom field, where key is the key of the custom field.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/macros/actions/show"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "value",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The value of the action. Value is dependent on the action type."
+            },
+            {
+              "name": "enabled",
+              "required": true,
+              "in": "query",
+              "type": "boolean",
+              "default": false,
+              "description": "If enabled, the action will be performed when using the macro. Defaults to false."
+            }
+          ],
+          "description": "Updates an action for a given macro, specified by the action's slug. Every action has a value that will be applied when invoking the macro. The following list of values are available, depending on the action type:\n- set-case-description: The description to be applied to a case.\n- set-case-labels: The labels to be set on a case, removing any labels already applied to the case. Value must be a comma separated list of label names. New labels will be created if they do not exist.\n- append-case-labels: The labels to be appended to a case, keeping any labels already applied to the case. Value must be a comma separated list of label names. New labels will be created if they do not exist. \n- set-case-priority: The priority to be applied to a case. Value must be a number (1-10) representing the priority (1 being lowest, 10 being highest).\n- set-case-status: The status to be applied to a case. Value must be one of the following status IDs: 30 (Open), 50 (Pending), 70 (Resolved).\n- set-case-agent: The agent to be assigned to a case. Value must be the ID of the agent.\n- set-case-group: The group to apply to the case. Value must be the ID of the group.\n- append-case-article: The article to be appended to a case. Value must be the ID of the article.\n- set-case-quick-reply: Quick reply on a case.\n- set-case-outbound-email-subject: Set the case's outbound email subject.\n- set-case-custom-key: Set the case's custom field, where key is the key of the custom field.",
+          "externalDocs": {
+            "url": "https://dev.desk.com/docs/api/macros/actions/update"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "Desk.com",
+      "description": "Integrate Desk.com's customer service tools directly into your Web site or application. Create cases, customer profiles, content, macros & track interactions."
+    }
+  },
+  "public": true
+}

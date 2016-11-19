@@ -1,0 +1,239 @@
+{
+  "type": "api",
+  "key": "apigee:gettyimages-connect",
+  "info": {
+    "title": "Getty Images Connect",
+    "description": "Integrate Getty Images content directly into your site."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "connect.gettyimages.com",
+    "basePath": "/",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/sample/v1/session/CreateSession": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Content type."
+            }
+          ],
+          "description": "<b>[Note: this resource is for demonstration purposes only. Any credentials you enter will not be considered. If you wish to use your own developer credentials, use the other &ldquo;create session&rdquo; resource.]</b> All operations in the Getty Images Connect API require an authentication token argument provided in the RequestHeader. An authentication token securely identifies the caller of an operation. When called, an operation checks the validity of the provided authentication token before executing the request. A malformed, invalid, or expired token will cause an operation to fail. Clients get authentication tokens by authenticating themselves using the CreateSession operation. Some operations are designated secure only. This designation means that the operation: 1) must be called over an SSL connection 2) with a secure token. Secure authentication tokens are provided by the CreateSession operation. Secure tokens are essentially the same as standard tokens, with the difference that secure tokens can only be used over SSL connections. Calling any operation with a secure token over a non-SSL connection will result in an error. Tokens expire after 30 minutes. Clients can renew a token before it expires by using the RenewSession operation, without having to provide credentials again. <b>We recommend clients track each token&rsquo;s time-to-expiration, and proactively call RenewSession prior to the token's expiration.</b>",
+          "externalDocs": {
+            "url": "https://api.gettyimages.com/sites/default/files/Getty%20Images%20Connect%20API%2020120215.pdf"
+          }
+        }
+      },
+      "/v1/session/CreateSession": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Content type."
+            }
+          ],
+          "description": "All operations in the Getty Images Connect API require an authentication token argument provided in the RequestHeader. An authentication token securely identifies the caller of an operation. When called, an operation checks the validity of the provided authentication token before executing the request. A malformed, invalid, or expired token will cause an operation to fail. Clients get authentication tokens by authenticating themselves using the CreateSession operation. Some operations are designated secure only. This designation means that the operation: 1) must be called over an SSL connection 2) with a secure token. Secure authentication tokens are provided by the CreateSession operation. Secure tokens are essentially the same as standard tokens, with the difference that secure tokens can only be used over SSL connections. Calling any operation with a secure token over a non-SSL connection will result in an error. Tokens expire after 30 minutes. Clients can renew a token before it expires by using the RenewSession operation, without having to provide credentials again. We recommend clients track each token’s time-to-expiration, and proactively call RenewSession prior to the token’s expiration.",
+          "externalDocs": {
+            "url": "https://api.gettyimages.com/sites/default/files/Getty%20Images%20Connect%20API%2020120215.pdf"
+          }
+        }
+      },
+      "/v1/session/RenewSession": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Content type."
+            }
+          ],
+          "description": "Renews an authentication token previously issued by the CreateSession operation before it expires. Use this operation to extend the duration of a fully authenticated token without having to provide the user’s credentials again. This operation is secure only; it requires a fully authenticated secure authentication token generated by CreateSession.",
+          "externalDocs": {
+            "url": "https://api.gettyimages.com/sites/default/files/Getty%20Images%20Connect%20API%2020120215.pdf"
+          }
+        }
+      },
+      "/v1/search/SearchForImages": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Content type."
+            }
+          ],
+          "description": "Returns image metadata for all images matching a specified search query. This operation requires a fully authenticated standard token in the request.",
+          "externalDocs": {
+            "url": "https://api.gettyimages.com/sites/default/files/Getty%20Images%20Connect%20API%2020120215.pdf"
+          }
+        }
+      },
+      "/v1/search/GetEvents": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Content type."
+            }
+          ],
+          "description": "Returns detailed event metadata for all specified events. This operation requires a fully authenticated standard token in the request.",
+          "externalDocs": {
+            "url": "https://api.gettyimages.com/sites/default/files/Getty%20Images%20Connect%20API%2020120215.pdf"
+          }
+        }
+      },
+      "/v1/search/GetImageDetails": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Content type."
+            }
+          ],
+          "description": "Returns detailed image metadata for all specified images. This operation requires a fully authenticated standard token in the request.",
+          "externalDocs": {
+            "url": "https://api.gettyimages.com/sites/default/files/Getty%20Images%20Connect%20API%2020120215.pdf"
+          }
+        }
+      },
+      "/v1/download/GetImageDownloadAuthorizations": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Content type."
+            }
+          ],
+          "description": "Returns download authorizations for the specified image size(s), for each applicable product offering owned by the customer. This version of the operation requires a fully authenticated standard token in the request.",
+          "externalDocs": {
+            "url": "https://api.gettyimages.com/sites/default/files/Getty%20Images%20Connect%20API%2020120215.pdf"
+          }
+        }
+      },
+      "/v1/download/GetLargestImageDownloadAuthorizations": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Content type."
+            }
+          ],
+          "description": "Returns download authorizations for the largest available image size, for each applicable product offering owned by the customer. This version of the operation requires a fully authenticated standard token in the request.",
+          "externalDocs": {
+            "url": "https://api.gettyimages.com/sites/default/files/Getty%20Images%20Connect%20API%2020120215.pdf"
+          }
+        }
+      },
+      "/v1/download/CreateDownloadRequest": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Content type."
+            }
+          ],
+          "description": "Returns download urls and related data for images the customer is authorized to download. This operation is secure only; it requires a fully authenticated secure authentication token generated by CreateSession.",
+          "externalDocs": {
+            "url": "https://api.gettyimages.com/sites/default/files/Getty%20Images%20Connect%20API%2020120215.pdf"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "Getty Images Connect",
+      "description": "Integrate Getty Images content directly into your site."
+    }
+  },
+  "public": true
+}

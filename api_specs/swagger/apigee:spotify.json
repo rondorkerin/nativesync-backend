@@ -1,0 +1,189 @@
+{
+  "type": "api",
+  "key": "apigee:spotify",
+  "info": {
+    "title": "Spotify",
+    "description": "Expore Spotify's music catalog, with search and look up for artists, tracks and albums."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "ws.spotify.com",
+    "basePath": "/",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/lookup/1/": {
+        "parameters": [
+          {
+            "name": "Accept",
+            "required": false,
+            "in": "header",
+            "type": "string",
+            "default": "application/xml, text/xml",
+            "description": "The format to be returned in the response. (e.g. JSON, or XML)",
+            "enum": [
+              "application/json",
+              "application/xml, text/xml"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "uri",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "default": "spotify:track:6NmXV4o6bmp704aPGyTVVG",
+              "description": "A Spotify URI. Either track."
+            }
+          ],
+          "description": "Lookup data related to a Spotify track URI.",
+          "externalDocs": {
+            "url": "http://developer.spotify.com/en/metadata-api/lookup/track/"
+          }
+        }
+      },
+      "/search/1/album": {
+        "parameters": [
+          {
+            "name": "Accept",
+            "required": false,
+            "in": "header",
+            "type": "string",
+            "default": "application/xml, text/xml",
+            "description": "The format to be returned in the response. (e.g. JSON, or XML)",
+            "enum": [
+              "application/json",
+              "application/xml, text/xml"
+            ]
+          },
+          {
+            "name": "q",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": "foo",
+            "description": "Search string encoded in UTF-8."
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 2,
+            "description": "The page of the result set to return."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Search for Spotify metadata by album.",
+          "externalDocs": {
+            "url": "http://developer.spotify.com/en/metadata-api/search/album/"
+          }
+        }
+      },
+      "/search/1/artist": {
+        "parameters": [
+          {
+            "name": "Accept",
+            "required": false,
+            "in": "header",
+            "type": "string",
+            "default": "application/xml, text/xml",
+            "description": "The format to be returned in the response. (e.g. JSON, or XML)",
+            "enum": [
+              "application/json",
+              "application/xml, text/xml"
+            ]
+          },
+          {
+            "name": "q",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": "artist:Bj%C3%B6rk",
+            "description": "Search string encoded in UTF-8."
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 2,
+            "description": "The page of the result set to return."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Search for Spotify metadata by artist.",
+          "externalDocs": {
+            "url": "http://developer.spotify.com/en/metadata-api/search/artist/"
+          }
+        }
+      },
+      "/search/1/track": {
+        "parameters": [
+          {
+            "name": "Accept",
+            "required": false,
+            "in": "header",
+            "type": "string",
+            "default": "application/xml, text/xml",
+            "description": "The format to be returned in the response. (e.g. JSON, or XML)",
+            "enum": [
+              "application/json",
+              "application/xml, text/xml"
+            ]
+          },
+          {
+            "name": "q",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "default": "foo",
+            "description": "Search string encoded in UTF-8."
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 2,
+            "description": "The page of the result set to return."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Search for Spotify metadata by track.",
+          "externalDocs": {
+            "url": "http://developer.spotify.com/en/metadata-api/search/track/"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "Spotify",
+      "description": "Expore Spotify's music catalog, with search and look up for artists, tracks and albums."
+    }
+  },
+  "public": true
+}

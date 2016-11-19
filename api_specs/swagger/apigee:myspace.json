@@ -1,0 +1,2840 @@
+{
+  "type": "api",
+  "key": "apigee:myspace",
+  "info": {
+    "title": "MySpace",
+    "description": "Create apps and games within the MySpace platform. Monetize through advertising and virtual goods."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "api.myspace.com",
+    "basePath": "/",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/1.0/activities/{personId}/{selector}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "selector",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which set of individuals to query for activities. @friends and @all currently can be used interchangeably.",
+            "enum": [
+              "@self",
+              "@all",
+              "@friends"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Only returns the nearest multiple of 3 compared to the original value."
+            },
+            {
+              "name": "fields",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The following field names are supported.\nappid, body, externalid, id, mediaitems, postedtime, streamfaviconurl, title, titleid, userid, \n@all (a special value that tells the REST endpoint to send back all fields for the activity.)"
+            },
+            {
+              "name": "format",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Determines the format of the response.",
+              "enum": [
+                "json",
+                "xml"
+              ]
+            },
+            {
+              "name": "startIndex",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Indicates the index of the first item to retrieve from the query set."
+            },
+            {
+              "name": "updatedSince",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Indicates the date before which no activities should be returned."
+            }
+          ],
+          "description": "Retrieves all activities for the user or for the friends of the viewer.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Activities_API"
+          }
+        }
+      },
+      "/1.0/activities/{personId}/@self": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Creates an activity for the user.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Activities_API"
+          }
+        }
+      },
+      "/1.0/activities/@supportedFields": {
+        "parameters": [
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported.\nappid, body, externalid, id, mediaitems, postedtime, streamfaviconurl, title, titleid, userid, \n@all (a special value that tells the REST endpoint to send back all fields for the activity.)"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          },
+          {
+            "name": "updatedSince",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the date before which no activities should be returned."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves all supported fields.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Activities_API"
+          }
+        }
+      },
+      "/1.0/activities/@supportedVerbs": {
+        "parameters": [
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported.\nappid, body, externalid, id, mediaitems, postedtime, streamfaviconurl, title, titleid, userid, \n@all (a special value that tells the REST endpoint to send back all fields for the activity.)"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          },
+          {
+            "name": "updatedSince",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the date before which no activities should be returned."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves all supported verbs.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Activities_API"
+          }
+        }
+      },
+      "/1.0/activities/@supportedObjectTypes": {
+        "parameters": [
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported.\nappid, body, externalid, id, mediaitems, postedtime, streamfaviconurl, title, titleid, userid, \n@all (a special value that tells the REST endpoint to send back all fields for the activity.)"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          },
+          {
+            "name": "updatedSince",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the date before which no activities should be returned."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves all supported object types.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Activities_API"
+          }
+        }
+      },
+      "/1.0/activities/{personId}/{selector}/{appId}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "selector",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which set of individuals to query for activities. @friends and @all currently can be used interchangeably.",
+            "enum": [
+              "@self",
+              "@all",
+              "@friends"
+            ]
+          },
+          {
+            "name": "appId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@app",
+            "description": "The application's ID associated with the OAuth ConsumerKey/ConsumerSecret pair."
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported.\nappid, body, externalid, id, mediaitems, postedtime, streamfaviconurl, title, titleid, userid, \n@all (a special value that tells the REST endpoint to send back all fields for the activity.)"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          },
+          {
+            "name": "updatedSince",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the date before which no activities should be returned."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves activities created by an application.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Activities_API"
+          }
+        }
+      },
+      "/1.0/albums/@supportedFields": {
+        "parameters": [
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported. Bold are default values.\n caption, id, location, mediaItemCount, mediaType, ownerId, thumbnailUrl \n @all (a special value that tells the REST endpoint to send back all fields for the album.)"
+          },
+          {
+            "name": "msPrivacyLevel",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "MySpace specific field. May be one of the following values:\nme - Album is private.\nfriendsonly - Album is visible to friends.\neveryone - Album is visible to everyone.",
+            "enum": [
+              "me",
+              "friendsonly",
+              "everyone"
+            ]
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves all supported fields.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Albums_API"
+          }
+        }
+      },
+      "/1.0/albums/{personId}/@self": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Only returns the nearest multiple of 3 compared to the original value."
+            },
+            {
+              "name": "fields",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The following field names are supported. Bold are default values.\n caption, id, location, mediaItemCount, mediaType, ownerId, thumbnailUrl \n @all (a special value that tells the REST endpoint to send back all fields for the album.)"
+            },
+            {
+              "name": "msPrivacyLevel",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "MySpace specific field. May be one of the following values:\nme - Album is private.\nfriendsonly - Album is visible to friends.\neveryone - Album is visible to everyone.",
+              "enum": [
+                "me",
+                "friendsonly",
+                "everyone"
+              ]
+            },
+            {
+              "name": "format",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Determines the format of the response.",
+              "enum": [
+                "json",
+                "xml"
+              ]
+            },
+            {
+              "name": "startIndex",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Indicates the index of the first item to retrieve from the query set."
+            }
+          ],
+          "description": "Retrieves the current user's albums.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Albums_API"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Adding an Album.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Albums_API"
+          }
+        }
+      },
+      "/1.0/albums/{personId}/@self/{albumId}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "albumId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "Indicates which single album should be returned."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves an album.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Albums_API"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Update an Album.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Albums_API"
+          }
+        }
+      },
+      "/1.0/groups/@supportedFields": {
+        "parameters": [
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported: id and title."
+          },
+          {
+            "name": "msPrivacyLevel",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "MySpace specific field. May be one of the following values:\nme - Album is private.\nfriendsonly - Album is visible to friends.\neveryone - Album is visible to everyone.",
+            "enum": [
+              "me",
+              "friendsonly",
+              "everyone"
+            ]
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves all supported fields.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Groups_API"
+          }
+        }
+      },
+      "/1.0/groups/{personId}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported: id and title."
+          },
+          {
+            "name": "msPrivacyLevel",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "MySpace specific field. May be one of the following values:\nme - Album is private.\nfriendsonly - Album is visible to friends.\neveryone - Album is visible to everyone.",
+            "enum": [
+              "me",
+              "friendsonly",
+              "everyone"
+            ]
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves the current user's groups.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Groups_API"
+          }
+        }
+      },
+      "/1.0/notifications/{personId}/@self": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Sends notification.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Notifications_API"
+          }
+        }
+      },
+      "/1.0/appdata/{personId}/{selector}/{appId}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "selector",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which set of individuals to query for activities. @friends and @all currently can be used interchangeably.",
+            "enum": [
+              "@self",
+              "@all",
+              "@friends",
+              "groupId"
+            ]
+          },
+          {
+            "name": "appId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@app",
+            "description": "The application's ID associated with the OAuth ConsumerKey/ConsumerSecret pair."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The fields correspond to keys in the application data. One uses fields to only retrieve specific keys. If the request omits fields, all application data per user will be returned."
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves all application data for a specified user.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=App_Data_API"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Adds or updates a specified user's application data.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=App_Data_API"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Deletes a specified user's application data.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=App_Data_API"
+          }
+        }
+      },
+      "/1.0/people/@supportedFields": {
+        "parameters": [
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported. Bold are default values.\naboutMe, age, birthday, bodyType, children, currentLocation, dateofbirth, displayname,drinker, ethnicity, gender, hasapp, heroes, id, interests, jobinterests, jobs, lookingFor,movies, mslargeImage, msmediumimage, msstatusmood, msusertype, mszodiacsign, music, name, nickname, networkPresence, organizations, photos, profilesong,profileurl, relationshipStatus, religion, sexualOrientation, smoker, status, thumbnailUrl, tvshows, urls, userappdata (See documentation on App_Data endpoints), utcOffset, \n@all (a special value that tells the REST endpoint to send back all fields for the person.)"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves all supported fields.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=People_API"
+          }
+        }
+      },
+      "/1.0/people/{personId}/{selector}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "selector",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which set of individuals to query for activities. @friends and @all currently can be used interchangeably.",
+            "enum": [
+              "@self",
+              "@all",
+              "@friends",
+              "groupId"
+            ]
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported. Bold are default values.\naboutMe, age, birthday, bodyType, children, currentLocation, dateofbirth, displayname,drinker, ethnicity, gender, hasapp, heroes, id, interests, jobinterests, jobs, lookingFor,movies, mslargeImage, msmediumimage, msstatusmood, msusertype, mszodiacsign, music, name, nickname, networkPresence, organizations, photos, profilesong,profileurl, relationshipStatus, religion, sexualOrientation, smoker, status, thumbnailUrl, tvshows, urls, userappdata (See documentation on App_Data endpoints), utcOffset, \n@all (a special value that tells the REST endpoint to send back all fields for the person.)"
+          },
+          {
+            "name": "filterBy",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "@friends, hasapp, @topfriends, @toponlinefriends,\tnetworkpresence.\nSee: http://wiki.developer.myspace.com/index.php?title=People_API#Filters_Supported_by_People_Endpoints"
+          },
+          {
+            "name": "filterOp",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "contains, equals\nSee: http://wiki.developer.myspace.com/index.php?title=People_API#Filters_Supported_by_People_Endpoints"
+          },
+          {
+            "name": "filterValue",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "<userId>, online, true|false \nSee: http://wiki.developer.myspace.com/index.php?title=People_API#Filters_Supported_by_People_Endpoints"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves user data.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=People_API"
+          }
+        }
+      },
+      "/1.0/people/{personId}/{selector}/{friendId}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "selector",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which set of individuals to query for activities. @friends and @all currently can be used interchangeably.",
+            "enum": [
+              "@self",
+              "@all",
+              "@friends",
+              "groupId"
+            ]
+          },
+          {
+            "name": "friendId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Is the same as {personId}, but for the person's friend."
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported. Bold are default values.\naboutMe, age, birthday, bodyType, children, currentLocation, dateofbirth, displayname,drinker, ethnicity, gender, hasapp, heroes, id, interests, jobinterests, jobs, lookingFor,movies, mslargeImage, msmediumimage, msstatusmood, msusertype, mszodiacsign, music, name, nickname, networkPresence, organizations, photos, profilesong,profileurl, relationshipStatus, religion, sexualOrientation, smoker, status, thumbnailUrl, tvshows, urls, userappdata (See documentation on App_Data endpoints), utcOffset, \n@all (a special value that tells the REST endpoint to send back all fields for the person.)"
+          },
+          {
+            "name": "filterBy",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "@friends, hasapp, @topfriends, @toponlinefriends,\tnetworkpresence.\nSee: http://wiki.developer.myspace.com/index.php?title=People_API#Filters_Supported_by_People_Endpoints"
+          },
+          {
+            "name": "filterOp",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "contains, equals\nSee: http://wiki.developer.myspace.com/index.php?title=People_API#Filters_Supported_by_People_Endpoints"
+          },
+          {
+            "name": "filterValue",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "<userId>, online, true|false \nSee: http://wiki.developer.myspace.com/index.php?title=People_API#Filters_Supported_by_People_Endpoints"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves friend data.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=People_API"
+          }
+        }
+      },
+      "/1.0/profilecomments/{personId}/@self": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves profile comments.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Profile_Comments_API"
+          }
+        }
+      },
+      "/opensearch/people": {
+        "parameters": [
+          {
+            "name": "searchTerms",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "Free form search terms or query words"
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Number of items to return."
+          },
+          {
+            "name": "countryCode",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Country code to search with. Can be used instead of culture."
+          },
+          {
+            "name": "culture",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The culture context of the search. Default is en-us."
+          },
+          {
+            "name": "distance",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Distance away from location to return results. Default is in miles, but depending on culture specified, it can be in kilometers."
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "gender",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The gender to filter on. Default is both."
+          },
+          {
+            "name": "hasPhoto",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Filter for only those who have a photo. Default those with or without a photo."
+          },
+          {
+            "name": "latitude",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Geographic latitude. Required to be combined with longitude and not combined with location field."
+          },
+          {
+            "name": "location",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The location field, such as city, state and/or country."
+          },
+          {
+            "name": "longitude",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Geographic longitude. Required to be combined with latitude and not combined with location field."
+          },
+          {
+            "name": "minAge",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Minimum age for returned people. Same functionality as the MySpace website search."
+          },
+          {
+            "name": "maxAge",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Maximum age for returned people. Same functionality as the MySpace website search."
+          },
+          {
+            "name": "searchBy",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Which field the search should go through. Default is all of the fields. (yomi is only available to ja-jp culture)."
+          },
+          {
+            "name": "startPage",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Which page to start at for the results."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns search results for people.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Search_API"
+          }
+        }
+      },
+      "/opensearch/images": {
+        "parameters": [
+          {
+            "name": "searchTerms",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "Free form search terms or query words"
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Number of items to return."
+          },
+          {
+            "name": "culture",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The culture context of the search. Default is en-us."
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "How to sort the images. Default is all."
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates whether to sort ascending or descending. Default is descending."
+          },
+          {
+            "name": "startPage",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Which page to start at for the results."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns search results for images.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Search_API"
+          }
+        }
+      },
+      "/opensearch/videos": {
+        "parameters": [
+          {
+            "name": "searchTerms",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "Free form search terms or query words"
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Number of items to return."
+          },
+          {
+            "name": "culture",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The culture context of the search. Default is en-us."
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json"
+            ]
+          },
+          {
+            "name": "startPage",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Which page to start at for the results."
+          },
+          {
+            "name": "tag",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Determine if searching on tags, as opposed to contents. To enable tag search, set to 1."
+          },
+          {
+            "name": "videoMode",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Search for specific video types. Two allowed values are videoMode=1 (music videos) or videoMode=2 (official).",
+            "enum": [
+              "1",
+              "2"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns search results for videos.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Search_API"
+          }
+        }
+      },
+      "/stream/subscription": {
+        "parameters": [
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Creates a subscription.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Stream_Subscription_API"
+          }
+        }
+      },
+      "/stream/subscription/{subscriptionId}": {
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "description": "The subscription's identifier."
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves a subscription.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Stream_Subscription_API"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Updates a subscription.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Stream_Subscription_API"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Deletes a subscription.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Stream_Subscription_API"
+          }
+        }
+      },
+      "/stream/subscription/@all": {
+        "parameters": [
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves all subscriptions.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Stream_Subscription_API"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Deletes all subscriptions.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Stream_Subscription_API"
+          }
+        }
+      },
+      "/1.0/mediaItems/@supportedFields": {
+        "parameters": [
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported. Bold fields are always returned.\nalbumId, created, description, duration, id, language, mimeType, msMediaItemUri, msPrivacyLevel, \nnumComments, numViews, numVotes, rating, tags, thumbnailUrl, title, type, url \n@all (a special value that tells the REST endpoint to send back all fields for the MediaItem.)"
+          },
+          {
+            "name": "msPrivacyLevel",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "MySpace specific field. May be one of the following values:\nme - Media item is private.\nfriendsonly - Media item is visible to friends.\neveryone - Media item is visible to everyone.",
+            "enum": [
+              "me",
+              "friendsonly",
+              "everyone"
+            ]
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves all supported fields.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Media_Items_APIs"
+          }
+        }
+      },
+      "/1.0/mediaItems/{personId}/@self/{albumId}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "albumId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which single album from the group identified by {selector} should be returned."
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported. Bold fields are always returned.\nalbumId, created, description, duration, id, language, mimeType, msMediaItemUri, msPrivacyLevel, \nnumComments, numViews, numVotes, rating, tags, thumbnailUrl, title, type, url \n@all (a special value that tells the REST endpoint to send back all fields for the MediaItem.)"
+          },
+          {
+            "name": "msPrivacyLevel",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "MySpace specific field. May be one of the following values:\nme - Media item is private.\nfriendsonly - Media item is visible to friends.\neveryone - Media item is visible to everyone.",
+            "enum": [
+              "me",
+              "friendsonly",
+              "everyone"
+            ]
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves items from a specified album.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Media_Items_APIs"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Adds items from a specified album.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Media_Items_APIs"
+          }
+        }
+      },
+      "/1.0/mediaItems/{personId}/@self/{albumId}/{mediaItemId}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "albumId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which single album from the group identified by {selector} should be returned."
+          },
+          {
+            "name": "mediaItemId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which single media item from the album identified by {albumId} should be returned."
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported. Bold fields are always returned.\nalbumId, created, description, duration, id, language, mimeType, msMediaItemUri, msPrivacyLevel, \nnumComments, numViews, numVotes, rating, tags, thumbnailUrl, title, type, url \n@all (a special value that tells the REST endpoint to send back all fields for the MediaItem.)"
+          },
+          {
+            "name": "msPrivacyLevel",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "MySpace specific field. May be one of the following values:\nme - Media item is private.\nfriendsonly - Media item is visible to friends.\neveryone - Media item is visible to everyone.",
+            "enum": [
+              "me",
+              "friendsonly",
+              "everyone"
+            ]
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves an item from a specified album.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Media_Items_APIs"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Updates an item from a specified album.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Media_Items_APIs"
+          }
+        }
+      },
+      "/1.0/mediaItems/{personId}/@self/@videos": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported. Bold fields are always returned.\nalbumId, created, description, duration, id, language, mimeType, msMediaItemUri, msPrivacyLevel, \nnumComments, numViews, numVotes, rating, tags, thumbnailUrl, title, type, url \n@all (a special value that tells the REST endpoint to send back all fields for the MediaItem.)"
+          },
+          {
+            "name": "msPrivacyLevel",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "MySpace specific field. May be one of the following values:\nme - Media item is private.\nfriendsonly - Media item is visible to friends.\neveryone - Media item is visible to everyone.",
+            "enum": [
+              "me",
+              "friendsonly",
+              "everyone"
+            ]
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves all the videos.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Media_Items_APIs"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Adds videos from a specified album.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Media_Items_APIs"
+          }
+        }
+      },
+      "/1.0/mediaItems/{personId}/@self/@videos/{mediaItemId}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "mediaItemId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which single media item should be returned."
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported. Bold fields are always returned.\nalbumId, created, description, duration, id, language, mimeType, msMediaItemUri, msPrivacyLevel, \nnumComments, numViews, numVotes, rating, tags, thumbnailUrl, title, type, url \n@all (a special value that tells the REST endpoint to send back all fields for the MediaItem.)"
+          },
+          {
+            "name": "msPrivacyLevel",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "MySpace specific field. May be one of the following values:\nme - Media item is private.\nfriendsonly - Media item is visible to friends.\neveryone - Media item is visible to everyone.",
+            "enum": [
+              "me",
+              "friendsonly",
+              "everyone"
+            ]
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves a video.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Media_Items_APIs"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Updates an video.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Media_Items_APIs"
+          }
+        }
+      },
+      "/1.0/mediaItems/{personId}/@videos/@supportedcategories": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported. Bold fields are always returned.\nalbumId, created, description, duration, id, language, mimeType, msMediaItemUri, msPrivacyLevel, \nnumComments, numViews, numVotes, rating, tags, thumbnailUrl, title, type, url \n@all (a special value that tells the REST endpoint to send back all fields for the MediaItem.)"
+          },
+          {
+            "name": "msPrivacyLevel",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "MySpace specific field. May be one of the following values:\nme - Media item is private.\nfriendsonly - Media item is visible to friends.\neveryone - Media item is visible to everyone.",
+            "enum": [
+              "me",
+              "friendsonly",
+              "everyone"
+            ]
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves supported categories.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Media_Items_APIs"
+          }
+        }
+      },
+      "/1.0/mediaItems/{personId}/@videos/@supportedcategories/{categoryId}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "categoryId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates the video category about which you want to retrieve data."
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported. Bold fields are always returned.\nalbumId, created, description, duration, id, language, mimeType, msMediaItemUri, msPrivacyLevel, \nnumComments, numViews, numVotes, rating, tags, thumbnailUrl, title, type, url \n@all (a special value that tells the REST endpoint to send back all fields for the MediaItem.)"
+          },
+          {
+            "name": "msPrivacyLevel",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "MySpace specific field. May be one of the following values:\nme - Media item is private.\nfriendsonly - Media item is visible to friends.\neveryone - Media item is visible to everyone.",
+            "enum": [
+              "me",
+              "friendsonly",
+              "everyone"
+            ]
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves videos for Category.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Media_Items_APIs"
+          }
+        }
+      },
+      "/1.0/mediaitemcomments/{personId}/@self/{albumId}/{mediaItemId}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "albumId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which single album from the group identified by {selector} should be returned."
+          },
+          {
+            "name": "mediaItemId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which single media item from the album identified by {albumId} should be returned."
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported. Bold fields are always returned.\nalbumId, created, description, duration, id, language, mimeType, msMediaItemUri, msPrivacyLevel, \nnumComments, numViews, numVotes, rating, tags, thumbnailUrl, title, type, url \n@all (a special value that tells the REST endpoint to send back all fields for the MediaItem.)"
+          },
+          {
+            "name": "msPrivacyLevel",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "MySpace specific field. May be one of the following values:\nme - Media item is private.\nfriendsonly - Media item is visible to friends.\neveryone - Media item is visible to everyone.",
+            "enum": [
+              "me",
+              "friendsonly",
+              "everyone"
+            ]
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves item comments from a specified album.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Media_Items_APIs"
+          }
+        }
+      },
+      "/1.0/statusmood/{personId}/@supportedMood": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported."
+          },
+          {
+            "name": "filterBy",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterOp",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterValue",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves all supported moods.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Adds a mood.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API"
+          }
+        }
+      },
+      "/1.0/statusmood/{personId}/@supportedMood/{moodId}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "moodId",
+            "required": true,
+            "in": "path",
+            "type": "integer",
+            "description": "The integer value of the specific mood that you want to retrieve data for."
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported."
+          },
+          {
+            "name": "filterBy",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterOp",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterValue",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves a mood.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Updates a mood.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API"
+          }
+        }
+      },
+      "/1.0/statusmood/{personId}/{selector}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "selector",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which set of individuals to query for activities. @friends and @all currently can be used interchangeably.",
+            "enum": [
+              "@self",
+              "@all",
+              "@friends"
+            ]
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported."
+          },
+          {
+            "name": "filterBy",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterOp",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterValue",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a status for User.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Updates a status for User.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API"
+          }
+        }
+      },
+      "/1.0/statusmood/{personId}/{selector}/history": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "selector",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which set of individuals to query for activities. @friends and @all currently can be used interchangeably.",
+            "enum": [
+              "@self",
+              "@all",
+              "@friends"
+            ]
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported."
+          },
+          {
+            "name": "filterBy",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterOp",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterValue",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns History User.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API"
+          }
+        }
+      },
+      "/1.0/statusmood/{personId}/{selector}/{friendId}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "friendId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Is the same as {personId}, but for the person's friend."
+          },
+          {
+            "name": "selector",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which set of individuals to query for activities. @friends and @all currently can be used interchangeably.",
+            "enum": [
+              "@self",
+              "@all",
+              "@friends"
+            ]
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported."
+          },
+          {
+            "name": "filterBy",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterOp",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterValue",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a status for Friend.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API"
+          }
+        }
+      },
+      "/1.0/statusmood/{personId}/{selector}/{friendId}/history": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "friendId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Is the same as {personId}, but for the person's friend."
+          },
+          {
+            "name": "selector",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which set of individuals to query for activities. @friends and @all currently can be used interchangeably.",
+            "enum": [
+              "@self",
+              "@all",
+              "@friends"
+            ]
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported."
+          },
+          {
+            "name": "filterBy",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterOp",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterValue",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns History Friend.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API"
+          }
+        }
+      },
+      "/1.0/statusmoodcomments/{personId}/@self/{statusId}": {
+        "parameters": [
+          {
+            "name": "personId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "@me",
+            "description": "The person's identifier."
+          },
+          {
+            "name": "statusId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Specifies which status or mood to post a comment for."
+          },
+          {
+            "name": "selector",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "Indicates which set of individuals to query for activities. @friends and @all currently can be used interchangeably.",
+            "enum": [
+              "@self",
+              "@all",
+              "@friends"
+            ]
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Only returns the nearest multiple of 3 compared to the original value."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "The following field names are supported."
+          },
+          {
+            "name": "filterBy",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterOp",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "filterValue",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "See: http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API#Filtering_Results"
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Determines the format of the response.",
+            "enum": [
+              "json",
+              "xml"
+            ]
+          },
+          {
+            "name": "startIndex",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates the index of the first item to retrieve from the query set."
+          }
+        ],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Posts a comment to a status.",
+          "externalDocs": {
+            "url": "http://wiki.developer.myspace.com/index.php?title=Status_and_Mood_API"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "MySpace",
+      "description": "Create apps and games within the MySpace platform. Monetize through advertising and virtual goods."
+    }
+  },
+  "public": true
+}

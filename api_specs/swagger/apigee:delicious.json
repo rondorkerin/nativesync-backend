@@ -1,0 +1,460 @@
+{
+  "type": "api",
+  "key": "apigee:delicious",
+  "info": {
+    "title": "Delicious",
+    "description": "Keep, share and discover the best of the Web with Delicious APIs."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "api.del.icio.us",
+    "basePath": "/v1/",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/posts/update": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns the last update time for the user, as well as the number of new items in the user's inbox since it was last visited.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/posts/add": {
+        "parameters": [
+          {
+            "name": "url",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "The URL of the item."
+          },
+          {
+            "name": "description",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "The description of the item."
+          },
+          {
+            "name": "extended",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Notes for the item."
+          },
+          {
+            "name": "tags",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Tags for the item (space delimited)."
+          },
+          {
+            "name": "dt",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Datestamp of the item (format \"CCYY-MM-DDThh:mm:ssZ\"). Requires a LITERAL \"T\" and \"Z\" like in ISO8601 at http://www.cl.cam.ac.uk/~mgk25/iso-time.html for example: \"1984-09-01T14:21:31Z\""
+          },
+          {
+            "name": "replace",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "no",
+            "description": "Don't replace post if given url has already been posted."
+          },
+          {
+            "name": "shared",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "no",
+            "description": "Make the item private."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Add a post to Delicious.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/posts/delete": {
+        "parameters": [
+          {
+            "name": "url",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "The URL of the item."
+          }
+        ],
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete a post from Delicious.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/posts/get": {
+        "parameters": [
+          {
+            "name": "tag",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Filter by this tag (space delimited)."
+          },
+          {
+            "name": "dt",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Filter by this date, defaults to the most recent date on which bookmarks were saved."
+          },
+          {
+            "name": "url",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Fetch a bookmark for this URL, regardless of date. Note: Be sure to URL-encode the argument value."
+          },
+          {
+            "name": "hashes",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Fetch multiple bookmarks by one or more URL MD5s regardless of date, separated by URL-encoded spaces (ie. '+')."
+          },
+          {
+            "name": "meta",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "yes",
+            "description": "Include change detection signatures on each item in a 'meta' attribute. Clients wishing to maintain a synchronized local store of bookmarks should retain the value of this attribute - its value will change when any significant field of the bookmark changes."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns one or more posts on a single day matching the arguments. If no date or url is given, most recent date will be used.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/posts/recent": {
+        "parameters": [
+          {
+            "name": "tag",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Filter by this tag."
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "default": 15,
+            "description": "Number of items to retrieve (Default:15, Maximum:100)."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a list of the most recent posts, filtered by argument. Maximum 100.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/posts/dates": {
+        "parameters": [
+          {
+            "name": "tag",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Filter by this tag."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a list of dates with the number of posts at each date.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/posts/all": {
+        "parameters": [
+          {
+            "name": "tag",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Filter by this tag."
+          },
+          {
+            "name": "start",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Start returning posts this many results into the set."
+          },
+          {
+            "name": "results",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "Return this many results."
+          },
+          {
+            "name": "fromdt",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Filter for posts on this date or later."
+          },
+          {
+            "name": "todt",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Filter for posts on this date or earlier."
+          },
+          {
+            "name": "meta",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "yes",
+            "description": "Include change detection signatures on each item in a 'meta' attribute. Clients wishing to maintain a synchronized local store of bookmarks should retain the value of this attribute - its value will change when any significant field of the bookmark changes."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns all posts. Please use sparingly. Call the update function to see if you need to fetch this at all.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/posts/all?hashes": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a change manifest of all posts. Call the update function to see if you need to fetch this at all.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/posts/suggest": {
+        "parameters": [
+          {
+            "name": "url",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "URL for which you'd like suggestions."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a list of popular tags, recommended tags and network tags for a user.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/tags/get": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Returns a list of tags and number of times used by a user.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/tags/delete": {
+        "parameters": [
+          {
+            "name": "tag",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "Tag to delete."
+          }
+        ],
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete an existing tag.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/tags/rename": {
+        "parameters": [
+          {
+            "name": "old",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "Tag to rename."
+          },
+          {
+            "name": "new",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "New tag name."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Rename an existing tag with a new tag name.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/tags/bundles/all": {
+        "parameters": [
+          {
+            "name": "bundle",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Fetch just the named bundle."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieve all of a user's bundles.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/tags/bundles/set": {
+        "parameters": [
+          {
+            "name": "bundle",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "Name of the bundle."
+          },
+          {
+            "name": "tags",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "List of tags, space-separated."
+          }
+        ],
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Assign a set of tags to a single bundle, wipes away previous settings for bundle.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      },
+      "/tags/bundles/delete": {
+        "parameters": [
+          {
+            "name": "bundle",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "Name of the bundle."
+          }
+        ],
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Delete a bundle.",
+          "externalDocs": {
+            "url": "http://delicious.com/developers#title1"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "Delicious",
+      "description": "Keep, share and discover the best of the Web with Delicious APIs."
+    }
+  },
+  "public": true
+}

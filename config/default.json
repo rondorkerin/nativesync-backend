@@ -1,0 +1,14 @@
+{
+  "port": 8083,
+  "redis": {
+    "host": "localhost",
+    "port": 6379
+  },
+  "postgres": {
+    "host": "localhost",
+    "username": "nickbryant",
+    "password": "",
+    "port": "5433",
+    "database": "nativesync"
+  }
+}

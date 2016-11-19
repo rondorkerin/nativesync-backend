@@ -1,0 +1,509 @@
+{
+  "type": "api",
+  "key": "apigee:paypal",
+  "info": {
+    "title": "PayPal (Sandbox)",
+    "description": "Bring payments to apps, mobile and social with Adaptive Payments <b>(Sandbox API).</b>"
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "svcs.sandbox.paypal.com",
+    "basePath": "/",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/AdaptivePayments/Pay": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the Pay API operation to transfer funds from a sender’s PayPal account to one or more receivers’ PayPal accounts. You can use the Pay API operation to make simple payments, chained payments, or parallel payments; these payments can be explicitly approved, preapproved, or implicitly approved.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-payments/Pay_API_Operation/"
+          }
+        }
+      },
+      "/AdaptivePayments/PaymentDetails": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the PaymentDetails API operation to obtain information about a payment. You can identify the payment by your tracking ID, the PayPal transaction ID in an IPN message, or the pay key associated with the payment.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-payments/PaymentDetails_API_Operation/"
+          }
+        }
+      },
+      "/AdaptivePayments/Preapproval": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the Preapproval API operation to set up an agreement between yourself and a sender for making payments on the sender’s behalf. You set up a preapprovals for a specific maximum amount over a specific period of time and, optionally, by any of the following constraints: the number of payments, a maximum per-payment amount, a specific day of the week or the month, and whether or not a PIN is required for each payment request.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-payments/Preapproval_API_Operation/"
+          }
+        }
+      },
+      "/AdaptivePayments/PreapprovalDetails": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the PreapprovalDetails API operation to obtain information about an agreement between you and a sender for making payments on the sender’s behalf.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-payments/PreapprovalDetails_API_Operation/"
+          }
+        }
+      },
+      "/AdaptivePayments/CancelPreapproval": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the CancelPreapproval API operation to handle the canceling of preapprovals. Preapprovals can be canceled regardless of the state they are in, such as active, expired, deactivated, and previously canceled.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-payments/CancelPreapproval_API_Operation/"
+          }
+        }
+      },
+      "/AdaptivePayments/ConvertCurrency": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the ConvertCurrency API operation to request the current foreign exchange (FX) rate for a specific amount and currency.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-payments/ConvertCurrency_API_Operation/"
+          }
+        }
+      },
+      "/AdaptivePayments/Refund": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the Refund API operation to refund all or part of a payment. You can specify the amount of the refund and identify the accounts to receive the refund by the payment key or tracking ID, and optionally, by transaction ID or the receivers of the original payment.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-payments/Refund_API_Operation/"
+          }
+        }
+      },
+      "/AdaptivePayments/GetPaymentOptions": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "You use the GetPaymentOptions API operation to retrieve the payment options passed with the SetPaymentOptionsRequest.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-payments/GetPaymentOptions_API_Operation/"
+          }
+        }
+      },
+      "/AdaptivePayments/SetPaymentOptions": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "You use the SetPaymentOptions API operation to specify settings for a payment of the actionType CREATE. \n\t\t\t\t\tThis actionType is specified in the PayRequest message.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-payments/SetPaymentOptions_API_Operation/"
+          }
+        }
+      },
+      "/AdaptivePayments/ExecutePayment": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "The ExecutePayment API operation lets you execute a payment set up with the Pay API operation with the actionType CREATE. To pay receivers identified in the Pay call, set the pay key from the PayResponse message in the ExecutePaymentRequest message.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-payments/ExecutePayment_API_Operation/"
+          }
+        }
+      },
+      "/AdaptivePayments/GetShippingAddresses": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the GetShippingAddresses API operation to obtain the selected shipping address. You must have created the payment or preapproval key that identifies the account holder whose shipping address you want to obtain, or be the primary receiver of the payment or one of the parallel receivers of the payment. The shipping address is available only if it was provided during the embedded payment flow.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-payments/GetShippingAddresses_API_Operation/"
+          }
+        }
+      },
+      "/AdaptivePayments/GetFundingPlans": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the GetFundingPlans API operation to determine the funding sources that are available for a specified payment, identified by its key, which takes into account the preferences and country of the receiver as well as the payment amount. You must be both the sender of the payment and the caller of this API operation",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-payments/GetFundingPlans_API_Operation/"
+          }
+        }
+      },
+      "/AdaptiveAccounts/CreateAccount": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "X-PAYPAL-SANDBOX-EMAIL-ADDRESS",
+              "required": true,
+              "in": "header"
+            }
+          ],
+          "description": "The CreateAccount API operation enables you to create a PayPal account on behalf of a third party.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-accounts/CreateAccount_API_Operation/"
+          }
+        }
+      },
+      "/AdaptiveAccounts/AddBankAccount": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "The AddBankAccount API operation lets your application set up bank accounts as funding sources for PayPal accounts.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-accounts/AddBankAccount_API_Operation/"
+          }
+        }
+      },
+      "/AdaptiveAccounts/AddPaymentCard": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "The AddPaymentCard API operation lets your application set up credit cards as funding sources for PayPal accounts.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-accounts/AddPaymentCard_API_Operation/"
+          }
+        }
+      },
+      "/AdaptiveAccounts/SetFundingSourceConfirmed": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "The SetFundingSourceConfirmed API operation lets your application set up bank accounts as funding sources for PayPal accounts.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-accounts/SetFundingSourceConfirmed_API_Operation/"
+          }
+        }
+      },
+      "/AdaptiveAccounts/GetVerifiedStatus": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "The GetVerifiedStatus API operation lets you check if a PayPal account status is verified. A PayPal account gains verified status under a variety of circumstances, such as when an account is linked to a verified funding source. Verified status serves to indicate a trust relationship. For more information about account verified status, refer to PayPal.com.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-accounts/GetVerifiedStatus_API_Operation/"
+          }
+        }
+      },
+      "/AdaptiveAccounts/GetUserAgreement": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "The GetUserAgreement API operation lets you retrieve the user agreement for the customer to approve the new PayPal account.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/adaptive-accounts/GetUserAgreement_API_Operation/"
+          }
+        }
+      },
+      "/Invoice/CreateInvoice": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the CreateInvoice API operation to create a new invoice. The call includes merchant, payer, and API caller information, in addition to invoice detail. The response to the call contains an invoice ID and URL.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/invoicing/CreateInvoice_API_Operation/"
+          }
+        }
+      },
+      "/Invoice/SendInvoice": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the SendInvoice API operation to send an invoice to a payer, and notify the payer of the pending invoice.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/invoicing/SendInvoice_API_Operation/"
+          }
+        }
+      },
+      "/Invoice/CreateAndSendInvoice": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the CreateAndSendInvoice API operation to create and send an invoice.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/invoicing/CreateAndSendInvoice_API_Operation/"
+          }
+        }
+      },
+      "/Invoice/UpdateInvoice": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the UpdateInvoice API operation to update an invoice.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/invoicing/UpdateInvoice_API_Operation/"
+          }
+        }
+      },
+      "/Invoice/GetInvoiceDetails": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the GetInvoiceDetails API operation to get detailed information about an invoice.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/invoicing/GetInvoiceDetails_API_Operation/"
+          }
+        }
+      },
+      "/Invoice/CancelInvoice": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the CancelInvoice API operation to cancel an invoice.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/invoicing/CancelInvoice_API_Operation/"
+          }
+        }
+      },
+      "/Invoice/MarkInvoiceAsPaid": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the MarkInvoiceAsPaid API operation to mark an invoice as paid.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/invoicing/MarkInvoiceAsPaid_API_Operation/"
+          }
+        }
+      },
+      "/Invoice/SearchInvoices": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the SearchInvoice API operation to search an invoice.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/invoicing/SearchInvoices_API_Operation/"
+          }
+        }
+      },
+      "/Permissions/RequestPermissions": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the RequestPermissions API operation to request permissions to execute API operations on a PayPal account holder’s behalf.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/permissions/RequestPermissions_API_Operation/"
+          }
+        }
+      },
+      "/Permissions/GetAccessToken": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the GetAccessToken API operation to obtain an access token for a set of permissions.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/permissions/GetAccessToken_API_Operation/"
+          }
+        }
+      },
+      "/Permissions/GetPermissions": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the GetPermissons API operation to obtain the permissions associated with an access token.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/permissions/GetPermissions_API_Operation/"
+          }
+        }
+      },
+      "/Permissions/CancelPermissions": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the CancelPermissions API operation to cancel access to a set of permissions.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/permissions/CancelPermissions_API_Operation/"
+          }
+        }
+      },
+      "/Permissions/GetBasicPersonalData": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the GetBasicPersonalData API operation to obtain basic personal data for an account holder.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/permissions/GetBasicPersonalData_API_Operation/"
+          }
+        }
+      },
+      "/Permissions/GetAdvancedPersonalData": {
+        "parameters": [],
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [],
+          "description": "Use the GetAdvancedPersonalData API operation to obtain sensitive personal data for an account holder.",
+          "externalDocs": {
+            "url": "https://developer.paypal.com/docs/classic/api/permissions/GetAdvancedPersonalData_API_Operation/"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "PayPal (Sandbox)",
+      "description": "Bring payments to apps, mobile and social with Adaptive Payments <b>(Sandbox API).</b>"
+    }
+  },
+  "public": true
+}

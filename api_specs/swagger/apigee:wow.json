@@ -1,0 +1,259 @@
+{
+  "type": "api",
+  "key": "apigee:wow",
+  "info": {
+    "title": "World of Warcraft",
+    "description": "Welcome to the RESTful APIs exposed through the World of Warcraft community site as a service to the World of Warcraft community."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "us.battle.net",
+    "basePath": "/api/wow",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/character/{realm}/{characterName}": {
+        "parameters": [
+          {
+            "name": "realm",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The realm name."
+          },
+          {
+            "name": "characterName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The character name."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates that one or more of the optional datasets is to be retrieved. The list of the optional fields that can be requested:\n- guild: A summary of the guild that the character belongs to. If the character does not belong to a guild and this field is requested, this field will not be exposed.\n- stats: A map of character attributes and stats.\n- talents: A list of talent structures.\n- items: A list of items equipted by the character. Use of this field will also include the average item level and average item level equipped for the character.\n- reputation: A list of the factions that the character has an associated reputation with.\n- titles: A list of the titles obtained by the character including the currently selected title.\n- professions: A list of the character's professions. It is important to note that when this information is retrieved, it will also include the known recipes of each of the listed professions.\n- appearance: A map of values that describes the face, features and helm/cloak display preferences and attributes.\n- companions: A list of all of the non-combat pets obtained by the character.\n- mounts: A list of all of the mounts obtained by the character.\n- pets: A list of all of the combat pets obtained by the character.\n- achievements: A map of achievement data including completion timestamps and criteria information.\n- progression: A list of raids and bosses indicating raid progression and completedness.\n- pvp: A map of pvp information including arena team membership and rated battlegrounds information.\n- quests: A list of quests completed by the character."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Fetches a single character at a time through an HTTP GET request to a URL describing the character profile resource. By default, a basic dataset will be returned and with each request and zero or more additional fields can be retrieved. The core dataset returned includes the character's realm, name, level, last modified timestamp, thumbnail, race id, achievement points value, gender id and class id.",
+          "externalDocs": {
+            "url": "http://blizzard.github.com/api-wow-docs/#id3380312"
+          }
+        }
+      },
+      "/guild/{realm}/{guildName}": {
+        "parameters": [
+          {
+            "name": "realm",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The realm name."
+          },
+          {
+            "name": "guildName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The guild name."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Indicates that one or more of the optional datasets is to be retrieved. The list of the optional fields that can be requested:\n- members: A list of characters that are a member of the guild.\n- achievements: A set of data structures that describe the achievements earned by the guild."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Fetches a single guild at a time through an HTTP GET request to a url describing the guild profile resource. By default, a basic dataset will be returned and with each request and zero or more additional fields can be retrieved. The core dataset returned includes the guild's name, level, faction and achievement points.",
+          "externalDocs": {
+            "url": "http://blizzard.github.com/api-wow-docs/#id3381560"
+          }
+        }
+      },
+      "/realm/status": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves realms status information. This information is limited to whether or not the realm is up, the type and state of the realm and the current population.",
+          "externalDocs": {
+            "url": "http://blizzard.github.com/api-wow-docs/#id3381933"
+          }
+        }
+      },
+      "/auction/data/{realm}": {
+        "parameters": [
+          {
+            "name": "realm",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The realm name."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Provides a per-realm list of recently generated auction house data dumps. The current auctions data is represented as JSON structures containing auction data for the tree auctions houses available on each realm.",
+          "externalDocs": {
+            "url": "http://blizzard.github.com/api-wow-docs/#id3382002"
+          }
+        }
+      },
+      "/item/{itemId}": {
+        "parameters": [
+          {
+            "name": "itemId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The item ID."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Provides detailed item information.",
+          "externalDocs": {
+            "url": "http://blizzard.github.com/api-wow-docs/#id3382086"
+          }
+        }
+      },
+      "/arena/{realm}/{teamSize}/{teamName}": {
+        "parameters": [
+          {
+            "name": "realm",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The realm name."
+          },
+          {
+            "name": "teamSize",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The team size."
+          },
+          {
+            "name": "teamName",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The team name."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Provides detailed arena team information.",
+          "externalDocs": {
+            "url": "http://blizzard.github.com/api-wow-docs/#id3382144"
+          }
+        }
+      },
+      "/data/character/races": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Provides a list of character races.",
+          "externalDocs": {
+            "url": "http://blizzard.github.com/api-wow-docs/#id3382216"
+          }
+        }
+      },
+      "/data/character/classes": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Provides a list of character classes.",
+          "externalDocs": {
+            "url": "http://blizzard.github.com/api-wow-docs/#id3382233"
+          }
+        }
+      },
+      "/data/guild/rewards": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Provides a list of all guild rewards.",
+          "externalDocs": {
+            "url": "http://blizzard.github.com/api-wow-docs/#id3382250"
+          }
+        }
+      },
+      "/data/guild/perks": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Provides a list of all guild perks.",
+          "externalDocs": {
+            "url": "http://blizzard.github.com/api-wow-docs/#id3382266"
+          }
+        }
+      },
+      "/data/item/classes": {
+        "parameters": [],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Provides a list of item classes.",
+          "externalDocs": {
+            "url": "http://blizzard.github.com/api-wow-docs/#id3382283"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "World of Warcraft",
+      "description": "Welcome to the RESTful APIs exposed through the World of Warcraft community site as a service to the World of Warcraft community."
+    }
+  },
+  "public": true
+}

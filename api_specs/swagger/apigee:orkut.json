@@ -1,0 +1,409 @@
+{
+  "type": "api",
+  "key": "apigee:orkut",
+  "info": {
+    "title": "Orkut",
+    "description": "Build OpenSocial-based applications for orkut's world-wide user base."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "www.googleapis.com",
+    "basePath": "/orkut/v2",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/activities/{activityId}/acl/{userId}": {
+        "parameters": [
+          {
+            "name": "activityId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "ID of the activity to remove."
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "ID of the user to be removed from the activity."
+          }
+        ],
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Excludes an element from the ACL of the activity. The value \"me\" is valid for the parameter userId and means the authenticated user.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/orkut/v2/reference.html#method_orkut_acl_delete"
+          }
+        }
+      },
+      "/people/{userId}/activities/{collection}": {
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The ID of the user whose activities will be listed. Can be me to refer to the viewer (i.e. the authenticated user)."
+          },
+          {
+            "name": "collection",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The collection of activities to list. \n1. \"stream\", which shows activities from the user's friends. Applications can only view the stream of the authenticated user.\n2. \"all\", which shows activities created by the user that are visible to the authenticated user.\n3. \"scraps\", which shows the user's scrapbook. Access controls apply, so the authenticated user will see public scraps, scraps to all friends if he or she is a friend of the target user, and private scraps if he or she is in the Access control list\nfor the scrap.",
+            "enum": [
+              "all",
+              "scraps",
+              "steam"
+            ]
+          },
+          {
+            "name": "hl",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Specifies the interface language (host language) of your user interface."
+          },
+          {
+            "name": "maxResults",
+            "required": false,
+            "in": "query",
+            "type": "integer",
+            "description": "The maximum number of activities to include in the response. (integer, 1-100)"
+          },
+          {
+            "name": "pageToken",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "A continuation token that allows pagination."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Selector specifying which fields to include in a partial response."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves a list of activities.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/orkut/v2/reference.html#method_orkut_activities_list"
+          }
+        }
+      },
+      "/activities/{activityId}": {
+        "parameters": [
+          {
+            "name": "activityId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "ID of the activity to remove."
+          }
+        ],
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Deletes an existing activity, if the access controls allow it. Currently the authenticated user is only allowed to delete their own activities.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/orkut/v2/reference.html#method_orkut_activities_delete"
+          }
+        }
+      },
+      "/activities/{activityId}/visibility": {
+        "parameters": [
+          {
+            "name": "activityId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "ID of the activity to get the visibility."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Selector specifying which fields to include in a partial response."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Gets the visibility of an existing activity.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/orkut/v2/reference.html#method_orkut_activityVisibility_get"
+          }
+        },
+        "put": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Updates the visibility of an existing activity.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/orkut/v2/reference.html#method_orkut_activityVisibility_update"
+          }
+        }
+      },
+      "/people/{userId}/badges": {
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The id of the user whose badges will be listed. Can be me to refer to caller."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Selector specifying which fields to include in a partial response."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves the list of visible badges of a user.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/orkut/v2/reference.html#method_orkut_badges_list"
+          }
+        }
+      },
+      "/people/{userId}/badges/{badgeId}": {
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The ID of the user whose badges will be listed. Can be me to refer to caller."
+          },
+          {
+            "name": "badgeId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The ID of the badge that will be retrieved."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Selector specifying which fields to include in a partial response."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves a badge from a user.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/orkut/v2/reference.html#method_orkut_badges_get"
+          }
+        }
+      },
+      "/activities/{activityId}/comments": {
+        "parameters": [
+          {
+            "name": "activityId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The ID of the activity containing the comments."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Selector specifying which fields to include in a partial response."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "hl",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Specifies the interface language (host language) of your user interface."
+            },
+            {
+              "name": "maxResults",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The maximum number of activities to include in the response. (integer, 1+)"
+            },
+            {
+              "name": "orderBy",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Sort search results."
+            },
+            {
+              "name": "pageToken",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "A continuation token that allows pagination."
+            }
+          ],
+          "description": "Retrieves a list of comments, possibly filtered.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/orkut/v2/reference.html#method_orkut_comments_list"
+          }
+        },
+        "post": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "required": true,
+              "in": "header",
+              "type": "string",
+              "default": "application/json",
+              "description": "Specifies Content Type."
+            }
+          ],
+          "description": "Inserts a new comment to an activity.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/orkut/v2/reference.html#method_orkut_comments_insert"
+          }
+        }
+      },
+      "/comments/{commentId}": {
+        "parameters": [
+          {
+            "name": "commentId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "ID of the comment to get."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "hl",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Specifies the interface language (host language) of your user interface."
+            },
+            {
+              "name": "fields",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Selector specifying which fields to include in a partial response."
+            }
+          ],
+          "description": "Retrieves an existing comment.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/orkut/v2/reference.html#method_orkut_comments_get"
+          }
+        },
+        "delete": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Deletes an existing comment.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/orkut/v2/reference.html#method_orkut_comments_delete"
+          }
+        }
+      },
+      "/people/{userId}/counters": {
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "The ID of the user whose counters will be listed."
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Selector specifying which fields to include in a partial response."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Retrieves the counters of an user.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/orkut/v2/reference.html#method_orkut_counters_list"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "Orkut",
+      "description": "Build OpenSocial-based applications for orkut's world-wide user base."
+    }
+  },
+  "public": true
+}

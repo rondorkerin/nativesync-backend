@@ -2,3 +2,6 @@ node_modules
 *.swp
 .env
 *.log
+*.swn
+*.swo
+*.swa

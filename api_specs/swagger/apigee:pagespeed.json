@@ -1,0 +1,94 @@
+{
+  "type": "api",
+  "key": "apigee:pagespeed",
+  "info": {
+    "title": "PageSpeed",
+    "description": "Integrate PageSpeed performance analysis into your development workflow."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "www.googleapis.com",
+    "basePath": "/pagespeedonline/v1",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/runPagespeed": {
+        "parameters": [
+          {
+            "name": "url",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "The URL to fetch and analyze."
+          },
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "en_US",
+            "description": "The locale used to localize formatted results."
+          },
+          {
+            "name": "rule",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "A Page Speed rule to run; if none are given, all rules are run."
+          },
+          {
+            "name": "strategy",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "default": "desktop",
+            "description": "The analysis strategy to use.",
+            "enum": [
+              "desktop",
+              "mobile"
+            ]
+          },
+          {
+            "name": "callback",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "Callback function."
+          },
+          {
+            "name": "prettyPrint",
+            "required": false,
+            "in": "query",
+            "type": "boolean",
+            "default": true,
+            "description": "Returns response with identations and line breaks."
+          },
+          {
+            "name": "userIp",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "IP address of the site where the request originates."
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "Runs Page Speed analysis on the page at the specified URL, and returns a Page Speed score, a list of suggestions to make that page faster, and other information.",
+          "externalDocs": {
+            "url": "http://code.google.com/intl/en/apis/pagespeedonline/v1/reference.html#method_pagespeedonline_pagespeedapi_runpagespeed"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "PageSpeed",
+      "description": "Integrate PageSpeed performance analysis into your development workflow."
+    }
+  },
+  "public": true
+}

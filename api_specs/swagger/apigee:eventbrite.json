@@ -1,0 +1,1891 @@
+{
+  "type": "api",
+  "key": "apigee:eventbrite",
+  "info": {
+    "title": "Eventbrite",
+    "description": "Create, manage & promote events. Add event-management features to your site. Show the world what exciting things are happening around them."
+  },
+  "swagger": {
+    "swagger": "2.0",
+    "host": "www.eventbrite.com",
+    "basePath": "/%7Bdata-type%7D/",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/event_search": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "keywords",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The search keywords. To run an OR search, you need this format: “keywords=google%20OR%20multimedia”. Optional."
+            },
+            {
+              "name": "category",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Event categories (comma seperated): conference, conventions, entertainment, fundraisers, meetings, other, performances, reunions, sales, seminars, social, sports, tradeshows, travel, religion, fairs, food, music, recreation. Optional."
+            },
+            {
+              "name": "address",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The venue address. Optional."
+            },
+            {
+              "name": "city",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The venue city. Optional."
+            },
+            {
+              "name": "region",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The venue state/province/county/territory depending on the country. 2-letter state code is required for US addresses. Optional."
+            },
+            {
+              "name": "postal_code",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The postal/zip code of the venue. Optional."
+            },
+            {
+              "name": "country",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "2-letter country code, according to the ISO 3166 format. Optional."
+            },
+            {
+              "name": "within",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "If “within” is set and the “city” or “zipcode” resolve to a specific geolocation, the search will be restricted to the specified within radius. The sorting default will be set to “distance”. Optional."
+            },
+            {
+              "name": "within_unit",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "If within is set, you can specify the unit to use: “M” for miles, or “K” for kilometers. By default, the API will use miles. Optional."
+            },
+            {
+              "name": "latitude",
+              "required": false,
+              "in": "query",
+              "description": "If “within” is set you can limit your search to wgs84 coordinates (latitude, longitude). Optional."
+            },
+            {
+              "name": "longitude",
+              "required": false,
+              "in": "query",
+              "description": "If “within” is set you can limit your search to wgs84 coordinates (latitude, longitude). Optional."
+            },
+            {
+              "name": "date",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The event start date. Limit the list of results to a date range, specified by a label or by exact dates. Currently supported labels include: “All”, “Future”, “Past”, “Today”, “Yesterday”, “Last Week”, “This Week”, “Next week”, “This Month”, “Next Month” and months by name, e.g. “October”. Exact date ranges take the form “YYYY-MM-DD YYYY-MM-DD”, e.g. “2008-04-25 2008-04-27″. Optional."
+            },
+            {
+              "name": "date_created",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The date range the event was created, specified by a label or by exact dates. Currently supported labels include: “All”, “Future”, “Past”, “Today”, “Yesterday”, “Last Week”, “This Week”, “Next week”, “This Month”, “Next Month” and months by name, e.g. “October”. Exact date ranges take the form “YYYY-MM-DD YYYY-MM-DD”, e.g. “2008-04-25 2008-04-27″. Optional."
+            },
+            {
+              "name": "date_modified",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The date range the event was modified, specified by a label or by exact dates. Currently supported labels include: “All”, “Future”, “Past”, “Today”, “Yesterday”, “Last Week”, “This Week”, “Next week”, “This Month”, “Next Month” and months by name, e.g. “October”. Exact date ranges take the form “YYYY-MM-DD YYYY-MM-DD”, e.g. “2008-04-25 2008-04-27″. Optional."
+            },
+            {
+              "name": "organizer",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The organizer name. Optional."
+            },
+            {
+              "name": "max",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "default": 10,
+              "description": "Limit the number of events returned. Maximum limit is 100 events per page. Default is 10. Optional."
+            },
+            {
+              "name": "count_only",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "default": false,
+              "description": "Only return the total number of events (“true” or “false”). Default is “false”. Optional."
+            },
+            {
+              "name": "sort_by",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "date",
+              "description": "Sort the list of events by “id”, “date”, “name”, “city”. The default is “date”. Optional."
+            },
+            {
+              "name": "page",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "default": 1,
+              "description": "Allows for paging through the results of a query. Default is 1. Optional."
+            },
+            {
+              "name": "since_id",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "default": 1,
+              "description": "Returns events with id greater than “since_id” value. Default is 1. Optional."
+            },
+            {
+              "name": "tracking_link",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The tracking link code to add to the event URLs. Optional."
+            }
+          ],
+          "description": "This method uses our search index to find publicly listed events.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/events/event_search"
+          }
+        }
+      },
+      "/event_get": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "event_id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The ID of the requested event."
+            }
+          ],
+          "description": "This method returns the data for a given event. Only public events are viewable if no authentication is passed.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/events/event_get"
+          }
+        }
+      },
+      "/event_new": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "title",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The event title. 255 characters max."
+            },
+            {
+              "name": "description",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The event description. Optional."
+            },
+            {
+              "name": "start_date",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The event start date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″)."
+            },
+            {
+              "name": "end_date",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The event end date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″)."
+            },
+            {
+              "name": "timezone",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The event time zone in relation to GMT (e.g., “GMT+01″, “GMT+02″, “GMT-01″)."
+            },
+            {
+              "name": "privacy",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "0 for a private event, 1 for a public event. If not provided, will default to 0. Optional."
+            },
+            {
+              "name": "personalized_url",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The event registration URL. If you pass “testevent”, the event will be accessible at “http://testevent.eventbrite.com”.  This string is limited to 255 characters max. Optional."
+            },
+            {
+              "name": "venue_id",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The event venue ID. The venue must have been previously created using /venue_new. Optional."
+            },
+            {
+              "name": "organizer_id",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The event organizer ID. The organizer must have been previously created using /organizer_new. Optional."
+            },
+            {
+              "name": "capacity",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The maximum number of people who can attend the event. Optional."
+            },
+            {
+              "name": "currency",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The event currency in ISO 4217 format (e.g., “USD”, “EUR”). Optional."
+            },
+            {
+              "name": "status",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The event status. Allowed values are “draft”, “live” for new events. If not provided, status will be “draft”, meaning that the event registration page will not be available publicly. Optional."
+            },
+            {
+              "name": "custom_header",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom HTML header for your registration page. Optional."
+            },
+            {
+              "name": "custom_footer",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom HTML footer for your registration page. Optional."
+            },
+            {
+              "name": "background_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional."
+            },
+            {
+              "name": "text_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional."
+            },
+            {
+              "name": "title_text_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional."
+            },
+            {
+              "name": "box_background_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional."
+            },
+            {
+              "name": "box_text_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional."
+            },
+            {
+              "name": "box_border_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional."
+            },
+            {
+              "name": "box_header_background_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional."
+            },
+            {
+              "name": "box_header_text_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound. Optional."
+            }
+          ],
+          "description": "This method creates a new event. It returns the ID of the newly created event.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/events/event_new"
+          }
+        }
+      },
+      "/event_update": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "event_id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The ID of the event to update."
+            },
+            {
+              "name": "title",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The event title. 255 characters max."
+            },
+            {
+              "name": "description",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The event description."
+            },
+            {
+              "name": "start_date",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The event start date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″)."
+            },
+            {
+              "name": "end_date",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The event end date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″)."
+            },
+            {
+              "name": "timezone",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The event time zone in relation to GMT (e.g., “GMT+01″, “GMT+02″, “GMT-01″) or US Time Zone (“PT”  or “US/Pacific”, “MT”   or “US/Mountain”, “CT”   or “US/Central” or “ET”  or “US/Eastern”)."
+            },
+            {
+              "name": "privacy",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "0 for a private event, 1 for a public event."
+            },
+            {
+              "name": "personalized_url",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The event registration URL subdomain.  Your event will be available at http://<personalized_url>.eventbrite.com.  This string is limited to 255 characters max."
+            },
+            {
+              "name": "venue_id",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The event venue ID. The venue must have been previously created using /venue_new."
+            },
+            {
+              "name": "organizer_id",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The event organizer ID. The organizer must have been previously created using /organizer_new."
+            },
+            {
+              "name": "capacity",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The maximum number of people who can attend the event."
+            },
+            {
+              "name": "currency",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The event currency in ISO 4217 format (e.g., “USD”, “EUR”)."
+            },
+            {
+              "name": "status",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The event status. Allowed values are “draft”, “live” for new events."
+            },
+            {
+              "name": "custom_header",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom HTML header for your registration page."
+            },
+            {
+              "name": "custom_footer",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom HTML footer for your registration page."
+            },
+            {
+              "name": "background_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound."
+            },
+            {
+              "name": "text_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound."
+            },
+            {
+              "name": "title_text_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound."
+            },
+            {
+              "name": "box_background_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound."
+            },
+            {
+              "name": "box_text_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound."
+            },
+            {
+              "name": "box_border_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound."
+            },
+            {
+              "name": "box_header_background_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound."
+            },
+            {
+              "name": "box_header_text_color",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Custom hexadecimal color for your registration page. Format: FFFFFF *without* the pound."
+            }
+          ],
+          "description": "This method updates an existing event. Only the fields passed as arguments will be modified. This method returns the ID of the modified event.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/events/event_update"
+          }
+        }
+      },
+      "/event_copy": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "event_id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The ID of the existing event."
+            },
+            {
+              "name": "event_name",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "A new name for this copy of the Event.  255 character limit."
+            }
+          ],
+          "description": "This method duplicates an existing event, returning the ID of the new event.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/events/event_copy"
+          }
+        }
+      },
+      "/user_list_events": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "email",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The user email. Defaults to the authenticated user if not provided. Optional."
+            },
+            {
+              "name": "do_not_display",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Comma separated list without spaces. Valid options include: description, venue, logo, style, organizer, tickets. Example: \"do_not_display=venue,logo,style\". If you leave this field blank, it will return everything. Optional."
+            },
+            {
+              "name": "event_statuses",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Comma separated list without spaces. Valid options include: live, started, ended. Example: \"event_statuses=live,started\". If you leave this field blank, it will return everything. Also note that the “ended” option will only return events that have ended in the last 7 days. Optional."
+            },
+            {
+              "name": "asc_or_desc",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "default": "asc",
+              "description": "Valid options include ‘asc’ or results in ascending order or ‘desc’ or descending order based on event start_date. Defaults to asc. Optional."
+            }
+          ],
+          "description": "This method lists the events created by this user. Only public events are returned if no authentication is passed.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/users/user_list_events"
+          }
+        }
+      },
+      "/ticket_new": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "event_id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The event ID. The event must have been previously created using /event_new."
+            },
+            {
+              "name": "is_donation",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "0 for fixed-price tickets, 1 for donations. 0 will be used by default if not provided. Optional."
+            },
+            {
+              "name": "name",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The ticket name."
+            },
+            {
+              "name": "description",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The ticket description. Optional."
+            },
+            {
+              "name": "price",
+              "required": true,
+              "in": "query",
+              "description": "The ticket price. Enter 0.00 for free tickets. Leave blank for a donation."
+            },
+            {
+              "name": "quantity",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The number of tickets available. Not required for donations."
+            },
+            {
+              "name": "start_sales",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The date and time when ticket sales start, in ISO 8601 format (e.g., “2007-12-31 23:59:59″). Optional."
+            },
+            {
+              "name": "end_sales",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The date and time when ticket sales stop, in ISO 8601 format (e.g., “2007-12-31 23:59:59″). Optional."
+            },
+            {
+              "name": "include_fee",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "0 to add the Eventbrite service fee on top of ticket price, or 1 to include it in the ticket price. 0 will be used by default if not provided. Optional."
+            },
+            {
+              "name": "min",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The minimum number of tickets per order. Optional."
+            },
+            {
+              "name": "max",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The maximum number of tickets per order. Optional."
+            }
+          ],
+          "description": "This method creates new fixed-price or donation ticket types. It returns the ID of the newly created ticket.",
+          "externalDocs": {
+            "url": "http://developer.ticketbrite.com/doc/tickets/ticket_new"
+          }
+        }
+      },
+      "/ticket_update": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The ticket ID."
+            },
+            {
+              "name": "is_donation",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "0 for fixed-price tickets, 1 for donations."
+            },
+            {
+              "name": "name",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The ticket name."
+            },
+            {
+              "name": "description",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The ticket description."
+            },
+            {
+              "name": "price",
+              "required": false,
+              "in": "query",
+              "description": "The ticket price. Enter 0.00 for free tickets. Leave blank for a donation. If tickets are already sold, price will not change."
+            },
+            {
+              "name": "quantity",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The number of tickets available. Not required for donations."
+            },
+            {
+              "name": "start_sales",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The date and time when ticket sales start, in ISO 8601 format (e.g., “2007-12-31 23:59:59″). Optional."
+            },
+            {
+              "name": "end_sales",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The date and time when ticket sales stop, in ISO 8601 format (e.g., “2007-12-31 23:59:59″). Optional."
+            },
+            {
+              "name": "include_fee",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "0 to add the Eventbrite service fee on top of ticket price, or 1 to include it in the ticket price."
+            },
+            {
+              "name": "min",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The minimum number of tickets per order."
+            },
+            {
+              "name": "max",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The maximum number of tickets per order."
+            },
+            {
+              "name": "hide",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Show or hide the ticket type. Valid options: (y or n)"
+            }
+          ],
+          "description": "This method updates an existing ticket type. Only the fields passed as arguments will be modified. It returns the ID of the updated ticket.",
+          "externalDocs": {
+            "url": "http://developer.ticketbrite.com/doc/tickets/ticket_update"
+          }
+        }
+      },
+      "/event_list_attendees": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "event_id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The ID of the event."
+            },
+            {
+              "name": "count",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "default": 50,
+              "description": "Limit the number of attendees returned. Default limit is 50 attendees per page if paginate selected."
+            },
+            {
+              "name": "page",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "default": 1,
+              "description": "Allows for paging through the results of a query. Default is 1. Page size will be setted with “count” parameter."
+            },
+            {
+              "name": "do_not_display",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Comma separated list without spaces that leaves out certain data returned. Valid options are: profile,answers,address. Optional."
+            },
+            {
+              "name": "show_full_barcodes",
+              "required": false,
+              "in": "query",
+              "type": "boolean",
+              "description": "If set to ‘true’, it will return all barcodes associates with the attendee, plus the barcode status, device used, attendee_id, and barcode number. If left blank, it will return a comma separated list of barcodes. Optional."
+            }
+          ],
+          "description": "This method returns a list of attendees for a given event. If no authentication is passed, only publicly available attendee records will be returned.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/events/event_list_attendees"
+          }
+        }
+      },
+      "/venue_get": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The venue id."
+            }
+          ],
+          "description": "This method returns a single venue by id.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/venues/venue_get"
+          }
+        }
+      },
+      "/venue_new": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "organizer_id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The ID of the related organizer."
+            },
+            {
+              "name": "venue",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The venue name."
+            },
+            {
+              "name": "adress",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The venue address (line 1). Optional."
+            },
+            {
+              "name": "adress_2",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The venue address (line 2). Optional."
+            },
+            {
+              "name": "city",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The venue city. Optional."
+            },
+            {
+              "name": "region",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The venue state/province/county/territory depending on the country. 2-letter state code is required for US addresses."
+            },
+            {
+              "name": "postal_code",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The postal code of the venue. Optional."
+            },
+            {
+              "name": "country_code",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "2-letter country code, according to the ISO 3166 format."
+            }
+          ],
+          "description": "This method creates a new venue. It returns the ID of the newly created venue.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/venues/venue_new"
+          }
+        }
+      },
+      "/venue_update": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The venue ID."
+            },
+            {
+              "name": "venue",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The venue name."
+            },
+            {
+              "name": "adress",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The venue address (line 1)."
+            },
+            {
+              "name": "adress_2",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The venue address (line 2)."
+            },
+            {
+              "name": "city",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The venue city."
+            },
+            {
+              "name": "region",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The venue state/province/county/territory depending on the country. 2-letter state code is required for US addresses."
+            },
+            {
+              "name": "postal_code",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The postal code of the venue."
+            },
+            {
+              "name": "country_code",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "2-letter country code, according to the ISO 3166 format."
+            }
+          ],
+          "description": "This method updates an existing venue. Only the fields passed as arguments will be modified. It returns the ID of the updated venue.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/venues/venue_update"
+          }
+        }
+      },
+      "/user_list_venues": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "This method lists the venues created by this user. Requires authentication.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/users/user_list_venues"
+          }
+        }
+      },
+      "/organizer_list_events": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The organizer id."
+            }
+          ],
+          "description": "This method returns a list of events for a given organizer.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/organizers/organizer_list_events"
+          }
+        }
+      },
+      "/organizer_get": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The organizer profile id."
+            }
+          ],
+          "description": "This method returns a single organizer by id.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/organizers/organizer_get"
+          }
+        }
+      },
+      "/organizer_new": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "name",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The organizer name."
+            },
+            {
+              "name": "description",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The organizer description. Optional."
+            }
+          ],
+          "description": "Many event creators prefer having a specific person identified as the point of contact for their event. This person is usually someone like the event emcee, or an on-site contact that can help with attendee check-ins or other issues during the event. This method creates a new organizer, and returns the organizer_id for the newly created resource.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/organizers/organizer_new"
+          }
+        }
+      },
+      "/organizer_update": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The organizer ID."
+            },
+            {
+              "name": "name",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The organizer name."
+            },
+            {
+              "name": "description",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The organizer description."
+            }
+          ],
+          "description": "This method updates an existing organizer. Only the fields passed as arguments will be modified. It returns the ID of the updated organizer.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/organizers/organizer_update"
+          }
+        }
+      },
+      "/user_list_organizers": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "This method lists the organizers created by this user. Requires authentication.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/users/user_list_organizers"
+          }
+        }
+      },
+      "/user_list_tickets": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "description": "This method lists the tickets purchased by the authenticated user. Each transaction is an order in our system and an order may contain one or more tickets. Tickets to free events are included.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/users/user_list_tickets"
+          }
+        }
+      },
+      "/user_get": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "user_id",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "The ID of the subuser account. Optional."
+            },
+            {
+              "name": "email",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The email address of the subuser account. Optional."
+            }
+          ],
+          "description": "This method returns the user account identified by the user_id or email request parameters. Visibility is limited to users and sub-users of the given user_key.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/users/user_get"
+          }
+        }
+      },
+      "/user_new": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "email",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The user email address."
+            },
+            {
+              "name": "passwd",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The user password. (needs to be at least 4 characters long)."
+            }
+          ],
+          "description": "This method creates a new user, returning the user’s ID in the response.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/users/user_new"
+          }
+        }
+      },
+      "/user_update": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "new_email",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "New user email address."
+            },
+            {
+              "name": "new_password",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "New user password. (needs to be at least 4 characters long)."
+            }
+          ],
+          "description": "This method updates an existing user. Only the fields passed as arguments will be modified. It returns the ID of the updated user.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/users/user_update"
+          }
+        }
+      },
+      "/event_list_discounts": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The ID of the event."
+            }
+          ],
+          "description": "This method returns a list of discounts for a given event.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/events/event_list_discounts"
+          }
+        }
+      },
+      "/discount_new": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "event_id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The event ID. The event must have been previously created using /event_new."
+            },
+            {
+              "name": "code",
+              "required": true,
+              "in": "query",
+              "type": "string",
+              "description": "The discount code. Spaces, apostrophes and non-alphanumeric characters are not allowed, except for dashes and underscores. Examples: “earlybirdspecial_08″, “membersonly”, “dc121232″."
+            },
+            {
+              "name": "amount_off",
+              "required": false,
+              "in": "query",
+              "description": "The fixed amount off the ticket price. Each discount code can have a fixed discount amount or a variable (percentage) discount amount, but not both."
+            },
+            {
+              "name": "percent_off",
+              "required": false,
+              "in": "query",
+              "description": "The percentage off the ticket price. Each discount code can have a fixed discount amount or a variable (percentage) discount amount, but not both."
+            },
+            {
+              "name": "tickets",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Comma-separated list of ticket IDs for which the discount applies. If not provided, the discount will apply to all ticket types."
+            },
+            {
+              "name": "quantity_available",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "Maximum number of times this discount can be used. If not provided, no maximum is set."
+            },
+            {
+              "name": "start_date",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The discount start date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″)."
+            },
+            {
+              "name": "end_date",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The discount end date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″)."
+            }
+          ],
+          "description": "This method creates a new discount code for a specific event. It returns the ID of the newly created discount code.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/discount/discount_new"
+          }
+        }
+      },
+      "/discount_update": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The discount ID to update."
+            },
+            {
+              "name": "code",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The discount code. Spaces, apostrophes and non-alphanumeric characters are not allowed, except for dashes and underscores. Examples: “earlybirdspecial_08″, “membersonly”, “dc121232″."
+            },
+            {
+              "name": "amount_off",
+              "required": false,
+              "in": "query",
+              "description": "The fixed amount off the ticket price. Each discount code can have a fixed discount amount or a variable (percentage) discount amount, but not both."
+            },
+            {
+              "name": "percent_off",
+              "required": false,
+              "in": "query",
+              "description": "The percentage off the ticket price. Each discount code can have a fixed discount amount or a variable (percentage) discount amount, but not both."
+            },
+            {
+              "name": "tickets",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Comma-separated list of ticket IDs for which the discount applies. If not provided, the discount will apply to all ticket types."
+            },
+            {
+              "name": "quantity_available",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "Maximum number of times this discount can be used. If not provided, no maximum is set."
+            },
+            {
+              "name": "start_date",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The discount start date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″)."
+            },
+            {
+              "name": "end_date",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "The discount end date and time, in ISO 8601 format (e.g., “2007-12-31 23:59:59″)."
+            }
+          ],
+          "description": "This method is used to update an existing discount code. Only the fields passed as arguments will be modified. This method returns the ID of the modified discount code.",
+          "externalDocs": {
+            "url": "http://developer.eventbrite.com/doc/discount/discount_update"
+          }
+        }
+      },
+      "/payment_update": {
+        "parameters": [
+          {
+            "name": "data-type",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "default": "json",
+            "description": "xml or json data-types are supported",
+            "enum": [
+              "xml",
+              "json"
+            ]
+          }
+        ],
+        "get": {
+          "responses": {
+            "200": {
+              "description": "Successful Response"
+            }
+          },
+          "parameters": [
+            {
+              "name": "event_id",
+              "required": true,
+              "in": "query",
+              "type": "integer",
+              "description": "The event ID."
+            },
+            {
+              "name": "accept_paypal",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "Accept PayPal payments (1 or 0)."
+            },
+            {
+              "name": "paypal_email",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "Your PayPal email. Defaults to the user email address if not provided."
+            },
+            {
+              "name": "accept_google",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "Accept Google Checkout payments (1 or 0)."
+            },
+            {
+              "name": "google_merchant_id",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Google Checkout Merchant ID. Required if accept_google is 1."
+            },
+            {
+              "name": "google_merchant_key",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Google Checkout Merchant Key. Required if accept_google is 1."
+            },
+            {
+              "name": "accept_check",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "Accept “Pay by Check” payments (1 or 0)."
+            },
+            {
+              "name": "instructions_check",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Instructions to attendees who want to pay by check."
+            },
+            {
+              "name": "accept_cash",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "Accept “Pay by Cash” payments (1 or 0)."
+            },
+            {
+              "name": "instructions_cash",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Instructions to attendees who want to pay by cash."
+            },
+            {
+              "name": "accept_invoice",
+              "required": false,
+              "in": "query",
+              "type": "integer",
+              "description": "Accept “Send an Invoice” payments (1 or 0)."
+            },
+            {
+              "name": "instructions_invoice",
+              "required": false,
+              "in": "query",
+              "type": "string",
+              "description": "Instructions to attendees who need to be sent an invoice."
+            }
+          ],
+          "description": "This method creates or updates the payment options for this event. Only the fields passed as arguments will be modified.",
+          "externalDocs": {
+            "url": "http://developer.paymentbrite.com/doc/payment/payment_update"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "Eventbrite",
+      "description": "Create, manage & promote events. Add event-management features to your site. Show the world what exciting things are happening around them."
+    }
+  },
+  "public": true
+}
