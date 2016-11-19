@@ -14,6 +14,12 @@ var UserPartner = postgres.define('user_partner', {
   partner_id: {
     type: Sequelize.BIGINT
   },
+  createdAt: {
+    type: Sequelize.DATE
+  },
+  updatedAt: {
+    type: Sequelize.DATE
+  }
 }, {
   freezeTableName: true,
   indexes: [{fields: ['user_id', 'partner_id'], unique: true}]

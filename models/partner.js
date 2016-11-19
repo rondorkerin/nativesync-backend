@@ -11,6 +11,12 @@ var Partner = postgres.define('partner', {
   name: {
     type: Sequelize.STRING
   },
+  createdAt: {
+    type: Sequelize.DATE
+  },
+  updatedAt: {
+    type: Sequelize.DATE
+  }
 }, {
   freezeTableName: true
 });

@@ -14,6 +14,12 @@ var UserClient = postgres.define('user_client', {
   client_id: {
     type: Sequelize.BIGINT
   },
+  createdAt: {
+    type: Sequelize.DATE
+  },
+  updatedAt: {
+    type: Sequelize.DATE
+  }
 }, {
   freezeTableName: true,
   indexes: [{fields: ['user_id', 'client_id'], unique: true}]

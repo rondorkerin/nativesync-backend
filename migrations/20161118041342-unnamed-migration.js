@@ -5,7 +5,8 @@ module.exports = {
     queryInterface.createTable('client_auth', {
       id: {
         type: Sequelize.BIGINT,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
       },
       client_id: {
         type: Sequelize.BIGINT
@@ -17,7 +18,13 @@ module.exports = {
         type: Sequelize.BIGINT
       },
       value: {
-        type: Sequelize.STRING
+        type: Sequelize.JSON
+      },
+      createdAt: {
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        type: Sequelize.DATE
       }
     });
   },

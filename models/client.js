@@ -20,6 +20,12 @@ var Client = postgres.define('client', {
   url: {
     type: Sequelize.STRING
   },
+  createdAt: {
+    type: Sequelize.DATE
+  },
+  updatedAt: {
+    type: Sequelize.DATE
+  }
 }, {
   freezeTableName: true,
   indexes: [{fields: ['partner_id']}, {fields: ['api_key'], unique: true}]

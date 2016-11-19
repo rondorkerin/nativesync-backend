@@ -5,7 +5,8 @@ module.exports = {
     queryInterface.createTable('service', {
       id: {
         type: Sequelize.BIGINT,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
       },
       name: {
         type: Sequelize.STRING,
@@ -17,6 +18,12 @@ module.exports = {
       },
       logo_url: {
         type: Sequelize.STRING
+      },
+      createdAt: {
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        type: Sequelize.DATE
       }
     });
   },

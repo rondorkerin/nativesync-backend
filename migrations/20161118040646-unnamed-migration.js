@@ -5,7 +5,8 @@ module.exports = {
     queryInterface.createTable('client', {
       id: {
         type: Sequelize.BIGINT,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
       },
       partner_id: {
         type: Sequelize.BIGINT
@@ -18,6 +19,12 @@ module.exports = {
       },
       url: {
         type: Sequelize.STRING
+      },
+      createdAt: {
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        type: Sequelize.DATE
       }
     });
   },

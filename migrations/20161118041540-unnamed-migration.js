@@ -5,7 +5,8 @@ module.exports = {
     queryInterface.createTable('integration',{
       id: {
         type: Sequelize.BIGINT,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
       },
       client_id: {
         type: Sequelize.BIGINT
@@ -18,6 +19,12 @@ module.exports = {
       },
       integration: {
         type: Sequelize.TEXT
+      },
+      createdAt: {
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        type: Sequelize.DATE
       }
     });
     /*

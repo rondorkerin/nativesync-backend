@@ -5,7 +5,8 @@ module.exports = {
     queryInterface.createTable('user', {
       id: {
         type: Sequelize.BIGINT,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
       },
       email: {
         type: Sequelize.STRING,
@@ -13,6 +14,12 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING
+      },
+      createdAt: {
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        type: Sequelize.DATE
       }
     });
   },

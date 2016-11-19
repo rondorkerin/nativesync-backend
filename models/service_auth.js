@@ -18,6 +18,12 @@ var ServiceAuth = postgres.define('service_auth', {
   },
   name: {
     type: Sequelize.STRING
+  },
+  createdAt: {
+    type: Sequelize.DATE
+  },
+  updatedAt: {
+    type: Sequelize.DATE
   }
 }, {
   freezeTableName: true,

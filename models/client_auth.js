@@ -17,8 +17,14 @@ var ClientAuth = postgres.define('client_auth', {
     type: Sequelize.BIGINT
   },
   value: {
-    type: Sequelize.STRING
+    type: Sequelize.JSON
   },
+  createdAt: {
+    type: Sequelize.DATE
+  },
+  updatedAt: {
+    type: Sequelize.DATE
+  }
 }, {
   freezeTableName: true,
   indexes: [{fields: ['client_id', 'service_id']}]
