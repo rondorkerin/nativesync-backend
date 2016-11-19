@@ -31,6 +31,4 @@ var Service = postgres.define('service', {
   indexes: [{fields: ['name']}]
 });
 
-Service.hasMany(ServiceAuth, { as: 'ServiceAuths', foreignKey: 'service_id'})
-
 module.exports = Service

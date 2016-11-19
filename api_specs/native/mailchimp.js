@@ -37,6 +37,9 @@ var x = async(() => {
   await(ServiceAuth.upsert({service_id: mailchimp.id, name: 'Basic Auth', type: 'basic', details: {username: 'string', password: 'string'}}))
   var serviceAuth = await(ServiceAuth.findOne({where: {service_id: mailchimp.id, name: 'Basic Auth'}}))
   await(ActionServiceAuth.upsert({action_id: action.id, service_auth_id: serviceAuth.id}))
+  await(ServiceAuth.upsert({service_id: mailchimp.id, name: 'Datacenter', type: 'configuration', details: {'data-center': 'string'}}))
+  serviceAuth = await(ServiceAuth.findOne({where: {service_id: mailchimp.id, name: 'Datacenter'}}))
+  await(ActionServiceAuth.upsert({action_id: action.id, service_auth_id: serviceAuth.id}))
 
 })
 

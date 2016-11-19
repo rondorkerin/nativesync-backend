@@ -14,7 +14,8 @@ var ActionServiceAuth = postgres.define('action_service_auth', {
     type: Sequelize.BIGINT
   }
 }, {
-  freezeTableName: true
+  freezeTableName: true,
+  indexes: [{fields: ['action_id', 'service_auth_id'], unique: true}]
 });
 
 module.exports = ActionServiceAuth

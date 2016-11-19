@@ -34,6 +34,4 @@ var ServiceAuth = postgres.define('service_auth', {
   indexes: [{fields: ['service_id']}, {fields: ['service_id', 'name'], unique: true}]
 });
 
-ServiceAuth.hasMany(ClientAuth, { as: 'ClientAuths', foreignKey: 'service_auth_id'})
-
 module.exports = ServiceAuth

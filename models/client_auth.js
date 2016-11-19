@@ -2,6 +2,7 @@
 
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
+
 var ClientAuth = postgres.define('client_auth', {
   id: {
     type: Sequelize.BIGINT,
@@ -27,8 +28,7 @@ var ClientAuth = postgres.define('client_auth', {
   }
 }, {
   freezeTableName: true,
-  indexes: [{fields: ['client_id', 'service_id']}]
+  indexes: [{fields: ['client_id', 'service_id']}, {fields: ['service_auth_id', 'client_id'], unique: true}]
 });
-
 
 module.exports = ClientAuth
