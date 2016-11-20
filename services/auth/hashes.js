@@ -8,11 +8,11 @@ var bcrypt = require('bcryptjs')
 var Hash = Promise.promisify(bcrypt.hash)
 var Compare  = Promise.promisify(bcrypt.compare)
 
-module.exports = function(handleChange,seed){
+module.exports = function(upsert,seed){
   var methods = {}
   var hashes = {}
 
-  handleChange = handleChange || function(item){
+  upsert = upsert || function(item){
     if(item.id == null) item.id = uuid.v4()
     return Promise.resolve(item)
   }
@@ -30,7 +30,7 @@ module.exports = function(handleChange,seed){
 
   methods.set = Promise.method(function(id,password){
     return Hash(password,10).then(function(hash){
-      return handleChange({ id:id,hash:hash }).then(function(result){
+      return upsert({ id:id,hash:hash }).then(function(result){
         hashes[result.id] = result.hash
         return true
       })

@@ -3,12 +3,12 @@ var Promise = require('bluebird')
 var lodash = require('lodash')
 var uuid = require('node-uuid')
 
-module.exports = function(handleChange,seed){
+module.exports = function(upsert,seed){
   var users = {}
   var byEmail = {}
   var methods = {}
 
-  handleChange = handleChange || function(item){
+  upsert = upsert || function(item){
     if(item.id == null) item.id = uuid.v4()
     return Promise.resolve(item)
   }
@@ -23,7 +23,7 @@ module.exports = function(handleChange,seed){
 
   methods.create = Promise.method(function(email){
     assert(email,'requires email')
-    return handleChange({email:email}).then(function(user){
+    return upsert({email:email}).then(function(user){
       users[user.id] = user
       byEmail[user.email.toUpperCase()] = user
       return user
@@ -44,7 +44,7 @@ module.exports = function(handleChange,seed){
     assert(byEmail[upper] == null, 'user with that email already exists')
     return methods.get(id).then(function(user){
       user.email = newemail
-      return handleChange(user)
+      return upsert(user)
     }).then(function(user){
       users[user.id] = user
       byEmail[user.email.toUpperCase()] = user

@@ -7,7 +7,7 @@ var Users = require('./users')
 var Tokens = require('./tokens')
 var Hashes = require('./hashes')
 
-module.exports = function(seedUsers,seedHashes,seedTokens,handleUserChange,handleHashChange,handleTokenChange){
+module.exports = function(seedUsers,seedHashes,seedTokens,upsertUser,upsertHash,upsertToken){
   var state = {}
 
   var methods = new Emitter()
@@ -64,9 +64,9 @@ module.exports = function(seedUsers,seedHashes,seedTokens,handleUserChange,handl
 
   methods.init = Promise.method(function(){
     return Promise.all([
-      Users(seedUsers,handleUserChange),
-      Hashes(seedHashes,handleHashChange),
-      Tokens(seedTokens,handleTokenChange),
+      Users(seedUsers,upsertUser),
+      Hashes(seedHashes,upsertHash),
+      Tokens(seedTokens,upsertToken),
     ]).spread(function(u,h,t){
       users = u
       hashes = h

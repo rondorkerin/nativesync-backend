@@ -3,11 +3,11 @@ var Promise = require('bluebird')
 var lodash = require('lodash')
 var uuid = require('node-uuid')
 
-module.exports = function(handleChange,seed){
+module.exports = function(upsert,seed){
   var methods = {}
   var tokens = {}
 
-  handleChange = handleChange || function(item){
+  upsert = upsert || function(item){
     if(item.id == null) item.id = uuid.v4()
     return Promise.resolve(item)
   }
@@ -37,7 +37,7 @@ module.exports = function(handleChange,seed){
     var token = tokens[id]
     if(token == null) return true
     token.active = false
-    return handleChange(token).then(function(){
+    return upsert(token).then(function(){
       delete tokens[id]
       return true
     })
@@ -45,7 +45,7 @@ module.exports = function(handleChange,seed){
 
   methods.create = Promise.method(function(userid){
     assert(userid,'create token requires userid')
-    return handleChange({userid:userid,active:true}).then(function(token){
+    return upsert({userid:userid,active:true}).then(function(token){
       tokens[token.id] = token
       return token
     })
