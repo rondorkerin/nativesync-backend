@@ -12,7 +12,7 @@ module.exports = function(seedUsers,seedHashes,seedTokens,handleUserChange,handl
 
   var methods = new Emitter()
   var users, hashes, tokens = null
-  
+
   methods.signup = Promise.method(function(email,password){
     assert(email,'requires email')
     assert(password,'requires password')

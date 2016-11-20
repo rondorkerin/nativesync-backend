@@ -1,6 +1,6 @@
 let Client = require('../models/client');
 
-module.exports = (app, passport, helpers) => {
+module.exports = (app, helpers) => {
   app.post('/clients', (req, res) => {
     var client = req.body.client;
     return Client.create(client).then((results) => {

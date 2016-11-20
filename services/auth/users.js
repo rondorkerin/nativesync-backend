@@ -23,7 +23,7 @@ module.exports = function(handleChange,seed){
 
   methods.create = Promise.method(function(email){
     assert(email,'requires email')
-    return handleChange({email:email}).then(function(user){ 
+    return handleChange({email:email}).then(function(user){
       users[user.id] = user
       byEmail[user.email.toUpperCase()] = user
       return user

@@ -1,6 +1,5 @@
 'use strict'
 let passport = require('passport');
-let HeaderAPIKeyStrategy = require('passport-headerapikey').HeaderAPIKeyStrategy;
 let config = require('config');
 
 require('use-strict')
@@ -8,8 +7,19 @@ var Models = require('./models');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 let express = require('express');
+
+async(function() {
+  require('./services/auth')(
+    await(Models['User'].findAll()),
+    await(Models['UserSystemAuth'].findAll()),
+    await(Models['UserSystemAuth'].findAll()),
+    async((x) => { await(Models['User'].upsert(x)); return Models['User'].findOne(x.id); }),
+    async((x) => { await(Models['UserSystemAuth'].upsert(x)); return Models['UserSystemAuth'].findOne(x.id); }),
+    async((x) => { await(Models['UserSystemAuth'].upsert(x)); return Models['UserSystemAuth'].findOne(x.id); })
+  );
+})();
+
 let app = express();
-var Client = require('./models/client');
 
 app.set('port', (process.env.PORT || config.get('port')))
 
@@ -23,17 +33,4 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '50mb'}));
 //app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
-require('./routes')(app, passport);
-
-passport.use(new HeaderAPIKeyStrategy(
-  {header: 'X-Api-Key', prefix: ''},
-  false,
-  async ((apikey, done) => {
-    let client = await (Client.findOne({ where: { api_key: apikey } }))
-    if (client) {
-      done(null, client);
-    } else {
-      done('invalid api key');
-    }
-  })
-));
+require('./routes')(app);
