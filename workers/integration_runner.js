@@ -12,12 +12,12 @@ module.exports = async(function() {
     let integration = await(integrationInstance.getIntegration());
     console.log('scheduling integration', integration.title, 'instance id', integrationInstance.id)
     if (integrationInstance.scheduling_info['type'] == 'cron') {
-      scheduler.scheduleJob(integrationInstance.scheduling_info['value'], () => {
+      scheduler.scheduleJob(integrationInstance.scheduling_info['value'], async(() => {
         console.log('running integration instance', integrationInstance.id);
         let runner = new IntegrationRunner(integration, integrationInstance)
         let output = await(runner.run());
         console.log('integration instance', integrationInstance.id, 'output', output);
-      })
+      }))
     }
   }
 });
