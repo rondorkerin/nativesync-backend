@@ -8,6 +8,7 @@ var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 let express = require('express');
 
+/*
 async(function() {
   require('./services/auth')(
     await(Models['User'].findAll()),
@@ -18,6 +19,7 @@ async(function() {
     async((x) => { await(Models['UserSystemAuth'].upsert(x)); return Models['UserSystemAuth'].findOne(x.id); })
   );
 })();
+*/
 
 let app = express();
 

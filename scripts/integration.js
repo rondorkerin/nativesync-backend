@@ -37,3 +37,13 @@ Models['Integration'].upsert({
     }
   ]
 })
+
+Models['IntegrationInstance'].upsert({
+  integration_id: 1,
+  client_id: 1,
+  scheduling_info: {
+    type: 'cron',
+    value: '@daily',
+  },
+  last_run: null
+})

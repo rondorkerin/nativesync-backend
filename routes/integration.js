@@ -1,8 +1,17 @@
-let Integration = require('../models/integration');
+const Models = require('../models');
+const IntegrationInstance = Models['IntegrationInstance'];
+const Integration = Models['Integration'];
+const IntegrationRunner = require('../services/integration_runner');
 const async = require('asyncawait/async')
 const await = require('asyncawait/await')
 
 module.exports = (app, helpers) => {
+  app.post('/integration_instance/:id/run', async((req, res) => {
+    let integrationInstance = await(IntegrationInstance.findOne(req.params['id']));
+    let output = await(IntegrationRunner.new(integrationInstance).run());
+    return res.json(output);
+  }));
+
   app.post('/integrations', (req, res) => {
     var integration = req.body.integration;
     integration.client_id = req.user.id;

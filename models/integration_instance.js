@@ -19,6 +19,9 @@ var IntegrationInstance = postgres.define('integration_instance', {
   inputs: {
     type: Sequelize.JSON
   },
+  last_run: {
+    type: Sequelize.DATE
+  },
   createdAt: {
     type: Sequelize.DATE
   },
