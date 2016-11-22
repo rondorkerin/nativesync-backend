@@ -30,7 +30,7 @@ class IntegrationRunner {
     }
     let code = `(function(api) { ${this.integration.code} })()`
     console.log('running code', code);
-    vm.runInThisContext(code)(api);
+    vm.runInNewContext(code, api);
     return deferred.promise;
   }
 }
