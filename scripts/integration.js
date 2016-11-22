@@ -10,7 +10,7 @@ Models['Integration'].upsert({
   language: 'javascript',
   scheduling_info: {
     type: 'cron',
-    value: '@daily',
+    value: '* * * * * *',
   },
   code: "console.log('hello world')",
   documentation: "TODO: Readme",
@@ -43,7 +43,11 @@ Models['IntegrationInstance'].upsert({
   client_id: 1,
   scheduling_info: {
     type: 'cron',
-    value: '@daily',
+    value: '* * * * * *',
+  },
+  active: true,
+  inputs: {
+    hello: 'world'
   },
   last_run: null
 })
