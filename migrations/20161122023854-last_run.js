@@ -4,16 +4,10 @@ var await = require('asyncawait/await')
 
 module.exports = {
   up: async(function (queryInterface, Sequelize) {
-    await(queryInterface.addColumn( 'integration', 'last_run', Sequelize.DATE))
+    await(queryInterface.addColumn( 'integration_instance', 'last_run', Sequelize.DATE))
   }),
 
-  down: function (queryInterface, Sequelize) {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.dropTable('users');
-    */
-  }
+  down: async(function (queryInterface, Sequelize) {
+    await(queryInterface.removeColumn( 'integration', 'last_run'))
+  })
 };
