@@ -1,6 +1,7 @@
 var Promise = require('bluebird');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
+const Models = require('../models');
 const vm = require('vm');
 const request = require('request-promise');
 
@@ -15,6 +16,7 @@ class IntegrationRunner {
     const nsUrl = "http://nativeapi.herokuapp.com";
     var deferred = Promise.defer();
     var clientApiKey = this.client.api_key
+    var clientID = this.client.id;
     var api = {
       ns: function(service, functionName, input) {
         return request.post({
@@ -25,6 +27,12 @@ class IntegrationRunner {
             'X-api-key': clientApiKey
           }
         });
+      },
+      save: function(key, data) {
+        return Models['ClientDatastore'].upsert({client_id: clientID, key: key, data: data})
+      },
+      get: function(key) {
+        return Models['ClientDatastore'].findAll({where: {client_id: clientID, key: key}})
       },
       log: function(message) {
         console.log(message);
