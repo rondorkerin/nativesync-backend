@@ -37,17 +37,23 @@ Models['Integration'].upsert({
     }
   ]
 })
-
-Models['IntegrationInstance'].upsert({
-  integration_id: 1,
-  client_id: 1,
-  scheduling_info: {
-    type: 'cron',
-    value: '* * * * * *',
-  },
-  active: true,
-  inputs: {
-    hello: 'world'
-  },
-  last_run: null
+Models['Integration'].findOne({where: {
+  partner_id: 1,
+  creator_user_id: 1,
+  title: 'A test script',
+  version: '1.0',
+}}).then(function(integration) {
+  Models['IntegrationInstance'].upsert({
+    integration_id: integration.id,
+    client_id: 1,
+    scheduling_info: {
+      type: 'cron',
+      value: '* * * * * *',
+    },
+    active: true,
+    inputs: {
+      hello: 'world'
+    },
+    last_run: null
+  })
 })
