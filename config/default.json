@@ -5,10 +5,6 @@
     "port": 6379
   },
   "postgres": {
-    "host": "localhost",
-    "username": "nickbryant",
-    "password": "",
-    "port": "5433",
-    "database": "nativesync"
+    "use_env_variable": "DATABASE_URL"
   }
 }
