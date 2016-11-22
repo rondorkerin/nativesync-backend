@@ -16,17 +16,17 @@ class IntegrationRunner {
     var deferred = Promise.defer();
     var clientApiKey = this.client.api_key
     var api = {
-      ns: async(function(action_id, input) {
-        let result = await(request.post({
+      ns: function(action_id, input) {
+        let result = yield request.post({
           url: nsUrl + "/action/" + action_id,
           json: true,
           body: input,
           headers: {
             'X-api-key': clientApiKey
           }
-        }))
+        });
         return result;
-      }),
+      },
       log: function(message) {
         console.log(message);
       },
