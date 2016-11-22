@@ -8,6 +8,6 @@ module.exports = {
   }),
 
   down: async(function (queryInterface, Sequelize) {
-    await(queryInterface.removeColumn( 'integration', 'last_run'))
+    await(queryInterface.removeColumn( 'integration_instance', 'last_run'))
   })
 };
