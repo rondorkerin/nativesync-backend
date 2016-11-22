@@ -17,7 +17,7 @@ class IntegrationRunner {
     var clientApiKey = this.client.api_key
     var api = {
       ns: function(action_id, input) {
-        let result = yield request.post({
+        return request.post({
           url: nsUrl + "/action/" + action_id,
           json: true,
           body: input,
@@ -25,7 +25,6 @@ class IntegrationRunner {
             'X-api-key': clientApiKey
           }
         });
-        return result;
       },
       log: function(message) {
         console.log(message);
