@@ -14,13 +14,14 @@ class IntegrationRunner {
   run() {
     const nsUrl = "nativeapi.herokuapp.com";
     var deferred = Promise.defer();
+    var clientApiKey = this.client.api_key
     var api = {
       ns: function(action_id, input) {
         return request.post({
           url: nsUrl + "/action/" + action_id,
           json: input,
           headers: {
-            'X-api-key': this.client.api_key
+            'X-api-key': clientApiKey
           }
         })
       },
