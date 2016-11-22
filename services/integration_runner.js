@@ -25,7 +25,7 @@ class IntegrationRunner {
              'X-api-key': this.client.api_key
            }
          })
-       };
+       }
     }
     var deferred = Promise.defer();
     var plugin = new jailed.Plugin(path, api);
