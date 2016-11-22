@@ -10,7 +10,7 @@ class IntegrationRunner {
 
   run() {
     var deferred = Promise.defer();
-    Sandbox.run(integrationInstance.code, function(output) {
+    Sandbox.run(this.integrationInstance.code, function(output) {
       deferred.resolve(output)
     })
     return deferred.promise;
