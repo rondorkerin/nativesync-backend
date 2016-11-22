@@ -13,7 +13,7 @@ module.exports = function(app, helpers) {
 
   app.post('/action/:id', async (function(req, res) {
     let clientID = 1;
-    let action = await(Action.find(req.params['id']))
+    let action = await(Action.findById(req.params['id']))
     let Request = require('../services/request')
     output = new Request(client_id, action).send(req.params['input'])
     return res.json(output);
