@@ -32,7 +32,9 @@ class IntegrationRunner {
       },
       end: function(output) {
         deferred.resolve(output)
-      }
+      },
+      async: async,
+      await: await
     }
     let code = `async(function(api) { ${this.integration.code} })()`
     console.log('running code', code);
