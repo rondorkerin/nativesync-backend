@@ -14,7 +14,7 @@ Models['Integration'].upsert({
     type: 'cron',
     value: '0 * * * * *',
   },
-  code: "log('hello world'); ns(1, {ip: '73.229.150.226'}).then((result) => {end(result)});",
+  code: "log('hello world'); ns(2, {ip: '73.229.150.226'}).then((result) => {end(result)});",
   documentation: "TODO: Readme",
   privacy: 'private',
   pricing: {

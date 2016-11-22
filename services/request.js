@@ -34,7 +34,6 @@ class Request {
     var body = '';
     var requestObject = {}
     var path = this.action['path'];
-    console.log('action', this.action.id, 'serviceAuths', serviceAuths);
 
     // authentication processing
     for (let serviceAuth of serviceAuths) {
