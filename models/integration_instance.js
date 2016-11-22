@@ -23,6 +23,9 @@ var IntegrationInstance = postgres.define('integration_instance', {
   last_run: {
     type: Sequelize.DATE
   },
+  active: {
+    type: Sequelize.BOOLEAN
+  },
   createdAt: {
     type: Sequelize.DATE
   },
