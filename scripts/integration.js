@@ -8,7 +8,7 @@ Models['Integration'].upsert({
   creator_user_id: 1,
   title: 'A test script',
   version: '1.0',
-  type: 'hosted',
+  type: 'hosted_mvp',
   language: 'javascript',
   scheduling_info: {
     type: 'cron',

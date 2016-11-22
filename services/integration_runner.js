@@ -13,6 +13,18 @@ class IntegrationRunner {
   }
 
   run() {
+    if (this.integration.type == 'hosted_mvp') {
+      runHostedMVP();
+    } else if (this.integration.type == 'lambda') {
+      runLambda();
+    }
+  }
+
+  runLambda() {
+    throw 'not implemented';
+  }
+
+  runHostedMVP() {
     const nsUrl = "http://nativeapi.herokuapp.com";
     var deferred = Promise.defer();
     var clientApiKey = this.client.api_key
