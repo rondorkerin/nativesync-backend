@@ -1,9 +1,8 @@
 var Promise = require('bluebird');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
+const vm = require('vm');
 const request = require('request-promise');
-const jailed = require('jailed');
-var fs = require("fs");
 
 class IntegrationRunner {
   constructor(client, integration, integrationInstance) {
@@ -29,9 +28,9 @@ class IntegrationRunner {
         deferred.resolve(output)
       }
     }
-    var plugin = new jailed.DynamicPlugin(this.integration.code, api);
-    // plugin.whenConnected()
-    //  deferred.resolve(output)
+    code = `(function(api) { ${this.integration.code} })()`
+    console.log('running code', code);
+    vm.runInThisContext(code)(api);
     return deferred.promise;
   }
 }
