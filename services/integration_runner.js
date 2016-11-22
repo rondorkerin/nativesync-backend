@@ -28,8 +28,14 @@ class IntegrationRunner {
           }
         });
       },
-      save: function(key, value) {
+      set: function(key, value) {
         return Models['ClientDatastore'].upsert({client_id: clientID, key: key, value: value})
+      },
+      push: function(key, value) {
+        return Models['ClientDatastore'].findAll({where: {client_id: clientID, key: key}}).then((result) => {
+          result.value = result.value.push(value);
+          return result.save();
+        })
       },
       get: function(key) {
         return Models['ClientDatastore'].findAll({where: {client_id: clientID, key: key}})

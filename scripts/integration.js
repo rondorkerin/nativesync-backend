@@ -14,7 +14,7 @@ Models['Integration'].upsert({
     type: 'cron',
     value: '0 * * * * *',
   },
-  code: "log('hello world'); ns('IP-API', 'IP Location Lookup', {ip: '73.229.150.226'}).then(function(result) { save('ip_result', result) }).then(end);",
+  code: "log('hello world'); ns('IP-API', 'IP Location Lookup', {ip: '73.229.150.226'}).then(function(result) { set('ip_result', result) }).then(end);",
   documentation: "TODO: Readme",
   privacy: 'private',
   pricing: {
