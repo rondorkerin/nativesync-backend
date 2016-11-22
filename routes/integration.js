@@ -8,7 +8,7 @@ const await = require('asyncawait/await')
 module.exports = (app, helpers) => {
   app.post('/integration_instance/:id/run', async((req, res) => {
     let integrationInstance = await(IntegrationInstance.findById(req.params['id']));
-    let output = await(IntegrationRunner.new(integrationInstance).run());
+    let output = await(new IntegrationRunner(integrationInstance).run());
     return res.json(output);
   }));
 
