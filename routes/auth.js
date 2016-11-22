@@ -7,7 +7,5 @@ var await = require('asyncawait/await');
 module.exports = function(app, helpers) {
 
   app.get('/auth/signup', async (function(req, res) {
-    let actions = await(Action.findAll())
-    return res.json(actions);
   }));
 }
