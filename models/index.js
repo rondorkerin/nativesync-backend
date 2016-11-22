@@ -21,7 +21,7 @@ Service.belongsToMany(Integration, {as: 'Integrations', through: 'IntegrationSer
 User.belongsToMany(Partner, {as: 'Partners', through: UserPartner, foreignKey: 'user_id', otherKey: 'partner_id'});
 ServiceAuth.hasMany(ClientAuth, { as: 'ClientAuths', foreignKey: 'service_auth_id'})
 ClientAuth.belongsTo(ServiceAuth, { foreignKey: 'service_auth_id' })
-ClientDatastore.belongsTo(Client, { foreignKey: 'client_id' }
+ClientDatastore.belongsTo(Client, { foreignKey: 'client_id' })
 Client.hasMany(ClientDatastore, { foreignKey: 'client_id' })
 ClientAuth.belongsTo(Service, { foreignKey: 'service_id' })
 Integration.belongsTo(User, { foreignKey: 'creator_user_id' })
