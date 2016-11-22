@@ -28,7 +28,7 @@ class IntegrationRunner {
         deferred.resolve(output)
       }
     }
-    code = `(function(api) { ${this.integration.code} })()`
+    let code = `(function(api) { ${this.integration.code} })()`
     console.log('running code', code);
     vm.runInThisContext(code)(api);
     return deferred.promise;
