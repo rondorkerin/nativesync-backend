@@ -10,12 +10,4 @@ module.exports = function(app, helpers) {
     let actions = await(Action.findAll())
     return res.json(actions);
   }));
-
-  app.post('/action/:id', helpers.checkauth(), async (function(req, res) {
-    let clientID = req.user.id
-    let action = await(Action.find(req.params['id']))
-    let Request = require('../services/request')
-    output = new Request(client_id, action).send(req.params['input'])
-    return res.json(output);
-  }));
 }
