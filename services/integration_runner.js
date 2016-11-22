@@ -12,7 +12,7 @@ class IntegrationRunner {
   }
 
   run() {
-    const nsUrl = "nativeapi.herokuapp.com";
+    const nsUrl = "http://nativeapi.herokuapp.com";
     var deferred = Promise.defer();
     var clientApiKey = this.client.api_key
     var api = {
