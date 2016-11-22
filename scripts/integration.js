@@ -40,11 +40,9 @@ Models['Integration'].upsert({
   ]
 })
 Models['Integration'].findOne({where: {
-  partner_id: 1,
-  creator_user_id: 1,
   title: 'A test script',
-  version: '1.0',
 }}).then(function(integration) {
+  console.log('found integration', integration)
   Models['IntegrationInstance'].upsert({
     integration_id: integration.id,
     client_id: 1,
