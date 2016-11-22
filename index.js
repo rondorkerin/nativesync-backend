@@ -7,6 +7,9 @@ var Models = require('./models');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 let express = require('express');
+var Workers = require('./workers');
+
+Workers['IntegrationRunner']();
 
 /*
 async(function() {

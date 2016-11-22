@@ -2,6 +2,7 @@
 
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
+// TODO: need an "active" and "inactive" boolean
 var IntegrationInstance = postgres.define('integration_instance', {
   id: {
     type: Sequelize.BIGINT,
