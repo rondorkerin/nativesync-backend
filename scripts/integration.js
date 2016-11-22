@@ -39,21 +39,23 @@ Models['Integration'].upsert({
     }
   ]
 })
-Models['Integration'].findOne({where: {
-  title: 'A test script',
-}}).then(function(integration) {
-  console.log('found integration', integration)
-  Models['IntegrationInstance'].upsert({
-    integration_id: integration.id,
-    client_id: 1,
-    scheduling_info: {
-      type: 'cron',
-      value: '0 * * * * *',
-    },
-    active: true,
-    inputs: {
-      hello: 'world'
-    },
-    last_run: null
+.then(function(x) {
+  Models['Integration'].findOne({where: {
+    title: 'A test script',
+  }}).then(function(integration) {
+    console.log('found integration', integration)
+    Models['IntegrationInstance'].upsert({
+      integration_id: integration.id,
+      client_id: 1,
+      scheduling_info: {
+        type: 'cron',
+        value: '0 * * * * *',
+      },
+      active: true,
+      inputs: {
+        hello: 'world'
+      },
+      last_run: null
+    })
   })
 })
