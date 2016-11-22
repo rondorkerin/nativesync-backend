@@ -14,9 +14,9 @@ class IntegrationRunner {
 
   run() {
     if (this.integration.type == 'hosted_mvp') {
-      runHostedMVP();
+      this.runHostedMVP();
     } else if (this.integration.type == 'lambda') {
-      runLambda();
+      this.runLambda();
     }
   }
 
