@@ -1,7 +1,9 @@
 var Promise = require('bluebird');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
-var Sandbox = require('sandbox');
+const request = require('request-promise');
+const jailed = require('jailed');
+var fs = require("fs");
 
 class IntegrationRunner {
   constructor(client, integration, integrationInstance) {
@@ -11,23 +13,24 @@ class IntegrationRunner {
   }
 
   run() {
-    var deferred = Promise.defer();
-    var sandbox = new Sandbox();
+    var path = "/tmp/script.js"
+    fs.writeFileSync(path, this.integration.code);
     const nsUrl = "nativeapi.herokuapp.com";
-    var prepend = `const request = require('request-promise');
-                   const ns = function(action_id, input) {
-                     return request.post({
-                       url: "${nsUrl}/action/" + action_id,
-                       json: input,
-                       headers: {
-                         'X-api-key': '${this.client.api_key}'
-                       }
-                     })
-                   };`
-    let code = prepend + " " + this.integration.code;
-    sandbox.run(code, function(output) {
-      deferred.resolve(output)
-    })
+    var api = {
+      ns: function(action_id, input) {
+         return request.post({
+           url: nsUrl + "/action/" + action_id,
+           json: input,
+           headers: {
+             'X-api-key': this.client.api_key
+           }
+         })
+       };
+    }
+    var deferred = Promise.defer();
+    var plugin = new jailed.Plugin(path, api);
+    // plugin.whenConnected()
+    //  deferred.resolve(output)
     return deferred.promise;
   }
 }
