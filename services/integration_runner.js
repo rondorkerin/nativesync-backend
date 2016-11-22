@@ -24,6 +24,9 @@ class IntegrationRunner {
           }
         })
       },
+      log: function(message) {
+        console.log(message);
+      }
       end: function(output) {
         deferred.resolve(output)
       }

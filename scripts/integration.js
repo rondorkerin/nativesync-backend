@@ -14,7 +14,7 @@ Models['Integration'].upsert({
     type: 'cron',
     value: '* * * * * *',
   },
-  code: "console.log('hello world'); end('done');",
+  code: "log('hello world'); end('done');",
   documentation: "TODO: Readme",
   privacy: 'private',
   pricing: {
