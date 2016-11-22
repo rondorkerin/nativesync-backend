@@ -16,7 +16,7 @@ module.exports = function(app, helpers) {
     let action = await(Action.findById(req.params['id']))
     let Request = require('../services/request')
     console.log('request', req.body, req.params);
-    output = new Request(clientID, action).send(req.body['input'])
+    output = new Request(clientID, action).send(req.body)
     return res.json(output);
   }));
 }
