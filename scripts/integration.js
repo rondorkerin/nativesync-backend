@@ -12,7 +12,7 @@ Models['Integration'].upsert({
   language: 'javascript',
   scheduling_info: {
     type: 'cron',
-    value: '* * * * * *',
+    value: '0 * * * * *',
   },
   code: "log('hello world'); ns(1, {ip: '73.229.150.226'}).then((result) => {end(result)});",
   documentation: "TODO: Readme",
@@ -48,7 +48,7 @@ Models['Integration'].findOne({where: {
     client_id: 1,
     scheduling_info: {
       type: 'cron',
-      value: '* * * * * *',
+      value: '0 * * * * *',
     },
     active: true,
     inputs: {
