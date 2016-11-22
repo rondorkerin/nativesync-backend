@@ -16,16 +16,17 @@ class IntegrationRunner {
     var deferred = Promise.defer();
     var clientApiKey = this.client.api_key
     var api = {
-      ns: function(action_id, input) {
-        return request.post({
+      ns: async(function(action_id, input) {
+        let result = await(request.post({
           url: nsUrl + "/action/" + action_id,
           json: true,
           body: input,
           headers: {
             'X-api-key': clientApiKey
           }
-        })
-      },
+        }))
+        return result;
+      }),
       log: function(message) {
         console.log(message);
       },
@@ -33,7 +34,7 @@ class IntegrationRunner {
         deferred.resolve(output)
       }
     }
-    let code = `(function(api) { ${this.integration.code} })()`
+    let code = `async(function(api) { ${this.integration.code} })()`
     console.log('running code', code);
     vm.runInNewContext(code, api);
     return deferred.promise;
