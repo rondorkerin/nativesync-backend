@@ -7,7 +7,7 @@ const scheduler = require('node-schedule');
 
 module.exports = async(function() {
   console.log('integration runner worker is running');
-  let integrationInstances = await(Models['IntegrationInstance'].findAll())
+  let integrationInstances = await(Models['IntegrationInstance'].findAll({where: {active: true}}))
   for (let integrationInstance of integrationInstances) {
     let integration = await(integrationInstance.getIntegration());
     let client = await(integrationInstance.getClient());
