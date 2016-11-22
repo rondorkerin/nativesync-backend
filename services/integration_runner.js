@@ -19,7 +19,8 @@ class IntegrationRunner {
       ns: function(action_id, input) {
         return request.post({
           url: nsUrl + "/action/" + action_id,
-          json: input,
+          json: true,
+          body: input,
           headers: {
             'X-api-key': clientApiKey
           }
