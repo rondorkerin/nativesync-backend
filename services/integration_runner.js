@@ -16,9 +16,9 @@ class IntegrationRunner {
     var deferred = Promise.defer();
     var clientApiKey = this.client.api_key
     var api = {
-      ns: function(action_id, input) {
+      ns: function(service, functionName, input) {
         return request.post({
-          url: nsUrl + "/action/" + action_id,
+          url: encodeURI(nsUrl + "/action/" + service + "/" + functionName + "/invoke"),
           json: true,
           body: input,
           headers: {
