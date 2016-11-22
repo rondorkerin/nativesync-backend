@@ -13,22 +13,23 @@ class IntegrationRunner {
   }
 
   run() {
-    var path = "/tmp/script.js"
-    fs.writeFileSync(path, this.integration.code);
     const nsUrl = "nativeapi.herokuapp.com";
+    var deferred = Promise.defer();
     var api = {
       ns: function(action_id, input) {
-         return request.post({
-           url: nsUrl + "/action/" + action_id,
-           json: input,
-           headers: {
-             'X-api-key': this.client.api_key
-           }
-         })
-       }
+        return request.post({
+          url: nsUrl + "/action/" + action_id,
+          json: input,
+          headers: {
+            'X-api-key': this.client.api_key
+          }
+        })
+      },
+      end: function(output) {
+        deferred.resolve(output)
+      }
     }
-    var deferred = Promise.defer();
-    var plugin = new jailed.Plugin(path, api);
+    var plugin = new jailed.DynamicPlugin(this.integration.code, api);
     // plugin.whenConnected()
     //  deferred.resolve(output)
     return deferred.promise;
