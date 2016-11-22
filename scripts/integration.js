@@ -1,6 +1,8 @@
 require('use-strict')
 var Models = require('../models');
 
+Models['Client'].upsert({partner_id: 1, name: 'test', api_key: 'abc', url: 'nativesync.io'})
+Models['Partner'].upsert({name: 'test'})
 Models['Integration'].upsert({
   partner_id: 1,
   creator_user_id: 1,

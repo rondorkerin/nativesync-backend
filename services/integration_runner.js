@@ -4,7 +4,8 @@ var await = require('asyncawait/await');
 var Sandbox = require('sandbox');
 
 class IntegrationRunner {
-  constructor(integration, integrationInstance) {
+  constructor(client, integration, integrationInstance) {
+    this.client = client;
     this.integration = integration;
     this.integrationInstance = integrationInstance;
   }
@@ -12,7 +13,19 @@ class IntegrationRunner {
   run() {
     var deferred = Promise.defer();
     var sandbox = new Sandbox();
-    sandbox.run(this.integration.code, function(output) {
+    const nsUrl = "nativeapi.herokuapp.com";
+    var prepend = `const request = require('request-promise');
+                   const ns = function(action_id, input) {
+                     return request.post({
+                       url: "${nsUrl}/action/" + action_id,
+                       json: input,
+                       headers: {
+                         'X-api-key': '${this.client.api_key}'
+                       }
+                     })
+                   };`
+    let code = prepend + " " + this.integration.code;
+    sandbox.run(code, function(output) {
       deferred.resolve(output)
     })
     return deferred.promise;

@@ -10,11 +10,12 @@ module.exports = async(function() {
   let integrationInstances = await(Models['IntegrationInstance'].findAll())
   for (let integrationInstance of integrationInstances) {
     let integration = await(integrationInstance.getIntegration());
+    let client = await(integrationInstance.getClient());
     console.log('scheduling integration', integration.title, 'instance id', integrationInstance.id)
     if (integrationInstance.scheduling_info['type'] == 'cron') {
       scheduler.scheduleJob(integrationInstance.scheduling_info['value'], async(() => {
         console.log('running integration instance', integrationInstance.id);
-        let runner = new IntegrationRunner(integration, integrationInstance)
+        let runner = new IntegrationRunner(client, integration, integrationInstance)
         let output = await(runner.run());
         console.log('integration instance', integrationInstance.id, 'output', output);
       }))
