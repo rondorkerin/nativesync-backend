@@ -40,7 +40,8 @@ async(function(){
     async((x) => { console.log(x); await(Models['UserSystemAuth'].upsert(x)); return Models['UserSystemAuth'].findOne({where: {user_id: x.user_id}}) }),
     async((x) => { console.log(x); await(Models['UserSystemAuth'].upsert(x)); return Models['UserSystemAuth'].findOne({where: {user_id: x.user_id}}) })
   ))
-*/
 
   require('./routes')(app,auth);
 })()
+*/
+  require('./routes')(app,{});
