@@ -31,6 +31,7 @@ module.exports = function(upsert,seed){
   methods.set = Promise.method(function(id,password){
     return Hash(password,10).then(function(hash){
       return upsert({ id:id,hash:hash }).then(function(result){
+        console.log(result)
         hashes[result.id] = result.hash
         return true
       })

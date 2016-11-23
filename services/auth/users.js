@@ -24,6 +24,7 @@ module.exports = function(upsert,seed){
   methods.create = Promise.method(function(email){
     assert(email,'requires email')
     return upsert({email:email}).then(function(user){
+      console.log(user)
       users[user.id] = user
       byEmail[user.email.toUpperCase()] = user
       return user

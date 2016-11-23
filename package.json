@@ -13,9 +13,14 @@
   "dependencies": {
     "asyncawait": "^1.0.6",
     "await": "^0.2.6",
+    "bcryptjs": "^2.3.0",
+    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "config": "^1.21.0",
+    "cors": "^2.8.1",
+    "express-bearer-token": "^2.1.0",
     "guid": "0.0.12",
+    "lodash": "^4.17.2",
     "node-schedule": "^1.2.0",
     "passport-headerapikey": "^1.0.3",
     "pg": "^6.1.0",
@@ -27,6 +32,7 @@
     "rethinkdbdash": "^2.3.23",
     "sequelize": "^3.24.6",
     "sequelize-cli": "^2.4.0",
+    "statesync": "^0.1.2",
     "swagger-parser": "^3.4.1",
     "use-strict": "^1.0.1"
   },
