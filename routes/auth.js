@@ -6,7 +6,6 @@ var await = require('asyncawait/await');
 
 module.exports = function(app, helpers,auth) {
 
-
   //anyone can access this route
   app.post('/auth/signup', async (function(req, res, next) {
     try{

@@ -11,11 +11,19 @@ module.exports = function(app, helpers) {
     return res.json(actions);
   }));
 
-  app.post('/action/:id', helpers.checkauth(), async (function(req, res) {
-    let clientID = req.user.id
-    let action = await(Action.find(req.params['id']))
+  app.post('/action/:id/invoke', async (function(req, res) {
+    let clientID = 1;
+    let action = await(Action.findById(req.params['id']))
     let Request = require('../services/request')
-    output = new Request(client_id, action).send(req.params['input'])
+    let output = new Request(clientID, action).send(req.body)
+    return res.json(output);
+  }));
+
+  app.post('/action/:service/:function/invoke', async (function(req, res) {
+    let clientID = 1;
+    let action = await(Action.findOne({ where: {service_name: req.params['service'], function_name: req.params['function']}}))
+    let Request = require('../services/request')
+    let output = new Request(clientID, action).send(req.body)
     return res.json(output);
   }));
 }

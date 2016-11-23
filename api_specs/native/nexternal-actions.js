@@ -44,10 +44,10 @@ Action.create({
 })
 /*
  *
-**		Credentials
-**		Credentials/AccountName
-**		Credentials/UserName
-**		Credentials/Password
+**    Credentials
+**    Credentials/AccountName
+**    Credentials/UserName
+**    Credentials/Password
  */
 
 Action.create({

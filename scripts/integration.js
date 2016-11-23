@@ -1,6 +1,8 @@
 require('use-strict')
 var Models = require('../models');
 
+Models['Client'].upsert({partner_id: 1, name: 'test', api_key: 'abc', url: 'nativesync.io'})
+Models['Partner'].upsert({name: 'test'})
 Models['Integration'].upsert({
   partner_id: 1,
   creator_user_id: 1,
@@ -10,9 +12,9 @@ Models['Integration'].upsert({
   language: 'javascript',
   scheduling_info: {
     type: 'cron',
-    value: '@daily',
+    value: '0 * * * * *',
   },
-  code: "console.log('hello world')",
+  code: "log('hello world'); ns('IP-API', 'IP Location Lookup', {ip: '73.229.150.226'}).then(function(result) { set('ip_result', result) }).then(end);",
   documentation: "TODO: Readme",
   privacy: 'private',
   pricing: {
@@ -37,13 +39,23 @@ Models['Integration'].upsert({
     }
   ]
 })
-
-Models['IntegrationInstance'].upsert({
-  integration_id: 1,
-  client_id: 1,
-  scheduling_info: {
-    type: 'cron',
-    value: '@daily',
-  },
-  last_run: null
+.then(function(x) {
+  Models['Integration'].findOne({where: {
+    title: 'A test script',
+  }}).then(function(integration) {
+    console.log('found integration', integration)
+    Models['IntegrationInstance'].upsert({
+      integration_id: integration.id,
+      client_id: 1,
+      scheduling_info: {
+        type: 'cron',
+        value: '0 * * * * *',
+      },
+      active: true,
+      inputs: {
+        hello: 'world'
+      },
+      last_run: null
+    })
+  })
 })

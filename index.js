@@ -11,6 +11,9 @@ var Auth = require('./services/auth')
 var bearerToken = require('express-bearer-token')
 var cors = require('cors')
 var bodyParser = require('body-parser');
+var Workers = require('./workers');
+
+Workers['IntegrationRunner']();
 
 let app = express();
 
