@@ -24,6 +24,7 @@ var UserSystemAuth = postgres.define('user_system_auth', {
     type: Sequelize.DATE
   }
 }, {
+  indexes: [{fields: ['user_id'], unique: true}, {fields: ['token'], unique: true}],
   freezeTableName: true
 });
 

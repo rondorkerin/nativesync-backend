@@ -25,6 +25,7 @@ var User = postgres.define('user', {
     type: Sequelize.DATE
   }
 }, {
+  indexes: [{fields: ['email'], unique: true}],
   freezeTableName: true
 });
 
