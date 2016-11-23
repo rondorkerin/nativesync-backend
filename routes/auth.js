@@ -4,14 +4,14 @@ let ClientAuth = require('../models/client_auth');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 
-module.exports = function(app, helpers,auth) {
+module.exports = function(app, helpers, auth) {
 
   //anyone can access this route
   app.post('/auth/signup', async (function(req, res, next) {
-    try{
-      var user = await(auth.signup(req.body.email,req.body.password))
+    try {
+      var user = await(auth.signup(req.body.email, req.body.password))
       res.json(user)
-    }catch(e){
+    } catch(e) {
       next(e)
     }
   }));
@@ -27,7 +27,7 @@ module.exports = function(app, helpers,auth) {
     }
   }));
 
-  //middleware for attaching user, all routes after this 
+  //middleware for attaching user, all routes after this
   //can assume if no req.user specified they are not logged in
   app.use(async(function(req,res,next){
     try{
@@ -52,7 +52,7 @@ module.exports = function(app, helpers,auth) {
       next(e)
     }
     res.json(result)
-  }));                     
+  }));
 
   // app.post('/action/:id', helpers.checkauth(), async (function(req, res) {
   //   let clientID = req.user.id

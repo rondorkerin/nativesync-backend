@@ -35,9 +35,9 @@ async(function(){
     await(Models['User'].findAll()),
     await(Models['UserSystemAuth'].findAll()),
     await(Models['UserSystemAuth'].findAll()),
-    async((x) => { console.log(x); await(Models['User'].upsert(x)); return Models['User'].findOne({where: {email: x.email}}); }),
-    async((x) => { console.log(x); await(Models['UserSystemAuth'].upsert(x)); return Models['UserSystemAuth'].findOne({where: {user_id: x.user_id}}); }),
-    async((x) => { console.log(x); await(Models['UserSystemAuth'].upsert(x)); return Models['UserSystemAuth'].findOne({where: {user_id: x.user_id); })
+    async((x) => { console.log(x); await(Models['User'].upsert(x)); return Models['User'].findOne({where: {email: x.email}}) }),
+    async((x) => { console.log(x); await(Models['UserSystemAuth'].upsert(x)); return Models['UserSystemAuth'].findOne({where: {user_id: x.user_id}}) }),
+    async((x) => { console.log(x); await(Models['UserSystemAuth'].upsert(x)); return Models['UserSystemAuth'].findOne({where: {user_id: x.user_id}}) })
   ))
 
   require('./routes')(app,auth);
