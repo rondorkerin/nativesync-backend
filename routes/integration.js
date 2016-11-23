@@ -24,7 +24,7 @@ module.exports = (app, helpers) => {
   });
 
   app.get('/integrations', async((req, res) => {
-    var results = await(Integration.findAll(}))
+    var results = await(Integration.findAll())
     return res.json(results);
   }));
 
