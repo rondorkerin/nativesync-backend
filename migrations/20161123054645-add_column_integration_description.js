@@ -9,7 +9,7 @@ module.exports = {
     await(queryInterface.addColumn('partner', 'avatar_url', Sequelize.STRING))
     await(queryInterface.addColumn('client', 'avatar_url', Sequelize.STRING))
     await(queryInterface.addColumn('user', 'avatar_url', Sequelize.STRING))
-  },
+  }),
 
   down: function (queryInterface, Sequelize) {
     /*
