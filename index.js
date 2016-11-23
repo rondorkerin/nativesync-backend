@@ -4,14 +4,15 @@ let config = require('config');
 
 require('use-strict')
 var Models = require('./models');
+var Auth = require('./services/auth')
+var Workers = require('./workers');
+
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 let express = require('express');
-var Auth = require('./services/auth')
 var bearerToken = require('express-bearer-token')
 var cors = require('cors')
 var bodyParser = require('body-parser');
-var Workers = require('./workers');
 
 Workers['IntegrationRunner']();
 
@@ -24,7 +25,6 @@ let server = require('http').createServer(app).listen(app.get('port'), function(
 });
 
 app.use(passport.initialize())
-
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors())
 app.use(bearerToken())

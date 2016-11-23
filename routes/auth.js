@@ -18,6 +18,7 @@ module.exports = function(app, helpers,auth) {
 
   //anyone can access this route
   app.post('/auth/login', async (function(req, res, next) {
+    console.log('login',req.body)
     try{
       var token = await(auth.login(req.body.email,req.body.password))
       res.json(token)
@@ -31,9 +32,8 @@ module.exports = function(app, helpers,auth) {
   app.use(async(function(req,res,next){
     try{
       req.user = await(auth.validate(req.token))
-    }catch(e){
-      next(e)
-    }
+    }catch(e){ }
+    next()
   }))
 
   app.post('/auth/logout', async (function(req, res) {
