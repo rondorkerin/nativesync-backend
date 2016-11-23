@@ -8,7 +8,7 @@ var bcrypt = require('bcryptjs')
 var Hash = Promise.promisify(bcrypt.hash)
 var Compare  = Promise.promisify(bcrypt.compare)
 
-module.exports = function(upsert,seed){
+module.exports = function(seed,upsert){
   var methods = {}
   var hashes = {}
 
