@@ -24,6 +24,11 @@ module.exports = (app, helpers) => {
   });
 
   app.get('/integrations', async((req, res) => {
+    var results = await(Integration.findAll(}))
+    return res.json(results);
+  }));
+
+  app.get('/me/integrations', async((req, res) => {
     var client_id = 1;
     var results = await(Integration.findAll({where: {client_id: req.user.id}}))
     return res.json(results);
