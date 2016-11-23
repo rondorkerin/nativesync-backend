@@ -14,6 +14,9 @@ var Client = postgres.define('client', {
   name: {
     type: Sequelize.STRING
   },
+  avatar_url: {
+    type: Sequelize.STRING
+  },
   api_key: {
     type: Sequelize.STRING
   },

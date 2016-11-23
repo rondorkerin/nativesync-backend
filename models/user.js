@@ -15,6 +15,9 @@ var User = postgres.define('user', {
   password: {
     type: Sequelize.STRING
   },
+  avatar_url: {
+    type: Sequelize.STRING
+  },
   createdAt: {
     type: Sequelize.DATE
   },

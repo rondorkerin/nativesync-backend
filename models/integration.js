@@ -16,6 +16,9 @@ var Integration = postgres.define('integration', {
   title: {
     type: Sequelize.STRING
   },
+  description: {
+    type: Sequelize.STRING
+  },
   version: {
     type: Sequelize.STRING
   },
