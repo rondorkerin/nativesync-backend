@@ -46,6 +46,7 @@ module.exports = function(upsert,seed){
   methods.create = Promise.method(function(userid){
     assert(userid,'create token requires userid')
     return upsert({userid:userid,active:true}).then(function(token){
+      console.log(token)
       tokens[token.id] = token
       return token
     })

@@ -17,6 +17,8 @@
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "config": "^1.21.0",
+    "cors": "^2.8.1",
+    "express-bearer-token": "^2.1.0",
     "guid": "0.0.12",
     "lodash": "^4.17.2",
     "node-uuid": "^1.4.7",

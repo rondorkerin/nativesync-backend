@@ -1,14 +1,15 @@
-module.exports = function(app) {
+module.exports = function(app,auth) {
   app.get('/test', function(req, res) {
     res.json({ping: 'pong'});
   });
+
   var helpers = require('../helpers/');
 
-  var auth = require('./auth')(app, helpers);
-  var action = require('./action')(app, helpers);
-  var integration = require('./integration')(app, helpers);
-  var clientAuth = require('./client_auth')(app, helpers);
-  var client = require('./client')(app, helpers);
-  var service = require('./service')(app, helpers);
+  require('./auth')(app, helpers,auth);
+  require('./action')(app, helpers);
+  require('./integration')(app, helpers);
+  require('./client_auth')(app, helpers);
+  require('./client')(app, helpers);
+  require('./service')(app, helpers);
 
 }
