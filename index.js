@@ -44,4 +44,4 @@ async(function(){
   require('./routes')(app,auth);
 })()
 */
-  require('./routes')(app,{});
+require('./routes')(app,{});

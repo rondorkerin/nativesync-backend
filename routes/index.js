@@ -1,11 +1,11 @@
-module.exports = function(app,auth) {
+module.exports = function(app, auth) {
   app.get('/test', function(req, res) {
     res.json({ping: 'pong'});
   });
 
-  var helpers = require('../helpers/');
+  var helpers = require('../helpers');
 
-  require('./auth')(app, helpers,auth);
+  require('./auth')(app, helpers, auth);
   require('./action')(app, helpers);
   require('./integration')(app, helpers);
   require('./client_auth')(app, helpers);
