@@ -3,7 +3,7 @@ var Promise = require('bluebird')
 var lodash = require('lodash')
 var uuid = require('node-uuid')
 
-module.exports = function(upsert,seed){
+module.exports = function(seed,upsert){
   var users = {}
   var byEmail = {}
   var methods = {}
