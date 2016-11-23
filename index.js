@@ -30,6 +30,7 @@ app.use(cors())
 app.use(bearerToken())
 
 
+/*
 async(function(){
   var auth = await(Auth(
     await(Models['User'].findAll()),
@@ -39,6 +40,7 @@ async(function(){
     async((x) => { console.log(x); await(Models['UserSystemAuth'].upsert(x)); return Models['UserSystemAuth'].findOne({where: {user_id: x.user_id}}) }),
     async((x) => { console.log(x); await(Models['UserSystemAuth'].upsert(x)); return Models['UserSystemAuth'].findOne({where: {user_id: x.user_id}}) })
   ))
+*/
 
   require('./routes')(app,auth);
 })()
