@@ -46,7 +46,7 @@ module.exports = function(seedUsers,seedHashes,seedTokens,upsertUser,upsertHash,
   methods.validate = Promise.method(function(tokenid){
     assert(tokenid,'requires token')
     return tokens.get(tokenid).then(function(token){
-      return users.get(token.userid)
+      return users.get(token.user_id)
     })
   })
 
@@ -55,14 +55,14 @@ module.exports = function(seedUsers,seedHashes,seedTokens,upsertUser,upsertHash,
     assert(oldpass,'requires oldpass')
     assert(newpass,'requires newpass')
     return tokens.get(tokenid).then(function(token){
-      return [token,hashes.compare(token.userid,oldpass)]
+      return [token,hashes.compare(token.user_id,oldpass)]
     }).spread(function(token,valid){
       assert(valid,'incorrect previous password')
-      return hashes.set(token.userid,newpass)
+      return hashes.set(token.user_id,newpass)
     })
   })
 
-  methods.init = Promise.method(function(){
+  methods.init = function(){
     return Promise.all([
       Users(seedUsers,upsertUser),
       Hashes(seedHashes,upsertHash),
@@ -73,7 +73,7 @@ module.exports = function(seedUsers,seedHashes,seedTokens,upsertUser,upsertHash,
       tokens = t
       return methods
     })
-  })
+  }
 
   return methods.init()
 }
