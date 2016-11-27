@@ -31,9 +31,6 @@ var Integration = postgres.define('integration', {
   scheduling_info: {
     type: Sequelize.JSON
   },
-  code: {
-    type: Sequelize.TEXT
-  },
   documentation: {
     type: Sequelize.TEXT
   },
