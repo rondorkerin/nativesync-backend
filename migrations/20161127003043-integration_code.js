@@ -6,7 +6,7 @@ var await = require('asyncawait/await')
 module.exports = {
   up: async(function (queryInterface, Sequelize) {
     await(queryInterface.removeColumn( 'integration', 'code'))
- await(queryInterface.createTable('integration_code', {
+    await(queryInterface.createTable('integration_code', {
         id: {
           type: Sequelize.BIGINT,
           primaryKey: true,
@@ -26,9 +26,8 @@ module.exports = {
         }
       }));
 
-			await(queryInterface.addIndex('integration_code', ['integration_id'], {indicesType: 'UNIQUE'}));
-  },
-
+      await(queryInterface.addIndex('integration_code', ['integration_id'], {indicesType: 'UNIQUE'}));
+  }),
   down: function (queryInterface, Sequelize) {
     /*
       Add reverting commands here.
