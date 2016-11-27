@@ -58,13 +58,10 @@ passport.use('user_login', new LocalStrategy({
     // Auth Check Logic
     var user = await(Models.User.findOne({where: {email: email}}));
     var userSystemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: user.id}}));
-    if (userSystemAuth.token == password) {
-      return done(null, user);
-    }
     if (Compare(password, userSystemAuth.hash)) {
       userSystemAuth.token = jwt.encode({id: user.id}, JWT_SECRET);
       await(userSystemAuth.save());
-      return done(null, {token: token});
+      return done(null, {token: userSystemAuth.token});
     }
     return done('invalid password', null);
   })
