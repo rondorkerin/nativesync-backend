@@ -6,6 +6,7 @@ let Sequelize = require('sequelize')
 var ClientDatastore = postgres.define('client_datastore', {
   id: {
     type: Sequelize.BIGINT,
+    autoIncrement: true,
     primaryKey: true
   },
   client_id: {

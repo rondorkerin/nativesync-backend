@@ -6,6 +6,7 @@ let Sequelize = require('sequelize')
 var IntegrationCode = postgres.define('integration_code', {
   id: {
     type: Sequelize.BIGINT,
+    autoIncrement: true,
     primaryKey: true
   },
   integration_id: {
@@ -21,7 +22,7 @@ var IntegrationCode = postgres.define('integration_code', {
     type: Sequelize.DATE
   }
 }, {
-	indexes: [{fields: ['integration_id'], unique: true}],
+  indexes: [{fields: ['integration_id'], unique: true}],
   freezeTableName: true
 });
 

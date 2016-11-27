@@ -6,6 +6,7 @@ let guid = require('guid');
 var User = postgres.define('user', {
   id: {
     type: Sequelize.BIGINT,
+    autoIncrement: true,
     primaryKey: true
   },
   email: {

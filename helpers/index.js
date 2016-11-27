@@ -1,1 +1,6 @@
-module.exports.checkauth = require('./checkauth');
+module.exports = function(passport) {
+  return {
+    checkauth: require('./checkauth')(passport),
+    passport: passport
+  }
+}

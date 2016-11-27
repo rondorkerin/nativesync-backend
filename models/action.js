@@ -6,6 +6,7 @@ let Sequelize = require('sequelize')
 var Action = postgres.define('action', {
   id: {
     type: Sequelize.BIGINT,
+    autoIncrement: true,
     primaryKey: true
   },
   service_id: {

@@ -6,6 +6,7 @@ let guid = require('guid');
 var UserSystemAuth = postgres.define('user_system_auth', {
   id: {
     type: Sequelize.BIGINT,
+    autoIncrement: true,
     primaryKey: true
   },
   user_id: {

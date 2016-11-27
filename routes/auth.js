@@ -1,35 +1,56 @@
 var checkauth = require('../helpers/checkauth')
 var Action = require('../models/action')
 let ClientAuth = require('../models/client_auth');
+var Promise = require('bluebird');
+var Models = require('../models');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
-var Auth = require('../services/auth')
+var uuid = require('node-uuid')
+var bcrypt = require('bcryptjs')
+var Hash = Promise.promisify(bcrypt.hash)
+var Compare  = Promise.promisify(bcrypt.compare)
 
-var auth = null
-module.exports = function(app, helpers,auth) {
+
+module.exports = function(app, helpers) {
 
   //anyone can access this route
   app.post('/auth/signup', async (function(req, res, next) {
-    try {
-      var user = await(auth.signup(req.body.email, req.body.password))
-      console.log('signup',user)
-      res.json(user)
-    } catch(e) {
-      next(e)
+    var password = req.body.password;
+    var email = req.body.email;
+    var user = await(Models.User.create({email: email, password: password}));
+    if (user) {
+      var hash = await(Hash(password,10));
+      var userSystemAuth = await(Models.UserSystemAuth.create({user_id: user.id, hash: hash}));
     }
+    res.json(user)
+  }));
+
+  app.get('/auth/testsignup', async (function(req, res, next) {
+    var password = 'fourtwo'
+    var email = 'nick'
+    try {
+      var user = await(Models.User.create({email: email, password: password}));
+    } catch(e) {
+      return res.status(500).send('email is already taken');
+    }
+    var hash = await(Hash(password,10));
+    var userSystemAuth = await(Models.UserSystemAuth.create({user_id: user.id, hash: hash}));
+    return res.json(user)
   }));
 
   //anyone can access this route
-  app.post('/auth/login', async (function(req, res, next) {
-    console.log('login',req.body)
-    try {
-      var token = await(auth.login(req.body.email,req.body.password))
-      console.log('login',token)
-      res.json(token)
-    } catch(e) {
-      next(e)
-    }
+  app.post('/auth/login', helpers.checkauth('user'), async (function(req, res, next) {
+    debugger;
+    console.log('successfully logged in');
   }));
+
+  app.get('/auth/failure', function(req, res, next) {
+    res.send('Failed to authenticate (are you missing an API key?)');
+  });
+
+  app.get('/auth/success', function(req, res, next) {
+    res.send('Successfully authenticated');
+  });
 
   app.post('/auth/logout', async (function(req, res) {
     var result = await(auth.logout(req.token))

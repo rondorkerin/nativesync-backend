@@ -6,6 +6,7 @@ let guid = require('guid');
 var Partner = postgres.define('partner', {
   id: {
     type: Sequelize.BIGINT,
+    autoIncrement: true,
     primaryKey: true
   },
   name: {

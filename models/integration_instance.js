@@ -6,6 +6,7 @@ let Sequelize = require('sequelize')
 var IntegrationInstance = postgres.define('integration_instance', {
   id: {
     type: Sequelize.BIGINT,
+    autoIncrement: true,
     primaryKey: true
   },
   integration_id: {

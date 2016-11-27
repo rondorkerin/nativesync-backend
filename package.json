@@ -25,6 +25,7 @@
     "node-schedule": "^1.2.0",
     "node-uuid": "^1.4.7",
     "passport-headerapikey": "^1.0.3",
+    "passport-local": "^1.0.0",
     "pg": "^6.1.0",
     "pg-hstore": "^2.3.2",
     "pg-promise": "^5.3.5",

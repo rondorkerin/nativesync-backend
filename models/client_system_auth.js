@@ -6,6 +6,7 @@ let guid = require('guid');
 var ClientSystemAuth = postgres.define('client_system_auth', {
   id: {
     type: Sequelize.BIGINT,
+    autoIncrement: true,
     primaryKey: true
   },
   client_id: {

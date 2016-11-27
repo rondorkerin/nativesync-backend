@@ -1,30 +1,16 @@
-module.exports = function(app, auth) {
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
+
+module.exports = async(function(app, passport) {
+
   app.get('/test', function(req, res) {
     res.json({ping: 'pong'});
   });
 
-  // middleware for attaching user, all routes after this
-  // can assume if no req.user specified they are not logged in
-/*
-  app.use(async(function(req,res,next){
-    try{
-      req.user = await(auth.validate(req.token))
-      if (!req.user) {
-        var clientSystemAuth = await(Models['ClientSystemAuth'].findOne({where: {token: req.token}}))
-        if (clientSystemAuth) {
-          req.client = await(clientSystemAuth.getClient());
-        }
-      }
-    } catch(e) {
-      console.log('login fail', e);
-    }
-    next()
-  }))
-      */
+  var helpers = require('../helpers')(passport);
+  debugger;
 
-  var helpers = require('../helpers');
-
-  require('./auth')(app, helpers,auth);
+  require('./auth')(app, helpers);
   require('./action')(app, helpers);
   require('./integration')(app, helpers);
   require('./client_auth')(app, helpers);
@@ -42,4 +28,4 @@ module.exports = function(app, auth) {
     console.log(err)
     res.status(500).send(err.message || err)
   })
-}
+});

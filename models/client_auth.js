@@ -6,6 +6,7 @@ let Sequelize = require('sequelize')
 var ClientAuth = postgres.define('client_auth', {
   id: {
     type: Sequelize.BIGINT,
+    autoIncrement: true,
     primaryKey: true
   },
   client_id: {

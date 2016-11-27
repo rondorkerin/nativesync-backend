@@ -7,6 +7,7 @@ let ServiceAuth = require('./service_auth');
 var Service = postgres.define('service', {
   id: {
     type: Sequelize.BIGINT,
+    autoIncrement: true,
     primaryKey: true
   },
   name: {

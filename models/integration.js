@@ -5,6 +5,7 @@ let Sequelize = require('sequelize')
 var Integration = postgres.define('integration', {
   id: {
     type: Sequelize.BIGINT,
+    autoIncrement: true,
     primaryKey: true
   },
   partner_id: {
