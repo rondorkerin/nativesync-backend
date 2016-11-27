@@ -6,10 +6,11 @@ const vm = require('vm');
 const request = require('request-promise');
 
 class IntegrationRunner {
-  constructor(client, integration, integrationInstance) {
+  constructor(client, integration, integrationInstance, integrationCode) {
     this.client = client;
     this.integration = integration;
     this.integrationInstance = integrationInstance;
+    this.integrationCode = integrationCode;
   }
 
   run() {
@@ -59,7 +60,7 @@ class IntegrationRunner {
         deferred.resolve(output)
       },
     }
-    let code = `(function(api) { ${this.integration.code} })()`
+    let code = `(function(api) { ${this.integrationCode.code} })()`
     console.log('running code', code);
     vm.runInNewContext(code, api);
     return deferred.promise;

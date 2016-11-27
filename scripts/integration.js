@@ -14,7 +14,6 @@ Models['Integration'].upsert({
     type: 'cron',
     value: '0 * * * * *',
   },
-  code: "log('hello world'); ns('IP-API', 'IP Location Lookup', {ip: '73.229.150.226'}).then(function(result) { set('ip_result', result) }).then(end);",
   documentation: "TODO: Readme",
   privacy: 'private',
   pricing: {
@@ -44,6 +43,11 @@ Models['Integration'].upsert({
     title: 'A test script',
   }}).then(function(integration) {
     console.log('found integration', integration)
+    Models['IntegrationCode'].upsert({
+      integration_id: integration.id,
+      code: "log('hello world'); ns('IP-API', 'IP Location Lookup', {ip: '73.229.150.226'}).then(function(result) { set('ip_result', result) }).then(end);"
+    })
+
     Models['IntegrationInstance'].upsert({
       integration_id: integration.id,
       client_id: 1,

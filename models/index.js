@@ -6,6 +6,7 @@ var ClientAuth = require('./client_auth')
 var ClientDatastore = require('./client_datastore')
 var Integration = require('./integration')
 var IntegrationInstance = require('./integration_instance')
+var IntegrationCode = require('./integration_code')
 var Partner = require('./partner')
 var Service = require('./service')
 var ServiceAuth = require('./service_auth')
@@ -28,6 +29,7 @@ Integration.belongsTo(User, { foreignKey: 'creator_user_id' })
 Integration.belongsTo(Partner, { foreignKey: 'partner_id' })
 IntegrationInstance.belongsTo(Client, { foreignKey: 'client_id' })
 IntegrationInstance.belongsTo(Integration, { foreignKey: 'integration_id' })
+IntegrationCode.belongsTo(Integration, { foreignKey: 'integration_id' })
 ClientAuth.belongsTo(Client, { foreignKey: 'client_id' })
 Service.hasMany(ServiceAuth, { as: 'ServiceAuths', foreignKey: 'service_id'})
 UserSystemAuth.belongsTo(User, { foreignKey: 'user_id' })
@@ -42,6 +44,7 @@ module.exports = {
   'ClientDatastore': ClientDatastore,
   'Integration': Integration,
   'IntegrationInstance': IntegrationInstance,
+  'IntegrationCode': IntegrationCode,
   'Partner': Partner,
   'Service': Service,
   'ServiceAuth': ServiceAuth,

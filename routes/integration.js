@@ -10,8 +10,9 @@ module.exports = (app, helpers) => {
     console.log('params', req.params);
     let integrationInstance = await(IntegrationInstance.findById(req.params.id));
     let integration = await(integrationInstance.getIntegration());
-    console.log(integrationInstance, integration);
-    let output = await(new IntegrationRunner(integration, integrationInstance).run());
+    let integrationCode = await(integration.getIntegrationCode());
+    let client = await(integrationInstance.getClient());
+    let output = await(new IntegrationRunner(client, integration, integrationInstance, integrationCode).run());
     return res.json(output);
   }));
 
