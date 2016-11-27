@@ -56,7 +56,6 @@ passport.use('user', new LocalStrategy({
     // Auth Check Logic
     debugger;
     var user = await(Models.User.findOne({where: {email: email}}));
-    return done(null, user);
     var userSystemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: user.id}}));
     if (Compare(password, userSystemAuth.hash)) {
       return done(null, user);
