@@ -62,8 +62,8 @@ passport.use('user', new LocalStrategy({
       return done(null, user);
     }
     return done('invalid password', null);
-  }));
-}));
+  });
+));
 
 passport.use('client', new HeaderApiKeyStrategy({
   header: 'Authorization', prefix: 'Api-Key ' },
