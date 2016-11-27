@@ -1,4 +1,4 @@
-module.exports = function(app, auth, clientAuth) {
+module.exports = function(app, auth) {
   app.get('/test', function(req, res) {
     res.json({ping: 'pong'});
   });
@@ -9,13 +9,15 @@ module.exports = function(app, auth, clientAuth) {
     try{
       req.user = await(auth.validate(req.token))
       if (!req.user) {
+        /*
         var clientSystemAuth = await(Models['ClientSystemAuth'].findOne({where: {token: req.token}}))
-				if (clientSystemAuth) {
-					req.client = await(clientSystemAuth.getClient());
-				}
+        if (clientSystemAuth) {
+          req.client = await(clientSystemAuth.getClient());
+        }
+      */
       }
     } catch(e) {
-			console.log('login fail', e);
+      console.log('login fail', e);
     }
     next()
   }))
