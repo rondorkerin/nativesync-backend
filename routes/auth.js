@@ -34,13 +34,13 @@ module.exports = function(app, helpers) {
     res.send('Failed to authenticate (are you missing an API key?)');
   });
 
-  app.post('/auth/logout', helpers.checkauth('user'), async (function(req, res) {
+  app.post('/auth/logout', helpers.checkauth('user'), function(req, res) {
     console.log('logout called for user', req.user);
     var systemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: req.user.id}}))
     systemAuth.token = '';
     await(systemAuth.save());
     return res.send('success');
-  }));
+  });
 
   app.post('/auth/user',function(req,res){
     res.json(req.user)
