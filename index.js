@@ -68,7 +68,7 @@ passport.use('user_login', new LocalStrategy({
 ));
 
 passport.use('user', new HeaderApiKeyStrategy({
-  header: 'Token' },
+  header: 'Token' , prefix: ''},
   false,
   async(function(apikey, done) {
     console.log('payload found', apikey);
