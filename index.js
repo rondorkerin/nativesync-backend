@@ -30,6 +30,7 @@ app.use(cors())
 app.use(bearerToken())
 
 Auth(Models).then(function(auth){
+  console.log('loading routes');
   require('./routes')(app,auth);
 })
 
