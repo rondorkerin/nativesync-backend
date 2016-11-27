@@ -39,6 +39,14 @@ module.exports = function(seed,upsert){
     return user
   })
 
+  // methods.search = Promise.method(function(query){
+  //   return lodash.filter(users,function(user){
+  //     var upper = email.toUpperCase()
+
+
+  //   })
+  // })
+
   methods.changeEmail = Promise.method(function(id,newemail){
     assert(newemail,'requires new email')
     var upper = newemail.toUpperCase()

@@ -13,17 +13,16 @@ module.exports = function(seed,upsert){
   }
 
   methods.init = Promise.method(function(){
-    lodash.each(seed,function(token){
-      if(token.active){
-        tokens[token.id] = token
-      }
-    })
+    tokens = lodash.keyBy(seed,'token')
+    // lodash.each(seed,function(token){
+    //   tokens[token.id] = token
+    // })
     return methods
   })
 
   methods.getByUserID = Promise.method(function(userid){
     return lodash.filter(tokens,function(token){
-      return token.userid == userid
+      return token.user_id == userid
     })
   })
 
@@ -45,9 +44,8 @@ module.exports = function(seed,upsert){
 
   methods.create = Promise.method(function(userid){
     assert(userid,'create token requires userid')
-    return upsert({userid:userid,active:true}).then(function(token){
-      console.log(token)
-      tokens[token.id] = token
+    return upsert({token:uuid.v4(),user_id:userid,active:true}).then(function(token){
+      tokens[token.token] = token
       return token
     })
   })

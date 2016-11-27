@@ -3,13 +3,16 @@ var Action = require('../models/action')
 let ClientAuth = require('../models/client_auth');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
+var Auth = require('../services/auth')
 
-module.exports = function(app, helpers, auth) {
+var auth = null
+module.exports = function(app, helpers,auth) {
 
   //anyone can access this route
   app.post('/auth/signup', async (function(req, res, next) {
     try {
       var user = await(auth.signup(req.body.email, req.body.password))
+      console.log('signup',user)
       res.json(user)
     } catch(e) {
       next(e)
@@ -21,6 +24,7 @@ module.exports = function(app, helpers, auth) {
     console.log('login',req.body)
     try{
       var token = await(auth.login(req.body.email,req.body.password))
+      console.log('login',token)
       res.json(token)
     }catch(e){
       next(e)

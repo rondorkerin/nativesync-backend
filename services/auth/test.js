@@ -56,12 +56,12 @@ test('tokens',function(t){
   t.test('getByUserID',function(t){
     tokens.getByUserID('test').then(function(result){
       t.equal(result.length,1)
-      t.equal(result[0].userid,'test')
+      t.equal(result[0].user_id,'test')
       t.end()
     }).catch(t.end)
   })
   t.test('delete',function(t){
-    tokens.delete(token.id).then(function(result){
+    tokens.delete(token.token).then(function(result){
       t.ok(result)
       return tokens.getByUserID('test')
     }).then(function(result){
@@ -137,29 +137,29 @@ test('auth',function(t){
     t.plan(2)
     auth.login('email','password').then(function(result){
       token = result
-      t.equal(result.userid,user.id)
+      t.equal(result.user_id,user.id)
     }).catch(t.end)
     auth.login('email','bad').then(t.end).catch(function(result){
       t.ok(result)
     })
   })
   t.test('validate',function(t){
-    auth.validate(token.id).then(function(result){
+    auth.validate(token.token).then(function(result){
       t.deepEqual(result,user)
       t.end()
     }).catch(t.end)
   })
   t.test('change password',function(t){
     t.plan(2)
-    auth.changePassword(token.id,'badpass','newpass').then(t.end).catch(function(result){
+    auth.changePassword(token.token,'badpass','newpass').then(t.end).catch(function(result){
       t.ok(result)
     })
-    auth.changePassword(token.id,'password','newpass').then(function(result){
+    auth.changePassword(token.token,'password','newpass').then(function(result){
       t.ok(result)
     })
   })
   t.test('logout/login',function(t){
-    auth.logout(token.id).then(function(result){
+    auth.logout(token.token).then(function(result){
       t.ok(result)
       return auth.login('email','newpass')
     }).then(function(result){
