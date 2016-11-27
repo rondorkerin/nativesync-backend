@@ -38,13 +38,13 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors())
 app.use(bearerToken())
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
+passport.serializeUser(async(function(user, done) {
+  return done(null, user);
+}));
 
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-});
+passport.deserializeUser(async(function(user, done) {
+  return done(null, user);
+}));
 
 var Hash = Promise.promisify(bcrypt.hash)
 var Compare  = Promise.promisify(bcrypt.compare)
