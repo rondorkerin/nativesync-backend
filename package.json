@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js --use_strict",
-    "local": "DATABASE_URL=$(heroku config:get DATABASE_URL) node index.js --use_strict"
+    "local": "DATABASE_URL=$(heroku config:get DATABASE_URL) node index.js --use_strict",
+    "debug": "DATABASE_URL=$(heroku config:get DATABASE_URL) node debug index.js --use_strict"
   },
   "author": "",
   "license": "ISC",
