@@ -25,19 +25,6 @@ module.exports = function(app, helpers) {
     res.json(user)
   }));
 
-  app.get('/auth/testsignup', async (function(req, res, next) {
-    var password = 'fourtwo'
-    var email = 'nick'
-    try {
-      var user = await(Models.User.create({email: email, password: password}));
-    } catch(e) {
-      return res.status(500).send('email is already taken');
-    }
-    var hash = await(Hash(password,10));
-    var userSystemAuth = await(Models.UserSystemAuth.create({user_id: user.id, hash: hash}));
-    return res.json(user)
-  }));
-
   //anyone can access this route
   app.post('/auth/login', helpers.checkauth('user_login'), function(req, res, next) {
     return res.json(req.user);
@@ -47,13 +34,12 @@ module.exports = function(app, helpers) {
     res.send('Failed to authenticate (are you missing an API key?)');
   });
 
-  app.get('/auth/success', function(req, res, next) {
-    return res.json(req.user);
-  });
-
-  app.post('/auth/logout', async (function(req, res) {
-    var result = await(auth.logout(req.token))
-    res.json(result)
+  app.post('/auth/logout', helpers.checkauth('user'), async (function(req, res) {
+    console.log('logout called for user', req.user);
+    var systemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: req.user.id}}))
+    systemAuth.token = '';
+    await(systemAuth.save());
+    return res.send('success');
   }));
 
   app.post('/auth/user',function(req,res){
