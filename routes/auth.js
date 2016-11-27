@@ -40,7 +40,7 @@ module.exports = function(app, helpers) {
 
   //anyone can access this route
   app.post('/auth/login', helpers.checkauth('user_login'), async (function(req, res, next) {
-    console.log(req.user);
+    return res.json(req.user);
   }));
 
   app.get('/auth/failure', function(req, res, next) {
