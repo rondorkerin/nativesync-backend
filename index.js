@@ -61,9 +61,9 @@ passport.use('user_login', new LocalStrategy({
     if (Compare(password, userSystemAuth.hash)) {
       userSystemAuth.token = jwt.encode({id: user.id}, JWT_SECRET);
       await(userSystemAuth.save());
-      return done(null, {token: userSystemAuth.token});
+      return await(done(null, {token: userSystemAuth.token}));
     }
-    return done('invalid password', null);
+    return await(done('invalid password', null));
   })
 ));
 
