@@ -5,6 +5,8 @@ var Promise = require('bluebird');
 var HeaderApiKeyStrategy = require('passport-headerapikey').HeaderAPIKeyStrategy;
 let config = require('config');
 
+const jwt = require('jwt-simple');
+let JWT_SECRET = config.get('jwt_secret');
 require('use-strict')
 var Models = require('./models');
 var Auth = require('./services/auth')
@@ -47,20 +49,39 @@ passport.deserializeUser(function(user, done) {
 var Hash = Promise.promisify(bcrypt.hash)
 var Compare  = Promise.promisify(bcrypt.compare)
 
-passport.use('user', new LocalStrategy({
+passport.use('user_login', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
     session: true
   },
   async(function(email, password, done) {
     // Auth Check Logic
-    debugger;
     var user = await(Models.User.findOne({where: {email: email}}));
     var userSystemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: user.id}}));
-    if (Compare(password, userSystemAuth.hash)) {
+    if (userSystemAuth.token == password) {
       return done(null, user);
     }
+    if (Compare(password, userSystemAuth.hash)) {
+      userSystemAuth.token = jwt.encode({id: user.id}, JWT_SECRET);
+      await(userSystemAuth.save());
+      return done(null, {token: token});
+    }
     return done('invalid password', null);
+  })
+));
+
+passport.use('user', new HeaderApiKeyStrategy({
+  header: 'Token' },
+  false,
+  async(function(apikey, done) {
+    console.log('payload found', apikey);
+    var payload = jwt.decode(apikey, JWT_SECRET);
+    if (!payload.id) {
+      return done('invalid client Token', null);
+    } else {
+      var user = await(Models.User.findById(payload.id));
+      return done(null, user);
+    }
   })
 ));
 

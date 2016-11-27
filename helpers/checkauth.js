@@ -1,13 +1,13 @@
+var config = require('config');
 module.exports = function(passport) {
   return function(type) {
     if (type == 'client') {
       return passport.authenticate('client', { session: false, failureRedirect: '/auth/failure' })
-    } else if (type == 'user' || !type) {
+    } else if (type == 'user') {
+      return passport.authenticate('user', { session: false, failureRedirect: '/auth/failure' })
+    } else if (type == 'user_login' || !type) {
       debugger;
-      return passport.authenticate('user', {
-        successRedirect: '/auth/success',
-        failureRedirect: '/auth/failure'
-      })
+      return passport.authenticate('user_login')
     }
   }
 };

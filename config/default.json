@@ -4,6 +4,7 @@
     "host": "localhost",
     "port": 6379
   },
+  "jwt_secret": "ABCKLKLJDFKSJFKLDSJFLFKDJ",
   "postgres": {
     "use_env_variable": "DATABASE_URL"
   }

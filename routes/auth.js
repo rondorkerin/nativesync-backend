@@ -39,9 +39,8 @@ module.exports = function(app, helpers) {
   }));
 
   //anyone can access this route
-  app.post('/auth/login', helpers.checkauth('user'), async (function(req, res, next) {
-    debugger;
-    console.log('successfully logged in');
+  app.post('/auth/login', helpers.checkauth('user_login'), async (function(req, res, next) {
+    console.log(req.user);
   }));
 
   app.get('/auth/failure', function(req, res, next) {
@@ -49,7 +48,7 @@ module.exports = function(app, helpers) {
   });
 
   app.get('/auth/success', function(req, res, next) {
-    res.send('Successfully authenticated');
+    return res.json(req.user);
   });
 
   app.post('/auth/logout', async (function(req, res) {
