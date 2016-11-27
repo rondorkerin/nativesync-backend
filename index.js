@@ -20,7 +20,7 @@ var bodyParser = require('body-parser');
 var uuid = require('node-uuid')
 var bcrypt = require('bcryptjs')
 
-Workers['IntegrationRunner']();
+//Workers['IntegrationRunner']();
 
 let app = express();
 
