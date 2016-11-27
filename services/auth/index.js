@@ -17,19 +17,19 @@ module.exports = function(Models){
       }).then(function(result){
         console.log('upsertuser',result.dataValues)
         return result.dataValues
-      }) 
+      })
     },
     upsertHash: function(x){
       //hashes contain id, and hash
       return Models.UserSystemAuth.upsert(x).then(function(){
-        return Models.User.findOne({where:{id:x.id}})
+        return Models.UserSystemAuth.findOne({where:{user_id:x.user_id}})
       }).then(function(result){
         console.log('upserthash',result.dataValues)
         return result.dataValues
-      }) 
+      })
     },
     upsertToken: function(x){
-      //tokens contain userid, 
+      //tokens contain userid,
       return Models.UserSystemAuth.upsert(x).then(function(){
         return Models.User.findOne({where:{user_id:x.user_id}})
       }).then(function(result){
