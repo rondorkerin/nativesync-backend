@@ -18,7 +18,24 @@ class IntegrationRunner {
       this.runHostedMVP();
     } else if (this.integration.type == 'lambda') {
       this.runLambda();
+    } else if (this.integration.type == 'external') {
+      this.runExternal();
     }
+  }
+
+  runExternal() {
+    let url = this.integrationCode.code;
+    return request.post({
+      url: url,
+      json: true,
+      body: {
+        client: client,
+        integration: this.integration,
+        integrationInstance: this.integrationInstance,
+        integrationCode: this.integrationCode
+      },
+    });
+
   }
 
   runLambda() {
