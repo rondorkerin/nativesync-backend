@@ -14,6 +14,7 @@ Models['Integration'].upsert({
     type: 'cron',
     value: '0 * * * * *',
   },
+  internal_name: 'ip_api_test',
   documentation: "TODO: Readme",
   privacy: 'private',
   pricing: {
@@ -55,6 +56,7 @@ Models['Integration'].upsert({
         type: 'cron',
         value: '0 * * * * *',
       },
+      internal_name: 'lookup_ip',
       active: true,
       inputs: {
         hello: 'world'

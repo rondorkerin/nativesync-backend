@@ -17,6 +17,9 @@ var Integration = postgres.define('integration', {
   title: {
     type: Sequelize.STRING
   },
+  internal_name: {
+    type: Sequelize.STRING
+  },
   description: {
     type: Sequelize.STRING
   },
@@ -57,6 +60,7 @@ var Integration = postgres.define('integration', {
     type: Sequelize.DATE
   }
 }, {
+  indexes: [{fields: ['partner_id', 'internal_name'], unique: true}]
   freezeTableName: true
 });
 

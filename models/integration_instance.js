@@ -15,6 +15,9 @@ var IntegrationInstance = postgres.define('integration_instance', {
   client_id: {
     type: Sequelize.BIGINT
   },
+  internal_name: {
+    type: Sequelize.STRING
+  },
   scheduling_info: {
     type: Sequelize.JSON
   },
@@ -34,7 +37,8 @@ var IntegrationInstance = postgres.define('integration_instance', {
     type: Sequelize.DATE
   }
 }, {
-  freezeTableName: true
+  freezeTableName: true,
+  indexes: [{fields: ['client_id', 'internal_name'], unique: true}]
 });
 
 module.exports = IntegrationInstance

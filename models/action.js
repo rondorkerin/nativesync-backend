@@ -12,6 +12,9 @@ var Action = postgres.define('action', {
   service_id: {
     type: Sequelize.BIGINT
   },
+  title: {
+    type: Sequelize.STRING
+  },
   schemes: {
     type: Sequelize.JSON
   },
