@@ -22,7 +22,6 @@ var bodyParser = require('body-parser');
 var uuid = require('node-uuid')
 var bcrypt = require('bcryptjs')
 
-Workers['IntegrationRunner']();
 
 let app = express();
 
@@ -95,5 +94,10 @@ passport.use('client', new HeaderApiKeyStrategy({
 ));
 
 console.log('loading routes');
-require('./routes')(app,passport);
+
+if (process.argv[2] == 'workers') {
+  Workers['IntegrationRunner']();
+} else {
+  require('./routes')(app,passport);
+}
 
