@@ -11,6 +11,7 @@ module.exports = async(function(app, passport) {
   debugger;
 
   require('./auth')(app, helpers);
+  require('./me')(app, helpers);
   require('./action')(app, helpers);
   require('./integration')(app, helpers);
   require('./client_auth')(app, helpers);
