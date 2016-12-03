@@ -26,6 +26,7 @@
     "lodash": "^4.17.2",
     "node-schedule": "^1.2.0",
     "node-uuid": "^1.4.7",
+    "oauth": "^0.9.14",
     "passport-headerapikey": "^1.0.3",
     "passport-local": "^1.0.0",
     "pg": "^6.1.0",

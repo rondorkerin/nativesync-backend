@@ -9,7 +9,7 @@ var IntegrationCode = postgres.define('integration_code', {
     autoIncrement: true,
     primaryKey: true
   },
-  integration_id: {
+  integration_instance_id: {
     type: Sequelize.BIGINT
   },
   code: {
@@ -22,7 +22,7 @@ var IntegrationCode = postgres.define('integration_code', {
     type: Sequelize.DATE
   }
 }, {
-  indexes: [{fields: ['integration_id'], unique: true}],
+  indexes: [{fields: ['integration_instance_id'], unique: true}],
   freezeTableName: true
 });
 

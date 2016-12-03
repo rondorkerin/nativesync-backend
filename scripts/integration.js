@@ -40,28 +40,32 @@ Models['Integration'].upsert({
   ]
 })
 .then(function(x) {
-  Models['Integration'].findOne({where: {
+  return Models['Integration'].findOne({where: {
     title: 'A test script',
-  }}).then(function(integration) {
-    console.log('found integration', integration)
+  }})
+.then(function(integration) {
+  console.log('found integration', integration.id)
+  return Models['IntegrationInstance'].upsert({
+    integration_id: integration.id,
+    client_id: 1,
+    scheduling_info: {
+      type: 'cron',
+      value: '0 * * * * *',
+    },
+    internal_name: 'lookup_ip',
+    active: true,
+    inputs: {
+      hello: 'world'
+    },
+    last_run: null
+  }).then(function() {
+    return Models['IntegrationInstance'].findOne({where: {
+      integration_id: integration.id
+    }})
+  }).then(function(integrationInstance) {
     Models['IntegrationCode'].upsert({
-      integration_id: integration.id,
+      integration_instance_id: integrationInstance.id,
       code: "log('hello world'); ns('IP-API', 'IP Location Lookup', {ip: '73.229.150.226'}).then(function(result) { set('ip_result', result) }).then(end);"
-    })
-
-    Models['IntegrationInstance'].upsert({
-      integration_id: integration.id,
-      client_id: 1,
-      scheduling_info: {
-        type: 'cron',
-        value: '0 * * * * *',
-      },
-      internal_name: 'lookup_ip',
-      active: true,
-      inputs: {
-        hello: 'world'
-      },
-      last_run: null
     })
   })
 })
