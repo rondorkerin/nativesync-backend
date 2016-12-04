@@ -1,4 +1,3 @@
-var checkauth = require('../helpers/checkauth')
 var Action = require('../models/action')
 let ClientAuth = require('../models/client_auth');
 var async = require('asyncawait/async');

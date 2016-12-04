@@ -5,7 +5,7 @@ const IntegrationRunner = require('../services/integration_runner');
 const async = require('asyncawait/async')
 const await = require('asyncawait/await')
 
-module.exports = (app, helpers) => {
+module.exports = (app, stormpath) => {
   app.post('/integration_instance/:id/run', async((req, res) => {
     console.log('params', req.params);
     let integrationInstance = await(IntegrationInstance.findById(req.params.id));

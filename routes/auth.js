@@ -1,4 +1,3 @@
-var checkauth = require('../stormpath/checkauth')
 var Action = require('../models/action')
 let ClientAuth = require('../models/client_auth');
 var Promise = require('bluebird');
@@ -13,39 +12,7 @@ var Compare  = Promise.promisify(bcrypt.compare)
 
 module.exports = function(app, stormpath) {
 
-  //anyone can access this route
-  app.post('/auth/signup', async (function(req, res, next) {
-    var password = req.body.password;
-    var email = req.body.email;
-    var user = await(Models.User.create({email: email, password: password}));
-    if (user) {
-      var hash = await(Hash(password,10));
-      var userSystemAuth = await(Models.UserSystemAuth.create({user_id: user.id, hash: hash}));
-    }
-    res.json(user)
-  }));
-
-  //anyone can access this route
-  app.post('/auth/login', stormpath.checkauth('user_login'), function(req, res, next) {
-    return res.json(req.user);
-  });
-
-  app.get('/auth/failure', function(req, res, next) {
-    res.send('Failed to authenticate (are you missing an API key?)');
-  });
-
-  app.post('/auth/logout', stormpath.checkauth('user'), function(req, res) {
-    console.log('logout called for user', req.user);
-    var systemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: req.user.id}}))
-    systemAuth.token = '';
-    await(systemAuth.save());
-    return res.send('success');
-  });
-
-  app.post('/auth/user',function(req,res){
-    res.json(req.user)
-  })
-
+/*
   app.post('/auth/changePassword',async (function(req, res, next) {
     try{
     var result = await(auth.changePassword(req.token,req.body.oldpass,req.body.newpass))
@@ -54,6 +21,7 @@ module.exports = function(app, stormpath) {
     }
     res.json(result)
   }));
+*/
 
   // app.post('/action/:id', stormpath.checkauth(), async (function(req, res) {
   //   let clientID = req.user.id

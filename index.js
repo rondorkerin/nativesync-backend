@@ -17,20 +17,18 @@ app.use(stormpath.init(app, {
   // Optional configuration options.
 }));
 
-app.set('port', (process.env.PORT || config.get('port')))
-app.listen();
+var port = (process.env.PORT || config.get('port'))
+app.listen(port);
 
-console.log('loading routes');
+console.log('initializing on port', port);
 // Stormpath will let you know when it's ready to start authenticating users.
 app.on('stormpath.ready', function () {
   console.log('Stormpath Ready!');
-/*
   if (process.argv[2] == 'workers') {
     Workers['IntegrationRunner']();
   } else {
     require('./routes')(app, stormpath);
   }
-*/
 });
 
 
