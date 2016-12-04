@@ -1,22 +1,19 @@
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 
-module.exports = async(function(app, passport) {
+module.exports = async(function(app, stormpath) {
 
   app.get('/test', function(req, res) {
     res.json({ping: 'pong'});
   });
 
-  var helpers = require('../helpers')(passport);
-  debugger;
-
-  require('./auth')(app, helpers);
-  require('./me')(app, helpers);
-  require('./action')(app, helpers);
-  require('./integration')(app, helpers);
-  require('./client_auth')(app, helpers);
-  require('./client')(app, helpers);
-  require('./service')(app, helpers);
+  require('./auth')(app, stormpath);
+  require('./me')(app, stormpath);
+  require('./action')(app, stormpath);
+  require('./integration')(app, stormpath);
+  require('./client_auth')(app, stormpath);
+  require('./client')(app, stormpath);
+  require('./service')(app, stormpath);
 
   //404 handler
   app.use(function(req,res,next){

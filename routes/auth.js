@@ -1,4 +1,4 @@
-var checkauth = require('../helpers/checkauth')
+var checkauth = require('../stormpath/checkauth')
 var Action = require('../models/action')
 let ClientAuth = require('../models/client_auth');
 var Promise = require('bluebird');
@@ -11,7 +11,7 @@ var Hash = Promise.promisify(bcrypt.hash)
 var Compare  = Promise.promisify(bcrypt.compare)
 
 
-module.exports = function(app, helpers) {
+module.exports = function(app, stormpath) {
 
   //anyone can access this route
   app.post('/auth/signup', async (function(req, res, next) {
@@ -26,7 +26,7 @@ module.exports = function(app, helpers) {
   }));
 
   //anyone can access this route
-  app.post('/auth/login', helpers.checkauth('user_login'), function(req, res, next) {
+  app.post('/auth/login', stormpath.checkauth('user_login'), function(req, res, next) {
     return res.json(req.user);
   });
 
@@ -34,7 +34,7 @@ module.exports = function(app, helpers) {
     res.send('Failed to authenticate (are you missing an API key?)');
   });
 
-  app.post('/auth/logout', helpers.checkauth('user'), function(req, res) {
+  app.post('/auth/logout', stormpath.checkauth('user'), function(req, res) {
     console.log('logout called for user', req.user);
     var systemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: req.user.id}}))
     systemAuth.token = '';
@@ -55,7 +55,7 @@ module.exports = function(app, helpers) {
     res.json(result)
   }));
 
-  // app.post('/action/:id', helpers.checkauth(), async (function(req, res) {
+  // app.post('/action/:id', stormpath.checkauth(), async (function(req, res) {
   //   let clientID = req.user.id
   //   let action = await(Action.find(req.params['id']))
   //   let Request = require('../services/request')
