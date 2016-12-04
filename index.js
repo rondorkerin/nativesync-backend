@@ -1,9 +1,9 @@
 'use strict'
 var Promise = require('bluebird');
 var config = require('config');
-require('use-strict')
+require('dotenv').config();
+//require('use-strict')
 var Models = require('./models');
-var Auth = require('./services/auth')
 var Workers = require('./workers');
 
 var async = require('asyncawait/async');
