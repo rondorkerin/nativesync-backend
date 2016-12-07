@@ -2,7 +2,6 @@
 let passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var Promise = require('bluebird');
-require('dotenv').config()
 var HeaderApiKeyStrategy = require('passport-headerapikey').HeaderAPIKeyStrategy;
 let config = require('config');
 
