@@ -10,7 +10,7 @@ module.exports = async(function() {
   let integrationInstances = await(Models['IntegrationInstance'].findAll({where: {active: true}}))
   for (let integrationInstance of integrationInstances) {
     let integration = await(integrationInstance.getIntegration());
-    console.log('calling code')
+    console.log('calling code');
     let integrationCode = await(Models['IntegrationCode'].findOne({where: {integration_instance_id: integrationInstance.id}}))
     console.log('code called');
 /*
@@ -24,6 +24,6 @@ module.exports = async(function() {
         console.log('integration instance', integrationInstance.id, 'output', output);
       }))
     }
-  }
 */
+  }
 });
