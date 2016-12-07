@@ -10,10 +10,7 @@ module.exports = async(function() {
   let integrationInstances = await(Models['IntegrationInstance'].findAll({where: {active: true}}))
   for (let integrationInstance of integrationInstances) {
     let integration = await(integrationInstance.getIntegration());
-    console.log('calling code');
-    let integrationCode = await(Models['IntegrationCode'].findOne());//{where: {integration_instance_id: integrationInstance.id}}))
-    console.log('code called', integrationCode);
-/*
+    let integrationCode = await(Models['IntegrationCode'].findOne({where: {integration_instance_id: integrationInstance.id}}))
     let client = await(integrationInstance.getClient());
     console.log('scheduling integration', integration.title, 'instance id', integrationInstance.id)
     if (integrationInstance.scheduling_info['type'] == 'cron') {
@@ -24,6 +21,5 @@ module.exports = async(function() {
         console.log('integration instance', integrationInstance.id, 'output', output);
       }))
     }
-*/
   }
 });
