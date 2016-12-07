@@ -11,8 +11,6 @@ module.exports = async(function() {
   for (let integrationInstance of integrationInstances) {
     let integration = await(integrationInstance.getIntegration());
     let integrationCode = await(Models['IntegrationCode'].findOne({where: {integration_instance_id: integrationInstance.id}}))
-    console.log('got code');
-    /*
     let client = await(integrationInstance.getClient());
     console.log('scheduling integration', integration.title, 'instance id', integrationInstance.id)
     if (integrationInstance.scheduling_info['type'] == 'cron') {
@@ -23,6 +21,5 @@ module.exports = async(function() {
         console.log('integration instance', integrationInstance.id, 'output', output);
       }))
     }
-    */
   }
 });
