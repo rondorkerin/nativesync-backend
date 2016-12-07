@@ -77,7 +77,7 @@ var Action = postgres.define('action', {
   },
 }, {
   freezeTableName: true,
-  indexes: [{fields: ['function_name'], unique: true}, {fields: ['service_id']}, {fields: ['service_name', 'function_name'], unique: true}, {fields: ['creator_user_id']}]
+  indexes: [{fields: ['service_id']}, {fields: ['service_name', 'function_name'], unique: true}, {fields: ['creator_user_id']}]
 });
 
 module.exports = Action

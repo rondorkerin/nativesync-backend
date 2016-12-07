@@ -3,6 +3,7 @@ var Action = require('../../../models/action');
 var Service = require('../../../models/service');
 var Promise = require('bluebird');
 var async = require('asyncawait/async');
+var stringify = require('json-stringify-safe');
 var await = require('asyncawait/await');
 const pathCommand = require('path');
 
@@ -11,9 +12,9 @@ class SwaggerCompiler {
 
   createAll() {
     var fs = require('fs');
-    var fileNames = fs.readdirSync('./api_specs/swagger');
+    var fileNames = fs.readdirSync('./action_specs/swagger');
     return Promise.each(fileNames, (fileName) => {
-      let file = fs.readFileSync(`./api_specs/swagger/${fileName}`, {encoding: 'utf8'});
+      let file = fs.readFileSync(`./action_specs/swagger/${fileName}`, {encoding: 'utf8'});
       return this.create(file);
     })
   }
@@ -31,8 +32,8 @@ class SwaggerCompiler {
       logoURL = parsed['info']['x-logo']['url'];
     }
     var self = this;
-    return SwaggerParser.parse(parsed['swagger']).then(function(data) {
-      return SwaggerParser.dereference(data).then(async(function(data) {
+    return SwaggerParser.parse(parsed['swagger'], {$refs: {circular: 'ignore'}}).then(function(data) {
+      return SwaggerParser.dereference(data, {$refs: {circular: 'ignore'}}).then(async(function(data) {
         for (var path in data.paths) {
           var params = data.paths[path].parameters || [];
           for (var method in data.paths[path]) {
@@ -61,7 +62,9 @@ class SwaggerCompiler {
               official: false,
               creator_user_id: 1
             }
-            debugger;
+            if (service_name == 'sendgrid') {
+              debugger;
+            }
             try {
               let result = await(Action.upsert(action));
             } catch(e) {

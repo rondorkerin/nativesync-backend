@@ -2,9 +2,9 @@ var Async = require('async');
 var Request = require('request');
 var FS = require('fs');
 
-var API_DIR = __dirname + '/../connections';
+var API_DIR = 'action_specs/swagger';
 
-Request.get('https://apis-guru.github.io/api-models/api/v1/list.json', {json: true}, function(err, resp, body) {
+Request.get('https://api.apis.guru/v2/list.json', {json: true}, function(err, resp, body) {
   Async.parallel(Object.keys(body).map(function(key) {
     return function(callback) {
       var connKey = 'guru:' + key;
