@@ -11,8 +11,8 @@ module.exports = async(function() {
   for (let integrationInstance of integrationInstances) {
     let integration = await(integrationInstance.getIntegration());
     console.log('calling code');
-    let integrationCode = await(Models['IntegrationCode'].findOne({where: {integration_instance_id: integrationInstance.id}}))
-    console.log('code called');
+    let integrationCode = await(Models['IntegrationCode'].findOne());//{where: {integration_instance_id: integrationInstance.id}}))
+    console.log('code called', integrationCode);
 /*
     let client = await(integrationInstance.getClient());
     console.log('scheduling integration', integration.title, 'instance id', integrationInstance.id)
