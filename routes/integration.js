@@ -16,22 +16,22 @@ module.exports = (app, helpers) => {
     return res.json(output);
   }));
 
-  app.post('/integrations', (req, res) => {
+  app.post('/integrations', async((req, res) => {
     var integration = req.body.integration;
     integration.client_id = req.user.id;
     return Integration.create(integration).then((results) => {
       return res.json({success: true});
     })
-  });
+  }));
 
-  app.get('/integrations', (req, res) => {
+  app.get('/integrations', async((req, res) => {
     var results = await(Integration.findAll())
     return res.json(results);
-  });
+  }));
 
-  app.get('/me/integrations', (req, res) => {
+  app.get('/me/integrations', async((req, res) => {
     var client_id = 1;
     var results = await(Integration.findAll({where: {client_id: req.user.id}}))
     return res.json(results);
-  });
+  }));
 }
