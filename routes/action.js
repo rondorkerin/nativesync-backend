@@ -7,7 +7,7 @@ var await = require('asyncawait/await');
 module.exports = function(app, helpers) {
 
   app.get('/actions', async(function(req, res) {
-    let actions = await(Action.findAll())
+    let actions = await(Action.findAll({limit: 50}))
     return res.json(actions);
   }));
 
