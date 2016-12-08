@@ -1,4 +1,6 @@
-let ClientAuth = require('../models/client_auth');
+var Models = require('../../models')
+var ClientAuth = Models.ClientAuth;
+var async = require('asyncawait/async');
 
 module.exports = (app, helpers) => {
   app.post('/auth_credentials', helpers.checkauth(), (req, res) => {

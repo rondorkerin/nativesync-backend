@@ -1,7 +1,8 @@
-const Models = require('../models');
-const IntegrationInstance = Models['IntegrationInstance'];
-const Integration = Models['Integration'];
-const IntegrationRunner = require('../services/integration_runner');
+const Models = require('../../models');
+const Services = require('../../services');
+const IntegrationInstance = Models.IntegrationInstance;
+const Integration = Models.Integration;
+const IntegrationRunner = require('../../services/integration_runner');
 const async = require('asyncawait/async')
 const await = require('asyncawait/await')
 
@@ -18,7 +19,7 @@ module.exports = (app, helpers) => {
 
   app.post('/integrations', async((req, res) => {
     var integration = req.body.integration;
-    integration.client_id = req.user.id;
+    integration.partner_id = req.session.partner_id;
     return Integration.create(integration).then((results) => {
       return res.json({success: true});
     })
@@ -30,8 +31,12 @@ module.exports = (app, helpers) => {
   }));
 
   app.get('/me/integrations', async((req, res) => {
-    var client_id = 1;
-    var results = await(Integration.findAll({where: {client_id: req.user.id}}))
+    var results = await(Integration.findAll({where: {partner_id: req.session.partner_id}}))
+    return res.json(results);
+  }));
+
+  app.get('/me/integration_instances', async((req, res) => {
+    var results = await(IntegrationInstance.findAll({where: {client_id: req.session.client_id}}))
     return res.json(results);
   }));
 }

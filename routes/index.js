@@ -1,22 +1,16 @@
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 
-module.exports = async(function(app, passport) {
+module.exports = (app, passport) => {
 
   app.get('/test', function(req, res) {
     res.json({ping: 'pong'});
   });
 
   var helpers = require('../helpers')(passport);
-  debugger;
 
-  require('./auth')(app, helpers);
-  require('./me')(app, helpers);
-  require('./action')(app, helpers);
-  require('./integration')(app, helpers);
-  require('./client_auth')(app, helpers);
-  require('./client')(app, helpers);
-  require('./service')(app, helpers);
+  require('./internal')(app, helpers);
+  require('./v1')(app, helpers);
 
   //404 handler
   app.use(function(req,res,next){
@@ -29,4 +23,4 @@ module.exports = async(function(app, passport) {
     console.log(err)
     res.status(500).send(err.message || err)
   })
-});
+};

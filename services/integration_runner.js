@@ -43,7 +43,7 @@ class IntegrationRunner {
   }
 
   runHostedMVP() {
-    const nsUrl = "http://nativeapi.herokuapp.com";
+    const nsUrl = "https://api.nativesync.io/v1";
     var deferred = Promise.defer();
     var clientApiKey = this.client.api_key
     var clientID = this.client.id;

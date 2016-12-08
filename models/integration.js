@@ -60,7 +60,7 @@ var Integration = postgres.define('integration', {
     type: Sequelize.DATE
   }
 }, {
-  indexes: [{fields: ['partner_id', 'internal_name'], unique: true}],
+  indexes: [{fields: ['partner_id', 'internal_name'], unique: true}, {fields: ['creator_user_id']}],
   freezeTableName: true
 });
 
