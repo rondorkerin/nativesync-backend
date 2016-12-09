@@ -33,7 +33,7 @@ module.exports = function(app, helpers) {
 
   app.post('/actions/associate_service_auth', helpers.checkauth('user'), async(function(req, res) {
     let result;
-    result = await(ActionServiceAuth.create({action_id: req.body.action_id, service_auth_id: req.body.service_auth_id, verified: false})
+    result = await(ActionServiceAuth.create({action_id: req.body.action_id, service_auth_id: req.body.service_auth_id, verified: false}))
     return res.json(result);
   }));
 }
