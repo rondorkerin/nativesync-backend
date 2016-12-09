@@ -2,22 +2,6 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    queryInterface.createTable('partner', {
-      id: {
-        type: Sequelize.BIGINT,
-        primaryKey: true,
-        autoIncrement: true
-      },
-      name: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        type: Sequelize.DATE
-      }
-    });
   },
 
   down: function (queryInterface, Sequelize) {
