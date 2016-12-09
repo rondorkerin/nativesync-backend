@@ -1,12 +1,8 @@
 'use strict'
 let passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var Promise = require('bluebird');
-var HeaderApiKeyStrategy = require('passport-headerapikey').HeaderAPIKeyStrategy;
 let config = require('config');
 
-const jwt = require('jwt-simple');
-let JWT_SECRET = config.get('jwt_secret');
 require('use-strict')
 
 var async = require('asyncawait/async');
@@ -15,10 +11,6 @@ let express = require('express');
 var bearerToken = require('express-bearer-token')
 var cors = require('cors')
 var bodyParser = require('body-parser');
-
-var uuid = require('node-uuid')
-var bcrypt = require('bcryptjs')
-
 
 let app = express();
 app.Models = require('./models');
@@ -35,62 +27,6 @@ app.use(passport.initialize())
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors())
 app.use(bearerToken())
-
-passport.serializeUser(function(object, done) {
-  return done(null, object);
-});
-
-passport.deserializeUser(function(object, done) {
-  return done(null, object);
-});
-
-var Hash = Promise.promisify(bcrypt.hash)
-var Compare  = Promise.promisify(bcrypt.compare)
-
-passport.use('user_login', new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password',
-    session: false
-  },
-  async(function(email, password, done) {
-    // Auth Check Logic
-    var user = await(app.Models.User.findOne({where: {email: email}}));
-    var userSystemAuth = await(app.Models.UserSystemAuth.findOne({where: {user_id: user.id}}));
-    if (Compare(password, userSystemAuth.hash)) {
-      userSystemAuth.token = jwt.encode({id: user.id}, JWT_SECRET);
-      await(userSystemAuth.save());
-      return done(null, {type: 'token', id: userSystemAuth.token});
-    }
-    return done('invalid password', null);
-  })
-));
-
-passport.use('user', new HeaderApiKeyStrategy({
-  header: 'Token' , prefix: '', session: false},
-  false,
-  async(function(apikey, done) {
-    console.log('payload found', apikey);
-    var payload = jwt.decode(apikey, JWT_SECRET);
-    if (!payload.id) {
-      return done('invalid client Token', null);
-    } else {
-      var user = await(app.Models.User.findById(payload.id));
-      return done(null, user);
-    }
-  })
-));
-
-passport.use('client', new HeaderApiKeyStrategy({
-  header: 'Authorization', prefix: 'Api-Key ', session: false},
-  false,
-  async(function(apikey, done) {
-    var client = await(app.Models.Client.findOne({where: {api_key: apikey}}));
-    if (!client) {
-      return done('invalid client API key', null);
-    }
-    return done(null, client);
-  })
-));
 
 console.log('loading routes');
 

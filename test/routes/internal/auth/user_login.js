@@ -1,4 +1,5 @@
 var request = require('request-promise');
+var fs = require('fs');
 
 request({
   json: true,
@@ -9,4 +10,6 @@ request({
   },
   method: 'POST',
 })
-.then(console.log);
+.then((response) => {
+  fs.writeFileSync('/tmp/token', response.token);
+})

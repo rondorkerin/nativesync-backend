@@ -1,9 +1,11 @@
 var request = require('request-promise');
+var fs = require('fs');
+var token = fs.readFileSync('/tmp/token');
 
 request({
   json: true,
   uri: 'http://localhost:8083/internal/me/associations',
-  headers: {'Token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjcifQ.22pW-alT6rfJfphFCyYX4eWA4CIYK9uLGkkDnd0Mrlo'},
+  headers: {'Token': token},
   body: { },
   method: 'GET',
 })

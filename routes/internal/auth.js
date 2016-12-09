@@ -1,16 +1,33 @@
-var Models = require('../../models')
-var Action = Models.Action
-var ClientAuth = Models.ClientAuth
-var Promise = require('bluebird');
-var async = require('asyncawait/async');
-var await = require('asyncawait/await');
-var uuid = require('node-uuid')
-var bcrypt = require('bcryptjs')
-var Hash = Promise.promisify(bcrypt.hash)
-var Compare  = Promise.promisify(bcrypt.compare)
-
+const Models = require('../../models')
+const Action = Models.Action
+const ClientAuth = Models.ClientAuth
+const Promise = require('bluebird');
+const async = require('asyncawait/async');
+const await = require('asyncawait/await');
+const uuid = require('node-uuid')
+const bcrypt = require('bcryptjs')
+const Hash = Promise.promisify(bcrypt.hash)
+const Compare  = Promise.promisify(bcrypt.compare)
+const jwt = require('jwt-simple');
+const HeaderApiKeyStrategy = require('passport-headerapikey').HeaderAPIKeyStrategy;
+const config = require('config');
+const JWT_SECRET = config.get('jwt_secret');
 
 module.exports = function(app, helpers) {
+  helpers.passport.use('user', new HeaderApiKeyStrategy({
+    header: 'Token' , prefix: '', session: false},
+    false,
+    async(function(apikey, done) {
+      console.log('payload found', apikey);
+      var payload = jwt.decode(apikey, JWT_SECRET);
+      if (!payload.id) {
+        return done('invalid client Token', null);
+      } else {
+        var user = await(Models.User.findById(payload.id));
+        return done(null, user);
+      }
+    })
+  ));
 
   //anyone can access this route
   app.post('/auth/signup', async (function(req, res, next) {
@@ -25,9 +42,18 @@ module.exports = function(app, helpers) {
   }));
 
   //anyone can access this route
-  app.post('/auth/login', helpers.checkauth('user_login'), function(req, res, next) {
-    return res.json({token: req.user.id});
-  });
+  app.post('/auth/login', async(function(req, res, next) {
+    var password = req.body.password;
+    var email = req.body.email;
+    var user = await(Models.User.findOne({where: {email: email}}));
+    var userSystemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: user.id}}));
+    if (Compare(password, userSystemAuth.hash)) {
+      userSystemAuth.token = jwt.encode({id: user.id}, JWT_SECRET);
+      await(userSystemAuth.save());
+      return res.json({token: userSystemAuth.token});
+    }
+    return res.status(401).send('invalid credentials');
+  }));
 
   app.get('/auth/failure', function(req, res, next) {
     res.send('Failed to authenticate (are you missing an API key?)');
