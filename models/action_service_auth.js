@@ -13,6 +13,9 @@ var ActionServiceAuth = postgres.define('action_service_auth', {
   },
   service_auth_id: {
     type: Sequelize.BIGINT
+  },
+  verified: {
+    type: Sequelize.BOOLEAN
   }
 }, {
   freezeTableName: true,
