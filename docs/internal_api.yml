@@ -1,0 +1,308 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: NativeSync internal REST API
+  description: Rest api for NativeSync - there are tags for every step in the dev process - NotImplemented, Developed, Tested, Live.
+  version: "1.0.0"
+# the domain of the service
+host: api.nativesync.io
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /internal
+produces:
+  - application/json
+paths:
+  /auth/login:
+    get:
+      summary: Login
+      description: |
+        Authenticates a  user with steam. Used for login/signup. If signing up,
+        pass a referral code in query params. Redirects user to '/' once logged in
+      parameters:
+        - name: body
+          in: body
+          description: Credentials
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      tags:
+        - Auth
+        - Developed
+      responses:
+        200:
+          description: the user's token
+          schema:
+            properties:
+              token:
+                type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /auth/signup:
+    get:
+      summary: Signs up a user. must call /auth/login after the user is signed up.
+      tags:
+        - Auth
+        - Developed
+      parameters:
+        - name: body
+          in: body
+          description: Credentials
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: a user object
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /auth/logout:
+    get:
+      summary: Logout
+      description: |
+        Logs a user out
+      tags:
+        - Auth
+        - Developed
+      responses:
+        200:
+          description: A 200
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /me:
+    get:
+      summary: Gets the currently logged in user
+      tags:
+        - Me
+        - Developed
+      responses:
+        200:
+          description: a user object
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /me/associations:
+    get:
+      summary: Gets the partners and clients associated with a user
+      tags:
+        - Me
+        - Developed
+      responses:
+        200:
+          description: a user object
+          schema:
+            type: object
+            properties:
+              partners:
+                type: array
+                items:
+                  $ref: '#/definitions/Partner'
+              clients:
+                type: array
+                items:
+                  $ref: '#/definitions/Client'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /actions:
+    get:
+      summary: Gets a list of actions in NativeSync
+      tags:
+        - Action
+        - NotImplemented
+      parameters:
+        - name: service_id
+          type: number
+          in: query
+          required: false
+        - name: partner_id
+          type: number
+          in: query
+          required: false
+      responses:
+        200:
+          description: action list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Action'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Creates/updates an action in nativesync
+      tags:
+        - Action
+        - NotImplemented
+      parameters:
+        - name: body
+          in: body
+          description: Action
+          required: true
+          schema:
+            $ref: '#/definitions/Action'
+      responses:
+        200:
+          description: action
+          schema:
+            $ref: '#/definitions/Action'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /services:
+    get:
+      summary: Gets a list of services in NativeSync
+      tags:
+        - Service
+        - NotImplemented
+      responses:
+        200:
+          description: service list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Service'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Creates/updates a service in nativesync
+      tags:
+        - Service
+        - NotImplemented
+      parameters:
+        - name: body
+          in: body
+          description: Service
+          required: true
+          schema:
+            $ref: '#/definitions/Service'
+      responses:
+        200:
+          description: service
+          schema:
+            $ref: '#/definitions/Service'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  User:
+    description: a user
+    type: object
+    properties:
+      email:
+        type: string
+  Partner:
+    description: a developer organization on nativesync
+    type: object
+    properties:
+      name:
+        type: string
+  Client:
+    description: an end client of nativesync who runs an integration
+    type: object
+    properties:
+      name:
+        type: string
+  Action:
+    description: an end client of nativesync who runs an integration
+    type: object
+    properties:
+      service_id:
+        type: number
+      partner_id:
+        type: number
+      title:
+        type: string
+      api_version:
+        type: string
+      schemes:
+        type: object
+      headers:
+        type: object
+      query:
+        type: object
+      host:
+        type: string
+      path:
+        type: string
+      method:
+        type: string
+      creator_user_id:
+        type: number
+      service_name:
+        type: string
+      function_name:
+        type: string
+      type:
+        type: string
+      input_content_type:
+        type: string
+      output_content_type:
+        type: string
+      version:
+        type: string
+      description:
+        type: string
+      input:
+        type: object
+      output:
+        type: object
+      input_example:
+        type: object
+      output_example:
+        type: object
+      official:
+        type: boolean
+  Service:
+    description: a web service which is integrated with NativeSync
+    type: object
+    properties:
+      name:
+        type: string
+      domain:
+        type: string
+      logo_url:
+        type: string
+  Error:
+    type: object
+    properties:
+      error:
+        type: string
+
+
+
+
+
+
+
+
+

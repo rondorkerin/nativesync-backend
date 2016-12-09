@@ -38,7 +38,7 @@ module.exports = function(app, helpers) {
       var hash = await(Hash(password,10));
       var userSystemAuth = await(Models.UserSystemAuth.create({user_id: user.id, hash: hash}));
     }
-    res.json(user)
+    return res.json(user)
   }));
 
   //anyone can access this route
