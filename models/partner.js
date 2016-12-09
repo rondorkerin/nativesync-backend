@@ -12,9 +12,6 @@ var Partner = postgres.define('partner', {
   name: {
     type: Sequelize.STRING
   },
-  avatar_url: {
-    type: Sequelize.STRING
-  },
   createdAt: {
     type: Sequelize.DATE
   },
