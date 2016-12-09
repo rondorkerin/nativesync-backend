@@ -1,6 +1,5 @@
 'use strict'
 let passport = require('passport');
-var session = require('express-session')
 var LocalStrategy = require('passport-local').Strategy;
 var Promise = require('bluebird');
 var HeaderApiKeyStrategy = require('passport-headerapikey').HeaderAPIKeyStrategy;
@@ -33,8 +32,6 @@ let server = require('http').createServer(app).listen(app.get('port'), function(
 });
 
 app.use(passport.initialize())
-app.use(session({ secret: 'KDFJLDKSLFJLKSDFJLKDNCJKDNSO IOOQOQOIOJ', resave: true, saveUninitialized: true }));
-app.use(passport.session());
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors())
 app.use(bearerToken())
