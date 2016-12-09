@@ -10,13 +10,13 @@ module.exports = (app, helpers) => {
     return res.json(req.user);
   });
 
-  app.get('/me/associations', (req, res) => {
+  app.get('/me/associations', helpers.checkauth('user'), (req, res) => {
     var partners = await(req.user.getPartners());
     var clients = await(req.user.getClients());
     return res.json({clients: clients, partners: partners});
   });
 
-  app.post('/me/partner_login', (req, res) => {
+  app.post('/me/partner_login', helpers.checkauth('user'), (req, res) => {
     var partners = await(req.user.getPartners({where: {id: req.body.partner_id}}));
     if (partners.length == 1) {
       req.session.partner_id = req.body.partner_id;
@@ -24,7 +24,7 @@ module.exports = (app, helpers) => {
     return res.json({});
   });
 
-  app.post('/me/client_login', (req, res) => {
+  app.post('/me/client_login', helpers.checkauth('user'), (req, res) => {
     var client_id = await(req.user.getClients({where: {id: req.body.client_id}}));
     if (client_id.length == 1) {
       req.session.client_id = req.body.client_id;
