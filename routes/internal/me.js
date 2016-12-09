@@ -6,6 +6,10 @@ var Client = Models.Client;
 var User = Models;
 
 module.exports = (app, helpers) => {
+  app.get('/me', helpers.checkauth('user'), (req, res) => {
+    return res.json(req.user);
+  });
+
   app.get('/me/associations', (req, res) => {
     var partners = await(req.user.getPartners());
     var clients = await(req.user.getClients());

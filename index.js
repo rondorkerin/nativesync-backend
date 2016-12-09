@@ -39,14 +39,12 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors())
 app.use(bearerToken())
 
-passport.serializeUser(function(user, done) {
-  return done(null, user.id);
+passport.serializeUser(function(object, done) {
+  return done(null, object);
 });
 
-passport.deserializeUser(function(id, done) {
-  app.Models.User.findById(id, function(err, user) {
-    return done(null, user);
-  })
+passport.deserializeUser(function(object, done) {
+  return done(null, object);
 });
 
 var Hash = Promise.promisify(bcrypt.hash)
@@ -55,7 +53,7 @@ var Compare  = Promise.promisify(bcrypt.compare)
 passport.use('user_login', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
-    session: true
+    session: false
   },
   async(function(email, password, done) {
     // Auth Check Logic
@@ -64,14 +62,14 @@ passport.use('user_login', new LocalStrategy({
     if (Compare(password, userSystemAuth.hash)) {
       userSystemAuth.token = jwt.encode({id: user.id}, JWT_SECRET);
       await(userSystemAuth.save());
-      return await(done(null, {token: userSystemAuth.token}));
+      return done(null, {type: 'token', id: userSystemAuth.token});
     }
-    return await(done('invalid password', null));
+    return done('invalid password', null);
   })
 ));
 
 passport.use('user', new HeaderApiKeyStrategy({
-  header: 'Token' , prefix: ''},
+  header: 'Token' , prefix: '', session: false},
   false,
   async(function(apikey, done) {
     console.log('payload found', apikey);
@@ -86,7 +84,7 @@ passport.use('user', new HeaderApiKeyStrategy({
 ));
 
 passport.use('client', new HeaderApiKeyStrategy({
-  header: 'Authorization', prefix: 'Api-Key ' },
+  header: 'Authorization', prefix: 'Api-Key ', session: false},
   false,
   async(function(apikey, done) {
     var client = await(app.Models.Client.findOne({where: {api_key: apikey}}));
