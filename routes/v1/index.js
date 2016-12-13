@@ -6,9 +6,10 @@ const express = require('express');
 
 module.exports = function(app, helpers) {
   helpers.passport.use('client', new HeaderApiKeyStrategy({
-    header: 'Authorization', prefix: 'Api-Key ', session: false},
+    header: 'Api-Key', prefix: '', session: false},
     false,
     async(function(apikey, done) {
+      console.log('authing user for client api', apikey);
       var client = await(app.Models.Client.findOne({where: {api_key: apikey}}));
       if (!client) {
         return done('invalid client API key', null);
