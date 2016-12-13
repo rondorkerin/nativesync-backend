@@ -48,11 +48,13 @@ module.exports = function(app, helpers) {
     var password = req.body.password;
     var email = req.body.email;
     var user = await(Models.User.findOne({where: {email: email}}));
-    var userSystemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: user.id}}));
-    if (await(Compare(password, userSystemAuth.hash))) {
-      userSystemAuth.token = jwt.encode({id: user.id}, JWT_SECRET);
-      await(userSystemAuth.save());
-      return res.json({token: userSystemAuth.token});
+    if (user) {
+      var userSystemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: user.id}}));
+      if (await(Compare(password, userSystemAuth.hash))) {
+        userSystemAuth.token = jwt.encode({id: user.id}, JWT_SECRET);
+        await(userSystemAuth.save());
+        return res.json({token: userSystemAuth.token});
+      }
     }
     return res.status(401).send('invalid credentials');
   }));
