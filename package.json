@@ -21,9 +21,11 @@
     "config": "^1.21.0",
     "cors": "^2.8.1",
     "dotenv": "^2.0.0",
+    "esprima": "^3.1.2",
     "express-bearer-token": "^2.1.0",
     "express-session": "^1.14.2",
     "guid": "0.0.12",
+    "jslint": "^0.10.3",
     "json-stringify-safe": "^5.0.1",
     "jwt-simple": "^0.5.1",
     "lodash": "^4.17.2",
@@ -46,6 +48,7 @@
     "use-strict": "^1.0.1"
   },
   "devDependencies": {
+    "jslint": "^0.10.3",
     "node-pg-migrate": "0.0.10",
     "rethinkdb-init": "^0.2.2",
     "tape": "^4.6.2"
