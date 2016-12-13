@@ -47,7 +47,7 @@ module.exports = function(app, helpers) {
     var email = req.body.email;
     var user = await(Models.User.findOne({where: {email: email}}));
     var userSystemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: user.id}}));
-    if (Compare(password, userSystemAuth.hash)) {
+    if (await(Compare(password, userSystemAuth.hash))) {
       userSystemAuth.token = jwt.encode({id: user.id}, JWT_SECRET);
       await(userSystemAuth.save());
       return res.json({token: userSystemAuth.token});
