@@ -14,11 +14,11 @@ module.exports = (app, helpers) => {
     return res.json(output);
   }));
 
-  app.post('/action/:service/:function/invoke', helpers.checkauth('client'), async((req, res) => {
-    consoel.log('invoking function', req.params['function']);
+  app.post('/action/:service/:function/invoke', helpers.checkauth('client'), (req, res) => {
+    console.log('invoking function', req.params['function']);
     let clientID = req.user.id;
     let action = await(Action.findOne({ where: {service_name: req.params['service'], function_name: req.params['function']}}))
     let output = await(new Services.Request(clientID, action).send(req.body))
     return res.json(output);
-  }));
+  });
 }
