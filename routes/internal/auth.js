@@ -65,10 +65,6 @@ module.exports = function(app, helpers) {
     return res.status(401).send('invalid credentials');
   }));
 
-  app.get('/auth/failure', function(req, res, next) {
-    res.send('Failed to authenticate (are you missing an API key?)');
-  });
-
   app.post('/auth/logout', helpers.checkauth('user'), function(req, res) {
     console.log('logout called for user', req.user);
     var systemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: req.user.id}}))
