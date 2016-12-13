@@ -33,12 +33,14 @@ module.exports = function(app, helpers) {
   app.post('/auth/signup', async (function(req, res, next) {
     var password = req.body.password;
     var email = req.body.email;
-    var user = await(Models.User.create({email: email, password: password}));
+    var user = await(Models.User.create({email: email}));
     if (user) {
       var hash = await(Hash(password,10));
       var userSystemAuth = await(Models.UserSystemAuth.create({user_id: user.id, hash: hash}));
+      return res.json(user)
+    } else {
+      return res.status(400).send('user already exists');
     }
-    return res.json(user)
   }));
 
   //anyone can access this route
