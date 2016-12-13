@@ -35,7 +35,7 @@ module.exports = function(app, helpers) {
     var password = req.body.password;
     var email = req.body.email;
     email = validator.normalizeEmail(email);
-    if (!validator.isEmail(email) {
+    if (!validator.isEmail(email)) {
       return res.status(400).send('the email provided was invalid');
     }
     try {
