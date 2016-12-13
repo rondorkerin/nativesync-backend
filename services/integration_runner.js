@@ -54,7 +54,7 @@ class IntegrationRunner {
           json: true,
           body: input,
           headers: {
-            'X-api-key': clientApiKey
+            'Api-Key': clientApiKey
           }
         });
       },
