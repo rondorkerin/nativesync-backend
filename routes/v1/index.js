@@ -12,9 +12,9 @@ module.exports = function(app, helpers) {
       console.log('authing user for client api', apikey);
       var client = await(app.Models.Client.findOne({where: {api_key: apikey}}));
       if (!client) {
-        return done('invalid client API key', null);
+        return await(done('invalid client API key', null));
       }
-      return done(null, client);
+      return await(done(null, client));
     })
   ));
 
