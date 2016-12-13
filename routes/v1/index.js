@@ -8,7 +8,7 @@ module.exports = function(app, helpers) {
   helpers.passport.use('client', new HeaderApiKeyStrategy({
     header: 'Api-Key', prefix: '', session: false},
     false,
-    async(function(apikey, done) {
+    function(apikey, done) {
       console.log('authing user for client api', apikey);
       var client = await(app.Models.Client.findOne({where: {api_key: apikey}}));
       if (!client) {
@@ -17,7 +17,7 @@ module.exports = function(app, helpers) {
       }
       console.log('found client', client);
       return await(done(null, client));
-    })
+    }
   ));
 
   var v1Router = express.Router();
