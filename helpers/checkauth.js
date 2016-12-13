@@ -5,9 +5,6 @@ module.exports = function(passport) {
       return passport.authenticate('client', { session: false, failureRedirect: '/auth/failure' })
     } else if (type == 'user') {
       return passport.authenticate('user', { session: false, failureRedirect: '/auth/failure' })
-    } else if (type == 'user_login' || !type) {
-      debugger;
-      return passport.authenticate('user_login')
     }
   }
 };
