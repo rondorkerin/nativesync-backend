@@ -5,6 +5,7 @@ const Promise = require('bluebird');
 const async = require('asyncawait/async');
 const await = require('asyncawait/await');
 const uuid = require('node-uuid')
+const validator = require('validator');
 const bcrypt = require('bcryptjs')
 const Hash = Promise.promisify(bcrypt.hash)
 const Compare  = Promise.promisify(bcrypt.compare)
@@ -33,6 +34,10 @@ module.exports = function(app, helpers) {
   app.post('/auth/signup', async (function(req, res, next) {
     var password = req.body.password;
     var email = req.body.email;
+    email = validator.normalizeEmail(email);
+    if (!validator.isEmail(email) {
+      return res.status(400).send('the email provided was invalid');
+    }
     try {
       var user = await(Models.User.create({email: email}));
       var hash = await(Hash(password,10));
@@ -47,6 +52,7 @@ module.exports = function(app, helpers) {
   app.post('/auth/login', async(function(req, res, next) {
     var password = req.body.password;
     var email = req.body.email;
+    email = validator.normalizeEmail(email);
     var user = await(Models.User.findOne({where: {email: email}}));
     if (user) {
       var userSystemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: user.id}}));
