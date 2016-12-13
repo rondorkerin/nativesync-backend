@@ -3,8 +3,8 @@ var workers = [
 ]
 
 module.exports = () => {
-  workers.forEach((index) => {
-    console.log('running worker', index);
-    workers[index]();
+  workers.forEach((worker) => {
+    console.log('running worker', worker);
+    worker();
   })
 };
