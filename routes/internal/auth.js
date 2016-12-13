@@ -14,7 +14,7 @@ const HeaderApiKeyStrategy = require('passport-headerapikey').HeaderAPIKeyStrate
 const config = require('config');
 const JWT_SECRET = config.get('jwt_secret');
 
-module.exports = function(app, helpers) {
+module.exports = (app, helpers) => {
   helpers.passport.use('user', new HeaderApiKeyStrategy({
     header: 'Token' , prefix: '', session: false},
     false,
@@ -31,7 +31,7 @@ module.exports = function(app, helpers) {
   ));
 
   //anyone can access this route
-  app.post('/auth/signup', async (function(req, res, next) {
+  app.post('/auth/signup', async ((req, res, next) => {
     var password = req.body.password;
     var email = req.body.email;
     email = validator.normalizeEmail(email);
@@ -49,7 +49,7 @@ module.exports = function(app, helpers) {
   }));
 
   //anyone can access this route
-  app.post('/auth/login', async(function(req, res, next) {
+  app.post('/auth/login', async((req, res, next) => {
     var password = req.body.password;
     var email = req.body.email;
     email = validator.normalizeEmail(email);
@@ -65,7 +65,7 @@ module.exports = function(app, helpers) {
     return res.status(401).send('invalid credentials');
   }));
 
-  app.post('/auth/logout', helpers.checkauth('user'), function(req, res) {
+  app.post('/auth/logout', helpers.checkauth('user'), (req, res) => {
     console.log('logout called for user', req.user);
     var systemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: req.user.id}}))
     systemAuth.token = '';
@@ -73,24 +73,11 @@ module.exports = function(app, helpers) {
     return res.send('success');
   });
 
-  app.post('/auth/user',function(req,res){
-    res.json(req.user)
+  app.post('/auth/user', helpers.checkauth('user'), (req,res) => {
+    return res.json(req.user)
   })
 
-  app.post('/auth/changePassword',async (function(req, res, next) {
-    try{
-    var result = await(auth.changePassword(req.token,req.body.oldpass,req.body.newpass))
-    }catch(e){
-      next(e)
-    }
-    res.json(result)
-  }));
-
-  // app.post('/action/:id', helpers.checkauth(), async (function(req, res) {
-  //   let clientID = req.user.id
-  //   let action = await(Action.find(req.params['id']))
-  //   let Request = require('../services/request')
-  //   output = new Request(client_id, action).send(req.params['input'])
-  //   return res.json(output);
-  // }));
+  app.post('/auth/changePassword', helpers.checkauth('user'), (req, res) => {
+    return res.status(400).send('notimplemented');
+  });
 }

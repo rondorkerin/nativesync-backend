@@ -6,7 +6,7 @@ const async = require('asyncawait/async')
 const await = require('asyncawait/await')
 
 module.exports = (app, helpers) => {
-  app.post('/integration_instance/:id/run', helpers.checkauth('client'), async((req, res) => {
+  app.post('/integration_instance/:id/run', helpers.checkauth('client'), (req, res) => {
     console.log('params', req.params);
     let integrationInstance = await(IntegrationInstance.findById(req.params.id));
     let integration = await(integrationInstance.getIntegration());
@@ -14,5 +14,5 @@ module.exports = (app, helpers) => {
     let client = await(integrationInstance.getClient());
     let output = await(new Services.IntegrationRunner(client, integration, integrationInstance, integrationCode).run());
     return res.json(output);
-  }));
+  });
 }
