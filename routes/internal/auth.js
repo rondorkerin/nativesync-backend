@@ -33,13 +33,13 @@ module.exports = function(app, helpers) {
   app.post('/auth/signup', async (function(req, res, next) {
     var password = req.body.password;
     var email = req.body.email;
-    var user = await(Models.User.create({email: email}));
-    if (user) {
+    try {
+      var user = await(Models.User.create({email: email}));
       var hash = await(Hash(password,10));
       var userSystemAuth = await(Models.UserSystemAuth.create({user_id: user.id, hash: hash}));
       return res.json(user)
-    } else {
-      return res.status(400).send('user already exists');
+    } catch(e) {
+      return res.status(400).send('a user already exists with that email');
     }
   }));
 
