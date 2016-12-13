@@ -18,7 +18,7 @@ module.exports = function(app, helpers) {
   helpers.passport.use('user', new HeaderApiKeyStrategy({
     header: 'Token' , prefix: '', session: false},
     false,
-    async(function(apikey, done) {
+    function(apikey, done) {
       console.log('payload found', apikey);
       var payload = jwt.decode(apikey, JWT_SECRET);
       if (!payload.id) {
@@ -27,7 +27,7 @@ module.exports = function(app, helpers) {
         var user = await(Models.User.findById(payload.id));
         return done(null, user);
       }
-    })
+    }
   ));
 
   //anyone can access this route
