@@ -33,15 +33,31 @@ module.exports = (app, helpers) => {
   //anyone can access this route
   app.post('/auth/signup', async ((req, res, next) => {
     var password = req.body.password;
+    var accountType = req.body.accountType ? req.body.accountType : 'partner';
     var email = req.body.email;
     email = validator.normalizeEmail(email);
+    var companyName = req.body.companyName ? req.body.companyName : email;
     if (!validator.isEmail(email)) {
       return res.status(400).send('the email provided was invalid');
+    }
+    let existing;
+    if (accountType == 'partner') {
+      existing = await(Models.Partner.findOne({where: {name: companyName}}));
+    } else {
+      existing = await(Models.Client.findOne({where: {name: companyName}}));
+    }
+    if (existing) {
+      return res.status(400).send('a company already exists with that company name');
     }
     try {
       var user = await(Models.User.create({email: email}));
       var hash = await(Hash(password,10));
       var userSystemAuth = await(Models.UserSystemAuth.create({user_id: user.id, hash: hash}));
+      if (accountType == 'partner') {
+        await(user.addPartner({name: companyName}));
+      } else {
+        await(user.addClient({name: companyName}));
+      }
       return res.json(user)
     } catch(e) {
       return res.status(400).send('a user already exists with that email');
