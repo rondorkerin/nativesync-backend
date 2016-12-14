@@ -1,10 +1,12 @@
 var request = require('request-promise');
 var fs = require('fs');
-var token = fs.readFileSync('/tmp/token');
+var token = fs.readFileSync('/tmp/token').toString().replace('\n', '');
+var baseUrl = fs.readFileSync('/tmp/base_url').toString().replace('\n', '');
 
+debugger;
 request({
   json: true,
-  uri: 'http://localhost:8083/internal/me',
+  uri: baseUrl + '/internal/me',
   headers: {'Token': token},
   body: { },
   method: 'GET',

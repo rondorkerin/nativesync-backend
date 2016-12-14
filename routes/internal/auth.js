@@ -20,12 +20,16 @@ module.exports = (app, helpers) => {
     false,
     async((apikey, done) => {
       console.log('payload found', apikey);
-      var payload = jwt.decode(apikey, JWT_SECRET);
-      if (!payload.id) {
+      try {
+        var payload = jwt.decode(apikey, JWT_SECRET);
+        if (!payload.id) {
+          return done('invalid client Token', null);
+        } else {
+          var user = await(Models.User.findById(payload.id));
+          return done(null, user);
+        }
+      } catch(e) {
         return done('invalid client Token', null);
-      } else {
-        var user = await(Models.User.findById(payload.id));
-        return done(null, user);
       }
     })
   ));
