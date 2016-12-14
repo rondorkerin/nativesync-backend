@@ -54,10 +54,11 @@ module.exports = (app, helpers) => {
       var hash = await(Hash(password,10));
       var userSystemAuth = await(Models.UserSystemAuth.create({user_id: user.id, hash: hash}));
       if (accountType == 'partner') {
-        await(Models.Partner.create({name: companyName, Users: [user]}, {include: {model: Models.User, as: 'Users'}}));
+        let partner = await(Models.Partner.create({name: companyName}))
+        await(Models.UserPartner.create({user_id: user.id, partner_id: partner.id}));
       } else {
-        await(Models.Client.create({name: companyName, Users: [user]}, {include: {model: Models.User, as: 'Users'}}));
-        //await(user.addClient({name: companyName}));
+        let client = await(Models.Client.create({name: companyName}))
+        await(Models.UserClient.create({user_id: user.id, client_id: client.id}));
       }
       return res.json(user)
     } catch(e) {
