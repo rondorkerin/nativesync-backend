@@ -60,6 +60,7 @@ module.exports = (app, helpers) => {
       }
       return res.json(user)
     } catch(e) {
+      console.log('exception', e);
       return res.status(400).send('a user already exists with that email');
     }
   }));
