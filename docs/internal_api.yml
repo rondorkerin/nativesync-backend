@@ -189,7 +189,7 @@ paths:
       summary: Associates a service auth with an action. This will require oversight to publish (it could be dangerous)
       tags:
         - Action
-        - NotImplemented
+        - Developed
       parameters:
         - name: body
           in: body
@@ -215,7 +215,7 @@ paths:
       summary: Gets a list of services in NativeSync
       tags:
         - Service
-        - NotImplemented
+        - Developed
       responses:
         200:
           description: service list
@@ -231,7 +231,7 @@ paths:
       summary: Creates/updates a service in nativesync
       tags:
         - Service
-        - NotImplemented
+        - Developed
       parameters:
         - name: body
           in: body
@@ -253,12 +253,12 @@ paths:
       summary: Gets a list of service auths for a particular service
       tags:
         - ServiceAuth
-        - NotImplemented
+        - Developed
       parameters:
         - name: service_id
           type: number
           in: query
-          required: false
+          required: true
       responses:
         200:
           description: service auth list
@@ -274,7 +274,7 @@ paths:
       summary: Creates/updates a service auth in nativesync
       tags:
         - ServiceAuth
-        - NotImplemented
+        - Developed
       parameters:
         - name: body
           in: body
