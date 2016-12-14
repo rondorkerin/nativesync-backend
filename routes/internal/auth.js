@@ -52,17 +52,21 @@ module.exports = (app, helpers) => {
   app.post('/auth/login', async((req, res, next) => {
     var password = req.body.password;
     var email = req.body.email;
-    email = validator.normalizeEmail(email);
-    var user = await(Models.User.findOne({where: {email: email}}));
-    if (user) {
-      var userSystemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: user.id}}));
-      if (await(Compare(password, userSystemAuth.hash))) {
-        userSystemAuth.token = jwt.encode({id: user.id}, JWT_SECRET);
-        await(userSystemAuth.save());
-        return res.json({token: userSystemAuth.token});
+    if (validator.isEmail(email)) {
+      email = validator.normalizeEmail(email);
+      var user = await(Models.User.findOne({where: {email: email}}));
+      if (user) {
+        var userSystemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: user.id}}));
+        if (await(Compare(password, userSystemAuth.hash))) {
+          userSystemAuth.token = jwt.encode({id: user.id}, JWT_SECRET);
+          await(userSystemAuth.save());
+          return res.json({token: userSystemAuth.token});
+        }
       }
+      return res.status(401).send('invalid credentials');
+    } else {
+      return res.status(401).send('invalid email');
     }
-    return res.status(401).send('invalid credentials');
   }));
 
   app.post('/auth/logout', helpers.checkauth('user'), (req, res) => {
