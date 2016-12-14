@@ -49,7 +49,7 @@ paths:
             $ref: '#/definitions/Error'
   /auth/signup:
     get:
-      summary: Signs up a user. must call /auth/login after the user is signed up.
+      summary: Signs up a user. must call /auth/login after the user is signed up. This also creates either a client or partner for the user based on whether they selected partner or client
       tags:
         - Auth
         - Developed
@@ -64,6 +64,11 @@ paths:
               email:
                 type: string
               password:
+                type: string
+              accountType:
+                type: string
+                description: either "partner" or "client"
+              companyName:
                 type: string
       responses:
         200:
@@ -133,13 +138,17 @@ paths:
       summary: Gets a list of actions in NativeSync
       tags:
         - Action
-        - NotImplemented
+        - Developed
       parameters:
         - name: service_id
           type: number
           in: query
           required: false
         - name: partner_id
+          type: number
+          in: query
+          required: false
+        - name: limit
           type: number
           in: query
           required: false
@@ -158,7 +167,7 @@ paths:
       summary: Creates/updates an action in nativesync
       tags:
         - Action
-        - NotImplemented
+        - Developed
       parameters:
         - name: body
           in: body
