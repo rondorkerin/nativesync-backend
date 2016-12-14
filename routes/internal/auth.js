@@ -53,11 +53,11 @@ module.exports = (app, helpers) => {
       var user = await(Models.User.create({email: email}));
       var hash = await(Hash(password,10));
       var userSystemAuth = await(Models.UserSystemAuth.create({user_id: user.id, hash: hash}));
-      console.log('trying', {name: companyName});
       if (accountType == 'partner') {
-        await(user.addPartner({name: companyName}));
+        await(Models.Partner.create({name: companyName, user: user}, {include: Models.User}));
       } else {
-        await(user.addClient({name: companyName}));
+        await(Models.Client.create({name: companyName, user: user}, {include: Models.Client}));
+        //await(user.addClient({name: companyName}));
       }
       return res.json(user)
     } catch(e) {
