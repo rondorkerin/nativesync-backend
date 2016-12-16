@@ -32,6 +32,19 @@ module.exports = (app, helpers) => {
     return res.json(results);
   });
 
+  app.get('/integration/id', helpers.checkauth('user'), (req, res) => {
+    // todo: lock this down (validate the partner_id in the filter)
+    var integration = await(Integration.findById(req.query.id))
+    if (integration) {
+      var services = [];
+      var serviceAuths = await(integration.getServiceAuths());
+      let integrationCode = await(Models.IntegrationCode.findOne({where: {integration_id: integration.id}}))
+      return res.json({integration: integration, services: services, serviceAuths: serviceAuths, integrationCode: integrationCode});
+    } else {
+      return res.status(400).send('no such integration');
+    }
+  });
+
   app.get('/me/integration_instances', helpers.checkauth('user'), (req, res) => {
     var results = await(IntegrationInstance.findAll({where: {client_id: req.session.client_id}}))
     return res.json(results);
