@@ -32,7 +32,7 @@ module.exports = (app, helpers) => {
     return res.json(results);
   });
 
-  app.get('/integration/id', helpers.checkauth('user'), (req, res) => {
+  app.get('/integration/:id', helpers.checkauth('user'), (req, res) => {
     // todo: lock this down (validate the partner_id in the filter)
     var integration = await(Integration.findById(req.query.id))
     if (integration) {
