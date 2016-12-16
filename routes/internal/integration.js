@@ -26,12 +26,9 @@ module.exports = (app, helpers) => {
   });
 
   app.get('/integrations', helpers.checkauth('user'), (req, res) => {
-    var results = await(Integration.findAll())
-    return res.json(results);
-  });
-
-  app.get('/me/integrations', helpers.checkauth('user'), (req, res) => {
-    var results = await(Integration.findAll({where: {partner_id: req.session.partner_id}}))
+    // todo: lock this down (validate the partner_id in the filter)
+    var filter = req.body;
+    var results = await(Integration.findAll({where: filter}))
     return res.json(results);
   });
 
