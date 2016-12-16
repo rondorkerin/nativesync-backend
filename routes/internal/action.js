@@ -7,6 +7,11 @@ var await = require('asyncawait/await');
 
 module.exports = function(app, helpers) {
 
+  app.get('/action/:id', helpers.checkauth('user'), function(req, res) {
+    let result = await(Action.findById(req.params.id))
+    return res.json(result);
+  });
+
   app.get('/actions', helpers.checkauth('user'), function(req, res) {
     let where = {}
     if (req.query.service_id) {
