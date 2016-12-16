@@ -37,7 +37,7 @@ module.exports = (app, helpers) => {
     var integration = await(Integration.findById(req.params.id))
     if (integration) {
       var services = [];
-      var serviceAuths = await(integration.getServiceAuths());
+      var serviceAuths = []//await(integration.getServiceAuths());
       let integrationCode = await(Models.IntegrationCode.findOne({where: {integration_id: integration.id}}))
       return res.json({integration: integration, services: services, serviceAuths: serviceAuths, integrationCode: integrationCode});
     } else {
