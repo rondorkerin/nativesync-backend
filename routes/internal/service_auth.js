@@ -5,12 +5,12 @@ var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 
 module.exports = (app, helpers) => {
-  app.get('/service_auths', async((req, res) => {
+  app.get('/service_auths', (req, res) => {
     let service_auths = await(ServiceAuth.findAll({where: {service_id: req.query.service_id}}))
     return res.json(services);
-  }));
+  });
 
- app.post('/service_auths', helpers.checkauth('user'), async(function(req, res) {
+ app.post('/service_auths', helpers.checkauth('user'), function(req, res) {
     let result;
     if (req.body.id) {
       await(ServiceAuth.update(req.body, {where: {id: req.body.id}}))
@@ -19,5 +19,5 @@ module.exports = (app, helpers) => {
       result = await(ServiceAuth.create(req.body))
     }
     return res.json(result);
-  }));
+  });
 }

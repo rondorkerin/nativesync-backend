@@ -9,7 +9,7 @@ module.exports = (app, helpers) => {
     return res.json(services);
   }));
 
- app.post('/services', helpers.checkauth('user'), async(function(req, res) {
+ app.post('/services', helpers.checkauth('user'), function(req, res) {
     let result;
     if (req.body.id) {
       await(Service.update(req.body, {where: {id: req.body.id}}))
@@ -18,5 +18,5 @@ module.exports = (app, helpers) => {
       result = await(Service.create(req.body))
     }
     return res.json(result);
-  }));
+  });
 }
