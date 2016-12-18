@@ -8,8 +8,10 @@ var await = require('asyncawait/await');
 module.exports = function(app, helpers) {
 
   app.get('/action/:id', helpers.checkauth('user'), function(req, res) {
-    let result = await(Action.findById(req.params.id))
-    return res.json(result);
+    let action = await(Action.findById(req.params.id))
+    let serviceAuths = await(action.getServiceAuths());
+    let service = await(action.getService());
+    return res.json({action: action, serviceAuths: serviceAuths, service: service});
   });
 
   app.get('/actions', helpers.checkauth('user'), function(req, res) {
