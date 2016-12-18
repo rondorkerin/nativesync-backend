@@ -27,15 +27,32 @@ module.exports = function(app, helpers) {
     return res.json(actions);
   });
 
-  app.post('/actions', helpers.checkauth('user'), function(req, res) {
+  app.post('/actions/upsert', helpers.checkauth('user'), function(req, res) {
     let result;
-    if (req.body.id) {
-      await(Action.update(req.body, {where: {id: req.body.id}}))
-      result = await(Action.findById(req.body.id));
-    } else {
-      result = await(Action.create(req.body))
+    let action = req.body.action;
+    let service = req.body.service;
+    let serviceAuths = req.body.serviceAuths;
+    let existingServiceAuths = [];
+
+    // associate the action with a service
+    action.service_id = service.id;
+    try {
+      if (action.id) {
+        await(Action.update(action, {where: {id: action.id}}))
+        action = await(Action.findById(action.id));
+        await(action.deleteServiceAuths());
+      } else {
+        action = await(Action.create(action))
+      }
+
+      for (serviceAuth of serviceAuths) {
+        await(ActionServiceAuth.create({action_id: action.id, service_auth_id: serviceAuth.id, verified: false}))
+      }
+
+      return res.json({action: action, service: service, serviceAuths: serviceAuths});
+    } catch(e) {
+      return res.status(500).send(e);
     }
-    return res.json(result);
   });
 
   app.post('/actions/associate_service_auth', helpers.checkauth('user'), function(req, res) {
