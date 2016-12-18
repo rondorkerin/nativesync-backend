@@ -51,6 +51,7 @@ module.exports = function(app, helpers) {
 
       return res.json({action: action, service: service, serviceAuths: serviceAuths});
     } catch(e) {
+      console.log('error', e);
       return res.status(500).send(e);
     }
   });
