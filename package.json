@@ -41,7 +41,7 @@
     "request-promise": "^4.1.1",
     "rethinkdb": "^2.3.3",
     "rethinkdbdash": "^2.3.23",
-    "sequelize": "^3.24.6",
+    "sequelize": "^3.27.0",
     "sequelize-cli": "^2.4.0",
     "statesync": "^0.1.2",
     "swagger-parser": "^3.4.1",
