@@ -5,7 +5,7 @@ var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 
 module.exports = (app, helpers) => {
-  app.get('/service_auths', (req, res) => {
+  app.get('/service_auths', helpers.checkauth(), (req, res) => {
     let service_auths = await(ServiceAuth.findAll({where: {service_id: req.query.service_id}}))
     return res.json(services);
   });

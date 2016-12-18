@@ -31,7 +31,7 @@ module.exports = function(app, helpers) {
     let result;
     let action = req.body.action;
     let service = req.body.service;
-    let serviceAuths = req.body.serviceAuths;
+    let serviceAuthIDs = _.pluck(req.body.serviceAuths, 'id');
     let existingServiceAuths = [];
 
     // associate the action with a service
@@ -44,8 +44,8 @@ module.exports = function(app, helpers) {
         action = await(Action.create(action))
       }
 
-      console.log('associating', serviceAuths);
-      await(action.setServiceAuths(serviceAuths));
+      console.log('associating', serviceAuthIDs);
+      await(action.setServiceAuths(serviceAuthIDs));
 
       return res.json({action: action, service: service, serviceAuths: serviceAuths});
     } catch(e) {
