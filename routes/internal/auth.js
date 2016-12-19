@@ -75,6 +75,7 @@ module.exports = (app, helpers) => {
   app.post('/auth/login', async((req, res, next) => {
     var password = req.body.password;
     var email = req.body.email;
+    console.log('validating', req.body);
     if (validator.isEmail(email)) {
       email = validator.normalizeEmail(email);
       var user = await(Models.User.findOne({where: {email: email}}));
