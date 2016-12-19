@@ -4,6 +4,7 @@ var ActionServiceAuth = Models.ActionServiceAuth;
 let ClientAuth = Models.ClientAuth;
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
+var _ = require('underscore');
 
 module.exports = function(app, helpers) {
 
