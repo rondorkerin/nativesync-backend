@@ -48,6 +48,7 @@ module.exports = function(app, helpers) {
       console.log('associating', serviceAuthIDs);
       await(action.setServiceAuths(serviceAuthIDs));
 
+      var serviceAuths = await(action.getServiceAuths());
       return res.json({action: action, service: service, serviceAuths: serviceAuths});
     } catch(e) {
       console.log('error', e);
