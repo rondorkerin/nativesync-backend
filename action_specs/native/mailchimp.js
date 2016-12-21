@@ -11,7 +11,7 @@ var x = async(() => {
   var mailchimp = await(Service.findOne({where: {name: 'Mailchimp'}}))
   await(Action.upsert({
     service_id: mailchimp.id,
-    schemes: ['https'],
+    schemes: 'https',
     headers: {'Content-Type': 'application/json'},
     query: [],
     host: '{data-center}.api.mailchimp.com',

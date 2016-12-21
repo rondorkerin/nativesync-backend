@@ -27,9 +27,15 @@ class Request {
     debugger;
     var serviceAuths = await(this.action.getServiceAuths());
 
-    var headers = this.action['headers'] ? this.action['headers'] : {}
+    var headers = {}
+    for (let header of this.action['headers']) {
+      headers[header.key] = header.value;
+    }
+    var query = {}
+    for (let pair of this.action['query']) {
+      query[pair.key] = pair.value;
+    }
     var formData = {};
-    var query = this.action['query'] ? this.action['query'] : {};
     var host = this.action['host'] ? this.action['host'] : {};
     var body = '';
     var requestObject = {}
@@ -95,7 +101,7 @@ class Request {
     headers['Content-Length'] = body.length;
     requestObject['method'] = this.action['method'];
     requestObject['uri'] = url.format({
-      protocol: this.action['schemes'][0],
+      protocol: this.action['schemes'],
       slashes: true,
       host: host,
       pathname: path,
