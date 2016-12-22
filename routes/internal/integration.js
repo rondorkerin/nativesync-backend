@@ -68,8 +68,8 @@ module.exports = (app, helpers) => {
     // todo: lock this down (validate the partner_id in the filter)
     var integration = await(Integration.findById(req.params.id))
     if (integration) {
-      var actions = await(Integration.getActions())
-      var services = await(Integration.getServices())
+      var actions = await(integration.getActions())
+      var services = await(integration.getServices())
       let integrationCode = await(Models.IntegrationCode.findOne({where: {integration_id: integration.id}}))
       return res.json({integration: integration, services: services, actions: actions, integrationCode: integrationCode});
     } else {
