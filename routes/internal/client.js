@@ -1,6 +1,7 @@
 var Models = require('../../models')
 var Client = Models.Client;
 var async = require('asyncawait/async');
+const await = require('asyncawait/await')
 
 module.exports = (app, helpers) => {
   app.post('/clients/upsert', helpers.checkauth('user'), function(req, res) {
