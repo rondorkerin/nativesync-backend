@@ -19,9 +19,9 @@ var UserPartner = require('./user_partner')
 Action.belongsToMany(ServiceAuth, {as: 'ServiceAuths', through: ActionServiceAuth, foreignKey: 'action_id', otherKey: 'service_auth_id'});
 Action.belongsTo(Service, { foreignKey: 'service_id' })
 User.belongsToMany(Client, {as: 'Clients', through: UserClient, foreignKey: 'user_id', otherKey: 'client_id'});
-Integration.belongsToMany(Service, {as: 'Services', through: 'IntegrationService', foreignKey: 'integration_id', otherKey: 'service_id'});
-Integration.belongsToMany(Action, {as: 'Actions', through: 'IntegrationAction', foreignKey: 'integration_id', otherKey: 'action_id'});
-Service.belongsToMany(Integration, {as: 'Integrations', through: 'IntegrationService', foreignKey: 'service_id', otherKey: 'integration_id'});
+Integration.belongsToMany(Service, {as: 'Services', through: 'integration_service', foreignKey: 'integration_id', otherKey: 'service_id'});
+Integration.belongsToMany(Action, {as: 'Actions', through: 'integration_action', foreignKey: 'integration_id', otherKey: 'action_id'});
+Service.belongsToMany(Integration, {as: 'Integrations', through: 'integration_service', foreignKey: 'service_id', otherKey: 'integration_id'});
 User.belongsToMany(Partner, {as: 'Partners', through: UserPartner, foreignKey: 'user_id', otherKey: 'partner_id'});
 Partner.belongsToMany(User, {as: 'Users', through: UserPartner, foreignKey: 'partner_id', otherKey: 'user_id'});
 Client.belongsToMany(User, {as: 'Users', through: UserClient, foreignKey: 'client_id', otherKey: 'user_id'});
