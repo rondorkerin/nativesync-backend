@@ -32,9 +32,9 @@ module.exports = (app, helpers) => {
     let integration = req.body.integration;
     let integrationCode = req.body.integrationCode;
     let services = req.body.services;
-    services = _.pluck(services, 'id');
+    var serviceIDs = _.pluck(services, 'id');
     let actions = req.body.actions;
-    actions = _.pluck(actions, 'id');
+    var actionsIDs = _.pluck(actions, 'id');
 
     try {
       if (integration.id) {
