@@ -34,7 +34,7 @@ module.exports = (app, helpers) => {
     let services = req.body.services;
     var serviceIDs = _.pluck(services, 'id');
     let actions = req.body.actions;
-    var actionsIDs = _.pluck(actions, 'id');
+    var actionIDs = _.pluck(actions, 'id');
 
     try {
       if (integration.id) {
