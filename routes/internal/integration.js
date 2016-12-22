@@ -25,6 +25,36 @@ module.exports = (app, helpers) => {
     })
   });
 
+  app.post('/integrations/upsert', helpers.checkauth('user'), function(req, res) {
+    let result;
+    let integration = req.body.integration;
+    let integrationCode = req.body.integrationCode;
+    let services = req.body.services;
+    let services = _.pluck(services, 'id');
+    let actions = req.body.actions;
+    let actions = _.pluck(actions, 'id');
+
+    try {
+      if (integration.id) {
+        await(Integration.update(integration, {where: {id: integration.id}}))
+        integration = await(Integration.findById(integration.id));
+      } else {
+        integration = await(Integration.create(integration))
+      }
+
+      integrationCode.integration_id = integration.id;
+      IntegrationCode.upsert(integrationCode);
+
+      await(integration.setServices(serviceIDs));
+      await(integration.setActions(actionIDs));
+
+      return res.json({integration: integration});
+    } catch(e) {
+      console.log('error', e);
+      return res.status(500).send(e);
+    }
+  });
+
   app.get('/integrations', helpers.checkauth('user'), (req, res) => {
     // todo: lock this down (validate the partner_id in the filter)
     var filter = req.body;
