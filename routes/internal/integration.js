@@ -2,6 +2,7 @@ const Models = require('../../models');
 const Services = require('../../services');
 const IntegrationInstance = Models.IntegrationInstance;
 const Integration = Models.Integration;
+const _ = require('underscore');
 const IntegrationRunner = require('../../services/integration_runner');
 const async = require('asyncawait/async')
 const await = require('asyncawait/await')
