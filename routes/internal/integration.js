@@ -70,7 +70,7 @@ module.exports = (app, helpers) => {
     var integration = await(Integration.findById(
           req.params.id,
           {include: [
-            {model: Models.Action, as: 'Actions', include: [Models.ServiceAuth]},
+            {model: Models.Action, as: 'Actions', include: [{model: Models.ServiceAuth, as: 'ServiceAuths'}]},
             {model: Models.Service, as: 'Services'}
           ]}
     ));
@@ -99,7 +99,7 @@ module.exports = (app, helpers) => {
       let integration = await(Integration.findById(
           integrationInstance.integration_id,
           {include: [
-            {model: Models.Action, as: 'Actions', include: [Models.ServiceAuth]},
+            {model: Models.Action, as: 'Actions', include: [{model: Models.ServiceAuth, as: 'ServiceAuths'}]},
             {model: Models.Service, as: 'Services'}
           ]}
       ));
