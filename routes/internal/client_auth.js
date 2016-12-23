@@ -15,7 +15,7 @@ module.exports = (app, helpers) => {
 					$in: serviceAuthIds
 				}
 			}}));
-			return res.json({client_auths: clientAuths});
+			return res.json({clientAuths: clientAuths});
 		} catch(e) {
 			console.log('error', e);
 			return res.status(500).send(e);
