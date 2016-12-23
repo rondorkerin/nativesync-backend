@@ -60,6 +60,7 @@ module.exports = (app, helpers) => {
   app.get('/integrations', helpers.checkauth('user'), (req, res) => {
     // todo: lock this down (validate the partner_id in the filter)
     var filter = req.body;
+    console.log('filter', filter);
     var results = await(Integration.findAll({where: filter}))
     return res.json(results);
   });
