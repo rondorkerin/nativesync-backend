@@ -77,6 +77,14 @@ module.exports = (app, helpers) => {
     }
   });
 
+  app.get('/integration/:id/instances', helpers.checkauth('user'), (req, res) => {
+    var instances = await(IntegrationInstance.findAll({
+      where: {integration_id: req.path.id},
+      include: [Models.client]
+    }))
+    return res.json({integrationInstances: instances});
+  });
+
   app.get('/me/integration_instances', helpers.checkauth('user'), (req, res) => {
     var results = await(IntegrationInstance.findAll({where: {client_id: req.session.client_id}}))
     return res.json(results);
