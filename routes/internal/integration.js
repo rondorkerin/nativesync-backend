@@ -73,6 +73,8 @@ module.exports = (app, helpers) => {
       var services = await(integration.getServices())
       let integrationCode = await(Models.IntegrationCode.findOne({where: {integration_id: integration.id}}))
       return res.json({integration: integration, services: services, actions: actions, integrationCode: integrationCode});
+    } else if (integration) {
+      return res.json({integration: integration});
     } else {
       return res.status(400).send('no such integration');
     }
