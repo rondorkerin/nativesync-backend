@@ -69,7 +69,7 @@ module.exports = (app, helpers) => {
     // todo: lock this down (validate the partner_id in the filter)
     var integration = await(Integration.findById(
           req.params.id,
-          {include: ['Actions', 'Services']}
+          {include: [Models.Action, Models.Service, 'Actions', 'Services']}
     ));
     if (integration) {
       var result = {
