@@ -46,7 +46,7 @@ module.exports = (app, helpers) => {
   });
 
   app.get('/service/:id', helpers.checkauth('user'), (req, res) => {
-    var service = await(IntegrationInstance.findById(req.params.id, {
+    var service = await(Service.findById(req.params.id, {
       include: [{model: Models.ServiceAuth, as: 'ServiceAuths'}]
     }))
     return res.json({service: service, serviceAuths: service.ServiceAuths});
