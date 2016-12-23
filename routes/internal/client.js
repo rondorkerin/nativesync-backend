@@ -33,4 +33,13 @@ module.exports = (app, helpers) => {
       return res.status(400).send('no such client');
     }
   });
+
+  app.get('/clients', helpers.checkauth('user'), (req, res) => {
+    var clients = await(Client.findAll());
+    if (clients) {
+      return res.json({clients: clients});
+    } else {
+      return res.status(400).send('no such client');
+    }
+  });
 }
