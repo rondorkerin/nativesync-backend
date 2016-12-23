@@ -77,7 +77,7 @@ module.exports = (app, helpers) => {
         services: integration.Services,
         actions: integration.Actions
       }
-      var serviceAuths = await(actions.getServiceAuths());
+      var serviceAuths = await(integration.Actions.getServiceAuths());
       result.serviceAuths = serviceAuths;
       if (req.query.includeAssociations) {
         let integrationCode = await(Models.IntegrationCode.findOne({where: {integration_id: integration.id}}))
