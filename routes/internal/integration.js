@@ -61,8 +61,8 @@ module.exports = (app, helpers) => {
     // todo: lock this down (validate the partner_id in the filter)
     var filter = req.body;
     console.log('filter', filter);
-    var results = await(Integration.findAll({where: filter}))
-    return res.json(results);
+    var integrations = await(Integration.findAll({where: filter}))
+    return res.json({integrations: integrations});
   });
 
   app.get('/integration/:id', helpers.checkauth('user'), (req, res) => {
