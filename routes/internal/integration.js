@@ -112,6 +112,7 @@ module.exports = (app, helpers) => {
     let client = req.body.client;
 
     integrationInstance.client_id = client.id;
+    console.log('upserting instance', integrationInstance);
     try {
       if (integrationInstance.id) {
         await(IntegrationInstance.update(integrationInstance, {where: {id: integrationInstance.id}}))
