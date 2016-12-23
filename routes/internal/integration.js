@@ -97,9 +97,9 @@ module.exports = (app, helpers) => {
       var client = await(Models.Client.findById(integrationInstance.client_id));
       let integration = await(Integration.findById(
           integrationInstance.integration_id,
-          {include: ['Actions', 'Services']}
+          {include: [{model: Models.Action, as: 'Actions'}, {model: Models.Service, as: 'Services'}]}
       ));
-      var serviceAuths = await(actions.getServiceAuths());
+      var serviceAuths = await(integration.actions.getServiceAuths());
       return res.json({
         integration: integration,
         integrationInstance: integrationInstance,
