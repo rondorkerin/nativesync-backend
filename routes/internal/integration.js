@@ -99,13 +99,13 @@ module.exports = (app, helpers) => {
           integrationInstance.integration_id,
           {include: [{model: Models.Action, as: 'Actions'}, {model: Models.Service, as: 'Services'}]}
       ));
-      var serviceAuths = await(integration.actions.getServiceAuths());
+      var serviceAuths = await(integration.Actions.getServiceAuths());
       return res.json({
         integration: integration,
         integrationInstance: integrationInstance,
         client: client,
-        actions: integration.actions,
-        services: integration.services,
+        actions: integration.Actions,
+        services: integration.Services,
         serviceAuths: serviceAuths
       });
     } else {
