@@ -74,11 +74,24 @@ module.exports = (app, helpers) => {
             {model: Models.Service, as: 'Services'}
           ]}
     ));
+    // GROSSS!!!!
+    let serviceAuthIDs = {};
+    let serviceAuths = [];
+    for (let action of integration.Actions) {
+      for (let serviceAuth of action.ServiceAuths) {
+        if (!serviceAuthIDs[serviceAuth.id]) {
+          serviceAuthIDs[serviceAuth.id] = serviceAuth.id;
+          serviceAuths.push(serviceAuth);
+        }
+      }
+    }
+      console.log('service auths', serviceAuths);
     if (integration) {
       var result = {
         integration: integration,
         services: integration.Services,
-        actions: integration.Actions
+        actions: integration.Actions,
+        serviceAuths: serviceAuths
       }
       if (req.query.includeAssociations) {
         let integrationCode = await(Models.IntegrationCode.findOne({where: {integration_id: integration.id}}))
@@ -103,13 +116,25 @@ module.exports = (app, helpers) => {
             {model: Models.Service, as: 'Services'}
           ]}
       ));
-      console.log('actions', integration.Actions);
+      // GROSSS!!!!
+      let serviceAuthIDs = {};
+      let serviceAuths = [];
+      for (let action of integration.Actions) {
+        for (let serviceAuth of action.ServiceAuths) {
+          if (!serviceAuthIDs[serviceAuth.id]) {
+            serviceAuthIDs[serviceAuth.id] = serviceAuth.id;
+            serviceAuths.push(serviceAuth);
+          }
+        }
+      }
+      console.log('service auths', serviceAuths);
       return res.json({
         integration: integration,
         integrationInstance: integrationInstance,
         client: client,
         actions: integration.Actions,
         services: integration.Services,
+        serviceAuths: serviceAuths
       });
     } else {
       return res.status(400).send('no such integration instance');
