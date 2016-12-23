@@ -77,6 +77,7 @@ module.exports = (app, helpers) => {
         services: integration.Services,
         actions: integration.Actions
       }
+      console.log('result', result.actions);
       var serviceAuths = await(integration.Actions.getServiceAuths());
       result.serviceAuths = serviceAuths;
       if (req.query.includeAssociations) {
