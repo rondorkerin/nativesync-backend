@@ -68,7 +68,7 @@ module.exports = (app, helpers) => {
   app.get('/integration/:id', helpers.checkauth('user'), (req, res) => {
     // todo: lock this down (validate the partner_id in the filter)
     var integration = await(Integration.findById(req.params.id))
-    if (integration) {
+    if (integration && req.body.includeAssociations) {
       var actions = await(integration.getActions())
       var services = await(integration.getServices())
       let integrationCode = await(Models.IntegrationCode.findOne({where: {integration_id: integration.id}}))
