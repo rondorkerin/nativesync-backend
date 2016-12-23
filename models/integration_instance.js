@@ -15,6 +15,9 @@ var IntegrationInstance = postgres.define('integration_instance', {
   client_id: {
     type: Sequelize.BIGINT
   },
+  title: {
+    type: Sequelize.STRING
+  },
   internal_name: {
     type: Sequelize.STRING
   },
