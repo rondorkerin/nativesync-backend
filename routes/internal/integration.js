@@ -97,7 +97,7 @@ module.exports = (app, helpers) => {
     console.log('get instances for', req.params.id);
     var instances = await(IntegrationInstance.findAll({
       where: {integration_id: req.params.id},
-      include: [Models.client]
+      include: [Models.Client]
     }))
     return res.json({integrationInstances: instances});
   });
