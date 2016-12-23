@@ -86,7 +86,6 @@ module.exports = (app, helpers) => {
     var integrationInstance = await(IntegrationInstance.findById(req.params.id))
     if (integrationInstance) {
       var client = await(Models.Client.findById(integrationInstance.client_id));
-      console.log('looking up integration id', integration.id);
       let integration = await(Integration.findById(integrationInstance.integration_id));
       return res.json({integration: integration, integrationInstance: integrationInstance, client: client});
     } else {
