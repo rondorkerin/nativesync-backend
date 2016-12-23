@@ -6,7 +6,7 @@ var await = require('asyncawait/await');
 module.exports = (app, helpers) => {
   app.get('/services', async((req, res) => {
     let services = await(Service.findAll({order: 'name desc'}))
-    return res.json(services);
+    return res.json({services: services});
   }));
 
  app.post('/services', helpers.checkauth('user'), function(req, res) {
