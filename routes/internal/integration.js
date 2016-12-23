@@ -69,7 +69,10 @@ module.exports = (app, helpers) => {
     // todo: lock this down (validate the partner_id in the filter)
     var integration = await(Integration.findById(
           req.params.id,
-          {include: [{model: Models.Action, as: 'Actions'}, {model: Models.Service, as: 'Services'}]}
+          {include: [
+            {model: Models.Action, as: 'Actions', include: [Models.ServiceAuth]},
+            {model: Models.Service, as: 'Services'}
+          ]}
     ));
     if (integration) {
       var result = {
@@ -77,9 +80,6 @@ module.exports = (app, helpers) => {
         services: integration.Services,
         actions: integration.Actions
       }
-      console.log('result', result.actions);
-      var serviceAuths = await(integration.Actions.getServiceAuths());
-      result.serviceAuths = serviceAuths;
       if (req.query.includeAssociations) {
         let integrationCode = await(Models.IntegrationCode.findOne({where: {integration_id: integration.id}}))
         result.integrationCode = integrationCode;
@@ -98,17 +98,18 @@ module.exports = (app, helpers) => {
       var client = await(Models.Client.findById(integrationInstance.client_id));
       let integration = await(Integration.findById(
           integrationInstance.integration_id,
-          {include: [{model: Models.Action, as: 'Actions'}, {model: Models.Service, as: 'Services'}]}
+          {include: [
+            {model: Models.Action, as: 'Actions', include: [Models.ServiceAuth]},
+            {model: Models.Service, as: 'Services'}
+          ]}
       ));
       console.log('actions', integration.Actions);
-      var serviceAuths = await(integration.Actions.getServiceAuths());
       return res.json({
         integration: integration,
         integrationInstance: integrationInstance,
         client: client,
         actions: integration.Actions,
         services: integration.Services,
-        serviceAuths: serviceAuths
       });
     } else {
       return res.status(400).send('no such integration instance');
