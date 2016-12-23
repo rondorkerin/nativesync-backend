@@ -80,6 +80,18 @@ module.exports = (app, helpers) => {
     }
   });
 
+  app.get('/integration_instance/:id', helpers.checkauth('user'), (req, res) => {
+    // todo: lock this down (validate the partner_id in the filter)
+    var integrationInstance = await(IntegrationInstance.findById(req.params.id))
+    if (integrationInstance) {
+      var client = await(Models.Client.findById(integrationInstance.client_id));
+      let integration = await(Integration.findById(integrationInstance.integration_id));
+      return res.json({integration: integration, integrationInstance: integrationInstance, client: client});
+    } else {
+      return res.status(400).send('no such integration instance');
+    }
+  });
+
   app.get('/integration/:id/instances', helpers.checkauth('user'), (req, res) => {
     console.log('get instances for', req.path.id);
     var instances = await(IntegrationInstance.findAll({
@@ -92,5 +104,25 @@ module.exports = (app, helpers) => {
   app.get('/me/integration_instances', helpers.checkauth('user'), (req, res) => {
     var results = await(IntegrationInstance.findAll({where: {client_id: req.session.client_id}}))
     return res.json(results);
+  });
+
+  app.post('/integration_instances/upsert', helpers.checkauth('user'), function(req, res) {
+    let result;
+    let integrationInstance = req.body.integrationInstance;
+    let client = req.body.client;
+
+    integrationInstance.client_id = client.id;
+    try {
+      if (integrationInstance.id) {
+        await(IntegrationInstance.update(integrationInstance, {where: {id: integrationInstance.id}}))
+        integrationInstance = await(IntegrationInstance.findById(integrationInstance.id));
+      } else {
+        integrationInstance = await(IntegrationInstance.create(integrationInstance))
+      }
+      return res.json({integrationInstance: integrationInstance, client: client});
+    } catch(e) {
+      console.log('error', e);
+      return res.status(500).send(e);
+    }
   });
 }
