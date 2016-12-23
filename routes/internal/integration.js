@@ -82,9 +82,11 @@ module.exports = (app, helpers) => {
 
   app.get('/integration_instance/:id', helpers.checkauth('user'), (req, res) => {
     // todo: lock this down (validate the partner_id in the filter)
+    console.log('looking up integration instance id', req.params.id);
     var integrationInstance = await(IntegrationInstance.findById(req.params.id))
     if (integrationInstance) {
       var client = await(Models.Client.findById(integrationInstance.client_id));
+      console.log('looking up integration id', integration.id);
       let integration = await(Integration.findById(integrationInstance.integration_id));
       return res.json({integration: integration, integrationInstance: integrationInstance, client: client});
     } else {
@@ -109,8 +111,10 @@ module.exports = (app, helpers) => {
   app.post('/integration_instances/upsert', helpers.checkauth('user'), function(req, res) {
     let result;
     let integrationInstance = req.body.integrationInstance;
+    let integration = req.body.integration;
     let client = req.body.client;
 
+    integrationInstance.integration_id = integration.id;
     integrationInstance.client_id = client.id;
     console.log('upserting instance', integrationInstance);
     try {
