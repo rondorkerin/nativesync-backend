@@ -69,13 +69,13 @@ module.exports = (app, helpers) => {
     // todo: lock this down (validate the partner_id in the filter)
     var integration = await(Integration.findById(
           req.params.id,
-          {include: [Models.Action, Models.Service]}
+          {include: ['Actions', 'Services']}
     ));
     if (integration) {
       var result = {
         integration: integration,
-        services: integration.services,
-        actions: integration.actions
+        services: integration.Services,
+        actions: integration.Actions
       }
       var serviceAuths = await(actions.getServiceAuths());
       result.serviceAuths = serviceAuths;
@@ -97,8 +97,8 @@ module.exports = (app, helpers) => {
       var client = await(Models.Client.findById(integrationInstance.client_id));
       let integration = await(Integration.findById(
           integrationInstance.integration_id,
-          {include: [Models.Action, Models.Service]
-      }));
+          {include: ['Actions', 'Services']}
+      ));
       var serviceAuths = await(actions.getServiceAuths());
       return res.json({
         integration: integration,
