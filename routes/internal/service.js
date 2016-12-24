@@ -23,18 +23,20 @@ module.exports = (app, helpers) => {
  app.post('/services/upsert', helpers.checkauth('user'), function(req, res) {
     let result;
     let service = req.body.service;
+    delete service['ServiceAuths'];
     let serviceAuths = req.body.serviceAuths;
 
-    // associate the service with a service
-    service.service_id = service.id;
     try {
       if (service.id) {
+        console.log('updating service', service);
         await(Service.update(service, {where: {id: service.id}}))
         service = await(Service.findById(service.id));
       } else {
+        console.log('inserting service', service);
         service = await(Service.create(service))
       }
 
+      console.log('setting service auths', serviceAuths);
       await(service.setServiceAuths(serviceAuths));
 
       serviceAuths = await(service.getServiceAuths());
