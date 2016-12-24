@@ -46,8 +46,10 @@ module.exports = (app, helpers) => {
 
       integrationCode.integration_id = integration.id;
       if (integrationCode.id) {
+        console.log('updating integartion code', integrationCode, integration);
         await(IntegrationCode.update(integrationCode, {where: {id: integrationCode.id}}));
       } else {
+        console.log('inserting integartion code', integrationCode, integration);
         await(IntegrationCode.create(integrationCode));
       }
 
