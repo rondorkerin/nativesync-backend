@@ -12,6 +12,9 @@ var IntegrationCode = postgres.define('integration_code', {
   integration_instance_id: {
     type: Sequelize.BIGINT
   },
+  integration_id: {
+    type: Sequelize.BIGINT
+  },
   code: {
     type: Sequelize.TEXT
   },
