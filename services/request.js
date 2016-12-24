@@ -51,9 +51,9 @@ class Request {
         requestObject['auth'] = clientAuth['value'];
       } else if (serviceAuth['type'] == 'apiKey') {
         if (serviceAuth['details']['in'] == 'header') {
-          headers[serviceAuth['details']['name']] = clientAuth['value'];
+          headers[serviceAuth['details']['name']] = clientAuth['value'].apiKeyValue;
         } else if (serviceAuth['details']['in'] == 'query') {
-          query[serviceAuth['details']['name']] = clientAuth['value'];
+          query[serviceAuth['details']['name']] = clientAuth['value'].apiKeyValue;
         }
       } else if (serviceAuth['type'] == 'configuration') {
         // configuration inputs are overwritable
