@@ -37,7 +37,13 @@ module.exports = (app, helpers) => {
       }
 
       console.log('setting service auths', serviceAuths);
-      await(service.setServiceAuths(serviceAuths));
+      for (let serviceAuth of serviceAuths) {
+        if (serviceAuth.id) {
+          await(Models.ServiceAuth.update(serviceAuth, {where: {id: serviceAuth.id}}));
+        } else {
+          await(Models.ServiceAuth.create(serviceAuth));
+        }
+      }
 
       serviceAuths = await(service.getServiceAuths());
       return res.json({service: service, serviceAuths: serviceAuths});
