@@ -45,7 +45,11 @@ module.exports = (app, helpers) => {
       }
 
       integrationCode.integration_id = integration.id;
-      IntegrationCode.upsert(integrationCode);
+      if (integrationCode.id) {
+        await(IntegrationCode.update(integrationCode, {where: {id: integrationCode.id}}));
+      } else {
+        await(IntegrationCode.create(integrationCode));
+      }
 
       await(integration.setServices(serviceIDs));
       await(integration.setActions(actionIDs));
