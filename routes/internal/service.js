@@ -28,11 +28,9 @@ module.exports = (app, helpers) => {
 
     try {
       if (service.id) {
-        console.log('updating service', service);
         await(Service.update(service, {where: {id: service.id}}))
         service = await(Service.findById(service.id));
       } else {
-        console.log('inserting service', service);
         service = await(Service.create(service))
       }
 
