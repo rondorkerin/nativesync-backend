@@ -51,10 +51,10 @@ var Action = postgres.define('action', {
   type: {
     type: Sequelize.STRING
   },
-  input_content_type: {
+  input_body: {
     type: Sequelize.STRING
   },
-  output_content_type: {
+  output_body: {
     type: Sequelize.STRING
   },
   version: {
@@ -64,15 +64,6 @@ var Action = postgres.define('action', {
     type: Sequelize.TEXT
   },
   input: {
-    type: Sequelize.JSON
-  },
-  output: {
-    type: Sequelize.JSON
-  },
-  input_example: {
-    type: Sequelize.JSON
-  },
-  output_example: {
     type: Sequelize.JSON
   },
   official: {
