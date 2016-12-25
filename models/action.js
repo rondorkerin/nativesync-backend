@@ -52,10 +52,10 @@ var Action = postgres.define('action', {
     type: Sequelize.STRING
   },
   input_body: {
-    type: Sequelize.STRING
+    type: Sequelize.JSON
   },
   output_body: {
-    type: Sequelize.STRING
+    type: Sequelize.JSON
   },
   version: {
     type: Sequelize.STRING
