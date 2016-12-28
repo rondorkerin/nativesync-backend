@@ -8,6 +8,9 @@ module.exports = (app, helpers) => {
     // todo: lock this down (validate the organization_id in the filter)
     var serviceAuthIds = req.query.service_auth_ids;
     var organizationId = req.query.organization_id;
+    if (!(serviceAuthIds && organizationId)) {
+      return res.json({organizationAuths: []});
+    }
     try {
       var organizationAuths = await(Models.OrganizationAuth.findAll({where: {
         organization_id: organizationId,
