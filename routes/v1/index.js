@@ -5,15 +5,15 @@ const config = require('config');
 const express = require('express');
 
 module.exports = function(app, helpers) {
-  helpers.passport.use('client', new HeaderApiKeyStrategy({
+  helpers.passport.use('organization', new HeaderApiKeyStrategy({
     header: 'Api-Key', prefix: '', session: false},
     false,
     async((apikey, done) => {
-      var client = await(app.Models.Client.findOne({where: {api_key: apikey}}));
-      if (!client) {
-        return done('invalid client API key', null);
+      var organization = await(app.Models.Organization.findOne({where: {api_key: apikey}}));
+      if (!organization) {
+        return done('invalid organization API key', null);
       }
-      return done(null, client);
+      return done(null, organization);
     })
   ));
 

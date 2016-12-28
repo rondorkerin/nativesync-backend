@@ -3,17 +3,26 @@
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
 let guid = require('guid');
-var UserPartner = postgres.define('user_partner', {
+var Organization = postgres.define('organization', {
   id: {
     type: Sequelize.BIGINT,
     autoIncrement: true,
     primaryKey: true
   },
-  user_id: {
-    type: Sequelize.BIGINT
-  },
   partner_id: {
     type: Sequelize.BIGINT
+  },
+  name: {
+    type: Sequelize.STRING
+  },
+  avatar_url: {
+    type: Sequelize.STRING
+  },
+  api_key: {
+    type: Sequelize.STRING
+  },
+  url: {
+    type: Sequelize.STRING
   },
   createdAt: {
     type: Sequelize.DATE
@@ -23,7 +32,7 @@ var UserPartner = postgres.define('user_partner', {
   }
 }, {
   freezeTableName: true,
-  indexes: [{fields: ['user_id', 'partner_id'], unique: true}]
+  indexes: [{fields: ['partner_id']}, {fields: ['api_key'], unique: true}]
 });
 
-module.exports = UserPartner;
+module.exports = Organization

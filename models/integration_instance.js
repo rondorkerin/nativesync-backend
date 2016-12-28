@@ -12,7 +12,7 @@ var IntegrationInstance = postgres.define('integration_instance', {
   integration_id: {
     type: Sequelize.BIGINT
   },
-  client_id: {
+  organization_id: {
     type: Sequelize.BIGINT
   },
   title: {
@@ -41,7 +41,7 @@ var IntegrationInstance = postgres.define('integration_instance', {
   }
 }, {
   freezeTableName: true,
-  indexes: [{fields: ['client_id', 'internal_name'], unique: true}]
+  indexes: [{fields: ['organization_id', 'internal_name'], unique: true}]
 });
 
 module.exports = IntegrationInstance

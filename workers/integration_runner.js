@@ -11,12 +11,12 @@ module.exports = async(function() {
   for (let integrationInstance of integrationInstances) {
     let integration = await(integrationInstance.getIntegration());
     let integrationCode = await(Models['IntegrationCode'].findOne({where: {integration_id: integration.id}}))
-    let client = await(integrationInstance.getClient());
+    let organization = await(integrationInstance.getOrganization());
     console.log('scheduling integration', integration.title, 'instance id', integrationInstance.id)
     if (integrationInstance.scheduling_info['type'] == 'cron') {
       scheduler.scheduleJob(integrationInstance.scheduling_info['value'], async(() => {
         console.log('running integration instance', integrationInstance.id);
-        let runner = new IntegrationRunner(client, integration, integrationInstance, integrationCode)
+        let runner = new IntegrationRunner(organization, integration, integrationInstance, integrationCode)
         let output = await(runner.run());
         console.log('integration instance', integrationInstance.id, 'output', output);
       }))

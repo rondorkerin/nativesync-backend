@@ -21,7 +21,7 @@ module.exports = (app, helpers) => {
 
   app.post('/integrations', helpers.checkauth('user'), (req, res) => {
     var integration = req.body.integration;
-    integration.partner_id = req.session.partner_id;
+    integration.organization_id = req.session.organization_id;
     return Integration.create(integration).then((results) => {
       return res.json({success: true});
     })
@@ -64,7 +64,7 @@ module.exports = (app, helpers) => {
   });
 
   app.get('/integrations', helpers.checkauth('user'), (req, res) => {
-    // todo: lock this down (validate the partner_id in the filter)
+    // todo: lock this down (validate the organization_id in the filter)
     var filter = req.body;
     console.log('filter', filter);
     var integrations = await(Integration.findAll({where: filter}))
@@ -72,7 +72,7 @@ module.exports = (app, helpers) => {
   });
 
   app.get('/integration/:id', helpers.checkauth('user'), (req, res) => {
-    // todo: lock this down (validate the partner_id in the filter)
+    // todo: lock this down (validate the organization_id in the filter)
     var integration = await(Integration.findById(
           req.params.id,
           {include: [
@@ -110,7 +110,7 @@ module.exports = (app, helpers) => {
   });
 
   app.get('/integration_instance/:id', helpers.checkauth('user'), (req, res) => {
-    // todo: lock this down (validate the partner_id in the filter)
+    // todo: lock this down (validate the organization_id in the filter)
     console.log('looking up integration instance id', req.params.id);
     var integrationInstance = await(IntegrationInstance.findById(req.params.id))
     if (integrationInstance) {

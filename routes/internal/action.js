@@ -1,7 +1,7 @@
 var Models = require('../../models');
 var Action = Models.Action;
 var ActionServiceAuth = Models.ActionServiceAuth;
-let ClientAuth = Models.ClientAuth;
+let OrganizationAuth = Models.OrganizationAuth;
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 var _ = require('underscore');
@@ -20,8 +20,8 @@ module.exports = function(app, helpers) {
     if (req.query.service_id) {
       where['service_id'] = req.query.service_id;
     }
-    if (req.query.partner_id) {
-      where['partner_id'] = req.query.partner_id;
+    if (req.query.organization_id) {
+      where['organization_id'] = req.query.organization_id;
     }
     let limit = req.query.limit ? req.query.limit : 50;
     let actions = await(Action.findAll({where: where, limit: limit}))

@@ -18,9 +18,9 @@ function RequiredAuthMissingException(message) {
 }
 
 class Request {
-  constructor(clientID, action) {
+  constructor(organizationID, action) {
     this.action = action;
-    this.clientID = clientID;
+    this.organizationID = organizationID;
   }
 
   send(input) {
@@ -43,24 +43,24 @@ class Request {
 
     // authentication processing
     for (let serviceAuth of serviceAuths) {
-      let clientAuth = await(serviceAuth.getClientAuths({where: {client_id: this.clientID}}))[0]
-      if (!clientAuth && serviceAuth['required']) {
+      let organizationAuth = await(serviceAuth.getOrganizationAuths({where: {organization_id: this.organizationID}}))[0]
+      if (!organizationAuth && serviceAuth['required']) {
         throw new RequiredAuthMissingException(serviceAuth['name']);
       }
       if (serviceAuth['type'] == 'basic') {
-        requestObject['auth'] = clientAuth['value'];
+        requestObject['auth'] = organizationAuth['value'];
       } else if (serviceAuth['type'] == 'apiKey') {
         if (serviceAuth['details']['in'] == 'header') {
-          headers[serviceAuth['details']['name']] = clientAuth['value'].apiKeyValue;
+          headers[serviceAuth['details']['name']] = organizationAuth['value'].apiKeyValue;
         } else if (serviceAuth['details']['in'] == 'query') {
-          query[serviceAuth['details']['name']] = clientAuth['value'].apiKeyValue;
+          query[serviceAuth['details']['name']] = organizationAuth['value'].apiKeyValue;
         }
       } else if (serviceAuth['type'] == 'configuration') {
         // configuration inputs are overwritable
         debugger;
         for (let key of Object.keys(serviceAuth['details'])) {
           if (!input[key]) {
-            input[key] = clientAuth['value'][key];
+            input[key] = organizationAuth['value'][key];
           }
         }
       }

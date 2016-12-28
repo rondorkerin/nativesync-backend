@@ -1,6 +1,6 @@
 const Models = require('../../models')
 const Action = Models.Action
-const ClientAuth = Models.ClientAuth
+const OrganizationAuth = Models.OrganizationAuth
 const Promise = require('bluebird');
 const async = require('asyncawait/async');
 const await = require('asyncawait/await');
@@ -23,13 +23,13 @@ module.exports = (app, helpers) => {
       try {
         var payload = jwt.decode(apikey, JWT_SECRET);
         if (!payload.id) {
-          return done('invalid client Token', null);
+          return done('invalid organization Token', null);
         } else {
           var user = await(Models.User.findById(payload.id));
           return done(null, user);
         }
       } catch(e) {
-        return done('invalid client Token', null);
+        return done('invalid organization Token', null);
       }
     })
   ));
@@ -37,7 +37,7 @@ module.exports = (app, helpers) => {
   //anyone can access this route
   app.post('/auth/signup', async ((req, res, next) => {
     var password = req.body.password;
-    var accountType = req.body.accountType ? req.body.accountType : 'partner';
+    var accountType = req.body.accountType ? req.body.accountType : 'organization';
     var email = req.body.email;
     email = validator.normalizeEmail(email);
     var companyName = req.body.companyName ? req.body.companyName : email;
@@ -45,25 +45,16 @@ module.exports = (app, helpers) => {
       return res.status(400).send('the email provided was invalid');
     }
     let existing;
-    if (accountType == 'partner') {
-      existing = await(Models.Partner.findOne({where: {name: companyName}}));
-    } else {
-      existing = await(Models.Client.findOne({where: {name: companyName}}));
-    }
+    existing = await(Models.Organization.findOne({where: {name: companyName}}));
     if (existing) {
-      return res.status(400).send('a company already exists with that company name');
+      return res.status(400).send('a organization already exists with that company name');
     }
     try {
       var user = await(Models.User.create({email: email}));
       var hash = await(Hash(password,10));
       var userSystemAuth = await(Models.UserSystemAuth.create({user_id: user.id, hash: hash}));
-      if (accountType == 'partner') {
-        let partner = await(Models.Partner.create({name: companyName}))
-        await(Models.UserPartner.create({user_id: user.id, partner_id: partner.id}));
-      } else {
-        let client = await(Models.Client.create({name: companyName}))
-        await(Models.UserClient.create({user_id: user.id, client_id: client.id}));
-      }
+      let organization = await(Models.Organization.create({name: companyName}))
+      await(Models.UserOrganization.create({user_id: user.id, organization_id: organization.id}));
       return res.json(user)
     } catch(e) {
       console.log('exception', e);

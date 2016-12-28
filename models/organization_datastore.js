@@ -3,13 +3,13 @@
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
 
-var ClientDatastore = postgres.define('client_datastore', {
+var OrganizationDatastore = postgres.define('organization_datastore', {
   id: {
     type: Sequelize.BIGINT,
     autoIncrement: true,
     primaryKey: true
   },
-  client_id: {
+  organization_id: {
     type: Sequelize.BIGINT
   },
   key: {
@@ -26,7 +26,7 @@ var ClientDatastore = postgres.define('client_datastore', {
   }
 }, {
   freezeTableName: true,
-  indexes: [{fields: ['client_id', 'key'], unique: true}]
+  indexes: [{fields: ['organization_id', 'key'], unique: true}]
 });
 
-module.exports = ClientDatastore
+module.exports = OrganizationDatastore

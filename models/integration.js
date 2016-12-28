@@ -8,7 +8,7 @@ var Integration = postgres.define('integration', {
     autoIncrement: true,
     primaryKey: true
   },
-  partner_id: {
+  organization_id: {
     type: Sequelize.BIGINT
   },
   creator_user_id: {
@@ -60,7 +60,7 @@ var Integration = postgres.define('integration', {
     type: Sequelize.DATE
   }
 }, {
-  indexes: [{fields: ['partner_id', 'internal_name'], unique: true}, {fields: ['creator_user_id']}],
+  indexes: [{fields: ['organization_id', 'internal_name'], unique: true}, {fields: ['creator_user_id']}],
   freezeTableName: true
 });
 

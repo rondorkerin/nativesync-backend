@@ -12,7 +12,7 @@ var Action = postgres.define('action', {
   service_id: {
     type: Sequelize.BIGINT
   },
-  partner_id: {
+  organization_id: {
     type: Sequelize.BIGINT
   },
   title: {
@@ -71,7 +71,7 @@ var Action = postgres.define('action', {
   },
 }, {
   freezeTableName: true,
-  indexes: [{fields: ['service_id']}, {fields: ['service_name', 'function_name'], unique: true}, {fields: ['partner_id']}]
+  indexes: [{fields: ['service_id']}, {fields: ['service_name', 'function_name'], unique: true}, {fields: ['organization_id']}]
 });
 
 module.exports = Action
