@@ -14,8 +14,8 @@ module.exports = (app, helpers) => {
     let integrationInstance = await(IntegrationInstance.findById(req.params.id));
     let integration = await(integrationInstance.getIntegration());
     let integrationCode = await(integration.getIntegrationCode());
-    let client = await(integrationInstance.getClient());
-    let output = await(new IntegrationRunner(client, integration, integrationInstance, integrationCode).run());
+    let organization = await(integrationInstance.getOrganization());
+    let output = await(new IntegrationRunner(organization, integration, integrationInstance, integrationCode).run());
     return res.json(output);
   });
 
@@ -114,7 +114,7 @@ module.exports = (app, helpers) => {
     console.log('looking up integration instance id', req.params.id);
     var integrationInstance = await(IntegrationInstance.findById(req.params.id))
     if (integrationInstance) {
-      var client = await(Models.Client.findById(integrationInstance.client_id));
+      var organization = await(Models.Organization.findById(integrationInstance.organization_id));
       let integration = await(Integration.findById(
           integrationInstance.integration_id,
           {include: [
@@ -137,7 +137,7 @@ module.exports = (app, helpers) => {
       return res.json({
         integration: integration,
         integrationInstance: integrationInstance,
-        client: client,
+        organization: organization,
         actions: integration.Actions,
         services: integration.Services,
         serviceAuths: serviceAuths
@@ -151,13 +151,13 @@ module.exports = (app, helpers) => {
     console.log('get instances for', req.params.id);
     var instances = await(IntegrationInstance.findAll({
       where: {integration_id: req.params.id},
-      include: [Models.Client]
+      include: [Models.Organization]
     }))
     return res.json({integrationInstances: instances});
   });
 
   app.get('/me/integration_instances', helpers.checkauth('user'), (req, res) => {
-    var results = await(IntegrationInstance.findAll({where: {client_id: req.session.client_id}}))
+    var results = await(IntegrationInstance.findAll({where: {organization_id: req.session.organization_id}}))
     return res.json(results);
   });
 
@@ -165,10 +165,10 @@ module.exports = (app, helpers) => {
     let result;
     let integrationInstance = req.body.integrationInstance;
     let integration = req.body.integration;
-    let client = req.body.client;
+    let organization = req.body.organization;
 
     integrationInstance.integration_id = integration.id;
-    integrationInstance.client_id = client.id;
+    integrationInstance.organization_id = organization.id;
     console.log('upserting instance', integrationInstance);
     try {
       if (integrationInstance.id) {
@@ -177,7 +177,7 @@ module.exports = (app, helpers) => {
       } else {
         integrationInstance = await(IntegrationInstance.create(integrationInstance))
       }
-      return res.json({integrationInstance: integrationInstance, client: client});
+      return res.json({integrationInstance: integrationInstance, organization: organization});
     } catch(e) {
       console.log('error', e);
       return res.status(500).send(e);
