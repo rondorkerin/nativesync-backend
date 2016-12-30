@@ -48,7 +48,7 @@ class CodeRunner {
       },
     }
     Object.assign(api, this.variables);
-    let code = `(function(api) { ${this.code} })()`
+    let code = `(function(api) {\n ${this.code} \n})()`
     vm.runInNewContext(code, api);
     return deferred.promise;
   }
