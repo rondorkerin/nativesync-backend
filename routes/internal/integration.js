@@ -65,8 +65,7 @@ module.exports = (app, helpers) => {
 
   app.get('/integrations', helpers.checkauth('user'), (req, res) => {
     // todo: lock this down (validate the organization_id in the filter)
-    var filter = req.body;
-    console.log('filter', filter);
+    var filter = req.query;
     var integrations = await(Integration.findAll({where: filter}))
     return res.json({integrations: integrations});
   });
@@ -157,8 +156,7 @@ module.exports = (app, helpers) => {
   });
 
   app.get('/integration_instances', helpers.checkauth('user'), (req, res) => {
-    var filter = req.body;
-    console.log('filter', filter);
+    var filter = req.query;
     var results = await(IntegrationInstance.findAll({where: filter}))
     return res.json({integrationInstances: results});
   });
