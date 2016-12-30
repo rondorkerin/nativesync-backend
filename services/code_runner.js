@@ -46,6 +46,12 @@ class CodeRunner {
       end: function(output) {
         deferred.resolve(output)
       },
+      callback: function(output) {
+        deferred.resolve(output)
+      },
+      resolve: function(output) {
+        deferred.resolve(output)
+      },
     }
     Object.assign(api, this.variables);
     let code = `(function(api) {\n ${this.code} \n})()`
