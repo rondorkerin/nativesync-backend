@@ -4,6 +4,7 @@ var await = require('asyncawait/await');
 const Models = require('../models');
 const vm = require('vm');
 const request = require('request-promise');
+const CodeRunner = require('./code_runner');
 
 class IntegrationRunner {
   constructor(organization, integration, integrationInstance, integrationCode) {
@@ -41,44 +42,8 @@ class IntegrationRunner {
   }
 
   runHostedMVP() {
-    const nsUrl = "https://api.nativesync.io/v1";
-    var deferred = Promise.defer();
-    var organizationApiKey = this.organization.api_key
-    var organizationID = this.organization.id;
-    var api = {
-      ns: function(service, functionName, input) {
-        return request.post({
-          url: encodeURI(nsUrl + "/action/" + service + "/" + functionName + "/invoke"),
-          json: true,
-          body: input,
-          headers: {
-            'Api-Key': organizationApiKey
-          }
-        });
-      },
-      set: function(key, value) {
-        return Models['OrganizationDatastore'].upsert({organization_id: organizationID, key: key, value: value})
-      },
-      push: function(key, value) {
-        return Models['OrganizationDatastore'].findAll({where: {organization_id: organizationID, key: key}}).then((result) => {
-          result.value = result.value.push(value);
-          return result.save();
-        })
-      },
-      get: function(key) {
-        return Models['OrganizationDatastore'].findAll({where: {organization_id: organizationID, key: key}})
-      },
-      log: function(message) {
-        console.log(message);
-      },
-      end: function(output) {
-        deferred.resolve(output)
-      },
-    }
-    let code = `(function(api) { ${this.integrationCode.code} })()`
-    console.log('running code', code);
-    vm.runInNewContext(code, api);
-    return deferred.promise;
+    var codeRunner = new CodeRunner(this.organization, this.integrationCode.code);
+    return codeRunner.run();
   }
 }
 

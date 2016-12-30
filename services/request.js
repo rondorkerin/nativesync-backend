@@ -4,6 +4,7 @@ var Promise = require('bluebird');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 var request = require('request-promise');
+const CodeRunner = require('./code_runner');
 const _ = require('underscore')
 const url = require('url');
 
@@ -18,9 +19,10 @@ function RequiredAuthMissingException(message) {
 }
 
 class Request {
-  constructor(organizationID, action) {
+  constructor(organization, action) {
     this.action = action;
-    this.organizationID = organizationID;
+    this.organizationID = organization.id;
+    this.organization = organization;
   }
 
   send(input) {
@@ -35,7 +37,7 @@ class Request {
     for (let pair of this.action['query']) {
       query[pair.key] = pair.value;
     }
-    var formData = {};
+    var bodyInput = {};
     var host = this.action['host'] ? this.action['host'] : {};
     var body = '';
     var requestObject = {}
@@ -79,9 +81,9 @@ class Request {
       if(actionInput['in'] == 'query') {
         query[fieldName] = value;
       } else if (actionInput['in'] == 'formData') {
-        formData[fieldName] = value;
+        bodyInput[fieldName] = value;
       } else if (actionInput['in'] == 'body') {
-        body = input[fieldName]
+        bodyInput[fieldName] = value;
       } else if (actionInput['in'] == 'path') {
         path = path.replace(`{${fieldName}}`, value)
       } else if (actionInput['in'] == 'host') {
@@ -89,15 +91,24 @@ class Request {
       }
     }
 
+    //
+
     // build the request object
-    if (this.action['input_content_type'] == 'json') {
+    let requestBodyGenerator = CodeRunner.new(this.organization, this.action.input_body.code, {input: bodyInput});
+    if (this.action.input_body.content_type == 'json') {
       headers['Content-Type'] == 'application/json';
-    } else if (this.action['input_content_type'] == 'xml') {
+      body = await(requestBodyGenerator.run())
+      if (typeof body != 'string') {
+        body = JSON.stringify(body);
+      }
+    } else if (this.action.input_body.content_type == 'xml') {
       headers['Content-Type'] == 'application/xml';
-    } else if (this.action['input_content_type'] == 'form') {
+      body = requestBodyGenerator.run();
+    } else if (this.action.input_body.content_type == 'form') {
       headers['Content-Type'] == 'application/x-www-form-urlencoded';
-      body = querystring.stringify(formData);
+      body = querystring.stringify(bodyInput);
     }
+
     headers['Content-Length'] = body.length;
     requestObject['method'] = this.action['method'];
     requestObject['uri'] = url.format({
@@ -112,17 +123,21 @@ class Request {
     requestObject['headers'] = headers;
     let response = await(request(requestObject));
 
-    // output processing
     var output = {};
-    if (this.action['output_content_type'] == 'json') {
+    if (this.action.output_body.content_type == 'json') {
       output = JSON.parse(response.body)
-    } else if (this.action['output_content_type'] == 'xml') {
+    } else if (this.action.output_body.content_type == 'xml') {
       // todo: parse XML
-      output = response.body;
+      parser = new DOMParser();
+      output = parser.parseFromString(response.body,"text/xml");
     }
-    debugger;
+    // output processing
+    let outputParser = CodeRunner.new(this.organization, this.action.output_body.code, {output: output});
 
-    return output;
+    var parsedOutput = outputParser.run();
+
+    parsedOutput.statusCode = response.statusCode;
+    return parsedOutput;
   }
 }
 
