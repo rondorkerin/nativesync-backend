@@ -94,7 +94,7 @@ class Request {
     //
 
     // build the request object
-    let requestBodyGenerator = CodeRunner.new(this.organization, this.action.input_body.code, {input: bodyInput});
+    let requestBodyGenerator = new CodeRunner(this.organization, this.action.input_body.code, {input: bodyInput});
     if (this.action.input_body.content_type == 'json') {
       headers['Content-Type'] == 'application/json';
       body = await(requestBodyGenerator.run())
@@ -132,7 +132,7 @@ class Request {
       output = parser.parseFromString(response.body,"text/xml");
     }
     // output processing
-    let outputParser = CodeRunner.new(this.organization, this.action.output_body.code, {output: output});
+    let outputParser = new CodeRunner(this.organization, this.action.output_body.code, {output: output});
 
     var parsedOutput = outputParser.run();
 
