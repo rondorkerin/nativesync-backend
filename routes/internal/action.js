@@ -2,6 +2,7 @@ var Models = require('../../models');
 var Action = Models.Action;
 var ActionServiceAuth = Models.ActionServiceAuth;
 let OrganizationAuth = Models.OrganizationAuth;
+var Request = require('../../services/request');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 var _ = require('underscore');
