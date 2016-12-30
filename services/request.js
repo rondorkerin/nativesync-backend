@@ -103,7 +103,7 @@ class Request {
       }
     } else if (this.action.input_body.content_type == 'xml') {
       headers['Content-Type'] == 'application/xml';
-      body = requestBodyGenerator.run();
+      body = await(requestBodyGenerator.run());
     } else if (this.action.input_body.content_type == 'form') {
       headers['Content-Type'] == 'application/x-www-form-urlencoded';
       body = querystring.stringify(bodyInput);
@@ -134,7 +134,7 @@ class Request {
     // output processing
     let outputParser = new CodeRunner(this.organization, this.action.output_body.code, {output: output});
 
-    var parsedOutput = outputParser.run();
+    var parsedOutput = await(outputParser.run());
 
     parsedOutput.statusCode = response.statusCode;
     return parsedOutput;
