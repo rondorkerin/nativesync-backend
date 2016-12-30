@@ -59,6 +59,15 @@ module.exports = function(app, helpers) {
     }
   });
 
+  app.post('/actions/test', helpers.checkauth('user'), function(req, res) {
+    let action = await(Action.findById(req.body.id));
+    let organization = await(Models.Organization.findById(req.body.organizationId));
+    let input = req.body.input;
+    let request = Request.new(organization, action);
+    let output = await(request.send(input))
+    return res.json(output);
+  });
+
   app.post('/actions/associate_service_auth', helpers.checkauth('user'), function(req, res) {
     let result;
     result = await(ActionServiceAuth.create({action_id: req.body.action_id, service_auth_id: req.body.service_auth_id, verified: false}))
