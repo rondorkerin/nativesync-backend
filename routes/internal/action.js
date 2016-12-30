@@ -20,6 +20,9 @@ module.exports = function(app, helpers) {
     if (req.query.service_id) {
       where['service_id'] = req.query.service_id;
     }
+    if (req.query.service_ids) {
+      where['service_id'] = { '$in' : req.query.service_ids };
+    }
     if (req.query.organization_id) {
       where['organization_id'] = req.query.organization_id;
     }
