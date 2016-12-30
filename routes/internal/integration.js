@@ -156,9 +156,11 @@ module.exports = (app, helpers) => {
     return res.json({integrationInstances: instances});
   });
 
-  app.get('/me/integration_instances', helpers.checkauth('user'), (req, res) => {
-    var results = await(IntegrationInstance.findAll({where: {organization_id: req.session.organization_id}}))
-    return res.json(results);
+  app.get('/integration_instances', helpers.checkauth('user'), (req, res) => {
+    var filter = req.body;
+    console.log('filter', filter);
+    var results = await(IntegrationInstance.findAll({where: filter}))
+    return res.json({integrationInstances: results});
   });
 
   app.post('/integration_instances/upsert', helpers.checkauth('user'), function(req, res) {
