@@ -70,7 +70,7 @@ module.exports = (app, helpers) => {
       where: filter,
       include: [
         {model: Models.Service, as: 'Services'},
-        {model: Models.Organization, as: 'Organization'}
+        Models.Organization
       ]}
     ))
     return res.json({integrations: integrations});
