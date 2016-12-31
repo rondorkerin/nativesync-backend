@@ -69,7 +69,8 @@ module.exports = (app, helpers) => {
     var integrations = await(Integration.findAll({
       where: filter,
       include: [
-        {model: Models.Service, as: 'Services'}
+        {model: Models.Service, as: 'Services'},
+        {model: Models.Organization, as: 'Organization'}
       ]}
     ))
     return res.json({integrations: integrations});
