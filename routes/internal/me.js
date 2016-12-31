@@ -2,6 +2,7 @@ let await = require('asyncawait/await');
 let async = require('asyncawait/async');
 var Models = require('../../models')
 var Organization = Models.Organization;
+var _ = require('underscore');
 var User = Models;
 
 module.exports = (app, helpers) => {
