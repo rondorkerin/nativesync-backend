@@ -19,7 +19,7 @@ module.exports = (app, helpers) => {
         updateData[field] = data[field];
       }
     });
-    await(User.update({where: {id: req.user.id}, values: updateData}));
+    var user = await(User.update(updateData, {where: {id: req.user.id}}));
 
     return res.json(user);
   });
