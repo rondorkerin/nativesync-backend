@@ -19,6 +19,9 @@ var User = postgres.define('user', {
   avatar_url: {
     type: Sequelize.STRING
   },
+  default_organization_id: {
+    type: Sequelize.BIGINT
+  },
   createdAt: {
     type: Sequelize.DATE
   },
