@@ -66,7 +66,11 @@ module.exports = (app, helpers) => {
   app.get('/integrations', helpers.checkauth('user'), (req, res) => {
     // todo: lock this down (validate the organization_id in the filter)
     var filter = req.query;
-    var integrations = await(Integration.findAll({where: filter}))
+    var integrations = await(Integration.findAll({where: filter},
+      {include: [
+        {model: Models.Service, as: 'Services'}
+      ]}
+    ))
     return res.json({integrations: integrations});
   });
 
