@@ -3,7 +3,7 @@ let async = require('asyncawait/async');
 var Models = require('../../models')
 var Organization = Models.Organization;
 var _ = require('underscore');
-var User = Models;
+var User = Models.User;
 
 module.exports = (app, helpers) => {
   app.get('/me', helpers.checkauth('user'), (req, res) => {
