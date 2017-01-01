@@ -44,6 +44,7 @@ module.exports = (app, helpers) => {
       }
 
       serviceAuths = await(service.getServiceAuths());
+      console.log('upsert service', service, serviceAuths);
       return res.json({service: service, serviceAuths: serviceAuths});
     } catch(e) {
       console.log('error', e);
