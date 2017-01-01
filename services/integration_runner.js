@@ -42,7 +42,7 @@ class IntegrationRunner {
   }
 
   runHostedMVP() {
-    var codeRunner = new CodeRunner(this.organization, this.integrationCode.code);
+    var codeRunner = new CodeRunner(this.organization, this.integrationCode.code, {input: this.integrationInstance.inputs});
     return codeRunner.run();
   }
 }

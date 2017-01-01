@@ -12,11 +12,13 @@ class CodeRunner {
     this.variables = variables;
   }
 
-  run() {
+  run(options) {
+    if (!options) { options = {} }
     const nsUrl = "https://api.nativesync.io/v1";
     var deferred = Promise.defer();
     var organizationApiKey = this.organization.api_key
     var organizationID = this.organization.id;
+    var logs = [];
     var api = {
       ns: function(service, functionName, input) {
         return request.post({
@@ -41,10 +43,17 @@ class CodeRunner {
         return Models['OrganizationDatastore'].findAll({where: {organization_id: organizationID, key: key}})
       },
       log: function(message) {
-        console.log(message);
+        if (options.loggingEnabled) {
+          logs.push(message);
+        }
       },
       end: function(output) {
-        deferred.resolve(output)
+        if (options.loggingEnabled) {
+          var result = {logs: logs, output: output};
+          deferred.resolve(result)
+        } else {
+          deferred.resolve(result)
+        }
       },
       callback: function(output) {
         deferred.resolve(output)

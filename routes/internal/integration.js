@@ -7,8 +7,19 @@ const _ = require('underscore');
 const IntegrationRunner = require('../../services/integration_runner');
 const async = require('asyncawait/async')
 const await = require('asyncawait/await')
+const CodeRunner = Services.CodeRunner;
 
 module.exports = (app, helpers) => {
+
+  app.post('/integrations/test', helpers.checkauth('user'), function(req, res) {
+    let integrationCode = await(IntegrationCode.findOne({integration_id: req.body.id}));
+    let organization = await(Models.Organization.findById(req.body.organizationId));
+    let input = req.body.input;
+		var codeRunner = new CodeRunner(organization, integrationCode.code, {input: input});
+    let output = await(codeRunner.run({loggingEnabled: true}));
+    return res.json(output);
+  });
+
   app.post('/integration_instance/:id/run', helpers.checkauth('user'), (req, res) => {
     console.log('params', req.params);
     let integrationInstance = await(IntegrationInstance.findById(req.params.id));
