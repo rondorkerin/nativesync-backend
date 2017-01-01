@@ -44,7 +44,11 @@ class CodeRunner {
       },
       log: function(message) {
         if (options.loggingEnabled) {
-          logs.push(message.toString());
+          if (typeof message == 'object') {
+            logs.push(JSON.stringify(message));
+          } else {
+            logs.push(message.toString());
+          }
         }
       },
       end: function(output) {
