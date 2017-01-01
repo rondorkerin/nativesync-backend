@@ -44,7 +44,7 @@ class CodeRunner {
       },
       log: function(message) {
         if (options.loggingEnabled) {
-          logs.push(message);
+          logs.push(message.toString());
         }
       },
       end: function(output) {
