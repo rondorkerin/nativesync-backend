@@ -4,6 +4,7 @@ var await = require('asyncawait/await');
 const Models = require('../models');
 const vm = require('vm');
 const request = require('request-promise');
+var queryString = require('query-string');
 
 class CodeRunner {
   constructor(organization, code, variables) {
@@ -19,10 +20,27 @@ class CodeRunner {
     var organizationApiKey = this.organization.api_key
     var organizationID = this.organization.id;
     var logs = [];
+    var errors = [];
     var api = {
-      ns: function(service, functionName, input) {
+      callAction: function(actionDescription, input) {
+        var actionObject = {};
+        if (typeof actionDescription == 'string') {
+          var params = actionDescription.split("/");
+          if (!isNaN(actionDescription)) {
+            actionObject.id = parseInt(actionDescription);
+          } else if (params.length > 0) {
+            actionObject.org_name = matchParams[0];
+            actionObject.service_name = matchParams[1];
+            actionObject.function_name = matchParams[2];
+            if (params[3])  {
+              actionObject.version = matchParams[3];
+            }
+          } else {
+            errors.push(`action description invalid: ${actionDescription}`);
+          }
+        }
         return request.post({
-          url: encodeURI(nsUrl + "/action/" + service + "/" + functionName + "/invoke"),
+          url: encodeURI(nsUrl + "/action/invoke" + queryString.stringify(actionObject)),
           json: true,
           body: input,
           headers: {
@@ -30,16 +48,16 @@ class CodeRunner {
           }
         });
       },
-      set: function(key, value) {
+      setData: function(key, value) {
         return Models['OrganizationDatastore'].upsert({organization_id: organizationID, key: key, value: value})
       },
-      push: function(key, value) {
+      pushData: function(key, value) {
         return Models['OrganizationDatastore'].findAll({where: {organization_id: organizationID, key: key}}).then((result) => {
           result.value = result.value.push(value);
           return result.save();
         })
       },
-      get: function(key) {
+      getData: function(key) {
         return Models['OrganizationDatastore'].findAll({where: {organization_id: organizationID, key: key}})
       },
       log: function(message) {
@@ -52,18 +70,16 @@ class CodeRunner {
         }
       },
       end: function(output) {
-        if (options.loggingEnabled) {
-          var result = {logs: logs, output: output};
-          deferred.resolve(result)
-        } else {
-          deferred.resolve(result)
-        }
+        var result = {logs: logs, output: output, errors: errors};
+        deferred.resolve(result)
       },
       callback: function(output) {
-        deferred.resolve(output)
+        var result = {logs: logs, output: output, errors: errors};
+        deferred.resolve(result)
       },
       resolve: function(output) {
-        deferred.resolve(output)
+        var result = {logs: logs, output: output, errors: errors};
+        deferred.resolve(result)
       },
     }
     // hook the API in

@@ -7,17 +7,23 @@ var await = require('asyncawait/await');
 
 module.exports = (app, helpers) => {
 
-  app.post('/action/:id/invoke', helpers.checkauth('organization'), (req, res) => {
+  app.post('/action/invoke', helpers.checkauth('organization'), (req, res) => {
+    let actionObject = req.body;
+    let action;
+    if (actionObject.id) {
+      action = await(Action.findById(actionObject.id))
+    } else {
+      var where = {
+        service_name: actionBody.service_name,
+        function_name: actionBody.function_name,
+        organization_name: actionBody.org_name
+      };
+      if (actionBody.version) {
+        where.version = actionBody.version;
+      }
+      action = await(Action.findOne({where: where}));
+    }
     let organization = req.user;
-    let action = await(Action.findById(req.params['id']))
-    let output = await(new Services.Request(organization, action).send(req.body))
-    return res.json(output);
-  });
-
-  app.post('/action/:service/:function/invoke', helpers.checkauth('organization'), (req, res) => {
-    console.log('invoking function', req.params['function']);
-    let organization = req.user;
-    let action = await(Action.findOne({ where: {service_name: req.params['service'], function_name: req.params['function']}}))
     let output = await(new Services.Request(organization, action).send(req.body))
     return res.json(output);
   });
