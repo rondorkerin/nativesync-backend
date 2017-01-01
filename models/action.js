@@ -45,6 +45,9 @@ var Action = postgres.define('action', {
   service_name: {
     type: Sequelize.STRING,
   },
+  organization_name: {
+    type: Sequelize.STRING,
+  },
   function_name: {
     type: Sequelize.STRING,
   },
