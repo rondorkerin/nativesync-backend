@@ -32,6 +32,28 @@ module.exports = function(app, helpers) {
     return res.json(actions);
   });
 
+  app.post('/action/:id/duplicate', helpers.checkauth('user'), function(req, res) {
+    let result;
+    let oldAction = await(Action.findById(req.params.id));
+    let newAction = {};
+    Object.assign(newAction, oldAction);
+    newAction.id = null;
+    newAction.name = `${newAction.name} (copy)`
+    newAction.copied_from_id = oldAction.id;
+    try {
+      console.log('creating new action', newAction);
+      newAction = await(Action.create(newAction));
+      let oldServiceAuths = await(oldAction.getServiceAuths());
+      console.log('assigning service auths', oldServiceAuths);
+      await(newAction.setServiceAuths(oldServiceAuths));
+      console.log('success', newAction);
+      return res.json({action: newAction});
+    } catch(e) {
+      console.log('error', e);
+      return res.status(500).send(e);
+    }
+  });
+
   app.post('/actions/upsert', helpers.checkauth('user'), function(req, res) {
     let result;
     let action = req.body.action;

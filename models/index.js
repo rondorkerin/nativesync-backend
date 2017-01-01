@@ -16,6 +16,9 @@ var UserOrganization = require('./user_organization')
 
 Action.belongsToMany(ServiceAuth, {as: 'ServiceAuths', through: ActionServiceAuth, foreignKey: 'action_id', otherKey: 'service_auth_id'});
 Action.belongsTo(Service, { foreignKey: 'service_id' })
+Action.belongsTo(Action, { as: 'copiedFrom', foreignKey: 'copied_from_id' })
+Integration.belongsTo(Integration, { as: 'copiedFrom', foreignKey: 'copied_from_id' })
+Service.belongsTo(Service, { as: 'copiedFrom', foreignKey: 'copied_from_id' })
 Action.belongsToMany(Integration, {as: 'Integrations', through: 'integration_action', foreignKey: 'action_id', otherKey: 'integration_id'});
 User.belongsToMany(Organization, {as: 'Organizations', through: UserOrganization, foreignKey: 'user_id', otherKey: 'organization_id'});
 Integration.belongsToMany(Service, {as: 'Services', through: 'integration_service', foreignKey: 'integration_id', otherKey: 'service_id'});

@@ -10,6 +10,9 @@ var Service = postgres.define('service', {
     autoIncrement: true,
     primaryKey: true
   },
+  copied_from_id: {
+    type: Sequelize.BIGINT
+  },
   name: {
     type: Sequelize.STRING,
     unique: true
