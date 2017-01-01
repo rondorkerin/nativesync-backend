@@ -62,11 +62,13 @@ class CodeRunner {
         deferred.resolve(output)
       },
     }
+    // hook the API in
     Object.assign(api, this.variables);
+
     var resolve = '';
-    if (code.indexOf('resolve') === -1
-        && code.indexOf('callback') === -1
-        && code.indexOf('end') === -1) {
+    if (this.code.indexOf('resolve') === -1
+        && this.code.indexOf('callback') === -1
+        && this.code.indexOf('end') === -1) {
       resolve = 'end();' ;
     }
     let code = `(function(api) {\n ${this.code} \n ${resolve} \n})()`
