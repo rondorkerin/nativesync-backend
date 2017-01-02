@@ -43,12 +43,10 @@ module.exports = function(app, helpers) {
     newAction.name = `${newAction.name} (copy)`
     newAction.copied_from_id = oldAction.id;
     try {
-      console.log('creating new action', newAction);
+      console.log('creating new action', JSON.stringify(newAction));
       newAction = await(Action.create(newAction));
       let oldServiceAuths = await(oldAction.getServiceAuths());
-      console.log('assigning service auths', oldServiceAuths);
       await(newAction.setServiceAuths(oldServiceAuths));
-      console.log('success', newAction);
       return res.json({action: newAction});
     } catch(e) {
       console.log('error', e);
