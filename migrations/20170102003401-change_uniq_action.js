@@ -4,7 +4,7 @@ var await = require('asyncawait/await');
 
 module.exports = {
   up: async( function (queryInterface, Sequelize) {
-    await(queryInterface.dropIndex( 'action',['service_name','function_name'],{ indicesType: 'UNIQUE'}));
+    await(queryInterface.removeIndex( 'action',['service_name','function_name'],{ indicesType: 'UNIQUE'}));
     await(queryInterface.addIndex( 'action',['service_name','function_name', 'organization_name', 'version'],{ indicesType: 'UNIQUE'}));
   }),
 
