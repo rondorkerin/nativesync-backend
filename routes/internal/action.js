@@ -34,7 +34,7 @@ module.exports = function(app, helpers) {
       include: [ Models.Organization ],
       order: [ 'organization_name', 'service_name', 'function_name', ['version', 'desc']]
     }))
-    return res.json(actions);
+    return res.json({actions: actions});
   });
 
   app.post('/action/:id/duplicate', helpers.checkauth('user'), function(req, res) {
