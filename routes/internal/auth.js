@@ -24,11 +24,15 @@ module.exports = (app, helpers) => {
         if (!payload.id) {
           return done('invalid organization Token', null);
         } else {
-          var user = await(Models.User.findById(payload.id, {include: [Models.Organization]}));
+          var user = await(Models.User.findById(
+            payload.id,
+            {include: [{model: Models.Organization, as: 'org'}]}
+          ));
           return done(null, user);
         }
       } catch(e) {
-        return done('invalid organization Token', null);
+        console.log('login error', e);
+        return done('login error', null);
       }
     })
   ));
