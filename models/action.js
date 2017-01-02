@@ -89,13 +89,13 @@ var Action = postgres.define('action', {
 
 Action.cloneFrom = function(oldAction, user, org) {
   let newAction = {};
-  newAction.name = `${newAction.name} (copy)`
   newAction.copied_from_id = oldAction.id;
   var cloneFields =  [
     'service_id', 'schemes', 'headers', 'query', 'host', 'path', 'method',
-    'service_name', 'function_name', 'type', 'version', 'description', 'input',
+    'service_name', 'function_name', 'type', 'description', 'input',
     'title', 'api_version', 'input_body', 'output_body', 'output', 'organization_name'
   ];
+  newAction.version = parseInt(oldAction.version) + 1;
   _.each(cloneFields, (field) =>  {
     newAction[field] = oldAction[field];
   })
