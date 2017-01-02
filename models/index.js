@@ -30,7 +30,7 @@ Service.belongsTo(Service, { as: 'copiedFrom', foreignKey: 'copied_from_id' })
 Service.belongsToMany(Integration, {as: 'Integrations', through: 'integration_service', foreignKey: 'service_id', otherKey: 'integration_id'});
 
 User.belongsToMany(Organization, {as: 'Organizations', through: UserOrganization, foreignKey: 'user_id', otherKey: 'organization_id'});
-//User.belongsTo(Organization, { as: 'org', foreign_key: 'default_organization_id'});
+User.belongsTo(Organization, { as: 'org', foreignKey: 'default_organization_id'});
 
 Organization.belongsToMany(User, {as: 'Users', through: UserOrganization, foreignKey: 'organization_id', otherKey: 'user_id'});
 Organization.hasMany(OrganizationDatastore, { foreignKey: 'organization_id' })

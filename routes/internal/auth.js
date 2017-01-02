@@ -19,13 +19,12 @@ module.exports = (app, helpers) => {
     header: 'Token' , prefix: '', session: false},
     false,
     async((apikey, done) => {
-      console.log('payload found', apikey);
       try {
         var payload = jwt.decode(apikey, JWT_SECRET);
         if (!payload.id) {
           return done('invalid organization Token', null);
         } else {
-          var user = await(Models.User.findById(payload.id));
+          var user = await(Models.User.findById(payload.id, {include: [Models.Organization]}));
           return done(null, user);
         }
       } catch(e) {
