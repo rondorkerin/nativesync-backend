@@ -38,7 +38,7 @@ module.exports = function(app, helpers) {
 
   app.post('/action/:id/duplicate', helpers.checkauth('user'), function(req, res) {
     let result;
-    let org = await(Organization.findById(req.body.organization_id));
+    let org = await(Models.Organization.findById(req.body.organization_id));
     let oldAction = await(Action.findById(req.params.id));
     try {
       var newAction = await(Action.cloneFrom(oldAction, req.user, org));
