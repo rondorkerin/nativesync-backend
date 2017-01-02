@@ -13,6 +13,9 @@ var Service = postgres.define('service', {
   copied_from_id: {
     type: Sequelize.BIGINT
   },
+  visibility: {
+    type: Sequelize.STRING
+  },
   name: {
     type: Sequelize.STRING,
     unique: true

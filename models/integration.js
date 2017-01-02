@@ -17,6 +17,9 @@ var Integration = postgres.define('integration', {
   copied_from_id: {
     type: Sequelize.BIGINT
   },
+  visibility: {
+    type: Sequelize.STRING
+  },
   title: {
     type: Sequelize.STRING
   },

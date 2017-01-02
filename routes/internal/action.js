@@ -31,7 +31,8 @@ module.exports = function(app, helpers) {
     let actions = await(Action.findAll({
       where: where,
       limit: limit,
-      include: [ Models.Organization ]
+      include: [ Models.Organization ],
+      order: [ 'organization_name', 'service_name', 'function_name', ['version', 'desc']]
     }))
     return res.json(actions);
   });
