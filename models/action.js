@@ -102,7 +102,6 @@ Action.cloneFrom = function(oldAction, user, org) {
   newAction.creator_user_id = user.id;
   newAction.organization_id = org.id;
   newAction.organization_name = org.name;
-  console.log('cloning action', newAction);
   newAction = await(Action.create(newAction));
   let oldServiceAuths = await(oldAction.getServiceAuths());
   await(newAction.setServiceAuths(oldServiceAuths));

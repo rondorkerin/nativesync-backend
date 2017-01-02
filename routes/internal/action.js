@@ -55,6 +55,8 @@ module.exports = function(app, helpers) {
     let service = req.body.service;
     let serviceAuthIDs = _.pluck(req.body.serviceAuths, 'id');
     let existingServiceAuths = [];
+    action.organization_id = req.user.org.id;
+    action.organization_name = req.user.org.name;
 
     // associate the action with a service
     action.service_id = service.id;
