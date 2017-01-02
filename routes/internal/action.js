@@ -38,15 +38,10 @@ module.exports = function(app, helpers) {
 
   app.post('/action/:id/duplicate', helpers.checkauth('user'), function(req, res) {
     let result;
+    let org = await(Organization.findById(req.body.organization_id));
     let oldAction = await(Action.findById(req.params.id));
-    let newAction = Object.assign({}, oldAction, {id: null});
-    newAction.name = `${newAction.name} (copy)`
-    newAction.copied_from_id = oldAction.id;
     try {
-      console.log('creating new action', JSON.stringify(newAction));
-      newAction = await(Action.create(newAction));
-      let oldServiceAuths = await(oldAction.getServiceAuths());
-      await(newAction.setServiceAuths(oldServiceAuths));
+      var newAction = await(Action.cloneFrom(oldAction, req.user, org));
       return res.json({action: newAction});
     } catch(e) {
       console.log('error', e);

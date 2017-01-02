@@ -1,7 +1,11 @@
 'use strict';
 
+var _ = require('underscore');
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
+var await = require('asyncawait/await');
+
+// NOTE: if adding/removing fields from action make sure to add them to the cloneFrom function
 
 var Action = postgres.define('action', {
   id: {
@@ -82,5 +86,26 @@ var Action = postgres.define('action', {
   freezeTableName: true,
   indexes: [{fields: ['service_id']}, {fields: ['service_name', 'function_name'], unique: true}, {fields: ['organization_id']}]
 });
+
+Action.cloneFrom = function(oldAction, user, org) {
+	let newAction = {};
+	newAction.name = `${newAction.name} (copy)`
+	newAction.copied_from_id = oldAction.id;
+  var cloneFields =  [
+    'service_id', 'schemes', 'headers', 'query', 'host', 'path', 'method',
+		'service_name', 'function_name', 'type', 'version', 'description', 'input',
+		'title', 'api_version', 'input_body', 'output_body', 'output', 'organization_name'
+  ];
+	_.each(cloneFields, (field) =>  {
+		newAction[field] = oldAction[field];
+	})
+	newAction.creator_user_id = user.id;
+	newAction.organization_id = org.id;
+	console.log('cloning action', newAction);
+  newAction = await(Action.create(newAction));
+  let oldServiceAuths = await(oldAction.getServiceAuths());
+  await(newAction.setServiceAuths(oldServiceAuths));
+	return newAction;
+}
 
 module.exports = Action
