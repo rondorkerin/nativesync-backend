@@ -84,28 +84,29 @@ var Action = postgres.define('action', {
   },
 }, {
   freezeTableName: true,
-  indexes: [{fields: ['service_id']}, {fields: ['service_name', 'function_name'], unique: true}, {fields: ['organization_id']}]
+  indexes: [{fields: ['service_id']}, {fields: ['service_name', 'function_name', 'organization_name', 'version'], unique: true}, {fields: ['organization_id']}]
 });
 
 Action.cloneFrom = function(oldAction, user, org) {
-	let newAction = {};
-	newAction.name = `${newAction.name} (copy)`
-	newAction.copied_from_id = oldAction.id;
+  let newAction = {};
+  newAction.name = `${newAction.name} (copy)`
+  newAction.copied_from_id = oldAction.id;
   var cloneFields =  [
     'service_id', 'schemes', 'headers', 'query', 'host', 'path', 'method',
-		'service_name', 'function_name', 'type', 'version', 'description', 'input',
-		'title', 'api_version', 'input_body', 'output_body', 'output', 'organization_name'
+    'service_name', 'function_name', 'type', 'version', 'description', 'input',
+    'title', 'api_version', 'input_body', 'output_body', 'output', 'organization_name'
   ];
-	_.each(cloneFields, (field) =>  {
-		newAction[field] = oldAction[field];
-	})
-	newAction.creator_user_id = user.id;
-	newAction.organization_id = org.id;
-	console.log('cloning action', newAction);
+  _.each(cloneFields, (field) =>  {
+    newAction[field] = oldAction[field];
+  })
+  newAction.creator_user_id = user.id;
+  newAction.organization_id = org.id;
+  newAction.organization_name = org.name;
+  console.log('cloning action', newAction);
   newAction = await(Action.create(newAction));
   let oldServiceAuths = await(oldAction.getServiceAuths());
   await(newAction.setServiceAuths(oldServiceAuths));
-	return newAction;
+  return newAction;
 }
 
 module.exports = Action
