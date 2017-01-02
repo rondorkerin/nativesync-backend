@@ -28,7 +28,11 @@ module.exports = function(app, helpers) {
       where['organization_id'] = req.query.organization_id;
     }
     let limit = req.query.limit ? req.query.limit : 50;
-    let actions = await(Action.findAll({where: where, limit: limit}))
+    let actions = await(Action.findAll({
+			where: where,
+			limit: limit,
+			include: [ Models.Organization ]
+		}))
     return res.json(actions);
   });
 
