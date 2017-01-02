@@ -81,9 +81,9 @@ module.exports = (app, helpers) => {
       include: [
         {model: Models.Service, as: 'Services'},
         Models.Organization
-      ]},
+      ],
       order: ['organization_id', 'title']
-    ))
+    }))
     return res.json({integrations: integrations});
   });
 
