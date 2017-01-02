@@ -13,9 +13,9 @@ module.exports = (app, helpers) => {
 
   app.post('/integrations/test', helpers.checkauth('user'), function(req, res) {
     let integrationCode = await(IntegrationCode.findOne({integration_id: req.body.id}));
-    let organization = await(Models.Organization.findById(req.body.organizationId));
+    let organization = req.user.org;
     let input = req.body.input;
-		var codeRunner = new CodeRunner(organization, integrationCode.code, {input: input});
+    var codeRunner = new CodeRunner(organization, integrationCode.code, {input: input});
     let output = await(codeRunner.run({loggingEnabled: true}));
     return res.json(output);
   });
@@ -26,13 +26,13 @@ module.exports = (app, helpers) => {
     let integration = await(integrationInstance.getIntegration());
     let integrationCode = await(integration.getIntegrationCode());
     let organization = await(integrationInstance.getOrganization());
-    let output = await(new IntegrationRunner(organization, integration, integrationInstance, integrationCode).run());
+    let output = await(new IntegrationRunner(req.user.org, integration, integrationInstance, integrationCode).run());
     return res.json(output);
   });
 
   app.post('/integrations', helpers.checkauth('user'), (req, res) => {
     var integration = req.body.integration;
-    integration.organization_id = req.session.organization_id;
+    integration.organization_id = req.user.org.id;
     return Integration.create(integration).then((results) => {
       return res.json({success: true});
     })
@@ -75,7 +75,6 @@ module.exports = (app, helpers) => {
   });
 
   app.get('/integrations', helpers.checkauth('user'), (req, res) => {
-    // todo: lock this down (validate the organization_id in the filter)
     var filter = req.query;
     var integrations = await(Integration.findAll({
       where: filter,
@@ -96,6 +95,9 @@ module.exports = (app, helpers) => {
             {model: Models.Service, as: 'Services'}
           ]}
     ));
+    if (integration.organization_id != req.user.org.id) {
+      return res.state(401).send('invalid permissions');
+    }
     // GROSSS!!!!
     let serviceAuthIDs = {};
     let serviceAuths = [];
@@ -107,7 +109,6 @@ module.exports = (app, helpers) => {
         }
       }
     }
-      console.log('service auths', serviceAuths);
     if (integration) {
       var result = {
         integration: integration,
@@ -126,7 +127,6 @@ module.exports = (app, helpers) => {
   });
 
   app.get('/integration_instance/:id', helpers.checkauth('user'), (req, res) => {
-    // todo: lock this down (validate the organization_id in the filter)
     console.log('looking up integration instance id', req.params.id);
     var integrationInstance = await(IntegrationInstance.findById(req.params.id))
     if (integrationInstance) {
@@ -182,7 +182,7 @@ module.exports = (app, helpers) => {
     let result;
     let integrationInstance = req.body.integrationInstance;
     let integration = req.body.integration;
-    let organization = req.body.organization;
+    let organization = req.user.org;
 
     integrationInstance.integration_id = integration.id;
     integrationInstance.organization_id = organization.id;
