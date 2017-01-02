@@ -29,19 +29,17 @@ module.exports = function(app, helpers) {
     }
     let limit = req.query.limit ? req.query.limit : 50;
     let actions = await(Action.findAll({
-			where: where,
-			limit: limit,
-			include: [ Models.Organization ]
-		}))
+      where: where,
+      limit: limit,
+      include: [ Models.Organization ]
+    }))
     return res.json(actions);
   });
 
   app.post('/action/:id/duplicate', helpers.checkauth('user'), function(req, res) {
     let result;
     let oldAction = await(Action.findById(req.params.id));
-    let newAction = {};
-    Object.assign(newAction, oldAction);
-    newAction.id = null;
+    let newAction = Object.assign({}, oldAction, {id: null});
     newAction.name = `${newAction.name} (copy)`
     newAction.copied_from_id = oldAction.id;
     try {
