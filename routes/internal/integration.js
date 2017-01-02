@@ -82,7 +82,7 @@ module.exports = (app, helpers) => {
         {model: Models.Service, as: 'Services'},
         Models.Organization
       ],
-      order: ['organization_id', 'title']
+      order: ['organization_id', 'title', ['version', 'desc']]
     }))
     return res.json({integrations: integrations});
   });
