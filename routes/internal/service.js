@@ -38,6 +38,7 @@ module.exports = (app, helpers) => {
 
       console.log('setting service auths', serviceAuths);
       for (let serviceAuth of serviceAuths) {
+        serviceAuth.service_id = service.id;
         if (serviceAuth.id) {
           await(Models.ServiceAuth.update(serviceAuth, {where: {id: serviceAuth.id}}));
         } else {
@@ -47,6 +48,7 @@ module.exports = (app, helpers) => {
 
       console.log('setting service definitions', serviceDefinitions);
       for (let serviceDefinition of serviceDefinitions) {
+        serviceDefinition.service_id = service.id;
         if (serviceDefinition.id) {
           await(Models.ServiceDefinition.update(serviceDefinition, {where: {id: serviceDefinition.id}}));
         } else {
