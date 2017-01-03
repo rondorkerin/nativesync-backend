@@ -37,6 +37,9 @@ module.exports = (app, helpers) => {
       }
 
       console.log('setting service auths', serviceAuths);
+      await(service.setServiceAuths(serviceAuths));
+      await(service.setServiceDefinitions(serviceDefinitions));
+      /*
       for (let serviceAuth of serviceAuths) {
         serviceAuth.service_id = service.id;
         if (serviceAuth.id) {
@@ -55,6 +58,7 @@ module.exports = (app, helpers) => {
           await(Models.ServiceDefinition.create(serviceDefinition));
         }
       }
+      */
 
       serviceAuths = await(service.getServiceAuths());
       serviceDefinitions = await(service.getServiceDefinitions());
