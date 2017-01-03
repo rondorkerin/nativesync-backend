@@ -77,7 +77,11 @@ module.exports = (app, helpers) => {
         {model: Models.ServiceDefinition, as: 'ServiceDefinitions'}
       ]
     }))
-    return res.json({service: service, serviceAuths: service.ServiceAuths});
+    return res.json({
+      service: service,
+      serviceAuths: service.ServiceAuths,
+      serviceDefinitions: service.ServiceDefinitions
+    });
   });
 
 }
