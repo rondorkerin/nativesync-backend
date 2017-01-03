@@ -36,10 +36,9 @@ module.exports = (app, helpers) => {
         service = await(Service.create(service))
       }
 
+      // service auths and definitions can't be removed by users because this would cause
+      // nightmarish scenarios
       console.log('setting service auths', serviceAuths);
-      await(service.setServiceAuths(serviceAuths));
-      await(service.setServiceDefinitions(serviceDefinitions));
-      /*
       for (let serviceAuth of serviceAuths) {
         serviceAuth.service_id = service.id;
         if (serviceAuth.id) {
@@ -58,7 +57,6 @@ module.exports = (app, helpers) => {
           await(Models.ServiceDefinition.create(serviceDefinition));
         }
       }
-      */
 
       serviceAuths = await(service.getServiceAuths());
       serviceDefinitions = await(service.getServiceDefinitions());
