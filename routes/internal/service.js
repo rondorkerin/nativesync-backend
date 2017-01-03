@@ -26,7 +26,7 @@ module.exports = (app, helpers) => {
     delete service['ServiceAuths'];
     delete service['ServiceDefinitions'];
     let serviceAuths = req.body.serviceAuths;
-    let serviceAuths = req.body.serviceDefinitions;
+    let serviceDefinitions = req.body.serviceDefinitions;
 
     try {
       if (service.id) {
