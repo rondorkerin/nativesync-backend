@@ -26,8 +26,6 @@ Integration.belongsTo(Integration, { as: 'copiedFrom', foreignKey: 'copied_from_
 Integration.belongsToMany(Service, {as: 'Services', through: 'integration_service', foreignKey: 'integration_id', otherKey: 'service_id'});
 Integration.belongsToMany(Action, {as: 'Actions', through: 'integration_action', foreignKey: 'integration_id', otherKey: 'action_id'});
 
-Service.belongsTo(Service, { as: 'copiedFrom', foreignKey: 'copied_from_id' })
-Service.belongsToMany(Integration, {as: 'Integrations', through: 'integration_service', foreignKey: 'service_id', otherKey: 'integration_id'});
 
 User.belongsToMany(Organization, {as: 'Organizations', through: UserOrganization, foreignKey: 'user_id', otherKey: 'organization_id'});
 User.belongsTo(Organization, { as: 'org', foreignKey: 'default_organization_id'});
@@ -38,9 +36,10 @@ Organization.hasMany(OrganizationDatastore, { foreignKey: 'organization_id' })
 ServiceAuth.hasMany(OrganizationAuth, { as: 'OrganizationAuths', foreignKey: 'service_auth_id'})
 ServiceAuth.belongsTo(Service, { foreignKey: 'service_id'})
 
+Service.belongsTo(Service, { as: 'copiedFrom', foreignKey: 'copied_from_id' })
+Service.belongsToMany(Integration, {as: 'Integrations', through: 'integration_service', foreignKey: 'service_id', otherKey: 'integration_id'});
 Service.hasMany(ServiceAuth, { as: 'ServiceAuths', foreignKey: 'service_id'})
 Service.hasMany(ServiceDefinition, { as: 'ServiceDefinitions', foreignKey: 'service_id'})
-Service.hasMany(ServiceAuth, { as: 'ServiceAuths', foreignKey: 'service_id'})
 
 OrganizationAuth.belongsTo(ServiceAuth, { foreignKey: 'service_auth_id' })
 OrganizationAuth.belongsTo(Service, { foreignKey: 'service_id' })
@@ -70,6 +69,7 @@ module.exports = {
   'IntegrationCode': IntegrationCode,
   'Service': Service,
   'ServiceAuth': ServiceAuth,
+  'ServiceDefinition': ServiceDefinition,
   'User': User,
   'UserSystemAuth': UserSystemAuth,
   'UserOrganization': UserOrganization,

@@ -18,6 +18,9 @@ var IntegrationCode = postgres.define('integration_code', {
   code: {
     type: Sequelize.TEXT
   },
+  workflow: {
+    type: Sequelize.JSON
+  },
   createdAt: {
     type: Sequelize.DATE
   },

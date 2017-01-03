@@ -24,7 +24,9 @@ module.exports = (app, helpers) => {
     let result;
     let service = req.body.service;
     delete service['ServiceAuths'];
+    delete service['ServiceDefinitions'];
     let serviceAuths = req.body.serviceAuths;
+    let serviceAuths = req.body.serviceDefinitions;
 
     try {
       if (service.id) {
@@ -43,9 +45,23 @@ module.exports = (app, helpers) => {
         }
       }
 
+      console.log('setting service definitions', serviceDefinitions);
+      for (let serviceDefinition of serviceDefinitions) {
+        if (serviceDefinition.id) {
+          await(Models.ServiceDefinition.update(serviceDefinition, {where: {id: serviceDefinition.id}}));
+        } else {
+          await(Models.ServiceDefinition.create(serviceDefinition));
+        }
+      }
+
       serviceAuths = await(service.getServiceAuths());
-      console.log('upsert service', service, serviceAuths);
-      return res.json({service: service, serviceAuths: serviceAuths});
+      serviceDefinitions = await(service.getServiceDefinitions());
+      console.log('upsert service', service, serviceAuths, serviceDefinitions);
+      return res.json({
+        service: service,
+        serviceAuths: serviceAuths,
+        serviceDefinitions: serviceDefinitions
+      });
     } catch(e) {
       console.log('error', e);
       return res.status(500).send(e);
@@ -54,7 +70,10 @@ module.exports = (app, helpers) => {
 
   app.get('/service/:id', helpers.checkauth('user'), (req, res) => {
     var service = await(Service.findById(req.params.id, {
-      include: [{model: Models.ServiceAuth, as: 'ServiceAuths'}]
+      include: [
+        {model: Models.ServiceAuth, as: 'ServiceAuths'},
+        {model: Models.ServiceDefinition, as: 'ServiceDefinitions'}
+      ]
     }))
     return res.json({service: service, serviceAuths: service.ServiceAuths});
   });
