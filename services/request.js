@@ -4,6 +4,7 @@ var Promise = require('bluebird');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 var request = require('request-promise');
+var o2x = require('object-to-xml');
 const CodeRunner = require('./code_runner');
 const _ = require('underscore')
 const url = require('url');
@@ -94,19 +95,27 @@ class Request {
     //
 
     // build the request object
+    // by default the body is equal to the input parsed into the specified content type
+    // but if body_code_type is equal to javascript we run the javascript function to generate the request body.
     let requestBodyGenerator = new CodeRunner(this.organization, this.action.input_body.code, {input: bodyInput});
+    body = bodyInput;
     if (this.action.input_body.content_type == 'json') {
       headers['Content-Type'] == 'application/json';
-      body = await(requestBodyGenerator.run())
+      if (this.action.input_body.body_code_type  == 'javascript') {
+        body = await(requestBodyGenerator.run())
+      }
       if (typeof body != 'string') {
         body = JSON.stringify(body);
       }
     } else if (this.action.input_body.content_type == 'xml') {
       headers['Content-Type'] == 'application/xml';
-      body = await(requestBodyGenerator.run());
+      if (this.action.input_body.body_code_type  == 'javascript') {
+        body = await(requestBodyGenerator.run());
+      }
+      body = o2x(body);
     } else if (this.action.input_body.content_type == 'form') {
       headers['Content-Type'] == 'application/x-www-form-urlencoded';
-      body = querystring.stringify(bodyInput);
+      body = querystring.stringify(body);
     }
 
     headers['Content-Length'] = body.length;
@@ -132,9 +141,15 @@ class Request {
       output = parser.parseFromString(response.body,"text/xml");
     }
     // output processing
-    let outputParser = new CodeRunner(this.organization, this.action.output_body.code, {output: output});
-
-    var parsedOutput = await(outputParser.run());
+    // by default, we parse the content type of the output into the resulting javascript object.
+    // if body_code_type = javascript, we instead run a code function to map that result to
+    // the result fields
+    if (this.action.input_body.body_code_type  == 'javascript') {
+      let outputParser = new CodeRunner(this.organization, this.action.output_body.code, {output: output});
+      var parsedOutput = await(outputParser.run());
+    } else {
+      parsedOutput = output;
+    }
 
     parsedOutput.statusCode = response.statusCode;
     return parsedOutput;
