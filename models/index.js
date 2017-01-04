@@ -54,7 +54,7 @@ OrganizationDatastore.belongsTo(Organization, { foreignKey: 'organization_id' })
 IntegrationInstance.belongsTo(Organization, { foreignKey: 'organization_id' })
 IntegrationInstance.belongsTo(Integration, { foreignKey: 'integration_id' })
 
-IntegrationCode.belongsTo(Integration, { foreignKey: 'integration_instance_id' })
+IntegrationCode.belongsTo(Integration, { foreignKey: 'integration_id' })
 
 UserSystemAuth.belongsTo(User, { foreignKey: 'user_id' })
 
