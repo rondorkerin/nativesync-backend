@@ -13,9 +13,6 @@ var User = postgres.define('user', {
     type: Sequelize.STRING,
     unique: true
   },
-  password: {
-    type: Sequelize.STRING
-  },
   avatar_url: {
     type: Sequelize.STRING
   },

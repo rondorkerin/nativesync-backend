@@ -27,11 +27,13 @@ Integration.belongsToMany(Service, {as: 'Services', through: 'integration_servic
 Integration.belongsToMany(Action, {as: 'Actions', through: 'integration_action', foreignKey: 'integration_id', otherKey: 'action_id'});
 
 
+User.hasOne(UserSystemAuth, { foreignKey: 'user_id' })
 User.belongsToMany(Organization, {as: 'Organizations', through: UserOrganization, foreignKey: 'user_id', otherKey: 'organization_id'});
 User.belongsTo(Organization, { as: 'org', foreignKey: 'default_organization_id'});
 
 Organization.belongsToMany(User, {as: 'Users', through: UserOrganization, foreignKey: 'organization_id', otherKey: 'user_id'});
 Organization.hasMany(OrganizationDatastore, { foreignKey: 'organization_id' })
+Organization.hasMany(OrganizationSystemAuth, { foreignKey: 'organization_id' })
 
 ServiceAuth.hasMany(OrganizationAuth, { as: 'OrganizationAuths', foreignKey: 'service_auth_id'})
 ServiceAuth.belongsTo(Service, { foreignKey: 'service_id'})

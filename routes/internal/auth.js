@@ -76,8 +76,10 @@ module.exports = (app, helpers) => {
       if (user) {
         var userSystemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: user.id}}));
         if (await(Compare(password, userSystemAuth.hash))) {
-          userSystemAuth.token = jwt.encode({id: user.id}, JWT_SECRET);
-          await(userSystemAuth.save());
+          if (!userSystemAuth.token) {
+            userSystemAuth.token = jwt.encode({id: user.id}, JWT_SECRET);
+            await(userSystemAuth.save());
+          }
           return res.json({token: userSystemAuth.token});
         }
       }

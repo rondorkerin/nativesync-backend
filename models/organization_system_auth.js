@@ -3,20 +3,17 @@
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
 let guid = require('guid');
-var ClientSystemAuth = postgres.define('client_system_auth', {
+var OrganizationSystemAuth = postgres.define('organization_system_auth', {
   id: {
     type: Sequelize.BIGINT,
     autoIncrement: true,
     primaryKey: true
   },
-  client_id: {
+  organization_id: {
     type: Sequelize.BIGINT,
   },
   token: {
     type: Sequelize.STRING,
-  },
-  hash: {
-    type: Sequelize.STRING
   },
   createdAt: {
     type: Sequelize.DATE
@@ -25,7 +22,8 @@ var ClientSystemAuth = postgres.define('client_system_auth', {
     type: Sequelize.DATE
   }
 }, {
+  indexes: [{fields: ['token', 'organization_id'], unique: true}],
   freezeTableName: true
 });
 
-module.exports = ClientSystemAuth
+module.exports = OrganizationSystemAuth

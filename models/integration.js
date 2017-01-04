@@ -56,9 +56,6 @@ var Integration = postgres.define('integration', {
   configuration: {
     type: Sequelize.JSON
   },
-  required_service_auth_ids: {
-    type: Sequelize.JSON
-  },
   referrals: {
     type: Sequelize.JSON
   },

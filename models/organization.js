@@ -21,9 +21,6 @@ var Organization = postgres.define('organization', {
   logo_url: {
     type: Sequelize.STRING
   },
-  api_key: {
-    type: Sequelize.STRING
-  },
   url: {
     type: Sequelize.STRING
   },

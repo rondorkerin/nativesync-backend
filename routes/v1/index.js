@@ -9,7 +9,11 @@ module.exports = function(app, helpers) {
     header: 'Api-Key', prefix: '', session: false},
     false,
     async((apikey, done) => {
-      var organization = await(app.Models.Organization.findOne({where: {api_key: apikey}}));
+      var organizationSystemAuth = await(app.Models.OrganizationSystemAuth.findOne({
+        where: {token: apikey},
+        include: [app.Models.Organization]
+      }));
+      var organization = organizationSystemAuth.organization;
       if (!organization) {
         return done('invalid organization API key', null);
       }
