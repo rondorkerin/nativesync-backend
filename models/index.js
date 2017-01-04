@@ -34,10 +34,12 @@ User.belongsTo(Organization, { as: 'org', foreignKey: 'default_organization_id'}
 Organization.belongsToMany(User, {as: 'Users', through: UserOrganization, foreignKey: 'organization_id', otherKey: 'user_id'});
 Organization.hasMany(OrganizationDatastore, { foreignKey: 'organization_id' })
 Organization.hasMany(OrganizationSystemAuth, { foreignKey: 'organization_id' })
+Organization.hasMany(Service, { foreignKey: 'organization_id' })
 
 ServiceAuth.hasMany(OrganizationAuth, { as: 'OrganizationAuths', foreignKey: 'service_auth_id'})
 ServiceAuth.belongsTo(Service, { foreignKey: 'service_id'})
 
+Service.belongsTo(Organization, { foreignKey: 'organization_id' })
 Service.belongsTo(Service, { as: 'copiedFrom', foreignKey: 'copied_from_id' })
 Service.belongsToMany(Integration, {as: 'Integrations', through: 'integration_service', foreignKey: 'service_id', otherKey: 'integration_id'});
 Service.hasMany(ServiceAuth, { as: 'ServiceAuths', foreignKey: 'service_id'})
