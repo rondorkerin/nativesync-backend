@@ -5,7 +5,7 @@ var await = require('asyncawait/await')
 
 module.exports = {
   up: async(function (queryInterface, Sequelize) {
-    await(queryInterface.addColumn( 'integration_code', 'blockly_xml'))
+    await(queryInterface.addColumn( 'integration_code', 'blockly_xml', Sequelize.TEXT))
   }),
 
   down: function (queryInterface, Sequelize) {
