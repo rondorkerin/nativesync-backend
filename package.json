@@ -48,7 +48,8 @@
     "sequelize-cli": "^2.4.0",
     "statesync": "^0.1.2",
     "swagger-parser": "^3.4.1",
-    "use-strict": "^1.0.1"
+    "use-strict": "^1.0.1",
+    "xmldom": "^0.1.27"
   },
   "devDependencies": {
     "jslint": "^0.10.3",
