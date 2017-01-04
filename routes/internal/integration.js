@@ -41,11 +41,17 @@ module.exports = (app, helpers) => {
   app.post('/integrations/upsert', helpers.checkauth('user'), function(req, res) {
     let result;
     let integration = req.body.integration;
+
     let integrationCode = req.body.integrationCode;
     let services = req.body.services;
     var serviceIDs = _.pluck(services, 'id');
     let actions = req.body.actions;
     var actionIDs = _.pluck(actions, 'id');
+
+    if (integration.organization_id && integration.organization_id != req.user.org.id) {
+      return res.status(401).send('Invalid permissions to edit this integration')
+    }
+		integration.organization_id = req.user.org.id;
 
     try {
       if (integration.id) {

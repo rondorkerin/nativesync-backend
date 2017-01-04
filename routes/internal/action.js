@@ -53,6 +53,10 @@ module.exports = function(app, helpers) {
   app.post('/actions/upsert', helpers.checkauth('user'), function(req, res) {
     let result;
     let action = req.body.action;
+    if (action.organization_id && action.organization_id != req.user.org.id) {
+      return res.status(401).send('Invalid permissions to edit this action')
+    }
+
     let service = req.body.service;
     let serviceAuthIDs = _.pluck(req.body.serviceAuths, 'id');
     let existingServiceAuths = [];

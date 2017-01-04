@@ -23,6 +23,10 @@ module.exports = (app, helpers) => {
  app.post('/services/upsert', helpers.checkauth('user'), function(req, res) {
     let result;
     let service = req.body.service;
+    if (service.organization_id && service.organization_id != req.user.org.id) {
+      return res.status(401).send('Invalid permissions to edit this service')
+    }
+    service.organization_id = req.user.org.id
     delete service['ServiceAuths'];
     delete service['ServiceDefinitions'];
     let serviceAuths = req.body.serviceAuths;
