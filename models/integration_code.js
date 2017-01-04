@@ -15,6 +15,9 @@ var IntegrationCode = postgres.define('integration_code', {
   code: {
     type: Sequelize.TEXT
   },
+  blockly_xml: {
+    type: Sequelize.TEXT
+  },
   workflow: {
     type: Sequelize.JSON
   },
