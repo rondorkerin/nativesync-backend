@@ -61,6 +61,9 @@ var Action = postgres.define('action', {
   function_name: {
     type: Sequelize.STRING,
   },
+  internal_name: {
+    type: Sequelize.STRING,
+  },
   type: {
     type: Sequelize.STRING
   },
@@ -87,7 +90,7 @@ var Action = postgres.define('action', {
   },
 }, {
   freezeTableName: true,
-  indexes: [{fields: ['service_id']}, {fields: ['service_name', 'function_name', 'organization_name', 'version'], unique: true}, {fields: ['organization_id']}]
+  indexes: [{fields: ['service_id']}, {fields: ['service_name', 'function_name', 'organization_name', 'version'], unique: true}, {fields: ['internal_name'], unique: true}, {fields: ['organization_id']}]
 });
 
 Action.cloneFrom = function(oldAction, user, org) {
