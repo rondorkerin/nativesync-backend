@@ -49,18 +49,18 @@ module.exports = (app, helpers) => {
     let actions = req.body.actions;
     var actionIDs = _.pluck(actions, 'id');
 
-		// translate blockly code to javascript
+    // translate blockly code to javascript
     if (integration.type == 'blockly') {
-			try {
-				var xml = Blockly.Xml.textToDom(integrationCode.blockly_xml);
-			} catch (e) {
-				console.log('error translating blockly code', e);
-			}
+      try {
+        var xml = Blockly.Xml.textToDom(integrationCode.blockly_xml);
+      } catch (e) {
+        console.log('error translating blockly code', e);
+      }
 
-			var workspace = new Blockly.Workspace();
-			Blockly.Xml.domToWorkspace(xml, workspace);
-			var code = Blockly.JavaScript.workspaceToCode(workspace);
-			console.log('generating blockly code', code);
+      var workspace = new Blockly.Workspace();
+      Blockly.Xml.domToWorkspace(xml, workspace);
+      var code = Blockly.JavaScript.workspaceToCode(workspace);
+      console.log('generating blockly code', code);
 
       integrationCode.code = code;
     }
@@ -68,7 +68,7 @@ module.exports = (app, helpers) => {
     if (integration.organization_id && integration.organization_id != req.user.org.id) {
       return res.status(401).send('Invalid permissions to edit this integration')
     }
-		integration.organization_id = req.user.org.id;
+    integration.organization_id = req.user.org.id;
 
     try {
       if (integration.id) {
