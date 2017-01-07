@@ -3,7 +3,7 @@
 swagger: '2.0'
 info:
   title: NativeSync  REST API
-  description: Rest api for NativeSync
+  description: The NativeSync API allows users to invoke actions, integrations, create organizations and configure integrations to run programmatically.
   version: "1.0.0"
 # the domain of the service
 host: api.nativesync.io
@@ -134,7 +134,7 @@ paths:
     post:
       summary: Create organization managed by the current organization
       description: |
-         Get organizations managed by the current organization
+         Create organization managed by the current organization
       tags:
         - Organization
       parameters:
