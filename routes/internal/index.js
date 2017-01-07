@@ -14,4 +14,5 @@ module.exports = function(app, helpers) {
   require('./organization')(internalRouter, helpers);
   require('./service')(internalRouter, helpers);
   require('./service_auth')(internalRouter, helpers);
+  require('./service_definition')(internalRouter, helpers);
 };
