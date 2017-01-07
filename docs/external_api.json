@@ -14,23 +14,27 @@
         "application/json"
     ],
     "paths": {
-        "/action/invoke": {
+        "/action/{id}/invoke": {
             "post": {
                 "summary": "Invoke an Action",
                 "description": "Invokes a nativesync action\n",
                 "parameters": [
                     {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Action object identifier",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
                         "name": "body",
                         "in": "body",
-                        "description": "Action Object Identifier",
+                        "description": "Input to the action",
                         "required": true,
                         "schema": {
                             "properties": {
                                 "input": {
                                     "type": "object"
-                                },
-                                "action": {
-                                    "$ref": "#/definitions/ActionIdentifier"
                                 }
                             }
                         }
@@ -306,16 +310,90 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Output from the action being called",
+                        "description": "Output from the integration being called",
                         "schema": {
                             "properties": {
+                                "logs": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "errors": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
                                 "output": {
                                     "type": "object"
-                                },
-                                "statusCode": {
-                                    "type": "number"
                                 }
                             }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/service/{id}/service_auths": {
+            "get": {
+                "summary": "Get Service Auths for a service",
+                "description": "Get service auths for a service\n",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Service ID",
+                        "type": "number",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "ServiceAuth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The created service auth",
+                        "schema": {
+                            "$ref": "#/definitions/ServiceAuth"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/oranization_service_auths": {
+            "post": {
+                "summary": "Set credentials for a given service_auth and organization",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Input to the action",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/OrganizationServiceAuth"
+                        }
+                    }
+                ],
+                "tags": [
+                    "OrganizationAuth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Output from the action being called",
+                        "schema": {
+                            "$ref": "#/definitions/OrganizationServiceAuth"
                         }
                     },
                     "default": {
@@ -329,18 +407,6 @@
         }
     },
     "definitions": {
-        "ActionIdentifier": {
-            "description": "Identifier for an action. Can either use the action's id or internal name",
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "number"
-                },
-                "internal_name": {
-                    "type": "string"
-                }
-            }
-        },
         "Integration": {
             "description": "An API Integration built in NativeSync",
             "type": "object",
@@ -353,6 +419,51 @@
                 },
                 "configuration": {
                     "$ref": "#/definitions/IntegrationConfiguration"
+                }
+            }
+        },
+        "ServiceAuth": {
+            "description": "A NativeSync service authentication scheme",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "service_id": {
+                    "type": "number"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "details": {
+                    "type": "object"
+                },
+                "required": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "OrganizationServiceAuth": {
+            "description": "An organization's credentials for a given service authentication scheme.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "service_id": {
+                    "type": "number"
+                },
+                "organization_id": {
+                    "type": "number"
+                },
+                "service_auth_id": {
+                    "type": "number"
+                },
+                "value": {
+                    "type": "object"
                 }
             }
         },
