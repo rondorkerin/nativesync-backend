@@ -50,7 +50,6 @@ module.exports = function(app, helpers) {
         }
       })
       customAction['post']['responses']['200'].schema.properties.output.properties = outputs;
-      customAction['post']['tags'] = [];
       customAction['post']['summary'] = `${action.function_name} - maintained by ${action.organization_name}`;
       customAction['post']['description'] = action.description;
 
