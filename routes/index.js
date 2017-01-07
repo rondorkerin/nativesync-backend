@@ -11,6 +11,7 @@ module.exports = (app, passport) => {
 
   require('./internal')(app, helpers);
   require('./v1')(app, helpers);
+  require('./docs')(app, helpers);
 
   //404 handler
   app.use(function(req,res,next){

@@ -3,7 +3,7 @@
 swagger: '2.0'
 info:
   title: NativeSync  REST API
-  description: Rest api for NativeSync - there are tags for every step in the dev process - NotImplemented, Developed, Tested, Live.
+  description: Rest api for NativeSync
   version: "1.0.0"
 # the domain of the service
 host: api.nativesync.io
@@ -11,389 +11,304 @@ host: api.nativesync.io
 schemes:
   - https
 # will be prefixed to all paths
-basePath: /internal
+basePath: /v1
 produces:
   - application/json
 paths:
-  /auth/login:
-    get:
-      summary: Login
-      description: |
-        Authenticates a  user with steam. Used for login/signup. If signing up,
-        pass a referral code in query params. Redirects user to '/' once logged in
-      parameters:
-        - name: body
-          in: body
-          description: Credentials
-          required: true
-          schema:
-            type: object
-            properties:
-              email:
-                type: string
-              password:
-                type: string
-      tags:
-        - Auth
-        - Developed
-      responses:
-        200:
-          description: the user's token
-          schema:
-            properties:
-              token:
-                type: string
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /auth/signup:
-    get:
-      summary: Signs up a user. must call /auth/login after the user is signed up. This also creates either a client or partner for the user based on whether they selected partner or client
-      tags:
-        - Auth
-        - Developed
-      parameters:
-        - name: body
-          in: body
-          description: Credentials
-          required: true
-          schema:
-            type: object
-            properties:
-              email:
-                type: string
-              password:
-                type: string
-              accountType:
-                type: string
-                description: either "partner" or "client"
-              companyName:
-                type: string
-      responses:
-        200:
-          description: a user object
-          schema:
-            $ref: '#/definitions/User'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /auth/logout:
-    get:
-      summary: Logout
-      description: |
-        Logs a user out
-      tags:
-        - Auth
-        - Developed
-      responses:
-        200:
-          description: A 200
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /me:
-    get:
-      summary: Gets the currently logged in user
-      tags:
-        - Me
-        - Developed
-      responses:
-        200:
-          description: a user object
-          schema:
-            $ref: '#/definitions/User'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /me/associations:
-    get:
-      summary: Gets the partners and clients associated with a user
-      tags:
-        - Me
-        - Developed
-      responses:
-        200:
-          description: a user object
-          schema:
-            type: object
-            properties:
-              partners:
-                type: array
-                items:
-                  $ref: '#/definitions/Partner'
-              clients:
-                type: array
-                items:
-                  $ref: '#/definitions/Client'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /actions:
-    get:
-      summary: Gets a list of actions in NativeSync
-      tags:
-        - Action
-        - Developed
-      parameters:
-        - name: service_id
-          type: number
-          in: query
-          required: false
-        - name: partner_id
-          type: number
-          in: query
-          required: false
-        - name: limit
-          type: number
-          in: query
-          required: false
-      responses:
-        200:
-          description: action list
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Action'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
+  /action/invoke:
     post:
-      summary: Creates/updates an action in nativesync
-      tags:
-        - Action
-        - Developed
+      summary: Invoke an Action
+      description: |
+        Invokes a nativesync action
       parameters:
         - name: body
           in: body
-          description: Action
-          required: true
-          schema:
-            $ref: '#/definitions/Action'
-      responses:
-        200:
-          description: action
-          schema:
-            $ref: '#/definitions/Action'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /action/associate_service_auth:
-    post:
-      summary: Associates a service auth with an action. This will require oversight to publish (it could be dangerous)
-      tags:
-        - Action
-        - Developed
-      parameters:
-        - name: body
-          in: body
-          description: Action and service auth to associate
+          description: Action Object Identifier
           required: true
           schema:
             properties:
-              action_id:
-                type: number
-              service_auth_id:
-                type: number
-              some_subobject:
-                $ref: '#/definitions/User'
-              thing:
-                type: array
-                items:
-                  $ref: '#/definitions/User'
-              otherThing:
+              input:
                 type: object
-                properties:
-                  name:
-                    type: string
+              action:
+                $ref: '#/definitions/ActionIdentifier'
+      tags:
+        - Action
       responses:
         200:
-          description: action
+          description: Output from the action being called
           schema:
-            $ref: '#/definitions/Action'
+            properties:
+              output:
+                type: object
+              statusCode:
+                type: number
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /services:
+  /integrations:
     get:
-      summary: Gets a list of services in NativeSync
+      summary: Get a list of integrations managed by the current organization
+      description: |
+        Get a list of integrations for the current organization
       tags:
-        - Service
-        - Developed
+        - Integration
       responses:
         200:
-          description: service list
+          description: Integrations
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Service'
+            properties:
+              integrations:
+                type: array
+                items:
+                  $ref: '#/definitions/Integration'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-    post:
-      summary: Creates/updates a service in nativesync
-      tags:
-        - Service
-        - Developed
+  /integration/{id}/instances:
+    get:
+      summary: Get instances of an integration managed by the current organization
+      description: |
+         Get instances of an integration managed by the current organization
       parameters:
-        - name: body
-          in: body
-          description: Service
+        - name: id
+          in: path
+          description: Integration ID
           required: true
-          schema:
-            $ref: '#/definitions/Service'
-      responses:
-        200:
-          description: service
-          schema:
-            $ref: '#/definitions/Service'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /service_auths:
-    get:
-      summary: Gets a list of service auths for a particular service
-      tags:
-        - ServiceAuth
-        - Developed
-      parameters:
-        - name: service_id
           type: number
-          in: query
-          required: true
+      tags:
+        - Integration
       responses:
         200:
-          description: service auth list
+          description: Integration Instances
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/ServiceAuth'
+            properties:
+              integration_instances:
+                type: array
+                items:
+                  $ref: '#/definitions/IntegrationInstance'
+  /integration_instances:
+    get:
+      summary: Get instances of all organizations managed by the current organization
+      description: |
+         Get instances of all organizations managed by the current organization
+      tags:
+        - Integration
+      responses:
+        200:
+          description: Integration Instances
+          schema:
+            properties:
+              integration_instances:
+                type: array
+                items:
+                  $ref: '#/definitions/IntegrationInstance'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /organizations:
+    get:
+      summary: Get organizations managed by the current organization
+      description: |
+         Get organizations managed by the current organization
+      tags:
+        - Organization
+      responses:
+        200:
+          description: Organizations
+          schema:
+            properties:
+              organizations:
+                type: array
+                items:
+                  $ref: '#/definitions/Organization'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
     post:
-      summary: Creates/updates a service auth in nativesync
+      summary: Create organization managed by the current organization
+      description: |
+         Get organizations managed by the current organization
       tags:
-        - ServiceAuth
-        - Developed
+        - Organization
       parameters:
         - name: body
           in: body
-          description: ServiceAuth
+          description: Organization to create
           required: true
           schema:
-            $ref: '#/definitions/ServiceAuth'
+            $ref: '#/definitions/Organization'
       responses:
         200:
-          description: service auth
+          description: Organization
           schema:
-            $ref: '#/definitions/ServiceAuth'
+            $ref: '#/definitions/Organization'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+  /organization/{id}:
+    get:
+      summary: Get organization managed by the current organization
+      description: |
+         Get organization managed by the current organization
+      tags:
+        - Organization
+      parameters:
+        - name: id
+          in: path
+          type: number
+          required: true
+          description: ID of the organization
+      responses:
+        200:
+          description: Organization
+          schema:
+            $ref: '#/definitions/Organization'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create organization managed by the current organization
+      description: |
+         Create organization managed by the current organization
+      tags:
+        - Organization
+      parameters:
+        - name: id
+          in: path
+          type: number
+          required: true
+          description: ID of the organization
+        - name: body
+          in: body
+          description: Organization to update
+          required: true
+          schema:
+            $ref: '#/definitions/Organization'
+      responses:
+        200:
+          description: Organization
+          schema:
+            $ref: '#/definitions/Organization'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /integration_instance/{id}/invoke:
+    post:
+      summary: Invoke an Integration Instance manually
+      description: |
+        Manually run an integration instance.
+      parameters:
+        - name: id
+          in: path
+          description: Integration Instance ID
+          required: true
+          type: number
+      tags:
+        - Integration
+      responses:
+        200:
+          description: Output from the action being called
+          schema:
+            properties:
+              output:
+                type: 'object'
+              statusCode:
+                type: 'number'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
 definitions:
-  User:
-    description: a user
+  ActionIdentifier:
+    description: Identifier for an action. Can either use the action's id or internal name
     type: object
     properties:
-      email:
-        type: string
-  Partner:
-    description: a developer organization on nativesync
-    type: object
-    properties:
-      name:
-        type: string
-  Client:
-    description: an end client of nativesync who runs an integration
-    type: object
-    properties:
-      name:
-        type: string
-  Action:
-    description: an end client of nativesync who runs an integration
-    type: object
-    properties:
-      service_id:
+      id:
         type: number
-      partner_id:
+      internal_name:
+        type: string
+  Integration:
+    description: An API Integration built in NativeSync
+    type: object
+    properties:
+      id:
         type: number
       title:
         type: string
-      api_version:
-        type: string
-      schemes:
-        type: object
-      headers:
-        type: object
-      query:
-        type: object
-      host:
-        type: string
-      path:
-        type: string
-      method:
-        type: string
-      creator_user_id:
-        type: number
-      service_name:
-        type: string
-      function_name:
-        type: string
-      type:
-        type: string
-      input_content_type:
-        type: string
-      output_content_type:
-        type: string
-      version:
-        type: string
-      description:
-        type: string
-      input:
-        type: object
-      output:
-        type: object
-      input_example:
-        type: object
-      output_example:
-        type: object
-      official:
-        type: boolean
-  Service:
-    description: a web service which is integrated with NativeSync
+      configuration:
+        $ref: '#/definitions/IntegrationConfiguration'
+  IntegrationConfiguration:
     type: object
     properties:
+      type:
+        description: either 'static' or 'dynamic'
+        type: string
+      fields:
+        description: Configuration parameters for the integration instance
+        type: array
+        items:
+          $ref: '#/definitions/ConfigurationParameter'
+      code:
+        description: program that outputs an integration configuration dynamically
+        type: string
+  IntegrationInstance:
+    description: A configured instance of an API Integration built in NativeSync
+    type: object
+    properties:
+      id:
+        type: number
+      integration_id:
+        type: number
+      organization_id:
+        type: string
+      inputs:
+        description: Configuration parameters for the integration instance
+        type: object
+      title:
+        type: string
+  ConfigurationParameter:
+    type: object
+    properties:
+      type:
+        type: string
+      label:
+        type: string
+      key:
+        type: string
+  Organization:
+    description: A NativeSync organization. Can build or purchase integrations. Billing can be directly to an organization or to its managing organization
+    type: object
+    properties:
+      id:
+        type: number
       name:
         type: string
-      domain:
+      passphrase:
+        description: a secret passphrase that allows users to sign in to the organization
         type: string
       logo_url:
         type: string
-  ServiceAuth:
-    description: an authentication requirement for a service in NativeSync.
-    type: object
-    properties:
-      service_id:
+      url:
+        type: string
+        description: the URL associated with the organization
+      external_identifier:
+        description: the primary key for the organization in your application
+        type: string
+      managing_organization_id:
         type: number
-      name:
-        type: string
-      type:
-        type: string
-      details:
-        type: object
-        description: depending on the type of auth (basic, apiKey, oauth) details will provide the required information to build the auth request. Some custom logic will need to be built here.
+      billing_organization_id:
+        type: number
+      pays_for_self:
+        type: boolean
+
 
   Error:
     type: object

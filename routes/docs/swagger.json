@@ -1,0 +1,460 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "NativeSync  REST API",
+        "description": "Rest api for NativeSync",
+        "version": "1.0.0"
+    },
+    "host": "api.nativesync.io",
+    "schemes": [
+        "https"
+    ],
+    "basePath": "/v1",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/action/invoke": {
+            "post": {
+                "summary": "Invoke an Action",
+                "description": "Invokes a nativesync action\n",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Action Object Identifier",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "input": {
+                                    "type": "object"
+                                },
+                                "action": {
+                                    "$ref": "#/definitions/ActionIdentifier"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "tags": [
+                    "Action"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Output from the action being called",
+                        "schema": {
+                            "properties": {
+                                "output": {
+                                    "type": "object"
+                                },
+                                "statusCode": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/integrations": {
+            "get": {
+                "summary": "Get a list of integrations managed by the current organization",
+                "description": "Get a list of integrations for the current organization\n",
+                "tags": [
+                    "Integration"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Integrations",
+                        "schema": {
+                            "properties": {
+                                "integrations": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Integration"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/integration/{id}/instances": {
+            "get": {
+                "summary": "Get instances of an integration managed by the current organization",
+                "description": "Get instances of an integration managed by the current organization\n",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Integration ID",
+                        "required": true,
+                        "type": "number"
+                    }
+                ],
+                "tags": [
+                    "Integration"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Integration Instances",
+                        "schema": {
+                            "properties": {
+                                "integration_instances": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/IntegrationInstance"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/integration_instances": {
+            "get": {
+                "summary": "Get instances of all organizations managed by the current organization",
+                "description": "Get instances of all organizations managed by the current organization\n",
+                "tags": [
+                    "Integration"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Integration Instances",
+                        "schema": {
+                            "properties": {
+                                "integration_instances": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/IntegrationInstance"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/organizations": {
+            "get": {
+                "summary": "Get organizations managed by the current organization",
+                "description": "Get organizations managed by the current organization\n",
+                "tags": [
+                    "Organization"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Organizations",
+                        "schema": {
+                            "properties": {
+                                "organizations": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Organization"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create organization managed by the current organization",
+                "description": "Get organizations managed by the current organization\n",
+                "tags": [
+                    "Organization"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Organization to create",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Organization"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Organization",
+                        "schema": {
+                            "$ref": "#/definitions/Organization"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/organization/{id}": {
+            "get": {
+                "summary": "Get organization managed by the current organization",
+                "description": "Get organization managed by the current organization\n",
+                "tags": [
+                    "Organization"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "number",
+                        "required": true,
+                        "description": "ID of the organization"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Organization",
+                        "schema": {
+                            "$ref": "#/definitions/Organization"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create organization managed by the current organization",
+                "description": "Create organization managed by the current organization\n",
+                "tags": [
+                    "Organization"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "number",
+                        "required": true,
+                        "description": "ID of the organization"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Organization to update",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Organization"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Organization",
+                        "schema": {
+                            "$ref": "#/definitions/Organization"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/integration_instance/{id}/invoke": {
+            "post": {
+                "summary": "Invoke an Integration Instance manually",
+                "description": "Manually run an integration instance.\n",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Integration Instance ID",
+                        "required": true,
+                        "type": "number"
+                    }
+                ],
+                "tags": [
+                    "Integration"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Output from the action being called",
+                        "schema": {
+                            "properties": {
+                                "output": {
+                                    "type": "object"
+                                },
+                                "statusCode": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ActionIdentifier": {
+            "description": "Identifier for an action. Can either use the action's id or internal name",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "internal_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Integration": {
+            "description": "An API Integration built in NativeSync",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "configuration": {
+                    "$ref": "#/definitions/IntegrationConfiguration"
+                }
+            }
+        },
+        "IntegrationConfiguration": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "description": "either 'static' or 'dynamic'",
+                    "type": "string"
+                },
+                "fields": {
+                    "description": "Configuration parameters for the integration instance",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ConfigurationParameter"
+                    }
+                },
+                "code": {
+                    "description": "program that outputs an integration configuration dynamically",
+                    "type": "string"
+                }
+            }
+        },
+        "IntegrationInstance": {
+            "description": "A configured instance of an API Integration built in NativeSync",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "integration_id": {
+                    "type": "number"
+                },
+                "organization_id": {
+                    "type": "string"
+                },
+                "inputs": {
+                    "description": "Configuration parameters for the integration instance",
+                    "type": "object"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "ConfigurationParameter": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "key": {
+                    "type": "string"
+                }
+            }
+        },
+        "Organization": {
+            "description": "A NativeSync organization. Can build or purchase integrations. Billing can be directly to an organization or to its managing organization",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "passphrase": {
+                    "description": "a secret passphrase that allows users to sign in to the organization",
+                    "type": "string"
+                },
+                "logo_url": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "the URL associated with the organization"
+                },
+                "external_identifier": {
+                    "description": "the primary key for the organization in your application",
+                    "type": "string"
+                },
+                "managing_organization_id": {
+                    "type": "number"
+                },
+                "billing_organization_id": {
+                    "type": "number"
+                },
+                "pays_for_self": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
