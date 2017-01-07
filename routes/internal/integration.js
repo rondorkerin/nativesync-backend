@@ -116,7 +116,7 @@ module.exports = (app, helpers) => {
           req.params.id,
           {include: [
             {model: Models.Action, as: 'Actions', include: [{model: Models.ServiceAuth, as: 'ServiceAuths'}]},
-            {model: Models.Service, as: 'Services'}
+            {model: Models.Service, as: 'Services', include: [{model: Models.ServiceDefinition, as: 'ServiceDefinitions'}]}
           ]}
     ));
     if (integration.organization_id != req.user.org.id) {
