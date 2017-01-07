@@ -34,6 +34,10 @@ User.belongsTo(Organization, { as: 'org', foreignKey: 'default_organization_id'}
 Organization.belongsToMany(User, {as: 'Users', through: UserOrganization, foreignKey: 'organization_id', otherKey: 'user_id'});
 Organization.hasMany(OrganizationDatastore, { foreignKey: 'organization_id' })
 Organization.hasMany(OrganizationSystemAuth, { foreignKey: 'organization_id' })
+Organization.hasMany(Organization, { as: 'manages', foreignKey: 'managing_organization_id' })
+Organization.hasMany(Organization, { as: 'paysBillFor', foreignKey: 'billing_organization_id' })
+Organization.belongsTo(Organization, { as: 'manager', foreignKey: 'managing_organization_id' })
+Organization.belongsTo(Organization, { as: 'billedTo', foreignKey: 'billing_organization_id' })
 Organization.hasMany(Service, { foreignKey: 'organization_id' })
 
 ServiceAuth.hasMany(OrganizationAuth, { as: 'OrganizationAuths', foreignKey: 'service_auth_id'})

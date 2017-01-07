@@ -8,23 +8,16 @@ var await = require('asyncawait/await');
 module.exports = (app, helpers) => {
 
   app.post('/action/invoke', helpers.checkauth('organization'), (req, res) => {
-    let actionObject = req.body;
+    let actionIdentifier = req.body.action;
     let action;
-    if (actionObject.id) {
+    if (actionIdentifier.id) {
       action = await(Action.findById(actionObject.id))
     } else {
-      var where = {
-        service_name: actionBody.service_name,
-        function_name: actionBody.function_name,
-        organization_name: actionBody.org_name
-      };
-      if (actionBody.version) {
-        where.version = actionBody.version;
-      }
+      var where = { internal_name: actionIdentifier.internal_name };
       action = await(Action.findOne({where: where}));
     }
     let organization = req.user;
-    let output = await(new Services.Request(organization, action).send(req.body))
-    return res.json(output);
+    let output = await(new Services.Request(organization, action).send(req.body.input))
+    return res.json({ output: output, statusCode: output.statusCode });
   });
 }

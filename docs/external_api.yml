@@ -1,0 +1,411 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: NativeSync  REST API
+  description: Rest api for NativeSync - there are tags for every step in the dev process - NotImplemented, Developed, Tested, Live.
+  version: "1.0.0"
+# the domain of the service
+host: api.nativesync.io
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /internal
+produces:
+  - application/json
+paths:
+  /auth/login:
+    get:
+      summary: Login
+      description: |
+        Authenticates a  user with steam. Used for login/signup. If signing up,
+        pass a referral code in query params. Redirects user to '/' once logged in
+      parameters:
+        - name: body
+          in: body
+          description: Credentials
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      tags:
+        - Auth
+        - Developed
+      responses:
+        200:
+          description: the user's token
+          schema:
+            properties:
+              token:
+                type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /auth/signup:
+    get:
+      summary: Signs up a user. must call /auth/login after the user is signed up. This also creates either a client or partner for the user based on whether they selected partner or client
+      tags:
+        - Auth
+        - Developed
+      parameters:
+        - name: body
+          in: body
+          description: Credentials
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+              accountType:
+                type: string
+                description: either "partner" or "client"
+              companyName:
+                type: string
+      responses:
+        200:
+          description: a user object
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /auth/logout:
+    get:
+      summary: Logout
+      description: |
+        Logs a user out
+      tags:
+        - Auth
+        - Developed
+      responses:
+        200:
+          description: A 200
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /me:
+    get:
+      summary: Gets the currently logged in user
+      tags:
+        - Me
+        - Developed
+      responses:
+        200:
+          description: a user object
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /me/associations:
+    get:
+      summary: Gets the partners and clients associated with a user
+      tags:
+        - Me
+        - Developed
+      responses:
+        200:
+          description: a user object
+          schema:
+            type: object
+            properties:
+              partners:
+                type: array
+                items:
+                  $ref: '#/definitions/Partner'
+              clients:
+                type: array
+                items:
+                  $ref: '#/definitions/Client'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /actions:
+    get:
+      summary: Gets a list of actions in NativeSync
+      tags:
+        - Action
+        - Developed
+      parameters:
+        - name: service_id
+          type: number
+          in: query
+          required: false
+        - name: partner_id
+          type: number
+          in: query
+          required: false
+        - name: limit
+          type: number
+          in: query
+          required: false
+      responses:
+        200:
+          description: action list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Action'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Creates/updates an action in nativesync
+      tags:
+        - Action
+        - Developed
+      parameters:
+        - name: body
+          in: body
+          description: Action
+          required: true
+          schema:
+            $ref: '#/definitions/Action'
+      responses:
+        200:
+          description: action
+          schema:
+            $ref: '#/definitions/Action'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /action/associate_service_auth:
+    post:
+      summary: Associates a service auth with an action. This will require oversight to publish (it could be dangerous)
+      tags:
+        - Action
+        - Developed
+      parameters:
+        - name: body
+          in: body
+          description: Action and service auth to associate
+          required: true
+          schema:
+            properties:
+              action_id:
+                type: number
+              service_auth_id:
+                type: number
+              some_subobject:
+                $ref: '#/definitions/User'
+              thing:
+                type: array
+                items:
+                  $ref: '#/definitions/User'
+              otherThing:
+                type: object
+                properties:
+                  name:
+                    type: string
+      responses:
+        200:
+          description: action
+          schema:
+            $ref: '#/definitions/Action'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /services:
+    get:
+      summary: Gets a list of services in NativeSync
+      tags:
+        - Service
+        - Developed
+      responses:
+        200:
+          description: service list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Service'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Creates/updates a service in nativesync
+      tags:
+        - Service
+        - Developed
+      parameters:
+        - name: body
+          in: body
+          description: Service
+          required: true
+          schema:
+            $ref: '#/definitions/Service'
+      responses:
+        200:
+          description: service
+          schema:
+            $ref: '#/definitions/Service'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /service_auths:
+    get:
+      summary: Gets a list of service auths for a particular service
+      tags:
+        - ServiceAuth
+        - Developed
+      parameters:
+        - name: service_id
+          type: number
+          in: query
+          required: true
+      responses:
+        200:
+          description: service auth list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ServiceAuth'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Creates/updates a service auth in nativesync
+      tags:
+        - ServiceAuth
+        - Developed
+      parameters:
+        - name: body
+          in: body
+          description: ServiceAuth
+          required: true
+          schema:
+            $ref: '#/definitions/ServiceAuth'
+      responses:
+        200:
+          description: service auth
+          schema:
+            $ref: '#/definitions/ServiceAuth'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  User:
+    description: a user
+    type: object
+    properties:
+      email:
+        type: string
+  Partner:
+    description: a developer organization on nativesync
+    type: object
+    properties:
+      name:
+        type: string
+  Client:
+    description: an end client of nativesync who runs an integration
+    type: object
+    properties:
+      name:
+        type: string
+  Action:
+    description: an end client of nativesync who runs an integration
+    type: object
+    properties:
+      service_id:
+        type: number
+      partner_id:
+        type: number
+      title:
+        type: string
+      api_version:
+        type: string
+      schemes:
+        type: object
+      headers:
+        type: object
+      query:
+        type: object
+      host:
+        type: string
+      path:
+        type: string
+      method:
+        type: string
+      creator_user_id:
+        type: number
+      service_name:
+        type: string
+      function_name:
+        type: string
+      type:
+        type: string
+      input_content_type:
+        type: string
+      output_content_type:
+        type: string
+      version:
+        type: string
+      description:
+        type: string
+      input:
+        type: object
+      output:
+        type: object
+      input_example:
+        type: object
+      output_example:
+        type: object
+      official:
+        type: boolean
+  Service:
+    description: a web service which is integrated with NativeSync
+    type: object
+    properties:
+      name:
+        type: string
+      domain:
+        type: string
+      logo_url:
+        type: string
+  ServiceAuth:
+    description: an authentication requirement for a service in NativeSync.
+    type: object
+    properties:
+      service_id:
+        type: number
+      name:
+        type: string
+      type:
+        type: string
+      details:
+        type: object
+        description: depending on the type of auth (basic, apiKey, oauth) details will provide the required information to build the auth request. Some custom logic will need to be built here.
+
+  Error:
+    type: object
+    properties:
+      error:
+        type: string
+
+
+
+
+
+
+
+
+

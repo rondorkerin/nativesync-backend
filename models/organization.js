@@ -9,8 +9,14 @@ var Organization = postgres.define('organization', {
     autoIncrement: true,
     primaryKey: true
   },
-  partner_id: {
+  billing_organization_id: {
     type: Sequelize.BIGINT
+  },
+  managing_organization_id: {
+    type: Sequelize.BIGINT
+  },
+  external_identifier: {
+    type: Sequelize.STRING
   },
   name: {
     type: Sequelize.STRING
