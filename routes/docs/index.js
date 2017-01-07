@@ -31,6 +31,7 @@ module.exports = function(app, helpers) {
     var paths = {};
     _.each(actions, (action) => {
       var customAction = Object.assign({}, actionTemplate);
+      console.log('custom action', customAction);
 
       var inputs = {};
       _.each(action.input, (param) => {
