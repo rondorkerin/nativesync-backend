@@ -48,6 +48,7 @@ Service.belongsTo(Service, { as: 'copiedFrom', foreignKey: 'copied_from_id' })
 Service.belongsToMany(Integration, {as: 'Integrations', through: 'integration_service', foreignKey: 'service_id', otherKey: 'integration_id'});
 Service.hasMany(ServiceAuth, { as: 'ServiceAuths', foreignKey: 'service_id'})
 Service.hasMany(ServiceDefinition, { as: 'ServiceDefinitions', foreignKey: 'service_id'})
+Service.hasMany(Action, { foreignKey: 'service_id'})
 
 OrganizationAuth.belongsTo(ServiceAuth, { foreignKey: 'service_auth_id' })
 OrganizationAuth.belongsTo(Service, { foreignKey: 'service_id' })

@@ -1,0 +1,81 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "NativeSync REST API for {{ serviceName }}",
+        "version": "1.0.0"
+    },
+    "host": "api.nativesync.io",
+    "schemes": [
+        "https"
+    ],
+    "basePath": "/v1",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/action/identifier/invoke": {
+            "post": {
+                "summary": "Invoke an Action",
+                "description": "Invokes a nativesync action\n",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "input": {
+                                    "type": "object",
+                                    "properties": {
+                                        "test": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "tags": [
+                    "Action"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Output from the action being called",
+                        "schema": {
+                            "properties": {
+                                "output": {
+                                    "type": "object",
+                                    "properties": {
+                                        "test": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "statusCode": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Error": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
