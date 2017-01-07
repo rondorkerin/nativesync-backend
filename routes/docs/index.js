@@ -21,7 +21,7 @@ module.exports = function(app, helpers) {
     return res.send(swaggerJson);
   }));
 
-  docsRouter.get('/service/{service_id}/swagger.json', async ((req, res, next) => {
+  docsRouter.get('/service/:service_id/swagger.json', async ((req, res, next) => {
     var service_id = req.params.service_id;
     var service = await(Models.Service.findById(service_id, {include: [Models.Action]}));
     var actions = service.actions;
