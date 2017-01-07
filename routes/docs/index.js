@@ -8,7 +8,7 @@ module.exports = function(app, helpers) {
   app.use('/docs', docsRouter);
 
   docsRouter.get('/swagger.json', async ((req, res, next) => {
-    var swaggerJson = fs.readFileSync('./docs/swagger.json');
-    return res.json(swaggerJson);
+    var swaggerJson = fs.readFileSync('./docs/swagger.json', {encoding: 'string'});
+    return res.send(swaggerJson);
   }));
 };
