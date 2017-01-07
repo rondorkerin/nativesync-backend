@@ -27,11 +27,11 @@ module.exports = function(app, helpers) {
     var actions = service.actions;
     var swaggerJsonTemplate = JSON.parse(fs.readFileSync('./docs/action_api_template.json', {encoding: 'utf8'}));
     swaggerJsonTemplate['info']['title'] = `NativeSync REST API for ${service.name}`;
-    var actionTemplate = swaggerJsonTemplate['paths']['action_identifier_invoke'];
+    var actionTemplate = swaggerJsonTemplate['paths']['/action/identifier/invoke'];
     var paths = {};
     _.each(actions, (action) => {
       var customAction = Object.assign({}, actionTemplate);
-      console.log('custom action', customAction);
+      console.log('custom action', actionTemplate);
 
       var inputs = {};
       _.each(action.input, (param) => {
