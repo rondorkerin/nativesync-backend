@@ -35,7 +35,7 @@ module.exports = function(app, helpers) {
 
       var inputs = {};
       _.each(action.input, (param) => {
-        inputs[param.name] = { type: param.type }
+        inputs[param.name] = { type: param.type ? param.type : 'string'}
         if (param.description) {
           inputs[param.name].description = param.description;
         }
@@ -44,14 +44,14 @@ module.exports = function(app, helpers) {
 
       var outputs = {};
       _.each(action.output, (param) => {
-        outputs[param.name] = { type: param.type }
+        outputs[param.name] = { type: param.type ? param.type : 'string' }
         if (param.description) {
           outputs[param.name].description = param.description;
         }
       })
       customAction['post']['responses']['200'].schema.properties.output.properties = outputs;
       customAction['post']['tags'] = [];
-      customAction['post']['summary'] = action.title;
+      customAction['post']['summary'] = `${action.name} - maintained by ${action.organization_name}`;
       customAction['post']['description'] = action.description;
 
       paths[`/action/${action.internal_name}/invoke`] = customAction;

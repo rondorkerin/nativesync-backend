@@ -63,7 +63,7 @@ module.exports = function(app, helpers) {
     action.organization_id = req.user.org.id;
     action.organization_name = req.user.org.name;
 
-    action.internal_name = `${action.organization_name}/${action.service_name}.${action.function_name}:${action.version}`.toLowerCase().replace(new RegExp(' ', 'g'), '_');
+    action.internal_name = `${action.organization_name}_${action.service_name}_${action.function_name}_v${action.version}`.toLowerCase().replace(new RegExp(' ', 'g'), '_');
 
     // associate the action with a service
     action.service_id = service.id;
