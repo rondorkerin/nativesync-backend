@@ -52,6 +52,8 @@
     "xmldom": "^0.1.27"
   },
   "devDependencies": {
+    "eslint": "^3.13.0",
+    "eslint-plugin-react": "^6.9.0",
     "jslint": "^0.10.3",
     "node-pg-migrate": "0.0.10",
     "rethinkdb-init": "^0.2.2",

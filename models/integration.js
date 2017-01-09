@@ -1,7 +1,7 @@
 'use strict';
 
 let postgres = require('../drivers/postgres');
-let Sequelize = require('sequelize')
+let Sequelize = require('sequelize');
 var Integration = postgres.define('integration', {
   id: {
     type: Sequelize.BIGINT,
@@ -64,10 +64,18 @@ var Integration = postgres.define('integration', {
   },
   updatedAt: {
     type: Sequelize.DATE
+  },
+  support_policy: {
+    type: Sequelize.STRING
+  },
+  // may decide to get rid of this one later. The same information could
+  // probably just go directly in the pricing column since it's JSON
+  purchase_options: {
+    type: Sequelize.STRING
   }
 }, {
   indexes: [{fields: ['organization_id', 'internal_name'], unique: true}, {fields: ['creator_user_id']}],
   freezeTableName: true
 });
 
-module.exports = Integration
+module.exports = Integration;

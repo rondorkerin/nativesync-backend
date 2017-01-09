@@ -1,0 +1,46 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "arrow-body-style": ["off"],
+    "func-names": ["off"],
+    "linebreak-style": ["error", "unix"],
+    "no-console": "off",
+    "no-return-assign": ["warn", "except-parens"],
+    "no-duplicate-imports": ["warn", {"includeExports": false}],
+    "no-nested-ternary": ["off"],
+    "no-param-reassign": ["error", {"props": false }],
+    "no-plusplus": ["off"],
+    "no-underscore-dangle": ["off"],
+    "no-unused-vars": ["warn", "all"],
+    "object-curly-spacing": ["off"],
+    "semi": ["error", "always"],
+    "space-before-function-paren": ["off"],
+    "react/forbid-prop-types": ["off"],
+    "react/jsx-curly-spacing": ["off"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-no-bind": ["warn", {
+      "ignoreRefs": false,
+      "allowArrowFunctions": true,
+      "allowBind": false
+    }],
+    "react/jsx-uses-vars": "error",
+    "react/no-find-dom-node": ["warn"],
+    "react/no-unused-prop-types": ["warn", {
+      "skipShapeProps": true
+    }],
+    "react/sort-comp": ["off"],
+    "jsx-a11y/no-static-element-interactions": 0,
+  }
+}
