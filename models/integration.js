@@ -69,10 +69,10 @@ var Integration = postgres.define('integration', {
     type: Sequelize.STRING
   },
   how_it_works: {
-    type: Sequelize.STRING
+    type: Sequelize.TEXT
   },
   requirements: {
-    type: Sequelize.STRING
+    type: Sequelize.TEXT
   }
 }, {
   indexes: [{fields: ['organization_id', 'internal_name'], unique: true}, {fields: ['creator_user_id']}],
