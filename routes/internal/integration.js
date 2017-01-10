@@ -119,8 +119,10 @@ module.exports = (app, helpers) => {
             {model: Models.Service, as: 'Services', include: [{model: Models.ServiceDefinition, as: 'ServiceDefinitions'}]}
           ]}
     ));
-    if (integration.organization_id != req.user.org.id) {
-      return res.state(401).send('invalid permissions');
+    // NQ: includeAssociations=true causes code to be sent along with integration data
+    // This is senstive info and should only be viewable by the org who wrote the code.
+    if (req.query.includeAssociations && integration.organization_id != req.user.org.id) {
+      return res.status(401).send('invalid permissions');
     }
     // GROSSS!!!!
     let serviceAuthIDs = {};
