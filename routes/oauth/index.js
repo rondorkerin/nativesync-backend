@@ -4,7 +4,7 @@ var fs = require('fs');
 var Models = require('../../models');
 var _ = require('underscore');
 var OAuth = require('node-oauth').OAuth
-console.log('oauth', Oauth)
+console.log('oauth', OAuth)
 
 module.exports = function(app, helpers) {
 
