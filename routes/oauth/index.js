@@ -9,7 +9,7 @@ module.exports = function(app, helpers) {
 
   app.get('/oauth/authenticate/1.0/:service_auth_id', (req, res, next) => {
     console.log('finding auth')
-    return Models.ServiceAuth.findById(params.service_auth_id)
+    return Models.ServiceAuth.findById(req.params.service_auth_id)
     .then((serviceAuth) => {
       console.log('found auth', serviceAuth)
       var oa = new OAuth(
