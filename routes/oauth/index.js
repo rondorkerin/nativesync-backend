@@ -9,6 +9,10 @@ module.exports = function(app, helpers) {
   var oauthRouter = express.Router();
   app.use('/oauth', oauthRouter);
 
+  oauthRouter.get('test', (req, res, next) => {
+    return res.json({hello: 'world'});
+  })
+
   // allow CORS
   oauthRouter.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
