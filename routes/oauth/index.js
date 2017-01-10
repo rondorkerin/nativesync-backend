@@ -6,21 +6,8 @@ var _ = require('underscore');
 var OAuth = require('node-oauth').OAuth
 
 module.exports = function(app, helpers) {
-  var oauthRouter = express.Router();
-  app.use('/oauth', oauthRouter);
 
-  app.get('test', (req, res, next) => {
-    return res.json({hello: 'world'});
-  })
-
-  // allow CORS
-  oauthRouter.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
-
-  oauthRouter.get('authenticate/1.0/:service_auth_id', (req, res, next) => {
+  app.get('/oauth/authenticate/1.0/:service_auth_id', (req, res, next) => {
     console.log('finding auth')
     return Models.ServiceAuth.findById(params.service_auth_id)
     .then((serviceAuth) => {
