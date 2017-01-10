@@ -116,7 +116,8 @@ module.exports = (app, helpers) => {
           req.params.id,
           {include: [
             {model: Models.Action, as: 'Actions', include: [{model: Models.ServiceAuth, as: 'ServiceAuths'}]},
-            {model: Models.Service, as: 'Services', include: [{model: Models.ServiceDefinition, as: 'ServiceDefinitions'}]}
+            {model: Models.Service, as: 'Services', include: [{model: Models.ServiceDefinition, as: 'ServiceDefinitions'}]},
+            Models.Organization
           ]}
     ));
     // NQ: includeAssociations=true causes code to be sent along with integration data
