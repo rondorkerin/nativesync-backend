@@ -9,7 +9,7 @@ module.exports = function(app, helpers) {
   var oauthRouter = express.Router();
   app.use('/oauth', oauthRouter);
 
-  oauthRouter.get('test', (req, res, next) => {
+  app.get('test', (req, res, next) => {
     return res.json({hello: 'world'});
   })
 
