@@ -3,7 +3,7 @@ var express = require('express');
 var fs = require('fs');
 var Models = require('../../models');
 var _ = require('underscore');
-var OAuth = require('node-oauth').OAuth
+var OAuth = require('node-oauth')
 
 module.exports = function(app, helpers) {
 
