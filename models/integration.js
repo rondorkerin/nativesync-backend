@@ -68,9 +68,10 @@ var Integration = postgres.define('integration', {
   support_policy: {
     type: Sequelize.STRING
   },
-  // may decide to get rid of this one later. The same information could
-  // probably just go directly in the pricing column since it's JSON
-  purchase_options: {
+  how_it_works: {
+    type: Sequelize.STRING
+  },
+  requirements: {
     type: Sequelize.STRING
   }
 }, {
