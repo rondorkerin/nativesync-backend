@@ -1,3 +1,4 @@
+'use strict'
 var Models = require('../../models')
 var OrganizationAuth = Models.OrganizationAuth;
 var async = require('asyncawait/async');

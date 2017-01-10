@@ -1,3 +1,4 @@
+'use strict'
 var Action = require('../models/action');
 var Service = require('../models/service');
 var Promise = require('bluebird');

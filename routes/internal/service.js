@@ -1,3 +1,4 @@
+'use strict'
 var Models = require('../../models');
 let Service = Models.Service;
 var async = require('asyncawait/async');

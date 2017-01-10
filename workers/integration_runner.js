@@ -1,4 +1,4 @@
-require('use-strict')
+'use strict'
 const async = require('asyncawait/async')
 const await = require('asyncawait/await')
 const Models = require('../models');

@@ -1,3 +1,4 @@
+'use strict'
 const Models = require('../../models');
 const Services = require('../../services');
 const IntegrationInstance = Models.IntegrationInstance;

@@ -1,3 +1,4 @@
+'use strict'
 var SwaggerParser = require('swagger-parser');
 var Action = require('../../../models/action');
 var Service = require('../../../models/service');

@@ -3,8 +3,6 @@ let passport = require('passport');
 var Promise = require('bluebird');
 let config = require('config');
 
-require('use-strict')
-
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 let express = require('express');

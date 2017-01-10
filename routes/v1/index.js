@@ -1,3 +1,4 @@
+'use strict'
 const async = require('asyncawait/async');
 const await = require('asyncawait/await');
 const HeaderApiKeyStrategy = require('passport-headerapikey').HeaderAPIKeyStrategy;

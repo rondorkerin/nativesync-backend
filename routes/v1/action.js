@@ -1,3 +1,4 @@
+'use strict'
 var Models = require('../../models');
 var Services = require('../../services');
 var Action = Models.Action;

@@ -1,3 +1,4 @@
+'use strict'
 const Models = require('../../models')
 const Action = Models.Action
 const OrganizationAuth = Models.OrganizationAuth

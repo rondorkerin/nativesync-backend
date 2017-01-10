@@ -1,3 +1,4 @@
+'use strict'
 let await = require('asyncawait/await');
 let async = require('asyncawait/async');
 var Models = require('../../models')

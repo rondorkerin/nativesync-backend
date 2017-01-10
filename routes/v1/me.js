@@ -1,3 +1,4 @@
+'use strict'
 let await = require('asyncawait/await');
 
 module.exports = (app, helpers) => {
