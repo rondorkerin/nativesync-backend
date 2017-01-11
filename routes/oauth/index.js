@@ -9,8 +9,11 @@ var async = require('asyncawait/async');
 
 module.exports = function(app, helpers) {
 
-  app.get('/oauth/callback/1.0/:service_auth_id', async((req, res, next) => {
+  app.get('/oauth/callback/1.0/:service_auth_id/org/:organization_id', async((req, res, next) => {
     console.log('callback URL hit', req.body, req.query, req.params);
+    var organization_id = req.params.organization_id;
+    var resultParams = req.query;
+    console.log('req query', req.query);
     var serviceAuth = await(Models.ServiceAuth.findById(req.params.service_auth_id))
     console.log("Requesting access token")
     var oa = new OAuth.OAuth(
@@ -22,7 +25,10 @@ module.exports = function(app, helpers) {
       callbackURL,
       serviceAuth.details.signatureMethod
     )
-    oa.getOAuthAccessToken(serviceAuth.details.oauthToken, serviceAuth.details.oauthTokenSecret,
+    oa.getOAuthAccessToken(
+      serviceAuth.details.oauthToken,
+      serviceAuth.details.oauthTokenSecret,
+      req.query.oauth_verifier,
       async(function(error, oauthAccessToken, oauthAccessTokenSecret, results2) {
       console.log('accesstoken results :', (results2))
       console.log('acces token', oauthAccessToken, oauthAccessTokenSecret);
