@@ -26,7 +26,7 @@ module.exports = function(app, helpers) {
       serviceAuth.details.signatureMethod
     )
 
-    oa.getOAuthRequestToken(function(error, oauthToken, oauthTokenSecret, results) {
+    oa.getOAuthRequestToken(async(function(error, oauthToken, oauthTokenSecret, results) {
       if (error) {
         console.log('error :' + error)
       } else {
@@ -37,11 +37,11 @@ module.exports = function(app, helpers) {
         await(serviceAuth.save());
         console.log('requestoken results :', results)
         console.log("Requesting access token")
-        oa.getOAuthAccessToken(oauthToken, oauthTokenSecret, function(error, oauthAccessToken, oauthAccessTokenSecret, results2) {
+        oa.getOAuthAccessToken(oauthToken, oauthTokenSecret, async(function(error, oauthAccessToken, oauthAccessTokenSecret, results2) {
           console.log('accesstoken results :', (results2))
           console.log('acces token', oauthAccessToken, oauthAccessTokenSecret);
-        });
+        }));
       }
-    })
+    }))
   }));
 };
