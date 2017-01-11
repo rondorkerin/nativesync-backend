@@ -32,15 +32,21 @@ module.exports = function(app, helpers) {
       } else {
         console.log('oauth_token :' + oauthToken)
         console.log('oauth_token_secret :' + oauthTokenSecret)
-        serviceAuth.details.oauthTokenSecret = oauthTokenSecret;
-        serviceAuth.details.oauthToken = oauthToken;
+        var details = serviceAuth.details;
+        details.oauthTokenSecret = oauthTokenSecret;
+        details.oauthToken = oauthToken;
+        serviceAuth.details = details;
         await(serviceAuth.save());
+        console.log('redirecting user to auth screen');
+        res.redirect(`${details.authUrl}?oauth_token=${oauthToken}`)
+        /*
         console.log('requestoken results :', results)
         console.log("Requesting access token")
         oa.getOAuthAccessToken(oauthToken, oauthTokenSecret, async(function(error, oauthAccessToken, oauthAccessTokenSecret, results2) {
           console.log('accesstoken results :', (results2))
           console.log('acces token', oauthAccessToken, oauthAccessTokenSecret);
         }));
+        */
       }
     }))
   }));
