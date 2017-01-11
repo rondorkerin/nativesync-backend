@@ -101,14 +101,14 @@ class Request {
       }
     }
 
-    //
-
     // build the request object
     // by default the body is equal to the input parsed into the specified content type
     // but if body_code_type is equal to javascript we run the javascript function to generate the request body.
     let requestBodyGenerator = new CodeRunner(this.organization, this.action.input_body.code, {input: bodyInput});
     body = bodyInput;
-    if (this.action.input_body.content_type == 'json') {
+    if (this.action.input_body.content_type == 'text/plain') {
+      headers['Content-Type'] == 'text/plain';
+    } else if (this.action.input_body.content_type == 'json') {
       headers['Content-Type'] == 'application/json';
       if (this.action.input_body.body_code_type  == 'javascript') {
         body = await(requestBodyGenerator.run())
