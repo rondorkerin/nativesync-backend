@@ -51,6 +51,7 @@ module.exports = function(app, helpers) {
       } else {
         await(Models.OrganizationAuth.create(organizationAuth));
       }
+      return res.status(200);
     }));
   }))
 
