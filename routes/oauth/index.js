@@ -7,7 +7,7 @@ var OAuth = require('oauth')
 
 module.exports = function(app, helpers) {
 
-  app.get('/oauth/authenticate/1.0/:service_auth_id', (req, res, next) => {
+  app.get('/oauth/callback/1.0/:service_auth_id', (req, res, next) => {
     console.log('callback URL hit', req.body, req.params.service_auth_id);
   })
 
