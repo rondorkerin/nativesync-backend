@@ -71,6 +71,7 @@ class Request {
         }
       }
     }
+    console.log('calling action with inputs', input)
 
     // input processing
     for (let actionInput of this.action['input']) {
@@ -91,6 +92,7 @@ class Request {
       } else if (actionInput['in'] == 'path') {
         path = path.replace(`{${fieldName}}`, value)
       } else if (actionInput['in'] == 'host') {
+        console.log('replacing', host, fieldName, value, 'actioninput', actionInput);
         host = host.replace(`{${fieldName}}`, value)
       }
     }
