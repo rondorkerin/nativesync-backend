@@ -64,6 +64,7 @@ class Request {
                 serviceAuth['type'] == 'oauth2') {
         // oauth1 and oauth2 can have variables which are passed back when the user auths
         // and which should be forwarded into the input object.
+        console.log('getting inputs from', organizationAuth.value);
         for (let key of Object.keys(serviceAuth['details'])) {
           if (!input[key]) {
             input[key] = organizationAuth['value'][key];
@@ -71,7 +72,6 @@ class Request {
         }
       }
     }
-    console.log('calling action with inputs', input)
 
     // input processing
     for (let actionInput of this.action['input']) {
@@ -92,7 +92,6 @@ class Request {
       } else if (actionInput['in'] == 'path') {
         path = path.replace(`{${fieldName}}`, value)
       } else if (actionInput['in'] == 'host') {
-        console.log('replacing', host, fieldName, value, 'actioninput', actionInput);
         host = host.replace(`{${fieldName}}`, value)
       }
     }
