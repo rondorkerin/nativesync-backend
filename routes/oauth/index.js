@@ -10,12 +10,28 @@ var async = require('asyncawait/async');
 module.exports = function(app, helpers) {
 
   app.get('/oauth/callback/1.0/:service_auth_id', (req, res, next) => {
-    console.log('callback URL hit', req.body, req.params.service_auth_id);
+    console.log('callback URL hit', req.body);
+    var serviceAuth = await(Models.ServiceAuth.findById(req.params.service_auth_id))
+    console.log("Requesting access token")
+    var oa = new OAuth.OAuth(
+      serviceAuth.details.requestTokenUrl,
+      serviceAuth.details.accessTokenRequestUrl,
+      serviceAuth.details.consumerKey,
+      serviceAuth.details.consumerSecret,
+      "1.0",
+      callbackURL,
+      serviceAuth.details.signatureMethod
+    )
+    oa.getOAuthAccessToken(serviceAuth.details.oauthToken, serviceAuth.details.oauthTokenSecret,
+      async(function(error, oauthAccessToken, oauthAccessTokenSecret, results2) {
+      console.log('accesstoken results :', (results2))
+      console.log('acces token', oauthAccessToken, oauthAccessTokenSecret);
+    }));
   })
 
   app.get('/oauth/authenticate/1.0/:service_auth_id', async((req, res, next) => {
     var serviceAuth = await(Models.ServiceAuth.findById(req.params.service_auth_id))
-    var callbackURL = `/oauth/callback/1.0/${serviceAuth.id}`;
+    var callbackURL = `https://api.nativesync.io/oauth/callback/1.0/${serviceAuth.id}`;
     var oa = new OAuth.OAuth(
       serviceAuth.details.requestTokenUrl,
       serviceAuth.details.accessTokenRequestUrl,
@@ -39,14 +55,6 @@ module.exports = function(app, helpers) {
         await(serviceAuth.save());
         console.log('redirecting user to auth screen');
         res.redirect(`${details.authUrl}?oauth_token=${oauthToken}`)
-        /*
-        console.log('requestoken results :', results)
-        console.log("Requesting access token")
-        oa.getOAuthAccessToken(oauthToken, oauthTokenSecret, async(function(error, oauthAccessToken, oauthAccessTokenSecret, results2) {
-          console.log('accesstoken results :', (results2))
-          console.log('acces token', oauthAccessToken, oauthAccessTokenSecret);
-        }));
-        */
       }
     }))
   }));
