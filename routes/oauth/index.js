@@ -29,9 +29,28 @@ module.exports = function(app, helpers) {
       serviceAuth.details.oauthToken,
       serviceAuth.details.oauthTokenSecret,
       req.query.oauth_verifier,
-      async(function(error, oauthAccessToken, oauthAccessTokenSecret, results2) {
-      console.log('accesstoken results :', (results2))
+      async(function(error, oauthAccessToken, oauthAccessTokenSecret, results) {
       console.log('acces token', oauthAccessToken, oauthAccessTokenSecret);
+      // grab the params out of req.query and shove them into the organizationAuth object.
+      var orgId = req.params.organization_id;
+      var serviceId = serviceAuth.service_id;
+      var serviceAuthId = serviceAuth.id;
+      var organizationAuth = {
+        organization_id: orgId,
+        service_id: serviceId,
+        service_auth_id: serviceAuthId,
+        value: Object.assign(req.query, {
+          oauthAccessToken: oauthAccessToken,
+          oauthAccessTokenSecret: oauthAccessTokenSecret,
+        })
+      }
+      var existing = await(Models.OrganizationAuth.findOne({where: {organization_id: orgId, service_id: serviceId, service_auth_id: serviceAuthId}}));
+      if (existing) {
+        existing.value = organizationAuth.value;
+        await(existing.save());
+      } else {
+        await(Models.OrganizationAuth.create(organizationAuth));
+      }
     }));
   }))
 
