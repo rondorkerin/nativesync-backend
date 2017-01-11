@@ -3,27 +3,24 @@ var express = require('express');
 var fs = require('fs');
 var Models = require('../../models');
 var _ = require('underscore');
-var OAuth = require('oauth').OAuth
-console.log('oauth', OAuth)
+var OAuth = require('oauth')
 
 module.exports = function(app, helpers) {
 
   app.get('/oauth/authenticate/1.0/:service_auth_id', (req, res, next) => {
-    console.log('finding auth')
     return Models.ServiceAuth.findById(req.params.service_auth_id)
     .then((serviceAuth) => {
-      console.log('found auth', serviceAuth)
-      var oa = new OAuth(
+      var oa = new OAuth.OAuth(
         serviceAuth.details.requestTokenUrl,
         serviceAuth.details.accessTokenRequestUrl,
         serviceAuth.details.consumerKey,
         serviceAuth.details.consumerSecret,
-        "1.0",
+        "1.0A",
         null,
         serviceAuth.details.signatureMethod
       )
-      console.log(oa);
 
+      console.log('getting oauth token', oa);
       oa.getOAuthRequestToken(function(error, oauth_token, oauth_token_secret, results) {
         if(error) console.log('error :' + error)
         else {
