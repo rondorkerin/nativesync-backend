@@ -35,9 +35,9 @@ module.exports = function(app, helpers) {
     }));
   }))
 
-  app.get('/oauth/authenticate/1.0/:service_auth_id', async((req, res, next) => {
+  app.get('/oauth/authenticate/1.0/:service_auth_id/org/:organization_id', async((req, res, next) => {
     var serviceAuth = await(Models.ServiceAuth.findById(req.params.service_auth_id))
-    var callbackURL = `https://api.nativesync.io/oauth/callback/1.0/${serviceAuth.id}`;
+    var callbackURL = `https://api.nativesync.io/oauth/callback/1.0/${serviceAuth.id}/org/${req.params.organization_id}`;
     var oa = new OAuth.OAuth(
       serviceAuth.details.requestTokenUrl,
       serviceAuth.details.accessTokenRequestUrl,
