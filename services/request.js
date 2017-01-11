@@ -137,6 +137,15 @@ class Request {
       query: query,
       body: body
     })
+    // todo : add more content types
+    if (this.action.output_body.content_type == 'json') {
+      headers['Accept'] = 'application/json';
+    } else if (this.action.output_body.content_type == 'xml') {
+      headers['Accept'] = 'application/xml';
+    } else {
+      headers['Accept'] = 'text/plain';
+    }
+
     if (oauth) { requestObject['oauth'] = oauth; }
     requestObject['resolveWithFullResponse'] = true;
     requestObject['headers'] = headers;
