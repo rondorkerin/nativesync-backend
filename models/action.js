@@ -22,6 +22,9 @@ var Action = postgres.define('action', {
   copied_from_id: {
     type: Sequelize.BIGINT
   },
+  environment: {
+    type: Sequelize.STRING
+  },
   visibility: {
     type: Sequelize.STRING
   },
