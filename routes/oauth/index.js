@@ -49,13 +49,15 @@ module.exports = function(app, helpers) {
         })
       }
       var existing = await(Models.OrganizationAuth.findOne({where: {organization_id: orgId, service_id: serviceId, service_auth_id: serviceAuthId}}));
+      console.log('existing org auth', existing);
       if (existing) {
         existing.value = organizationAuth.value;
         await(existing.save());
       } else {
         await(Models.OrganizationAuth.create(organizationAuth));
       }
-      return res.status(200);
+      console.log('returning')
+      return res.send('authentication success');
     }));
   }))
 
