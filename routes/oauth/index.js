@@ -26,24 +26,19 @@ module.exports = function(app, helpers) {
       )
 
       console.log('getting oauth token', oa);
-      oa.getOAuthRequestToken(function(error, oauth_token, oauth_token_secret, results) {
+      oa.getOAuthRequestToken(function(error, oauthToken, oauthTokenSecret, results) {
         if(error) console.log('error :' + error)
         else {
-          console.log('oauth_token :' + oauth_token)
-          console.log('oauth_token_secret :' + oauth_token_secret)
-          console.log('requestoken results :' + util.inspect(results))
+          console.log('oauth_token :' + oauthToken)
+          console.log('oauth_token_secret :' + oauthTokenSecret)
+          serviceAuth.details.oauthTokenSecret = oauthTokenSecret;
+          serviceAuth.details.oauthToken = oauthToken;
+          await(serviceAuth.save());
+          console.log('requestoken results :', results)
           console.log("Requesting access token")
-          oa.getOAuthAccessToken(oauth_token, oauth_token_secret, function(error, oauth_access_token, oauth_access_token_secret, results2) {
-            console.log('oauth_access_token :' + oauth_access_token)
-            console.log('oauth_token_secret :' + oauth_access_token_secret)
-            console.log('accesstoken results :' + util.inspect(results2))
-            console.log("Requesting access token")
-            /*
-            var data= "";
-            oa.getProtectedResource("http://term.ie/oauth/example/echo_api.php?foo=bar&too=roo", "GET", oauth_access_token, oauth_access_token_secret,  function (error, data, response) {
-                console.log(data);
-            });
-            */
+          oa.getOAuthAccessToken(oauthToken, oauthTokenSecret, function(error, oauthAccessToken, oauthAccessTokenSecret, results2) {
+            console.log('accesstoken results :', (results2))
+            console.log('acces token', oauthAccessToken, oauthAccessTokenSecret);
           });
         }
       })
