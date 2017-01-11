@@ -142,6 +142,7 @@ class Request {
     requestObject['headers'] = headers;
     let response = await(request(requestObject));
 
+    console.log('got response', response.body);
     var output = {};
     if (this.action.output_body.content_type == 'json') {
       output = JSON.parse(response.body)
