@@ -59,18 +59,13 @@ class Request {
         } else if (serviceAuth['details']['in'] == 'query') {
           query[serviceAuth['details']['name']] = organizationAuth['value'].apiKeyValue;
         }
-      } else if (serviceAuth['type'] == 'configuration' ||
-                serviceAuth['type'] == 'oauth1' ||
+      } else if (serviceAuth['type'] == 'configuration') { ||
+        input = Object.assign(organizationAuth.value, input);
+      } else if ( serviceAuth['type'] == 'oauth1' ||
                 serviceAuth['type'] == 'oauth2') {
         // oauth1 and oauth2 can have variables which are passed back when the user auths
         // and which should be forwarded into the input object.
-        for (let key of Object.keys(serviceAuth['details'])) {
-          if (!input[key]) {
-            console.log('getting inputs key', key, organizationAuth.value, 'value', organizationAuth['value'][key]);
-            input[key] = organizationAuth['value'][key];
-          }
-        }
-        console.log('inputs', input);
+        input = Object.assign(organizationAuth.value, input);
       }
     }
 
