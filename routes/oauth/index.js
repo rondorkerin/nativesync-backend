@@ -22,7 +22,7 @@ module.exports = function(app, helpers) {
       serviceAuth.details.consumerKey,
       serviceAuth.details.consumerSecret,
       "1.0",
-      callbackURL,
+      null,
       serviceAuth.details.signatureMethod
     )
     oa.getOAuthAccessToken(
