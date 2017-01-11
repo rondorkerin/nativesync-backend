@@ -68,7 +68,11 @@ class Request {
         input = Object.assign(organizationAuth.value, input);
         if (serviceAuth.type == 'oauth1') {
           var oauth = {
-            consumer_key: '1'
+            token: organizationAuth.value.oauthAccessToken,
+            token_secret: organizationAuth.value.oauthAccessTokenSecret,
+            consumer_key: organizationAuth.value.consumerKey,
+            consumer_secret: organizationAuth.value.consumerSecret,
+            verifier: organizationAuth.value.oauth_verifier
           }
         }
       }
@@ -133,6 +137,7 @@ class Request {
       query: query,
       body: body
     })
+    if (oauth) { requestObject['oauth'] = oauth; }
     requestObject['resolveWithFullResponse'] = true;
     requestObject['headers'] = headers;
     let response = await(request(requestObject));

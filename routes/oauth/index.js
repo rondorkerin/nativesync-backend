@@ -9,6 +9,8 @@ var async = require('asyncawait/async');
 
 module.exports = function(app, helpers) {
 
+  // there could be a bug here. Is consumer key/secret reusable? Or do i need to save
+  // it on a 1-off basis. No docs explain that.
   app.get('/oauth/callback/1.0/:service_auth_id/org/:organization_id', async((req, res, next) => {
     console.log('callback URL hit', req.body, req.query, req.params);
     var organization_id = req.params.organization_id;
@@ -42,6 +44,8 @@ module.exports = function(app, helpers) {
         value: Object.assign(req.query, {
           oauthAccessToken: oauthAccessToken,
           oauthAccessTokenSecret: oauthAccessTokenSecret,
+          consumerKey: serviceAuth.details.consumerKey,
+          consumerSecret: serviceAuth.details.consumerSecret,
         })
       }
       var existing = await(Models.OrganizationAuth.findOne({where: {organization_id: orgId, service_id: serviceId, service_auth_id: serviceAuthId}}));
