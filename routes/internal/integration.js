@@ -111,18 +111,6 @@ module.exports = (app, helpers) => {
     return res.json({integrations: integrations});
   });
 
-  app.get('/marketplace/integrations', (req, res) => {
-    var filter = req.query;
-    Integration.findAll({
-      where: filter,
-      include: [
-        {model: Models.Service, as: 'Services'},
-        Models.Organization
-      ],
-      order: ['organization_id', 'title', ['version', 'desc']]
-    }).then(integrations => { return res.json({integrations: integrations}); })
-  });
-
   app.get('/integration/:id', helpers.checkauth('user'), (req, res) => {
     // todo: lock this down (validate the organization_id in the filter)
     var integration = await(Integration.findById(
