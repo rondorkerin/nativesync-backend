@@ -8,15 +8,20 @@ var OAuth = require('oauth')
 module.exports = function(app, helpers) {
 
   app.get('/oauth/authenticate/1.0/:service_auth_id', (req, res, next) => {
+    console.log('callback URL hit', req.body, req.params.service_auth_id);
+  })
+
+  app.get('/oauth/authenticate/1.0/:service_auth_id', (req, res, next) => {
     return Models.ServiceAuth.findById(req.params.service_auth_id)
     .then((serviceAuth) => {
+      var callbackURL = `/oauth/callback/1.0/${serviceAuth.id}`;
       var oa = new OAuth.OAuth(
         serviceAuth.details.requestTokenUrl,
         serviceAuth.details.accessTokenRequestUrl,
         serviceAuth.details.consumerKey,
         serviceAuth.details.consumerSecret,
-        "1.0A",
-        null,
+        "1.0",
+        callbackURL,
         serviceAuth.details.signatureMethod
       )
 
