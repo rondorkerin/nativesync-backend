@@ -16,7 +16,6 @@ module.exports = function(app, helpers) {
       client: {
         id: details.clientId,
         secret: details.clientSecret,
-        idParamName: details.idParamName,
       },
       auth: {
         tokenHost: helpers.mergeVariables(details.tokenHost, configuration),
