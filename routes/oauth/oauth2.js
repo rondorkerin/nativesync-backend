@@ -8,7 +8,7 @@ var await = require('asyncawait/await');
 var async = require('asyncawait/async');
 
 module.exports = function(app, helpers) {
-  var createOauth = (serviceAuth, organizationId) => async({
+  var createOauth = async((serviceAuth, organizationId) => {
     var configuration = await(Models.OrganizationAuth.getConfigurations(serviceAuth.service_id, organizationId));
     var details = serviceAuth.details;
     var credentials = {
