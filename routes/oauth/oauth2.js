@@ -23,7 +23,7 @@ module.exports = function(app, helpers) {
         tokenPath: helpers.mergeVariables(details.tokenPath, configuration),
         revokePath: helpers.mergeVariables(details.revokePath, configuration),
         authorizeHost: helpers.mergeVariables(details.authorizeHost, configuration),
-        authorizePath: helpers.mergeVariables(details.authorizePath, configuration)h
+        authorizePath: helpers.mergeVariables(details.authorizePath, configuration)
       }
     };
     return OAuth2.create(credentials);
