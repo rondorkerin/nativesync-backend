@@ -6,8 +6,8 @@ var await = require('asyncawait/await');
 
 module.exports = (app, helpers) => {
  app.post('/organization_auths/upsert', helpers.checkauth('user'), function(req, res) {
-    let result;
     let organizationAuth = req.body.organizationAuth;
+    console.log('upserting org auth', organizationAuth);
 
     if (organizationAuth.organization_id && organizationAuth.organization_id != req.user.org.id) {
       return res.status(401).send('Invalid permissions to edit this action')
@@ -26,9 +26,8 @@ module.exports = (app, helpers) => {
       console.log('error', e);
       return res.status(500).send(e);
     }
+  })
 
-
-	})
   app.get('/organization_auths', helpers.checkauth('user'), (req, res) => {
     // todo: lock this down (validate the organization_id in the filter)
     var serviceAuthIds = req.query.service_auth_ids;
