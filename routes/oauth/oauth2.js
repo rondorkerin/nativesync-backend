@@ -31,7 +31,7 @@ module.exports = function(app, helpers) {
     return OAuth2.create(credentials);
   })
 
-  app.get('/oauth/callback/2.0/:service_auth_id/org/:organization_id', async((req, res, next) => {
+  app.get('/oauth/callback/2.0', async((req, res, next) => {
     console.log('callback hit', req.body, req.query, req.params);
   }))
 
