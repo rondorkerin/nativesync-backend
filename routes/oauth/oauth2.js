@@ -4,6 +4,7 @@ var fs = require('fs');
 var Models = require('../../models');
 var _ = require('underscore');
 var OAuth2 = require('simple-oauth2');
+var Guid = require('guid');
 var await = require('asyncawait/await');
 var async = require('asyncawait/async');
 
