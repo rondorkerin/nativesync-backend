@@ -54,7 +54,7 @@ OrganizationAuth.getConfigurations = async((serviceId, organizationId) => {
     }
   }));
   var configurations = {}
-  for (var organizationAuth of organizationConfigurationAuths) {
+  for (var organizationAuth of organizationConfigurations) {
     configurations = Object.assign(configurations, organizationAuth.value);
   }
   return configurations;
