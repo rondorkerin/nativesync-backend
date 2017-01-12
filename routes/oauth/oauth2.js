@@ -52,7 +52,9 @@ module.exports = function(app, helpers) {
         state: state
       }
     }
-    orgAuth = await(Models.OrganizationAuth.upsert(orgAuth))
+    await(Models.OrganizationAuth.upsert(orgAuth))
+    orgAuth = await(Models.OrganizationAuth.findOne({where: orgAuth}))
+    console.log('making org auth', orgAuth);
     const authorizationUri = oauth2.authorizationCode.authorizeURL({
       redirect_uri: callbackUrl,
       scope: serviceAuth.details.scopes,
