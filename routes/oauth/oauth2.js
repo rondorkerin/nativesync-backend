@@ -32,7 +32,8 @@ module.exports = function(app, helpers) {
   })
 
   app.get('/oauth/2.0/callback', async((req, res, next) => {
-    console.log('callback hit', req.body, req.query, req.params);
+    var resultObject = Object.assign(req.body, req.query);
+    console.log('callback hit', resultObject);
   }))
 
   app.get('/oauth/2.0/authenticate/:service_auth_id/org/:organization_id', async((req, res, next) => {
@@ -40,11 +41,6 @@ module.exports = function(app, helpers) {
     var callbackUrl = `https://api.nativesync.io/oauth/2.0/callback`;
     var oauth2 = await(createOauth(serviceAuth, req.params.organization_id));
     var state = Guid.raw();
-    const authorizationUri = oauth2.authorizationCode.authorizeURL({
-      redirect_uri: callbackUrl,
-      scope: serviceAuth.details.scopes,
-      state: state,
-    });
     var orgAuth = {
       service_id: serviceAuth.service_id,
       service_auth_id: serviceAuth.id,
@@ -53,9 +49,12 @@ module.exports = function(app, helpers) {
         state: state
       }
     }
-    console.log('upserting auth', orgAuth);
-    await(Models.OrganizationAuth.upsert(orgAuth))
-    console.log('rederecting', authorizationUri);
+    orgAuth = await(Models.OrganizationAuth.upsert(orgAuth))
+    const authorizationUri = oauth2.authorizationCode.authorizeURL({
+      redirect_uri: callbackUrl,
+      scope: serviceAuth.details.scopes,
+      state: JSON.stringify({state: state, organization_auth_id: orgAuth.id}),
+    });
     return res.redirect(authorizationUri);
   }));
 
