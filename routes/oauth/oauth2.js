@@ -31,20 +31,23 @@ module.exports = function(app, helpers) {
     return OAuth2.create(credentials);
   })
 
-  app.get('/oauth/2.0/callback', async((req, res, next) => {
+  app.get('/oauth/2.0/callback', helpers.checkauth('user'), (req, res, next) => {
+    var orgId = req.user.org.id;
     var resultObject = Object.assign(req.body, req.query);
-    console.log('callback hit', resultObject);
-  }))
+    console.log('callback hit for org', orgId, resultObject);
+    var state = JSON.parse(resultObject.state);
+  });
 
-  app.get('/oauth/2.0/authenticate/:service_auth_id/org/:organization_id', async((req, res, next) => {
+  app.get('/oauth/2.0/authenticate/:service_auth_id', helpers.checkauth('user'), (req, res, next) => {
+    var organizationId = req.user.org.id;
     var serviceAuth = await(Models.ServiceAuth.findById(req.params.service_auth_id))
     var callbackUrl = `https://api.nativesync.io/oauth/2.0/callback`;
-    var oauth2 = await(createOauth(serviceAuth, req.params.organization_id));
+    var oauth2 = await(createOauth(serviceAuth, organizationId));
     var state = Guid.raw();
     var orgAuth = {
       service_id: serviceAuth.service_id,
       service_auth_id: serviceAuth.id,
-      organization_id: req.params.organization_id,
+      organization_id: organizationId,
       value: {
         state: state
       }
@@ -53,9 +56,9 @@ module.exports = function(app, helpers) {
     const authorizationUri = oauth2.authorizationCode.authorizeURL({
       redirect_uri: callbackUrl,
       scope: serviceAuth.details.scopes,
-      state: JSON.stringify({state: state, organization_auth_id: orgAuth.id}),
+      state: JSON.stringify({state: state, organizationAuthId: orgAuth.id}),
     });
     return res.redirect(authorizationUri);
-  }));
+  });
 
 };
