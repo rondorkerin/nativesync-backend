@@ -54,6 +54,9 @@ module.exports = function(app, helpers) {
   app.post('/actions/upsert', helpers.checkauth('user'), function(req, res) {
     let result;
     let action = req.body.action;
+
+    action.function_name = helpers.internalize(action.function_name);
+
     if (action.organization_id && action.organization_id != req.user.org.id) {
       return res.status(401).send('Invalid permissions to edit this action')
     }

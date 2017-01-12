@@ -6,6 +6,7 @@ var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 var request = require('request-promise');
 var o2x = require('object-to-xml');
+var urljoin = require('url-join');
 const CodeRunner = require('./code_runner');
 const _ = require('underscore')
 const url = require('url');
@@ -59,15 +60,20 @@ class Request {
         } else if (serviceAuth['details']['in'] == 'query') {
           query[serviceAuth['details']['name']] = organizationAuth['value'].apiKeyValue;
         }
-      } else if (serviceAuth['type'] == 'configuration' ||
-                serviceAuth['type'] == 'oauth1' ||
+      } else if (serviceAuth['type'] == 'configuration') {
+        input = Object.assign(organizationAuth.value, input);
+      } else if ( serviceAuth['type'] == 'oauth1' ||
                 serviceAuth['type'] == 'oauth2') {
         // oauth1 and oauth2 can have variables which are passed back when the user auths
         // and which should be forwarded into the input object.
-        console.log('getting inputs from', organizationAuth.value);
-        for (let key of Object.keys(serviceAuth['details'])) {
-          if (!input[key]) {
-            input[key] = organizationAuth['value'][key];
+        input = Object.assign(organizationAuth.value, input);
+        if (serviceAuth.type == 'oauth1') {
+          var oauth = {
+            token: organizationAuth.value.oauthAccessToken,
+            token_secret: organizationAuth.value.oauthAccessTokenSecret,
+            consumer_key: organizationAuth.value.consumerKey,
+            consumer_secret: organizationAuth.value.consumerSecret,
+            verifier: organizationAuth.value.oauth_verifier
           }
         }
       }
@@ -96,14 +102,14 @@ class Request {
       }
     }
 
-    //
-
     // build the request object
     // by default the body is equal to the input parsed into the specified content type
     // but if body_code_type is equal to javascript we run the javascript function to generate the request body.
     let requestBodyGenerator = new CodeRunner(this.organization, this.action.input_body.code, {input: bodyInput});
     body = bodyInput;
-    if (this.action.input_body.content_type == 'json') {
+    if (this.action.input_body.content_type == 'text/plain') {
+      headers['Content-Type'] == 'text/plain';
+    } else if (this.action.input_body.content_type == 'json') {
       headers['Content-Type'] == 'application/json';
       if (this.action.input_body.body_code_type  == 'javascript') {
         body = await(requestBodyGenerator.run())
@@ -124,18 +130,31 @@ class Request {
 
     headers['Content-Length'] = body.length;
     requestObject['method'] = this.action['method'];
+    var joinedUrl = urljoin(host, path);
+    var parsedUrl = url.parse(joinedUrl);
     requestObject['uri'] = url.format({
-      protocol: this.action['schemes'],
+      protocol: parsedUrl.protocol,
       slashes: true,
-      host: host,
-      pathname: path,
+      host: parsedUrl.host,
+      pathname: parsedUrl.path,
       query: query,
       body: body
     })
+    // todo : add more content types
+    if (this.action.output_body.content_type == 'json') {
+      headers['Accept'] = 'application/json';
+    } else if (this.action.output_body.content_type == 'xml') {
+      headers['Accept'] = 'application/xml';
+    } else {
+      headers['Accept'] = 'text/plain';
+    }
+
+    if (oauth) { requestObject['oauth'] = oauth; }
     requestObject['resolveWithFullResponse'] = true;
     requestObject['headers'] = headers;
     let response = await(request(requestObject));
 
+    console.log('got response', response.body);
     var output = {};
     if (this.action.output_body.content_type == 'json') {
       output = JSON.parse(response.body)

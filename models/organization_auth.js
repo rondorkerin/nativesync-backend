@@ -1,6 +1,10 @@
 'use strict';
 
 let postgres = require('../drivers/postgres');
+var async = require('asyncawait/async');
+var ServiceAuth = require('./service_auth');
+var _ = require('underscore');
+var await = require('asyncawait/await');
 let Sequelize = require('sequelize')
 
 var OrganizationAuth = postgres.define('organization_auth', {
@@ -31,5 +35,30 @@ var OrganizationAuth = postgres.define('organization_auth', {
   freezeTableName: true,
   indexes: [{fields: ['organization_id', 'service_id']}, {fields: ['service_auth_id', 'organization_id'], unique: true}]
 });
+
+
+// get all configuration servie auths for an organization
+OrganizationAuth.getConfigurations = async((serviceId, organizationId) => {
+  var configurationServiceAuths = await(ServiceAuth.findAll({
+    where: {
+      service_id: serviceId,
+      type: 'configuration'
+    }
+  }));
+
+  var configurationServiceAuthIds = _.pluck(configurationServiceAuths, 'id');
+  var organizationConfigurations = await(OrganizationAuth.findAll({
+    where: {
+      organization_id: organizationId,
+      service_auth_id: {$in: configurationServiceAuthIds}
+    }
+  }));
+  var configurations = {}
+  for (var organizationAuth of organizationConfigurations) {
+    configurations = Object.assign(configurations, organizationAuth.value);
+  }
+  return configurations;
+})
+
 
 module.exports = OrganizationAuth

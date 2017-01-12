@@ -30,6 +30,9 @@ var Service = postgres.define('service', {
   logo_url: {
     type: Sequelize.STRING
   },
+  api_base_urls: {
+    type: Sequelize.JSON
+  },
   createdAt: {
     type: Sequelize.DATE
   },

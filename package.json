@@ -47,8 +47,10 @@
     "rethinkdbdash": "^2.3.23",
     "sequelize": "^3.27.0",
     "sequelize-cli": "^2.4.0",
+    "simple-oauth2": "^1.0.2",
     "statesync": "^0.1.2",
     "swagger-parser": "^3.4.1",
+    "url-join": "^1.1.0",
     "use-strict": "^1.0.1",
     "xmldom": "^0.1.27"
   },
