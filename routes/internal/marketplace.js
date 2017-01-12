@@ -10,7 +10,8 @@ module.exports = (app) => {
       where: filter,
       include: [
         {model: Models.Service, as: 'Services'},
-        Models.Organization
+        Models.Organization,
+        Models.User,
       ],
       order: ['organization_id', 'title', ['version', 'desc']]
     }).then(integrations => { return res.json({integrations: integrations}); });
@@ -22,7 +23,8 @@ module.exports = (app) => {
           req.params.id,
           {include: [
             {model: Models.Service, as: 'Services', include: [{model: Models.ServiceDefinition, as: 'ServiceDefinitions'}]},
-            Models.Organization
+            Models.Organization,
+            Models.User,
           ]}
     ).then(integration => integration ?
       // if an integration matching the given id was found, return it

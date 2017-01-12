@@ -70,6 +70,7 @@ module.exports = (app, helpers) => {
       return res.status(401).send('Invalid permissions to edit this integration')
     }
     integration.organization_id = req.user.org.id;
+    integration.creator_user_id = req.user.id;
 
     try {
       if (integration.id) {
