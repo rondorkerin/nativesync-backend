@@ -27,6 +27,7 @@ module.exports = function(app, helpers) {
         authorizePath: helpers.mergeVariables(details.authorizePath, configuration)
       }
     };
+    console.log('creating oauth', credentials);
     return OAuth2.create(credentials);
   })
 
@@ -37,7 +38,7 @@ module.exports = function(app, helpers) {
   app.get('/oauth/authenticate/2.0/:service_auth_id/org/:organization_id', async((req, res, next) => {
     var serviceAuth = await(Models.ServiceAuth.findById(req.params.service_auth_id))
     var callbackUrl = `https://api.nativesync.io/oauth/callback/2.0/${serviceAuth.id}/org/${req.params.organization_id}`;
-    var oauth2 = createOauth(serviceAuth, req.params.organization_id);
+    var oauth2 = await(createOauth(serviceAuth, req.params.organization_id));
     var state = Guid.raw();
     const authorizationUri = oauth2.authorizationCode.authorizeURL({
       redirect_uri: callbackUrl,
