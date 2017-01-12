@@ -31,14 +31,14 @@ module.exports = function(app, helpers) {
     return OAuth2.create(credentials);
   })
 
-  app.get('/oauth/2.0/callback', helpers.checkauth('user'), (req, res, next) => {
-    var orgId = req.user.org.id;
+  app.get('/oauth/2.0/callback',  async((req, res, next) => {
     var resultObject = Object.assign(req.body, req.query);
-    console.log('callback hit for org', orgId, resultObject);
+    console.log('callback hit for org', resultObject);
     var state = JSON.parse(resultObject.state);
-  });
+    console.log('parse state', state);
+  }));
 
-  app.get('/oauth/2.0/authenticate/:service_auth_id', helpers.checkauth('user'), (req, res, next) => {
+  app.get('/oauth/2.0/authenticate/:service_auth_id', async((req, res, next) => {
     var organizationId = req.user.org.id;
     var serviceAuth = await(Models.ServiceAuth.findById(req.params.service_auth_id))
     var callbackUrl = `https://api.nativesync.io/oauth/2.0/callback`;
@@ -59,6 +59,6 @@ module.exports = function(app, helpers) {
       state: JSON.stringify({state: state, organizationAuthId: orgAuth.id}),
     });
     return res.redirect(authorizationUri);
-  });
+  }));
 
 };
