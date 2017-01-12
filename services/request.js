@@ -6,6 +6,7 @@ var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 var request = require('request-promise');
 var o2x = require('object-to-xml');
+var urljoin = require('url-join');
 const CodeRunner = require('./code_runner');
 const _ = require('underscore')
 const url = require('url');
@@ -129,11 +130,13 @@ class Request {
 
     headers['Content-Length'] = body.length;
     requestObject['method'] = this.action['method'];
+    var joinedUrl = urljoin(host, path);
+    var parsedUrl = url.parse(joinedUrl);
     requestObject['uri'] = url.format({
-      protocol: this.action['schemes'],
+      protocol: parsedUrl.protocol,
       slashes: true,
-      host: host,
-      pathname: path,
+      host: parsedUrl.host,
+      pathname: parsedUrl.path,
       query: query,
       body: body
     })

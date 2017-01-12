@@ -34,9 +34,6 @@ var Action = postgres.define('action', {
   api_version: {
     type: Sequelize.STRING
   },
-  schemes: {
-    type: Sequelize.JSON
-  },
   headers: {
     type: Sequelize.JSON
   },
