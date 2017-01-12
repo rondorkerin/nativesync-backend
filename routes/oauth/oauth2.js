@@ -16,17 +16,18 @@ module.exports = function(app, helpers) {
       client: {
         id: details.clientId,
         secret: details.clientSecret,
-        secretParamName: details.secretParamName,
         idParamName: details.idParamName,
       },
       auth: {
         tokenHost: helpers.mergeVariables(details.tokenHost, configuration),
-        tokenPath: helpers.mergeVariables(details.tokenPath, configuration),
-        revokePath: helpers.mergeVariables(details.revokePath, configuration),
-        authorizeHost: helpers.mergeVariables(details.authorizeHost, configuration),
-        authorizePath: helpers.mergeVariables(details.authorizePath, configuration)
       }
     };
+    if (details.secretParamName) { credentials.client.secretParamName = details.secretParamName }
+    if (details.idParamName) { credentials.client.idParamName = details.idParamName }
+    if (details.tokenPath) { credentials.auth.tokenPath = helpers.mergeVariables(details.tokenPath, configuration); }
+    if (details.revokePath) { credentials.auth.revokePath = helpers.mergeVariables(details.revokePath, configuration); }
+    if (details.authorizehost) { credentials.auth.authorizehost = helpers.mergeVariables(details.authorizehost, configuration); }
+    if (details.authorizePath) { credentials.auth.authorizePath = helpers.mergeVariables(details.authorizePath, configuration); }
     console.log('creating oauth', credentials);
     return OAuth2.create(credentials);
   })

@@ -1,5 +1,5 @@
 module.exports = function(string, configuration) {
-  if (string == null) {
+  if (string === null) {
     return string;
   }
   for (var key in configuration) {
