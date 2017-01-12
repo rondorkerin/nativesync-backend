@@ -42,14 +42,14 @@ module.exports = function(app, helpers) {
     var state = Guid.raw();
     const authorizationUri = oauth2.authorizationCode.authorizeURL({
       redirect_uri: callbackUrl,
-      scope: serviceAuth.scopes,
+      scope: serviceAuth.details.scopes,
       state: state,
     });
     var orgAuth = {
       service_id: serviceAuth.service_id,
       service_auth_id: serviceAuth.id,
       organization_id: req.params.organization_id,
-      values: {
+      value: {
         state: state
       }
     }
