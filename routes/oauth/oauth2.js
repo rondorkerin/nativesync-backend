@@ -50,7 +50,7 @@ module.exports = function(app, helpers) {
 
     var result = await(oauth2.authorizationCode.getToken({
       redirect_uri: callbackUrl,
-      code: code
+      code: resultObjectcode
     }))
 
     console.log('got token', result);
