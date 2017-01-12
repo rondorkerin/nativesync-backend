@@ -2,6 +2,7 @@
 
 let postgres = require('../drivers/postgres');
 var async = require('asyncawait/async');
+var ServiceAuth = require('./service_auth');
 var _ = require('underscore');
 var await = require('asyncawait/await');
 let Sequelize = require('sequelize')
@@ -38,25 +39,25 @@ var OrganizationAuth = postgres.define('organization_auth', {
 
 // get all configuration servie auths for an organization
 OrganizationAuth.getConfigurations = async((serviceId, organizationId) => {
-	var configurationServiceAuths = await(Models.ServiceAuth.findAll({
-		where: {
-			service_id: serviceId,
-			type: 'configuration'
-		}
-	}));
+  var configurationServiceAuths = await(ServiceAuth.findAll({
+    where: {
+      service_id: serviceId,
+      type: 'configuration'
+    }
+  }));
 
-	var configurationServiceAuthIds = _.pluck(configurationServiceAuths, 'id');
-	var organizationConfigurations = await(Models.OrganizationAuth.findAll({
-		where: {
-			organization_id: organizationId,
-			service_auth_id: {$in: configurationServiceAuthIds}
-		}
-	}));
-	var configurations = {}
-	for (var organizationAuth of organizationConfigurationAuths) {
-		configurations = Object.assign(configurations, organizationAuth.value);
-	}
-	return configurations;
+  var configurationServiceAuthIds = _.pluck(configurationServiceAuths, 'id');
+  var organizationConfigurations = await(OrganizationAuth.findAll({
+    where: {
+      organization_id: organizationId,
+      service_auth_id: {$in: configurationServiceAuthIds}
+    }
+  }));
+  var configurations = {}
+  for (var organizationAuth of organizationConfigurationAuths) {
+    configurations = Object.assign(configurations, organizationAuth.value);
+  }
+  return configurations;
 })
 
 
