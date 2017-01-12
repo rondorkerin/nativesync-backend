@@ -38,8 +38,8 @@ module.exports = function(app, helpers) {
     console.log('parse state', state);
   }));
 
-  app.get('/oauth/2.0/authenticate/:service_auth_id', async((req, res, next) => {
-    var organizationId = req.user.org.id;
+  app.get('/oauth/2.0/authenticate/:service_auth_id/org/:organization_id', async((req, res, next) => {
+    var organizationId = req.params.organization_id;
     var serviceAuth = await(Models.ServiceAuth.findById(req.params.service_auth_id))
     var callbackUrl = `https://api.nativesync.io/oauth/2.0/callback`;
     var oauth2 = await(createOauth(serviceAuth, organizationId));
