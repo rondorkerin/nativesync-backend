@@ -36,8 +36,7 @@ module.exports = function(app, helpers) {
     var resultObject = Object.assign(req.body, req.query);
     console.log('callback hit for org', resultObject);
     var parsedState = JSON.parse(resultObject.state);
-    console.log('parse state', state);
-    orgAuth = await(Models.OrganizationAuth.findById(state.organizationAuthId));
+    orgAuth = await(Models.OrganizationAuth.findById(parsedState.organizationAuthId));
     if (parsedState.state != orgAuth.value.state) {
       return res.status(401).send('auth error - state mismatch');
     }
