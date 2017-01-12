@@ -53,7 +53,9 @@ module.exports = function(app, helpers) {
         state: state
       }
     }
+    console.log('upserting auth', orgAuth);
     await(Models.OrganizationAuth.upsert(orgAuth))
+    console.log('rederecting', authorizationUri);
     return res.redirect(authorizationUri);
   }));
 
