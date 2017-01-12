@@ -28,7 +28,7 @@ module.exports = (app) => {
       // if an integration matching the given id was found, return it
       res.json({ integration }) :
 
-      // otherwise, return 40 not found
+      // otherwise, return 400 not found
       res.status(400).send('no such integration')
     );
   });
