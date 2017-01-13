@@ -28,7 +28,6 @@ module.exports = function(app, helpers) {
     if (details.revokePath) { credentials.auth.revokePath = helpers.mergeVariables(details.revokePath, configuration); }
     if (details.authorizehost) { credentials.auth.authorizehost = helpers.mergeVariables(details.authorizehost, configuration); }
     if (details.authorizePath) { credentials.auth.authorizePath = helpers.mergeVariables(details.authorizePath, configuration); }
-    console.log('creating oauth', credentials);
     return OAuth2.create(credentials);
   })
 
@@ -56,6 +55,7 @@ module.exports = function(app, helpers) {
     console.log('got token', result);
     orgAuth.value = result;
     await(orgAuth.save())
+    return res.status(200).send('successfully authed!');
   }));
 
   app.get('/oauth/2.0/authenticate/:service_auth_id/org/:organization_id', async((req, res, next) => {
