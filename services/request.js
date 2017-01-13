@@ -7,7 +7,7 @@ var await = require('asyncawait/await');
 var request = require('request-promise');
 var o2x = require('object-to-xml');
 var urljoin = require('url-join');
-var helpers = require('../helpers');
+var Helpers = require('../helpers');
 const CodeRunner = require('./code_runner');
 const _ = require('underscore')
 const url = require('url');
@@ -110,8 +110,9 @@ class Request {
     // merge input variables for path & host, might not need to do it above
     // because thats probably redundant. We need to do it here to merge variables
     // from service auth type configuration as well as inputs
-    path = helpers.mergeVariables(path, input);
-    host = helpers.mergeVariables(host, input);
+    console.log('inspect helpers', Helpers);
+    path = Helpers.mergeVariables(path, input);
+    host = Helpers.mergeVariables(host, input);
     console.log('merged path & host', path, host);
 
     // build the request object
