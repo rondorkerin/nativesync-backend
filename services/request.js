@@ -153,7 +153,7 @@ class Request {
     }
 
     // only send content-length if you're sending content.
-    if (requestObject['method'] != 'GET' && requestObject['method'] != 'DELETE') {
+    if (this.action['method'] != 'GET' && this.action['method'] != 'DELETE') {
       headers['Content-Length'] = body.length;
     }
 
