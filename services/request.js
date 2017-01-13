@@ -76,6 +76,18 @@ class Request {
             consumer_secret: organizationAuth.value.consumerSecret,
             verifier: organizationAuth.value.oauth_verifier
           }
+        } else if (serviceAuth.type == 'oauth2') {
+          var token = organizationAuth.value.access_token;
+          if (serviceAuth.details.tokenLocation == 'bearer') {
+            requestObject['auth'] = {
+              bearer: token
+            }
+          } else if (serviceAuth.details.tokenLocation == 'header') {
+            headers[serviceAuth.details.tokenFieldName] = token;
+          } else if (serviceAuth.details.tokenLocation == 'query') {
+            query[serviceAuth.details.tokenFieldName] = token;
+          }
+
         }
       }
     }
