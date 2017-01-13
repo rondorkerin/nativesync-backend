@@ -89,6 +89,10 @@ class Request {
       if (actionInput['required'] && !value) {
         throw new RequiredParameterMissingException(fieldName);
       }
+      // unless a value is passed dont add it to anything
+      if (!value) {
+        continue;
+      }
       if(actionInput['in'] == 'query') {
         query[fieldName] = value;
       } else if (actionInput['in'] == 'formData') {
