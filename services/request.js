@@ -50,21 +50,34 @@ class Request {
     // authentication processing
     for (let serviceAuth of serviceAuths) {
       let organizationAuth = await(serviceAuth.getOrganizationAuths({where: {organization_id: this.organizationID}}))[0]
-      if (!organizationAuth && serviceAuth['required']) {
+      // action type auths dont necessarily have org auths
+      if (!organizationAuth && serviceAuth['required'] && serviceAuth.type != 'action') {
         throw new RequiredAuthMissingException(serviceAuth['name']);
       }
-      if (serviceAuth['type'] == 'basic') {
-        requestObject['auth'] = organizationAuth['value'];
-      } else if (serviceAuth['type'] == 'apiKey') {
-        if (serviceAuth['details']['in'] == 'header') {
-          headers[serviceAuth['details']['name']] = organizationAuth['value'].apiKeyValue;
-        } else if (serviceAuth['details']['in'] == 'query') {
-          query[serviceAuth['details']['name']] = organizationAuth['value'].apiKeyValue;
+      if (serviceAuth.type == 'action') {
+        // todo: persist the token and only re-query once in a while.
+        var actionId = serviceAuth.details.action_id;
+        let action = await(Action.findById(req.body.id));
+        let request = new Request(this.organization, action);
+        let output = await(request.send({}))
+        // now modify the service auth
+        serviceAuth.type = output.type;
+        serviceAuth.details = output.details;
+        organizationAuth.value = output.value;
+      }
+
+      if (serviceAuth.type == 'basic') {
+        requestObject.auth = organizationAuth.value;
+      } else if (serviceAuth.type == 'apiKey') {
+        if (serviceAuth.details['in'] == 'header') {
+          headers[serviceAuth.details['name']] = organizationAuth['value'].apiKeyValue;
+        } else if (serviceAuth.details['in'] == 'query') {
+          query[serviceAuth.details['name']] = organizationAuth['value'].apiKeyValue;
         }
-      } else if (serviceAuth['type'] == 'configuration') {
+      } else if (serviceAuth.type == 'configuration') {
         input = Object.assign(organizationAuth.value, input);
-      } else if ( serviceAuth['type'] == 'oauth1' ||
-                serviceAuth['type'] == 'oauth2') {
+      } else if ( serviceAuth.type == 'oauth1' ||
+                serviceAuth.type == 'oauth2') {
         // oauth1 and oauth2 can have variables which are passed back when the user auths
         // and which should be forwarded into the input object.
         input = Object.assign(organizationAuth.value, input);
