@@ -1,5 +1,6 @@
 'use strict'
 var Promise = require('bluebird');
+var _ = require('underscore');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 const Models = require('../models');
@@ -23,6 +24,19 @@ class CodeRunner {
     var logs = [];
     var errors = [];
     var api = {
+      '_': _,
+      request: request,
+      setOrganizationAuth(serviceName, serviceAuthName, value) {
+        return request.post({
+          url: encodeURI(nsUrl + "/organization_auths"),
+          json: true,
+          body: {name: name, value: value},
+          headers: {
+            'X-Api-Key': organizationApiKey
+          }
+        });
+
+      },
       callAction: function(actionDescription, input) {
         var actionObject = {};
         if (typeof actionDescription == 'string') {
@@ -45,7 +59,7 @@ class CodeRunner {
           json: true,
           body: input,
           headers: {
-            'Api-Key': organizationApiKey
+            'X-Api-Key': organizationApiKey
           }
         });
       },

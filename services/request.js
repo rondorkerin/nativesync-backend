@@ -27,8 +27,30 @@ class Request {
     this.action = action;
     this.organizationID = organization.id;
     this.organization = organization;
-  }
-
+  },
+	getConfigurationAuths(serviceAuths, input) {
+		for (serviceAuth of _.where(serviceAuths, {type: 'configuration'})) {
+			input = Object.assign(organizationAuth.value, input);
+		}
+		return input;
+	},
+	// these are run right before the action runs to generate any last minute
+	// headers, query params, etc.
+  runCodeAuths(serviceAuths, organizationAuths, requestObject, input) {
+		var output = {headers: {}, query: {}};
+    organizationAuths = await(this.runCodeAuths(serviceAuths, organizationAuths));
+		for (serviceAuth of _.where(serviceAuths, {type: 'code'})) {
+			var codeRunner = new CodeRunner(this.organization, serviceAuth.details.code, {
+				organizationAuths: organizationAuths,
+				serviceAuths: serviceAuths,
+				request: requestObject,
+				action: this.action,
+				input: input
+			});
+			output = Object.assign(output, await(codeRunner.run()));
+		}
+		return output;
+  },
   send(input) {
     debugger;
     var serviceAuths = await(this.action.getServiceAuths());
@@ -47,23 +69,23 @@ class Request {
     var requestObject = {}
     var path = this.action['path'];
 
+		var organizationAuths = await(Models.OrganizationAuth.findAll({
+			where: {
+				service_auth_id: { '$in': _.pluck(serviceAuths, 'id') },
+				organization_id: this.organizationID
+			}
+		}))
+		// get configuration variables as these might be required for dynamic auths
+		input = this.getConfigurationAuths(serviceAuths, input);
+
+		organizationAuthsByServiceAuthId = _.indexBy(organizationAuths, 'service_auth_id');
+
     // authentication processing
     for (let serviceAuth of serviceAuths) {
-      let organizationAuth = await(serviceAuth.getOrganizationAuths({where: {organization_id: this.organizationID}}))[0]
+			var organizationAuth = organizationAuthsByServiceAuthId[serviceAuth.id];
       // action type auths dont necessarily have org auths
       if (!organizationAuth && serviceAuth['required'] && serviceAuth.type != 'action') {
         throw new RequiredAuthMissingException(serviceAuth['name']);
-      }
-      if (serviceAuth.type == 'action') {
-        // todo: persist the token and only re-query once in a while.
-        var actionId = serviceAuth.details.action_id;
-        let action = await(Action.findById(req.body.id));
-        let request = new Request(this.organization, action);
-        let output = await(request.send({}))
-        // now modify the service auth
-        serviceAuth.type = output.type;
-        serviceAuth.details = output.details;
-        organizationAuth.value = output.value;
       }
 
       if (serviceAuth.type == 'basic') {
@@ -74,8 +96,6 @@ class Request {
         } else if (serviceAuth.details['in'] == 'query') {
           query[serviceAuth.details['name']] = organizationAuth['value'].apiKeyValue;
         }
-      } else if (serviceAuth.type == 'configuration') {
-        input = Object.assign(organizationAuth.value, input);
       } else if ( serviceAuth.type == 'oauth1' ||
                 serviceAuth.type == 'oauth2') {
         // oauth1 and oauth2 can have variables which are passed back when the user auths
@@ -193,6 +213,11 @@ class Request {
     if (oauth) { requestObject['oauth'] = oauth; }
     requestObject['resolveWithFullResponse'] = true;
     requestObject['headers'] = headers;
+
+		// run dynamic auths before the action is done.
+    configurationParams = await(this.runCodeAuths(serviceAuths, organizationAuths, requestObject, input));
+    requestObject.headers = Object.copy(headers, configurationParams.headers);
+
     let response = await(request(requestObject));
 
     var output = {};

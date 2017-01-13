@@ -7,7 +7,7 @@ const express = require('express');
 
 module.exports = function(app, helpers) {
   helpers.passport.use('organization', new HeaderApiKeyStrategy({
-    header: 'Api-Key', prefix: '', session: false},
+    header: 'X-Api-Key', prefix: '', session: false},
     false,
     async((apikey, done) => {
       var organizationSystemAuth = await(app.Models.OrganizationSystemAuth.findOne({
