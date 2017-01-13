@@ -152,6 +152,8 @@ class Request {
       body = querystring.stringify(body);
     }
 
+
+    console.log('request with body', body);
     headers['Content-Length'] = body.length;
     requestObject['method'] = this.action['method'];
     var joinedUrl = urljoin(host, path);
@@ -176,10 +178,8 @@ class Request {
     if (oauth) { requestObject['oauth'] = oauth; }
     requestObject['resolveWithFullResponse'] = true;
     requestObject['headers'] = headers;
-    console.log('requesting', requestObject);
     let response = await(request(requestObject));
 
-    console.log('got response', response.body);
     var output = {};
     if (this.action.output_body.content_type == 'json') {
       output = JSON.parse(response.body)
