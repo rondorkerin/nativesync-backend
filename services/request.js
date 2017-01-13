@@ -176,6 +176,7 @@ class Request {
     if (oauth) { requestObject['oauth'] = oauth; }
     requestObject['resolveWithFullResponse'] = true;
     requestObject['headers'] = headers;
+    console.log('requesting', requestObject);
     let response = await(request(requestObject));
 
     console.log('got response', response.body);
