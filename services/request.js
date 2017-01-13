@@ -152,9 +152,11 @@ class Request {
       body = querystring.stringify(body);
     }
 
+    // only send content-length if you're sending content.
+    if (requestObject['method'] != 'GET' && requestObject['method'] != 'DELETE') {
+      headers['Content-Length'] = body.length;
+    }
 
-    console.log('request with body', body);
-    headers['Content-Length'] = body.length;
     requestObject['method'] = this.action['method'];
     var joinedUrl = urljoin(host, path);
     var parsedUrl = url.parse(joinedUrl);
