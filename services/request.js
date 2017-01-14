@@ -233,7 +233,6 @@ class Request {
 
     var output = {};
     if (this.action.output_body.content_type == 'json') {
-      console.log('parsing body', response.body);
       output = JSON.parse(response.body)
     } else if (this.action.output_body.content_type == 'xml') {
       // todo: parse XML
