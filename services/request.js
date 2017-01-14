@@ -226,10 +226,9 @@ class Request {
       response = await(request(requestObject));
     } catch(e) {
       response = {
-        body: e.body,
+        body: e.response.body,
         statusCode: e.statusCode,
       }
-      console.log('error', e);
     }
 
     var output = {};
