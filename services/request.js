@@ -222,9 +222,6 @@ class Request {
     var configurationParams = await(this.runCodeAuths(serviceAuths, organizationAuths, requestObject, input));
     requestObject.headers = Object.assign(headers, configurationParams.headers);
 
-    if (options.debug) {
-      require('request-debug')(request);
-    }
     let response = await(request(requestObject));
 
     var output = {};
@@ -247,7 +244,11 @@ class Request {
     }
 
     parsedOutput.statusCode = response.statusCode;
-    return parsedOutput;
+    return {
+      request: requestObject,
+      output: parsedOutput,
+      statusCode: parsedOutput.statusCode
+    };
   }
 }
 

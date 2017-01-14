@@ -95,8 +95,8 @@ module.exports = function(app, helpers) {
     let organization = await(Models.Organization.findById(req.body.organizationId));
     let input = req.body.input;
     let request = new Request(organization, action);
-    let output = await(request.send(input, {debug: true}))
-    return res.json(output);
+    let response = await(request.send(input, {debug: true}))
+    return res.json(response);
   });
 
   app.post('/actions/associate_service_auth', helpers.checkauth('user'), function(req, res) {
