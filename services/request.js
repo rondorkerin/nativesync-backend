@@ -28,30 +28,31 @@ class Request {
     this.organizationID = organization.id;
     this.organization = organization;
   },
-	getConfigurationAuths(serviceAuths, input) {
-		for (serviceAuth of _.where(serviceAuths, {type: 'configuration'})) {
-			input = Object.assign(organizationAuth.value, input);
-		}
-		return input;
-	},
-	// these are run right before the action runs to generate any last minute
-	// headers, query params, etc.
-  runCodeAuths(serviceAuths, organizationAuths, requestObject, input) {
-		var output = {headers: {}, query: {}};
-    organizationAuths = await(this.runCodeAuths(serviceAuths, organizationAuths));
-		for (serviceAuth of _.where(serviceAuths, {type: 'code'})) {
-			var codeRunner = new CodeRunner(this.organization, serviceAuth.details.code, {
-				organizationAuths: organizationAuths,
-				serviceAuths: serviceAuths,
-				request: requestObject,
-				action: this.action,
-				input: input
-			});
-			output = Object.assign(output, await(codeRunner.run()));
-		}
-		return output;
+  getConfigurationAuths(serviceAuths, input) {
+    for (serviceAuth of _.where(serviceAuths, {type: 'configuration'})) {
+      input = Object.assign(organizationAuth.value, input);
+    }
+    return input;
   },
-  send(input) {
+  // these are run right before the action runs to generate any last minute
+  // headers, query params, etc.
+  runCodeAuths(serviceAuths, organizationAuths, requestObject, input) {
+    var output = {headers: {}, query: {}};
+    organizationAuths = await(this.runCodeAuths(serviceAuths, organizationAuths));
+    for (serviceAuth of _.where(serviceAuths, {type: 'code'})) {
+      var codeRunner = new CodeRunner(this.organization, serviceAuth.details.code, {
+        organizationAuths: organizationAuths,
+        serviceAuths: serviceAuths,
+        request: requestObject,
+        action: this.action,
+        input: input
+      });
+      output = Object.assign(output, await(codeRunner.run()));
+    }
+    return output;
+  },
+  send(input, options) {
+    if (!options) { options = {} };
     debugger;
     var serviceAuths = await(this.action.getServiceAuths());
 
@@ -69,20 +70,20 @@ class Request {
     var requestObject = {}
     var path = this.action['path'];
 
-		var organizationAuths = await(Models.OrganizationAuth.findAll({
-			where: {
-				service_auth_id: { '$in': _.pluck(serviceAuths, 'id') },
-				organization_id: this.organizationID
-			}
-		}))
-		// get configuration variables as these might be required for dynamic auths
-		input = this.getConfigurationAuths(serviceAuths, input);
+    var organizationAuths = await(Models.OrganizationAuth.findAll({
+      where: {
+        service_auth_id: { '$in': _.pluck(serviceAuths, 'id') },
+        organization_id: this.organizationID
+      }
+    }))
+    // get configuration variables as these might be required for dynamic auths
+    input = this.getConfigurationAuths(serviceAuths, input);
 
-		organizationAuthsByServiceAuthId = _.indexBy(organizationAuths, 'service_auth_id');
+    organizationAuthsByServiceAuthId = _.indexBy(organizationAuths, 'service_auth_id');
 
     // authentication processing
     for (let serviceAuth of serviceAuths) {
-			var organizationAuth = organizationAuthsByServiceAuthId[serviceAuth.id];
+      var organizationAuth = organizationAuthsByServiceAuthId[serviceAuth.id];
       // action type auths dont necessarily have org auths
       if (!organizationAuth && serviceAuth['required'] && serviceAuth.type != 'action') {
         throw new RequiredAuthMissingException(serviceAuth['name']);
@@ -214,10 +215,13 @@ class Request {
     requestObject['resolveWithFullResponse'] = true;
     requestObject['headers'] = headers;
 
-		// run dynamic auths before the action is done.
+    // run dynamic auths before the action is done.
     configurationParams = await(this.runCodeAuths(serviceAuths, organizationAuths, requestObject, input));
     requestObject.headers = Object.copy(headers, configurationParams.headers);
 
+    if (options.debug) {
+      require('request-debug')(request);
+    }
     let response = await(request(requestObject));
 
     var output = {};

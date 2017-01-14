@@ -95,7 +95,7 @@ module.exports = function(app, helpers) {
     let organization = await(Models.Organization.findById(req.body.organizationId));
     let input = req.body.input;
     let request = new Request(organization, action);
-    let output = await(request.send(input))
+    let output = await(request.send(input, {debug: true}))
     return res.json(output);
   });
 
