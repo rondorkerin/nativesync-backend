@@ -33,7 +33,8 @@ class Request {
       input = Object.assign(organizationAuth.value, input);
     }
     return input;
-  },
+  }
+
   // these are run right before the action runs to generate any last minute
   // headers, query params, etc.
   runCodeAuths(serviceAuths, organizationAuths, requestObject, input) {
@@ -53,7 +54,6 @@ class Request {
   },
   send(input, options) {
     if (!options) { options = {} };
-    debugger;
     var serviceAuths = await(this.action.getServiceAuths());
 
     var headers = {}

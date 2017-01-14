@@ -95,7 +95,7 @@ module.exports = (app, helpers) => {
       var systemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: req.user.id}}))
       systemAuth.token = null;
       await(systemAuth.save());
-      return res.status(200);
+      return res.status(204).send();
     } catch(e) {
       console.log('error', e);
       return res.status(500).send(e);
