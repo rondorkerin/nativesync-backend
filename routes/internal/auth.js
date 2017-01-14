@@ -92,13 +92,9 @@ module.exports = (app, helpers) => {
 
   app.post('/auth/logout', helpers.checkauth('user'), (req, res) => {
     try {
-      console.log("GOT HERE: A");
       var systemAuth = await(Models.UserSystemAuth.findOne({where: {user_id: req.user.id}}))
-      console.log("GOT HERE: B");
       systemAuth.token = null;
-      console.log("GOT HERE: C");
       await(systemAuth.save());
-      console.log("GOT HERE: D");
       return res.status(204).send();
     } catch(e) {
       console.log('error', e);
