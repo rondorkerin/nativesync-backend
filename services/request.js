@@ -220,7 +220,7 @@ class Request {
 
     // run dynamic auths before the action is done.
     var configurationParams = await(this.runCodeAuths(serviceAuths, organizationAuths, requestObject, input));
-    requestObject.headers = Object.copy(headers, configurationParams.headers);
+    requestObject.headers = Object.assign(headers, configurationParams.headers);
 
     if (options.debug) {
       require('request-debug')(request);
