@@ -27,7 +27,7 @@ class Request {
     this.action = action;
     this.organizationID = organization.id;
     this.organization = organization;
-  },
+  }
   getConfigurationAuths(serviceAuths, input) {
     for (serviceAuth of _.where(serviceAuths, {type: 'configuration'})) {
       input = Object.assign(organizationAuth.value, input);
@@ -51,7 +51,7 @@ class Request {
       output = Object.assign(output, await(codeRunner.run()));
     }
     return output;
-  },
+  }
   send(input, options) {
     if (!options) { options = {} };
     var serviceAuths = await(this.action.getServiceAuths());
