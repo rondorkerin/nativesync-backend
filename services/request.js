@@ -80,7 +80,7 @@ class Request {
       }
     }))
 
-    organizationAuthsByServiceAuthId = _.indexBy(organizationAuths, 'service_auth_id');
+    var organizationAuthsByServiceAuthId = _.indexBy(organizationAuths, 'service_auth_id');
     //
     // get configuration variables as these might be required for dynamic auths
     input = this.getConfigurationAuths(serviceAuths, organizationAuthsByServiceAuthId, input);
