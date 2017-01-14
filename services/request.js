@@ -31,7 +31,7 @@ class Request {
   }
   getConfigurationAuths(serviceAuths, organizationAuthsByServiceAuthId, input) {
     for (var serviceAuth of _.where(serviceAuths, {type: 'configuration'})) {
-      var organizazationAuth = organizationAuthsByServiceAuthId[serviceAuth.id]
+      var organizationAuth = organizationAuthsByServiceAuthId[serviceAuth.id]
       input = Object.assign(organizationAuth.value, input);
     }
     return input;
