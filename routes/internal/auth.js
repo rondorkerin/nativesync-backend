@@ -99,7 +99,7 @@ module.exports = (app, helpers) => {
       console.log("GOT HERE: C");
       await(systemAuth.save());
       console.log("GOT HERE: D");
-      return res.status(200);
+      return res.status(204).send();
     } catch(e) {
       console.log('error', e);
       return res.status(500).send(e);
