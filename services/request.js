@@ -50,7 +50,6 @@ class Request {
         input: input
       });
       output = Object.assign(output, await(codeRunner.run()));
-      console.log('running code', serviceAuth.details.code, 'output', output);
     }
     return output;
   }
@@ -161,7 +160,6 @@ class Request {
     // from service auth type configuration as well as inputs
     path = MergeVariables(path, input);
     host = MergeVariables(host, input);
-    console.log('merged path & host', path, host);
 
     // build the request object
     // by default the body is equal to the input parsed into the specified content type
@@ -223,37 +221,33 @@ class Request {
     requestObject.headers = Object.assign(headers, configurationParams.headers);
 
     requestObject['simple'] = true;
-    try {
-      let response = await(request(requestObject));
-    } catch(e) {
-      console.log('error in response');
-    }
+    return request(requestObject).then((response) => {
+      var output = {};
+      if (this.action.output_body.content_type == 'json') {
+        output = JSON.parse(response.body)
+      } else if (this.action.output_body.content_type == 'xml') {
+        // todo: parse XML
+        parser = new DOMParser();
+        output = parser.parseFromString(response.body,"text/xml");
+      }
+      // output processing
+      // by default, we parse the content type of the output into the resulting javascript object.
+      // if body_code_type = javascript, we instead run a code function to map that result to
+      // the result fields
+      if (this.action.input_body.body_code_type  == 'javascript') {
+        let outputParser = new CodeRunner(this.organization, this.action.output_body.code, {output: output});
+        var parsedOutput = await(outputParser.run());
+      } else {
+        parsedOutput = output;
+      }
 
-    var output = {};
-    if (this.action.output_body.content_type == 'json') {
-      output = JSON.parse(response.body)
-    } else if (this.action.output_body.content_type == 'xml') {
-      // todo: parse XML
-      parser = new DOMParser();
-      output = parser.parseFromString(response.body,"text/xml");
-    }
-    // output processing
-    // by default, we parse the content type of the output into the resulting javascript object.
-    // if body_code_type = javascript, we instead run a code function to map that result to
-    // the result fields
-    if (this.action.input_body.body_code_type  == 'javascript') {
-      let outputParser = new CodeRunner(this.organization, this.action.output_body.code, {output: output});
-      var parsedOutput = await(outputParser.run());
-    } else {
-      parsedOutput = output;
-    }
-
-    parsedOutput.statusCode = response.statusCode;
-    return {
-      request: requestObject,
-      output: parsedOutput,
-      statusCode: parsedOutput.statusCode
-    };
+      parsedOutput.statusCode = response.statusCode;
+      return {
+        request: requestObject,
+        output: parsedOutput,
+        statusCode: parsedOutput.statusCode
+      };
+    })
   }
 }
 
