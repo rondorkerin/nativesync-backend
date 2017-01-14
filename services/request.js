@@ -221,10 +221,11 @@ class Request {
     requestObject.headers = Object.assign(headers, configurationParams.headers);
 
     requestObject['simple'] = true;
+    let response;
     try {
-      let response = await(request(requestObject));
+      response = await(request(requestObject));
     } catch(e) {
-      let response = {
+      response = {
         body: e.body,
         statusCode: e.statusCode,
       }
