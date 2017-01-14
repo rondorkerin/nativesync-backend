@@ -30,7 +30,7 @@ class Request {
     this.organization = organization;
   }
   getConfigurationAuths(serviceAuths, input) {
-    for (serviceAuth of _.where(serviceAuths, {type: 'configuration'})) {
+    for (var serviceAuth of _.where(serviceAuths, {type: 'configuration'})) {
       input = Object.assign(organizationAuth.value, input);
     }
     return input;
@@ -41,7 +41,7 @@ class Request {
   runCodeAuths(serviceAuths, organizationAuths, requestObject, input) {
     var output = {headers: {}, query: {}};
     organizationAuths = await(this.runCodeAuths(serviceAuths, organizationAuths));
-    for (serviceAuth of _.where(serviceAuths, {type: 'code'})) {
+    for (var serviceAuth of _.where(serviceAuths, {type: 'code'})) {
       var codeRunner = new CodeRunner(this.organization, serviceAuth.details.code, {
         organizationAuths: organizationAuths,
         serviceAuths: serviceAuths,
@@ -50,6 +50,7 @@ class Request {
         input: input
       });
       output = Object.assign(output, await(codeRunner.run()));
+      console.log('running code', serviceAuth.details.code, 'output', output);
     }
     return output;
   }
