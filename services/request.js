@@ -2,6 +2,7 @@
 var Action = require('../models/action');
 var Service = require('../models/service');
 var Promise = require('bluebird');
+var Models = require('../models');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 var request = require('request-promise');
