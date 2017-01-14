@@ -7,5 +7,5 @@ module.exports = function(passport) {
       // turn a string into an internalized version
       return string.toLowerCase().replace(new RegExp('[^a-zA-Z0-9_]+', 'g'), '_');
     },
-  }
-}
+  };
+};
