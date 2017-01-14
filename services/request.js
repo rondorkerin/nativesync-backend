@@ -41,7 +41,6 @@ class Request {
   // headers, query params, etc.
   runCodeAuths(serviceAuths, organizationAuths, requestObject, input) {
     var output = {headers: {}, query: {}};
-    organizationAuths = await(this.runCodeAuths(serviceAuths, organizationAuths));
     for (var serviceAuth of _.where(serviceAuths, {type: 'code'})) {
       var codeRunner = new CodeRunner(this.organization, serviceAuth.details.code, {
         organizationAuths: organizationAuths,
