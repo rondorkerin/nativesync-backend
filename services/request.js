@@ -27,13 +27,15 @@ class Request {
     this.action = action;
     this.organizationID = organization.id;
     this.organization = organization;
-  },
+  }
+
 	getConfigurationAuths(serviceAuths, input) {
 		for (serviceAuth of _.where(serviceAuths, {type: 'configuration'})) {
 			input = Object.assign(organizationAuth.value, input);
 		}
 		return input;
-	},
+	}
+
 	// these are run right before the action runs to generate any last minute
 	// headers, query params, etc.
   runCodeAuths(serviceAuths, organizationAuths, requestObject, input) {
@@ -50,7 +52,8 @@ class Request {
 			output = Object.assign(output, await(codeRunner.run()));
 		}
 		return output;
-  },
+  }
+
   send(input) {
     debugger;
     var serviceAuths = await(this.action.getServiceAuths());
