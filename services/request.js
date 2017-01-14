@@ -29,8 +29,9 @@ class Request {
     this.organizationID = organization.id;
     this.organization = organization;
   }
-  getConfigurationAuths(serviceAuths, input) {
+  getConfigurationAuths(serviceAuths, organizationAuthsByServiceAuthId, input) {
     for (var serviceAuth of _.where(serviceAuths, {type: 'configuration'})) {
+      var organizazationAuth = organizationAuthsByServiceAuthId[serviceAuth.id]
       input = Object.assign(organizationAuth.value, input);
     }
     return input;
@@ -78,10 +79,11 @@ class Request {
         organization_id: this.organizationID
       }
     }))
-    // get configuration variables as these might be required for dynamic auths
-    input = this.getConfigurationAuths(serviceAuths, input);
 
     organizationAuthsByServiceAuthId = _.indexBy(organizationAuths, 'service_auth_id');
+    //
+    // get configuration variables as these might be required for dynamic auths
+    input = this.getConfigurationAuths(serviceAuths, organizationAuthsByServiceAuthId, input);
 
     // authentication processing
     for (let serviceAuth of serviceAuths) {
