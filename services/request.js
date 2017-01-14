@@ -225,7 +225,7 @@ class Request {
     requestObject['simple'] = true;
     try {
       let response = await(request(requestObject));
-    catch(e) {
+    } catch(e) {
       console.log('error in response');
     }
 
