@@ -222,7 +222,12 @@ class Request {
     var configurationParams = await(this.runCodeAuths(serviceAuths, organizationAuths, requestObject, input));
     requestObject.headers = Object.assign(headers, configurationParams.headers);
 
-    let response = await(request(requestObject));
+    requestObject['simple'] = true;
+    try {
+      let response = await(request(requestObject));
+    catch(e) {
+      console.log('error in response');
+    }
 
     var output = {};
     if (this.action.output_body.content_type == 'json') {
