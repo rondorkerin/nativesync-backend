@@ -96,6 +96,7 @@ module.exports = function(app, helpers) {
     let input = req.body.input;
     let request = new Request(organization, action);
     let response = await(request.send(input, {debug: true}))
+    console.log('got response', response);
     return res.json(response);
   });
 
