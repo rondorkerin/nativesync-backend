@@ -219,7 +219,7 @@ class Request {
     requestObject['headers'] = headers;
 
     // run dynamic auths before the action is done.
-    configurationParams = await(this.runCodeAuths(serviceAuths, organizationAuths, requestObject, input));
+    var configurationParams = await(this.runCodeAuths(serviceAuths, organizationAuths, requestObject, input));
     requestObject.headers = Object.copy(headers, configurationParams.headers);
 
     if (options.debug) {
