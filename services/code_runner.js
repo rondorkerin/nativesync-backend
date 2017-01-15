@@ -25,6 +25,7 @@ class CodeRunner {
     var errors = [];
     var api = {
       '_': _,
+      Promise: Promise,
       request: request,
       setOrganizationAuth(serviceName, serviceAuthName, value) {
         return request.post({
