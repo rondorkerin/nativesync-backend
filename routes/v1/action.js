@@ -18,7 +18,7 @@ module.exports = (app, helpers) => {
       action = await(Action.findOne({where: where}));
     }
     let organization = req.user;
-    let output = await(new Services.Request(organization, action).send(req.body.input))
-    return res.json({ output: output, statusCode: output.statusCode });
+    let response = await(new Services.Request(organization, action).send(req.body.input))
+    return res.json(response);
   });
 }

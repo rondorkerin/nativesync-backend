@@ -25,6 +25,7 @@ class CodeRunner {
     var errors = [];
     var api = {
       '_': _,
+      Promise: Promise,
       request: request,
       setOrganizationAuth(serviceName, serviceAuthName, value) {
         return request.post({
@@ -85,6 +86,10 @@ class CodeRunner {
         }
       },
       end: function(output) {
+        var result = {logs: logs, output: output, errors: errors};
+        deferred.resolve(result)
+      },
+      output: function(output) {
         var result = {logs: logs, output: output, errors: errors};
         deferred.resolve(result)
       },

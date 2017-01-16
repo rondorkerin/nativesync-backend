@@ -2,6 +2,7 @@
 var Action = require('../models/action');
 var Service = require('../models/service');
 var Promise = require('bluebird');
+var Models = require('../models');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 var request = require('request-promise');
@@ -28,34 +29,32 @@ class Request {
     this.organizationID = organization.id;
     this.organization = organization;
   }
-
-	getConfigurationAuths(serviceAuths, input) {
-		for (serviceAuth of _.where(serviceAuths, {type: 'configuration'})) {
-			input = Object.assign(organizationAuth.value, input);
-		}
-		return input;
-	}
-
-	// these are run right before the action runs to generate any last minute
-	// headers, query params, etc.
-  runCodeAuths(serviceAuths, organizationAuths, requestObject, input) {
-		var output = {headers: {}, query: {}};
-    organizationAuths = await(this.runCodeAuths(serviceAuths, organizationAuths));
-		for (serviceAuth of _.where(serviceAuths, {type: 'code'})) {
-			var codeRunner = new CodeRunner(this.organization, serviceAuth.details.code, {
-				organizationAuths: organizationAuths,
-				serviceAuths: serviceAuths,
-				request: requestObject,
-				action: this.action,
-				input: input
-			});
-			output = Object.assign(output, await(codeRunner.run()));
-		}
-		return output;
+  getConfigurationAuths(serviceAuths, organizationAuthsByServiceAuthId, input) {
+    for (var serviceAuth of _.where(serviceAuths, {type: 'configuration'})) {
+      var organizationAuth = organizationAuthsByServiceAuthId[serviceAuth.id]
+      input = Object.assign(organizationAuth.value, input);
+    }
+    return input;
   }
 
-  send(input) {
-    debugger;
+  // these are run right before the action runs to generate any last minute
+  // headers, query params, etc.
+  runCodeAuths(serviceAuths, organizationAuths, requestObject, input) {
+    var output = {headers: {}, query: {}};
+    for (var serviceAuth of _.where(serviceAuths, {type: 'code'})) {
+      var codeRunner = new CodeRunner(this.organization, serviceAuth.details.code, {
+        organizationAuths: organizationAuths,
+        serviceAuths: serviceAuths,
+        request: requestObject,
+        action: this.action,
+        input: input
+      });
+      output = Object.assign(output, await(codeRunner.run()));
+    }
+    return output;
+  }
+  send(input, options) {
+    if (!options) { options = {} };
     var serviceAuths = await(this.action.getServiceAuths());
 
     var headers = {}
@@ -72,20 +71,21 @@ class Request {
     var requestObject = {}
     var path = this.action['path'];
 
-		var organizationAuths = await(Models.OrganizationAuth.findAll({
-			where: {
-				service_auth_id: { '$in': _.pluck(serviceAuths, 'id') },
-				organization_id: this.organizationID
-			}
-		}))
-		// get configuration variables as these might be required for dynamic auths
-		input = this.getConfigurationAuths(serviceAuths, input);
+    var organizationAuths = await(Models.OrganizationAuth.findAll({
+      where: {
+        service_auth_id: { '$in': _.pluck(serviceAuths, 'id') },
+        organization_id: this.organizationID
+      }
+    }))
 
-		organizationAuthsByServiceAuthId = _.indexBy(organizationAuths, 'service_auth_id');
+    var organizationAuthsByServiceAuthId = _.indexBy(organizationAuths, 'service_auth_id');
+    //
+    // get configuration variables as these might be required for dynamic auths
+    input = this.getConfigurationAuths(serviceAuths, organizationAuthsByServiceAuthId, input);
 
     // authentication processing
     for (let serviceAuth of serviceAuths) {
-			var organizationAuth = organizationAuthsByServiceAuthId[serviceAuth.id];
+      var organizationAuth = organizationAuthsByServiceAuthId[serviceAuth.id];
       // action type auths dont necessarily have org auths
       if (!organizationAuth && serviceAuth['required'] && serviceAuth.type != 'action') {
         throw new RequiredAuthMissingException(serviceAuth['name']);
@@ -160,7 +160,6 @@ class Request {
     // from service auth type configuration as well as inputs
     path = MergeVariables(path, input);
     host = MergeVariables(host, input);
-    console.log('merged path & host', path, host);
 
     // build the request object
     // by default the body is equal to the input parsed into the specified content type
@@ -217,11 +216,20 @@ class Request {
     requestObject['resolveWithFullResponse'] = true;
     requestObject['headers'] = headers;
 
-		// run dynamic auths before the action is done.
-    configurationParams = await(this.runCodeAuths(serviceAuths, organizationAuths, requestObject, input));
-    requestObject.headers = Object.copy(headers, configurationParams.headers);
+    // run dynamic auths before the action is done.
+    var configurationParams = await(this.runCodeAuths(serviceAuths, organizationAuths, requestObject, input));
+    requestObject.headers = Object.assign(headers, configurationParams.headers);
 
-    let response = await(request(requestObject));
+    requestObject['simple'] = true;
+    let response;
+    try {
+      response = await(request(requestObject));
+    } catch(e) {
+      response = {
+        body: e.response.body,
+        statusCode: e.statusCode,
+      }
+    }
 
     var output = {};
     if (this.action.output_body.content_type == 'json') {
@@ -243,7 +251,11 @@ class Request {
     }
 
     parsedOutput.statusCode = response.statusCode;
-    return parsedOutput;
+    return {
+      request: requestObject,
+      output: parsedOutput,
+      statusCode: parsedOutput.statusCode
+    };
   }
 }
 
