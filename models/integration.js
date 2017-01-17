@@ -44,6 +44,12 @@ var Integration = postgres.define('integration', {
   documentation: {
     type: Sequelize.TEXT
   },
+  requirements: {
+    type: Sequelize.TEXT
+  },
+  how_it_works: {
+    type: Sequelize.TEXT
+  },
   privacy: {
     type: Sequelize.STRING
   },
