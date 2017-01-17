@@ -1,7 +1,7 @@
 'use strict';
 
 let postgres = require('../drivers/postgres');
-let Sequelize = require('sequelize')
+let Sequelize = require('sequelize');
 let guid = require('guid');
 var User = postgres.define('user', {
   id: {
@@ -14,6 +14,12 @@ var User = postgres.define('user', {
     unique: true
   },
   avatar_url: {
+    type: Sequelize.STRING
+  },
+  first_name: {
+    type: Sequelize.STRING
+  },
+  last_name: {
     type: Sequelize.STRING
   },
   default_organization_id: {
@@ -30,4 +36,4 @@ var User = postgres.define('user', {
   freezeTableName: true
 });
 
-module.exports = User
+module.exports = User;

@@ -42,6 +42,8 @@ module.exports = (app, helpers) => {
   app.post('/auth/signup', async ((req, res, next) => {
     var password = req.body.password;
     var accountType = req.body.accountType ? req.body.accountType : 'organization';
+    var first_name = req.body.first_name;
+    var last_name = req.body.last_name;
     var email = req.body.email;
     email = validator.normalizeEmail(email);
     var companyName = req.body.companyName ? req.body.companyName : email;
@@ -51,10 +53,14 @@ module.exports = (app, helpers) => {
     let existing;
     existing = await(Models.Organization.findOne({where: {name: companyName}}));
     if (existing) {
-      return res.status(400).send('a organization already exists with that company name');
+      return res.status(400).send('an organization already exists with that company name');
     }
     try {
-      var user = await(Models.User.create({email: email}));
+      var user = await(Models.User.create({
+        email: email,
+        first_name: first_name,
+        last_name: last_name
+      }));
       var hash = await(Hash(password,10));
       var userSystemAuth = await(Models.UserSystemAuth.create({user_id: user.id, hash: hash}));
       let organization = await(Models.Organization.create({name: companyName}))
