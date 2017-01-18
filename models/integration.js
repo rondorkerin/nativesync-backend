@@ -68,12 +68,6 @@ var Integration = postgres.define('integration', {
   support_policy: {
     type: Sequelize.STRING
   },
-  how_it_works: {
-    type: Sequelize.TEXT
-  },
-  requirements: {
-    type: Sequelize.TEXT
-  }
 }, {
   indexes: [{fields: ['organization_id', 'internal_name'], unique: true}, {fields: ['creator_user_id']}],
   freezeTableName: true
