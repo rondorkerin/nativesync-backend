@@ -21,6 +21,9 @@ var Organization = postgres.define('organization', {
   name: {
     type: Sequelize.STRING
   },
+  discountCode: {
+    type: Sequelize.STRING
+  },
   passphrase: {
     type: Sequelize.STRING
   },
@@ -38,7 +41,7 @@ var Organization = postgres.define('organization', {
   }
 }, {
   freezeTableName: true,
-  indexes: [{fields: ['partner_id']}, {fields: ['api_key'], unique: true}]
+  indexes: [{fields: ['partner_id']}, {fields: ['api_key'], unique: true}, {fields: ['discountCode'], unique: true}]
 });
 
 module.exports = Organization

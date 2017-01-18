@@ -1,6 +1,7 @@
 'use strict';
 const Models = require('../../models');
 const Integration = Models.Integration;
+var Organization = Models.Organization;
 
 module.exports = (app) => {
 
@@ -16,6 +17,7 @@ module.exports = (app) => {
       order: ['organization_id', 'title', ['version', 'desc']]
     }).then(integrations => { return res.json({integrations: integrations}); });
   });
+
 
   app.get('/marketplace/integration/:id', (req, res) => {
     // todo: lock this down (validate the organization_id in the filter)
@@ -34,5 +36,16 @@ module.exports = (app) => {
       res.status(400).send('no such integration')
     );
   });
+
+  app.get('/marketplace/checkDiscount', helpers.checkauth('user'), (req, res) => {
+    var code = req.query.code;
+    // todo: store code securely
+    var organization = await(Organization.findOne({where: {discountCode: code}}));
+    if (organization) {
+      return res.json({discount: 0.3});
+    } else {
+      return res.json({});
+    }
+  })
 
 };
