@@ -31,7 +31,8 @@ module.exports = function(app, helpers) {
     return OAuth2.create(credentials);
   })
 
-  app.get('/oauth/2.0/callback',  async((req, res, next) => {
+  app.get('/oauth/2.0/callback',  helpers.checkauth('userCookie'), (req, res, next) => {
+    var organizationId = req.user.org.id;
     var resultObject = Object.assign(req.body, req.query);
     console.log('callback hit for org', resultObject);
     var parsedState = JSON.parse(resultObject.state);
@@ -56,10 +57,10 @@ module.exports = function(app, helpers) {
     orgAuth.value = result;
     await(orgAuth.save())
     return res.status(200).send('successfully authed!');
-  }));
+  });
 
-  app.get('/oauth/2.0/authenticate/:service_auth_id/org/:organization_id', async((req, res, next) => {
-    var organizationId = req.params.organization_id;
+  app.get('/oauth/2.0/authenticate/:service_auth_id', helpers.checkauth('userCookie'), (req, res, next) => {
+    var organizationId = req.user.org.id;
     var serviceAuth = await(Models.ServiceAuth.findById(req.params.service_auth_id))
     var oauth2 = await(createOauth(serviceAuth, organizationId));
     var state = Guid.raw();
@@ -80,6 +81,6 @@ module.exports = function(app, helpers) {
       state: JSON.stringify({state: state, organizationAuthId: orgAuth.id}),
     });
     return res.redirect(authorizationUri);
-  }));
+  });
 
 };
