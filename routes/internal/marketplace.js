@@ -3,7 +3,7 @@ const Models = require('../../models');
 const Integration = Models.Integration;
 var Organization = Models.Organization;
 
-module.exports = (app) => {
+module.exports = (app, helpers) => {
 
   app.get('/marketplace/integrations', (req, res) => {
     var filter = req.query;

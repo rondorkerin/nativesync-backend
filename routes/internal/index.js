@@ -10,7 +10,7 @@ module.exports = function(app, helpers) {
   require('./action')(internalRouter, helpers);
   require('./auth')(internalRouter, helpers);
   require('./integration')(internalRouter, helpers);
-  require('./marketplace')(internalRouter);
+  require('./marketplace')(internalRouter, helpers);
   require('./me')(internalRouter, helpers);
   require('./organization')(internalRouter, helpers);
   require('./organization_auth')(internalRouter, helpers);
