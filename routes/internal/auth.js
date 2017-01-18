@@ -12,11 +12,12 @@ const Hash = Promise.promisify(bcrypt.hash)
 const Compare  = Promise.promisify(bcrypt.compare)
 const jwt = require('jwt-simple');
 const HeaderApiKeyStrategy = require('passport-headerapikey').HeaderAPIKeyStrategy;
+const CookieStrategy = require('passport-cookie').Strategy;
 const config = require('config');
 const JWT_SECRET = config.get('jwt_secret');
 
 module.exports = (app, helpers) => {
-  helpers.passport.use('userCookie', new CookieStrategy({
+  helpers.passport.use('userCookie', new CookieStrategy(
     async((apikey, done) => {
       try {
         var payload = jwt.decode(apikey, JWT_SECRET);
