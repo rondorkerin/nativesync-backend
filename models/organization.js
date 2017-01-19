@@ -42,6 +42,9 @@ var Organization = postgres.define('organization', {
   url: {
     type: Sequelize.STRING
   },
+  stripeToken: {
+    type: Sequelize.JSON
+  },
   createdAt: {
     type: Sequelize.DATE
   },
