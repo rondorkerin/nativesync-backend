@@ -29,10 +29,12 @@ module.exports = (app, helpers) => {
     var organization = Object.assign(req.user.org, updateData);
     if (data.stripeToken) {
       if (!organization.stripe_customer_id) {
+        console.log('making stripe customer', data.stripeToken);
         var customer = await(stripe.customers.create({
           email: organization.contact_email,
-          source: stripeToken
+          source: data.stripeToken
         }));
+        console.log('stripe customer', customer);
         updateData.stripe_customer_id = customer.id;
       }
     }
