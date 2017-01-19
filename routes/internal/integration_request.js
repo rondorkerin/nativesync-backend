@@ -20,6 +20,18 @@ module.exports = (app, helpers) => {
 
   })
 
+  app.post('/integration_request/:id', helpers.checkauth('user'), (req, res) => {
+    var data = req.body;
+    try {
+      integrationRequest = await(IntegrationRequest.update(data, {where: {id: req.params.id}}));
+      return res.json({integrationRequest: integrationRequest});
+    } catch(e) {
+      console.log('error', e);
+      return res.status(500).send(e);
+    }
+
+  })
+
   app.post('/integration_requests', helpers.checkauth('user'), (req, res) => {
     var integrationRequest = req.body.integrationRequest;
     integrationRequest.jobStatus = 'unassigned';
