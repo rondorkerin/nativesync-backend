@@ -21,6 +21,15 @@ var Organization = postgres.define('organization', {
   name: {
     type: Sequelize.STRING
   },
+  contact_name: {
+    type: Sequelize.STRING
+  },
+  contact_phone: {
+    type: Sequelize.STRING
+  },
+  contact_email: {
+    type: Sequelize.STRING
+  },
   discountCode: {
     type: Sequelize.STRING
   },
