@@ -87,4 +87,5 @@ module.exports = {
   'User': User,
   'UserSystemAuth': UserSystemAuth,
   'UserOrganization': UserOrganization,
+  'IntegrationRequest': IntegrationRequest
 }
