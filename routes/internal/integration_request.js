@@ -23,7 +23,7 @@ module.exports = (app, helpers) => {
   app.post('/integration_request/:id', helpers.checkauth('user'), (req, res) => {
     var data = req.body;
     try {
-      integrationRequest = await(IntegrationRequest.update(data, {where: {id: req.params.id}}));
+      var integrationRequest = await(IntegrationRequest.update(data, {where: {id: req.params.id}}));
       return res.json({integrationRequest: integrationRequest});
     } catch(e) {
       console.log('error', e);
