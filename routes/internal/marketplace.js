@@ -1,7 +1,8 @@
 'use strict';
 const Models = require('../../models');
 const Integration = Models.Integration;
-var Organization = Models.Organization;
+var await = require('asyncawait/await');
+const Organization = Models.Organization;
 
 module.exports = (app, helpers) => {
 
