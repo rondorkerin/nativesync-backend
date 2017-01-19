@@ -51,7 +51,7 @@ var Integration = postgres.define('integration', {
     type: Sequelize.JSON
   },
   onboarding: {
-    type: Sequelize.JSON
+    type: Sequelize.STRING
   },
   configuration: {
     type: Sequelize.JSON
