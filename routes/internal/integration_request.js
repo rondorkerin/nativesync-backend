@@ -11,7 +11,7 @@ module.exports = (app, helpers) => {
   app.get('/integration_request/:id', helpers.checkauth('user'), (req, res) => {
     var integrationRequest = req.body.integrationRequest;
     try {
-      integrationRequest = await(IntegrationRequest.getById(req.path.id));
+      integrationRequest = await(IntegrationRequest.findById(req.path.id));
       return res.json({integrationRequest: integrationRequest});
     } catch(e) {
       console.log('error', e);
