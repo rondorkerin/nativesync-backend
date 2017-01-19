@@ -14,12 +14,7 @@ module.exports = (app, helpers) => {
     integrationRequest.organization_id = req.user.org.id;
     try {
       // verify discount code.
-      if (integrationRequest.discountCode) {
-        var organization = await(Models.Organization.findOne({where: {discountCode: integrationRequest.discountCode}}));
-        if (organization) {
-          integrationRequest.discount = 0.3;
-        }
-      }
+      integrationRequest = await(IntegrationRequest.getPricing(integrationRequest));
       var integrationRequest = await(IntegrationRequest.create(integrationRequest))
       return res.json({integrationRequest: integrationRequest});
     } catch(e) {

@@ -28,6 +28,7 @@ Integration.belongsToMany(Service, {as: 'Services', through: 'integration_servic
 Integration.belongsToMany(Action, {as: 'Actions', through: 'integration_action', foreignKey: 'integration_id', otherKey: 'action_id'});
 
 IntegrationRequest.belongsTo(Organization, { foreignKey: 'organization_id' })
+IntegrationRequest.belongsTo(Integration, { foreignKey: 'integration_id' })
 IntegrationRequest.belongsTo(Organization, { as: 'assignedTo', foreignKey: 'assigned_organization_id' })
 
 User.hasOne(UserSystemAuth, { foreignKey: 'user_id' })
