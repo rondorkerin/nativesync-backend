@@ -16,10 +16,7 @@ var User = postgres.define('user', {
   avatar_url: {
     type: Sequelize.STRING
   },
-  first_name: {
-    type: Sequelize.STRING
-  },
-  last_name: {
+  name: {
     type: Sequelize.STRING
   },
   default_organization_id: {
