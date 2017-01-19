@@ -11,6 +11,20 @@ module.exports = (app, helpers) => {
     return res.json(req.user);
   });
 
+  app.post('/me/updateOrg', helpers.checkauth('user'), (req, res) => {
+    var data = req.body.organization;
+    var availableFields = ['contact_name', 'contact_email', 'name', 'contact_phone'];
+    var updateData = {};
+    _.each(availableFields, (field) => {
+      if (data[field]) {
+        updateData[field] = data[field];
+      }
+    });
+    var organization = await(Models.Organization.update(updateData, {where: {id: req.user.org.id}}));
+
+    return res.json({organization: organization});
+  });
+
   app.post('/me/update', helpers.checkauth('user'), (req, res) => {
     var data = req.body;
     var availableFields = ['default_organization_id', 'name', 'avatar_url'];

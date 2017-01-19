@@ -11,6 +11,7 @@ module.exports = (app, helpers) => {
 
     try {
       if (organization.id) {
+        // check that the user belongs to the org before updating.
         await(Organization.update(organization, {where: {id: organization.id}}))
         organization = await(Organization.findById(organization.id));
       } else {
@@ -25,6 +26,7 @@ module.exports = (app, helpers) => {
       return res.status(500).send(e);
     }
   });
+
   app.get('/organization/:id', helpers.checkauth('user'), (req, res) => {
     // todo: lock this down (validate the organization_id in the filter)
     var organization = await(Organization.findById(req.params.id))

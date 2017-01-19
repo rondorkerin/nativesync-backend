@@ -8,6 +8,18 @@ const await = require('asyncawait/await')
 
 module.exports = (app, helpers) => {
 
+  app.post('/integration_request/:id', helpers.checkauth('user'), (req, res) => {
+    var integrationRequest = req.body.integrationRequest;
+    try {
+      integrationRequest = await(IntegrationRequest.getById(req.path.id));
+      return res.json({integrationRequest: integrationRequest});
+    } catch(e) {
+      console.log('error', e);
+      return res.status(500).send(e);
+    }
+
+  })
+
   app.post('/integration_requests', helpers.checkauth('user'), (req, res) => {
     var integrationRequest = req.body.integrationRequest;
     integrationRequest.jobStatus = 'unassigned';
