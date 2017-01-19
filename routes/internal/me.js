@@ -32,7 +32,7 @@ module.exports = (app, helpers) => {
         console.log('making stripe customer', data.stripeToken);
         var customer = await(stripe.customers.create({
           email: organization.contact_email,
-          source: data.stripeToken
+          source: data.stripeToken.id
         }));
         console.log('stripe customer', customer);
         updateData.stripe_customer_id = customer.id;
