@@ -23,6 +23,7 @@ module.exports = (app, helpers) => {
       var integrationRequest = await(IntegrationRequest.create(integrationRequest))
       return res.json({integrationRequest: integrationRequest});
     } catch(e) {
+      console.log('error', e);
       return res.status(500).send(e);
     }
   });
