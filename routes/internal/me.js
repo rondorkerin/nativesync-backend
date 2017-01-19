@@ -13,7 +13,7 @@ module.exports = (app, helpers) => {
 
   app.post('/me/updateOrg', helpers.checkauth('user'), (req, res) => {
     var data = req.body.organization;
-    var availableFields = ['contact_name', 'contact_email', 'name', 'contact_phone'];
+    var availableFields = ['contact_name', 'contact_email', 'name', 'contact_phone', 'stripeToken'];
     var updateData = {};
     _.each(availableFields, (field) => {
       if (data[field]) {
