@@ -46,4 +46,4 @@ var IntegrationRequest = postgres.define('integration_request', {
   freezeTableName: true
 });
 
-module.exports = Integration;
+module.exports = IntegrationRequest;
