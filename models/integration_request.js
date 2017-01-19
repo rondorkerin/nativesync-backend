@@ -22,6 +22,9 @@ var IntegrationRequest = postgres.define('integration_request', {
   cost: {
     type: Sequelize.FLOAT
   },
+  paid: {
+    type: Sequelize.BOOLEAN
+  },
   type: {
     type: Sequelize.STRING
   },
