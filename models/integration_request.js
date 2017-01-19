@@ -46,6 +46,9 @@ var IntegrationRequest = postgres.define('integration_request', {
   discountCode: {
     type: Sequelize.STRING
   },
+  checkoutToken: {
+    type: Sequelize.JSON
+  },
   createdAt: {
     type: Sequelize.DATE
   },
