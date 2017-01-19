@@ -9,6 +9,7 @@ let express = require('express');
 var bearerToken = require('express-bearer-token')
 var cors = require('cors')
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser')
 
 let app = express();
 app.Models = require('./models');
@@ -24,6 +25,7 @@ let server = require('http').createServer(app).listen(app.get('port'), function(
 app.use(passport.initialize())
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors())
+app.use(cookieParser());
 app.use(bearerToken())
 
 console.log('loading routes');

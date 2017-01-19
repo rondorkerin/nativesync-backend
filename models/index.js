@@ -6,6 +6,7 @@ var OrganizationAuth = require('./organization_auth')
 var OrganizationDatastore = require('./organization_datastore')
 var Integration = require('./integration')
 var IntegrationInstance = require('./integration_instance')
+var IntegrationRequest = require('./integration_request')
 var IntegrationCode = require('./integration_code')
 var Service = require('./service')
 var ServiceAuth = require('./service_auth')
@@ -26,6 +27,9 @@ Integration.belongsTo(Integration, { as: 'copiedFrom', foreignKey: 'copied_from_
 Integration.belongsToMany(Service, {as: 'Services', through: 'integration_service', foreignKey: 'integration_id', otherKey: 'service_id'});
 Integration.belongsToMany(Action, {as: 'Actions', through: 'integration_action', foreignKey: 'integration_id', otherKey: 'action_id'});
 
+IntegrationRequest.belongsTo(Organization, { foreignKey: 'organization_id' })
+IntegrationRequest.belongsTo(Integration, { foreignKey: 'integration_id' })
+IntegrationRequest.belongsTo(Organization, { as: 'assignedTo', foreignKey: 'assigned_organization_id' })
 
 User.hasOne(UserSystemAuth, { foreignKey: 'user_id' })
 User.belongsToMany(Organization, {as: 'Organizations', through: UserOrganization, foreignKey: 'user_id', otherKey: 'organization_id'});
@@ -36,6 +40,9 @@ Organization.hasMany(OrganizationDatastore, { foreignKey: 'organization_id' })
 Organization.hasMany(OrganizationSystemAuth, { foreignKey: 'organization_id' })
 Organization.hasMany(Organization, { as: 'manages', foreignKey: 'managing_organization_id' })
 Organization.hasMany(Organization, { as: 'paysBillFor', foreignKey: 'billing_organization_id' })
+Organization.hasMany(IntegrationRequest, { as: 'requestedIntegrations', foreignKey: 'organization_id' })
+Organization.hasMany(IntegrationRequest, { as: 'assignedIntegrationRequests', foreignKey: 'assigned_organization_id' })
+IntegrationRequest.belongsTo(Organization, { as: 'assignedTo', foreignKey: 'assigned_organization_id' })
 Organization.belongsTo(Organization, { as: 'manager', foreignKey: 'managing_organization_id' })
 Organization.belongsTo(Organization, { as: 'billedTo', foreignKey: 'billing_organization_id' })
 Organization.hasMany(Service, { foreignKey: 'organization_id' })
@@ -81,4 +88,5 @@ module.exports = {
   'User': User,
   'UserSystemAuth': UserSystemAuth,
   'UserOrganization': UserOrganization,
+  'IntegrationRequest': IntegrationRequest
 }

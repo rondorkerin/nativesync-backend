@@ -9,9 +9,10 @@ var await = require('asyncawait/await');
 var async = require('asyncawait/async');
 
 module.exports = function(app, helpers) {
-  app.get('/oauth/1.0/callback/:service_auth_id/org/:organization_id', async((req, res, next) => {
+  app.get('/oauth/1.0/callback/:service_auth_id', helpers.checkauth('userCookie'), (req, res, next) => {
+    // todo: org id
+    var organizationId = req.user.org.id;;
     console.log('callback URL hit', req.body, req.query, req.params);
-    var organization_id = req.params.organization_id;
     var resultParams = req.query;
     console.log('req query', req.query);
     var serviceAuth = await(Models.ServiceAuth.findById(req.params.service_auth_id))
@@ -32,11 +33,10 @@ module.exports = function(app, helpers) {
       async(function(error, oauthAccessToken, oauthAccessTokenSecret, results) {
       console.log('acces token', oauthAccessToken, oauthAccessTokenSecret);
       // grab the params out of req.query and shove them into the organizationAuth object.
-      var orgId = req.params.organization_id;
       var serviceId = serviceAuth.service_id;
       var serviceAuthId = serviceAuth.id;
       var organizationAuth = {
-        organization_id: orgId,
+        organization_id: organizationId,
         service_id: serviceId,
         service_auth_id: serviceAuthId,
         value: Object.assign(req.query, {
@@ -46,7 +46,7 @@ module.exports = function(app, helpers) {
           consumerSecret: serviceAuth.details.consumerSecret,
         })
       }
-      var existing = await(Models.OrganizationAuth.findOne({where: {organization_id: orgId, service_id: serviceId, service_auth_id: serviceAuthId}}));
+      var existing = await(Models.OrganizationAuth.findOne({where: {organization_id: organizationId, service_id: serviceId, service_auth_id: serviceAuthId}}));
       console.log('existing org auth', existing);
       if (existing) {
         existing.value = organizationAuth.value;
@@ -57,11 +57,12 @@ module.exports = function(app, helpers) {
       console.log('returning')
       return res.send('authentication success');
     }));
-  }))
+  })
 
-  app.get('/oauth/1.0/authenticate/:service_auth_id/org/:organization_id', async((req, res, next) => {
+  app.get('/oauth/1.0/authenticate/:service_auth_id', helpers.checkauth('userCookie'), (req, res, next) => {
+    var organizationId = req.user.org.id;;
     var serviceAuth = await(Models.ServiceAuth.findById(req.params.service_auth_id))
-    var callbackURL = `https://api.nativesync.io/oauth/callback/1.0/${serviceAuth.id}/org/${req.params.organization_id}`;
+    var callbackURL = `https://api.nativesync.io/oauth/callback/1.0/${serviceAuth.id}`;
     var oa = new OAuth.OAuth(
       serviceAuth.details.requestTokenUrl,
       serviceAuth.details.accessTokenRequestUrl,
@@ -87,5 +88,5 @@ module.exports = function(app, helpers) {
         res.redirect(`${details.authUrl}?oauth_token=${oauthToken}`)
       }
     }))
-  }));
+  });
 };
