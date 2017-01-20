@@ -19,6 +19,15 @@ var IntegrationRequest = postgres.define('integration_request', {
   integration_id: {
     type: Sequelize.BIGINT
   },
+  contact_name: {
+    type: Sequelize.STRING
+  },
+  contact_phone: {
+    type: Sequelize.STRING
+  },
+  contact_email: {
+    type: Sequelize.STRING
+  },
   cost: {
     type: Sequelize.FLOAT
   },
