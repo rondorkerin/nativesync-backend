@@ -61,9 +61,8 @@ module.exports = (app, helpers) => {
   //anyone can access this route
   app.post('/auth/signup', async ((req, res, next) => {
     var password = req.body.password;
-    var accountType = req.body.accountType ? req.body.accountType : 'organization';
-    var first_name = req.body.first_name;
-    var last_name = req.body.last_name;
+    // var accountType = req.body.accountType ? req.body.accountType : 'organization';
+    var name = req.body.name;
     var email = req.body.email;
     email = validator.normalizeEmail(email);
     var companyName = req.body.companyName ? req.body.companyName : email;
@@ -78,8 +77,7 @@ module.exports = (app, helpers) => {
     try {
       var user = await(Models.User.create({
         email: email,
-        first_name: first_name,
-        last_name: last_name
+        name: name,
       }));
       var hash = await(Hash(password,10));
       var userSystemAuth = await(Models.UserSystemAuth.create({user_id: user.id, hash: hash}));
