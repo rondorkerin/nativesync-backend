@@ -21,6 +21,9 @@ var Organization = postgres.define('organization', {
   name: {
     type: Sequelize.STRING
   },
+  overview_copy: {
+    type: Sequelize.TEXT
+  },
   contact_name: {
     type: Sequelize.STRING
   },
