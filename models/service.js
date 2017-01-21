@@ -23,6 +23,9 @@ var Service = postgres.define('service', {
     type: Sequelize.STRING,
     unique: true
   },
+  description: {
+    type: Sequelize.TEXT,
+  },
   domain: {
     type: Sequelize.STRING,
     unique: true

@@ -5,7 +5,7 @@ var await = require('asyncawait/await')
 
 module.exports = {
   up: async(function (queryInterface, Sequelize) {
-    await(queryInterface.addColumn( 'action', 'description', Sequelize.TEXT))
+    await(queryInterface.addColumn( 'service', 'description', Sequelize.TEXT))
   }),
 
   down: function (queryInterface, Sequelize) {

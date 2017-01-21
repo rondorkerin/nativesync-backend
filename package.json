@@ -54,6 +54,8 @@
     "statesync": "^0.1.2",
     "stripe": "^4.15.0",
     "swagger-parser": "^3.4.1",
+    "uri-js": "^2.1.1",
+    "urijs": "^1.18.4",
     "url-join": "^1.1.0",
     "use-strict": "^1.0.1",
     "xmldom": "^0.1.27"
