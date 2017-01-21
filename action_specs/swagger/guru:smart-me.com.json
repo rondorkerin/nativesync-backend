@@ -86,6 +86,77 @@
           ]
         }
       },
+      "/api/Actions": {
+        "post": {
+          "consumes": [
+            "application/json",
+            "text/json",
+            "application/xml",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "deprecated": false,
+          "description": "Set an action for the specified device.",
+          "parameters": [
+            {
+              "description": "The Action Data",
+              "in": "body",
+              "name": "actionToPost",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ActionToPost"
+              }
+            }
+          ],
+          "produces": [],
+          "responses": {
+            "204": {
+              "description": "No Content"
+            }
+          },
+          "summary": "Set an action for the specified device.",
+          "tags": [
+            "Actions"
+          ]
+        }
+      },
+      "/api/Actions/{id}": {
+        "get": {
+          "consumes": [],
+          "deprecated": false,
+          "description": "Gets all available Actions of a Device",
+          "parameters": [
+            {
+              "description": "The ID of the device",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "application/xml",
+            "text/xml"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "items": {
+                  "$ref": "#/definitions/ActionInformation"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "summary": "Gets all available Actions of a Device",
+          "tags": [
+            "Actions"
+          ]
+        }
+      },
       "/api/CustomDevice": {
         "get": {
           "consumes": [],
@@ -333,7 +404,7 @@
         "put": {
           "consumes": [],
           "deprecated": false,
-          "description": "Updates the On/Off Switch on a device",
+          "description": "Updates the On/Off Switch on a device\r\n            For new implementations please use the \"actions\" command",
           "parameters": [
             {
               "description": "The ID of the device",
@@ -348,6 +419,14 @@
               "name": "switchState",
               "required": true,
               "type": "boolean"
+            },
+            {
+              "description": "The number of the switch if there are multiple (1 for L1, 3 for L3)",
+              "format": "int32",
+              "in": "query",
+              "name": "switchNumber",
+              "required": false,
+              "type": "integer"
             }
           ],
           "produces": [
@@ -370,7 +449,7 @@
               "description": "MethodNotAllowed"
             }
           },
-          "summary": "Updates the On/Off Switch on a device.",
+          "summary": "Updates the On/Off Switch on a device. \r\n            For new implementations please use the \"actions\" command",
           "tags": [
             "Devices"
           ]
@@ -395,7 +474,8 @@
                 "MeterTypeMBusGateway",
                 "MeterTypeRS485Gateway",
                 "MeterTypeCustomDevice",
-                "MeterTypeCompressedAir"
+                "MeterTypeCompressedAir",
+                "MeterTypeSolarLog"
               ],
               "in": "query",
               "name": "meterEnergyType",
@@ -622,6 +702,54 @@
           ]
         }
       },
+      "/api/SignUp": {
+        "post": {
+          "consumes": [
+            "application/json",
+            "text/json",
+            "application/xml",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "deprecated": false,
+          "description": "Sign up a new User.\r\n            The sign up is done on the smart-me Cloud.",
+          "parameters": [
+            {
+              "description": "The user data",
+              "in": "body",
+              "name": "signUpData",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/SignUpData"
+              }
+            }
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "application/xml",
+            "text/xml"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            },
+            "400": {
+              "description": "BadRequest"
+            },
+            "500": {
+              "description": "InternalServerError"
+            }
+          },
+          "summary": "Sign up a new User.\r\n            The sign up is done on the smart-me Cloud.",
+          "tags": [
+            "SignUp"
+          ]
+        }
+      },
       "/api/User": {
         "get": {
           "consumes": [],
@@ -821,6 +949,70 @@
         },
         "type": "object"
       },
+      "ActionInformation": {
+        "description": "The Information about an Action of a device",
+        "properties": {
+          "ActionType": {
+            "description": "The Type of this action.",
+            "enum": [
+              "OnOffAction",
+              "AnalogAction"
+            ],
+            "type": "string"
+          },
+          "MaxValue": {
+            "description": "The maximum value of this action (e.g. for an AnalogAction)",
+            "format": "double",
+            "type": "number"
+          },
+          "MinValue": {
+            "description": "The minimum value of this action (e.g. for an AnalogAction)",
+            "format": "double",
+            "type": "number"
+          },
+          "Name": {
+            "description": "The Name of this action",
+            "type": "string"
+          },
+          "ObisCode": {
+            "description": "The Obis Code of this action. This is used as ID.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ActionToPost": {
+        "description": "Container Class for an action to post",
+        "properties": {
+          "Actions": {
+            "description": "List with all Actions for this device",
+            "items": {
+              "$ref": "#/definitions/ActionToPostItem"
+            },
+            "type": "array"
+          },
+          "DeviceID": {
+            "description": "The ID of the Device",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ActionToPostItem": {
+        "description": "Container class for an action item",
+        "properties": {
+          "ObisCode": {
+            "description": "The ObisCode (ID) of the Action",
+            "type": "string"
+          },
+          "Value": {
+            "description": "The Value to Post",
+            "format": "double",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
       "CustomDeviceToPost": {
         "description": "Container Class for the Web API",
         "properties": {
@@ -962,7 +1154,8 @@
               "MeterTypeMBusGateway",
               "MeterTypeRS485Gateway",
               "MeterTypeCustomDevice",
-              "MeterTypeCompressedAir"
+              "MeterTypeCompressedAir",
+              "MeterTypeSolarLog"
             ],
             "type": "string"
           },
@@ -1020,6 +1213,18 @@
           },
           "SwitchOn": {
             "description": "Flag if the Switch is on on this device.",
+            "type": "boolean"
+          },
+          "SwitchPhaseL1On": {
+            "description": "Flag if the Phase L1 is on on this device.",
+            "type": "boolean"
+          },
+          "SwitchPhaseL2On": {
+            "description": "Flag if the Phase L2 is on on this device.",
+            "type": "boolean"
+          },
+          "SwitchPhaseL3On": {
+            "description": "Flag if the Phase L3 is on on this device.",
             "type": "boolean"
           },
           "Temperature": {
@@ -1191,7 +1396,8 @@
               "MeterTypeMBusGateway",
               "MeterTypeRS485Gateway",
               "MeterTypeCustomDevice",
-              "MeterTypeCompressedAir"
+              "MeterTypeCompressedAir",
+              "MeterTypeSolarLog"
             ],
             "type": "string"
           },
@@ -1317,6 +1523,24 @@
             "description": "The Number of this Output. Use this as ID to switch it on or off.",
             "format": "int32",
             "type": "integer"
+          },
+          "ObisCode": {
+            "description": "The Obis Code for this Output",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SignUpData": {
+        "description": "Container for the Sign UP API",
+        "properties": {
+          "Email": {
+            "description": "The Email Address to register",
+            "type": "string"
+          },
+          "Password": {
+            "description": "The Password to register",
+            "type": "string"
           }
         },
         "type": "object"

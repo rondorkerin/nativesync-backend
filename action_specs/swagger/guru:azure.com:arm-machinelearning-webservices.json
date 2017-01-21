@@ -101,17 +101,17 @@
           "operationId": "WebServices_List",
           "parameters": [
             {
-              "$ref": "#/parameters/SubscriptionIdParameter"
-            },
-            {
-              "$ref": "#/parameters/APIVersionParameter"
-            },
-            {
               "description": "Continuation token for pagination.",
               "in": "query",
               "name": "$skiptoken",
               "required": false,
               "type": "string"
+            },
+            {
+              "$ref": "#/parameters/APIVersionParameter"
+            },
+            {
+              "$ref": "#/parameters/SubscriptionIdParameter"
             }
           ],
           "responses": {
@@ -124,22 +124,19 @@
           },
           "tags": [
             "WebServices"
-          ]
+          ],
+          "x-ms-pageable": {
+            "nextLinkName": "nextLink"
+          }
         }
       },
       "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/webServices": {
         "get": {
           "description": "Gets the web services in the specified resource group.",
-          "operationId": "WebServices_ListInResourceGroup",
+          "operationId": "WebServices_ListByResourceGroup",
           "parameters": [
             {
-              "$ref": "#/parameters/SubscriptionIdParameter"
-            },
-            {
               "$ref": "#/parameters/ResourceGroupNameParameter"
-            },
-            {
-              "$ref": "#/parameters/APIVersionParameter"
             },
             {
               "description": "Continuation token for pagination.",
@@ -147,6 +144,12 @@
               "name": "$skiptoken",
               "required": false,
               "type": "string"
+            },
+            {
+              "$ref": "#/parameters/APIVersionParameter"
+            },
+            {
+              "$ref": "#/parameters/SubscriptionIdParameter"
             }
           ],
           "responses": {
@@ -159,7 +162,10 @@
           },
           "tags": [
             "WebServices"
-          ]
+          ],
+          "x-ms-pageable": {
+            "nextLinkName": "nextLink"
+          }
         }
       },
       "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/webServices/{webServiceName}": {
@@ -168,9 +174,6 @@
           "operationId": "WebServices_Remove",
           "parameters": [
             {
-              "$ref": "#/parameters/SubscriptionIdParameter"
-            },
-            {
               "$ref": "#/parameters/ResourceGroupNameParameter"
             },
             {
@@ -178,11 +181,17 @@
             },
             {
               "$ref": "#/parameters/APIVersionParameter"
+            },
+            {
+              "$ref": "#/parameters/SubscriptionIdParameter"
             }
           ],
           "responses": {
             "202": {
               "description": "Accepted. Note that a 202 status is returned even if the service did not exist."
+            },
+            "204": {
+              "description": "No Content."
             }
           },
           "tags": [
@@ -195,9 +204,6 @@
           "operationId": "WebServices_Get",
           "parameters": [
             {
-              "$ref": "#/parameters/SubscriptionIdParameter"
-            },
-            {
               "$ref": "#/parameters/ResourceGroupNameParameter"
             },
             {
@@ -205,6 +211,9 @@
             },
             {
               "$ref": "#/parameters/APIVersionParameter"
+            },
+            {
+              "$ref": "#/parameters/SubscriptionIdParameter"
             }
           ],
           "responses": {
@@ -224,16 +233,10 @@
           "operationId": "WebServices_Patch",
           "parameters": [
             {
-              "$ref": "#/parameters/SubscriptionIdParameter"
-            },
-            {
               "$ref": "#/parameters/ResourceGroupNameParameter"
             },
             {
               "$ref": "#/parameters/WebServiceNameParameter"
-            },
-            {
-              "$ref": "#/parameters/APIVersionParameter"
             },
             {
               "description": "The payload to use to patch the web service.",
@@ -243,6 +246,12 @@
               "schema": {
                 "$ref": "#/definitions/WebService"
               }
+            },
+            {
+              "$ref": "#/parameters/APIVersionParameter"
+            },
+            {
+              "$ref": "#/parameters/SubscriptionIdParameter"
             }
           ],
           "responses": {
@@ -263,16 +272,10 @@
           "operationId": "WebServices_CreateOrUpdate",
           "parameters": [
             {
-              "$ref": "#/parameters/SubscriptionIdParameter"
-            },
-            {
               "$ref": "#/parameters/ResourceGroupNameParameter"
             },
             {
               "$ref": "#/parameters/WebServiceNameParameter"
-            },
-            {
-              "$ref": "#/parameters/APIVersionParameter"
             },
             {
               "description": "The payload that is used to create or update the web service.",
@@ -282,6 +285,12 @@
               "schema": {
                 "$ref": "#/definitions/WebService"
               }
+            },
+            {
+              "$ref": "#/parameters/APIVersionParameter"
+            },
+            {
+              "$ref": "#/parameters/SubscriptionIdParameter"
             }
           ],
           "responses": {
@@ -310,9 +319,6 @@
           "operationId": "WebServices_ListKeys",
           "parameters": [
             {
-              "$ref": "#/parameters/SubscriptionIdParameter"
-            },
-            {
               "$ref": "#/parameters/ResourceGroupNameParameter"
             },
             {
@@ -320,6 +326,9 @@
             },
             {
               "$ref": "#/parameters/APIVersionParameter"
+            },
+            {
+              "$ref": "#/parameters/SubscriptionIdParameter"
             }
           ],
           "responses": {

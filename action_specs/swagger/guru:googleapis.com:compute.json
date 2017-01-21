@@ -10091,6 +10091,29 @@
               "name": "instanceGroupManager",
               "required": true,
               "type": "string"
+            },
+            {
+              "in": "query",
+              "name": "filter",
+              "type": "string"
+            },
+            {
+              "default": 500,
+              "in": "query",
+              "maximum": 500,
+              "minimum": 0,
+              "name": "maxResults",
+              "type": "integer"
+            },
+            {
+              "in": "query",
+              "name": "order_by",
+              "type": "string"
+            },
+            {
+              "in": "query",
+              "name": "pageToken",
+              "type": "string"
             }
           ],
           "responses": {
@@ -15378,6 +15401,29 @@
               "name": "instanceGroupManager",
               "required": true,
               "type": "string"
+            },
+            {
+              "in": "query",
+              "name": "filter",
+              "type": "string"
+            },
+            {
+              "default": 500,
+              "in": "query",
+              "maximum": 500,
+              "minimum": 0,
+              "name": "maxResults",
+              "type": "integer"
+            },
+            {
+              "in": "query",
+              "name": "order_by",
+              "type": "string"
+            },
+            {
+              "in": "query",
+              "name": "pageToken",
+              "type": "string"
             }
           ],
           "responses": {
@@ -19367,6 +19413,10 @@
       },
       "CacheInvalidationRule": {
         "properties": {
+          "host": {
+            "description": "If set, this invalidation rule will only apply to requests with a Host header matching host.",
+            "type": "string"
+          },
           "path": {
             "type": "string"
           }
@@ -20317,7 +20367,7 @@
             "type": "integer"
           },
           "type": {
-            "description": "Specifies the type of the healthCheck, either TCP, UDP, SSL, HTTP, HTTPS or HTTP2. If not specified, the default is TCP. Exactly one of the protocol-specific health check field must be specified, which must match type field.",
+            "description": "Specifies the type of the healthCheck, either TCP, SSL, HTTP or HTTPS. If not specified, the default is TCP. Exactly one of the protocol-specific health check field must be specified, which must match type field.",
             "enum": [
               "HTTP",
               "HTTPS",
@@ -22676,6 +22726,7 @@
               "TARGET_POOLS",
               "TARGET_SSL_PROXIES",
               "TARGET_VPN_GATEWAYS",
+              "TOTAL_CPUS",
               "URL_MAPS",
               "VPN_TUNNELS"
             ],
@@ -23752,7 +23803,7 @@
             "type": "string"
           },
           "privateKey": {
-            "description": "A write-only private key in PEM format. Only insert RPCs will include this field.",
+            "description": "A write-only private key in PEM format. Only insert requests will include this field.",
             "type": "string"
           },
           "selfLink": {

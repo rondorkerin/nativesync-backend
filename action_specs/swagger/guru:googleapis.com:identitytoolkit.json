@@ -64,6 +64,7 @@
         "description": "Oauth 2.0 authentication",
         "flow": "implicit",
         "scopes": {
+          "https://www.googleapis.com/auth/cloud-platform": "View and manage your data across Google Cloud Platform services",
           "https://www.googleapis.com/auth/firebase": "View and administer all your Firebase data and settings"
         },
         "type": "oauth2"
@@ -168,6 +169,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -217,6 +225,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -267,6 +282,11 @@
             }
           },
           "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            },
             {
               "Oauth2": [
                 "https://www.googleapis.com/auth/firebase"
@@ -322,6 +342,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -371,6 +398,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -402,6 +436,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -442,6 +483,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -482,6 +530,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -554,6 +609,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -603,6 +665,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -652,6 +721,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -701,6 +777,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -750,6 +833,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -800,6 +890,11 @@
             }
           },
           "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            },
             {
               "Oauth2": [
                 "https://www.googleapis.com/auth/firebase"
@@ -855,6 +950,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -904,6 +1006,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -953,6 +1062,13 @@
               }
             }
           },
+          "security": [
+            {
+              "Oauth2": [
+                "https://www.googleapis.com/auth/cloud-platform"
+              ]
+            }
+          ],
           "tags": [
             "relyingparty"
           ]
@@ -1221,6 +1337,10 @@
           },
           "nextPageToken": {
             "description": "The token for the next page. This should be taken from the previous response.",
+            "type": "string"
+          },
+          "targetProjectId": {
+            "description": "Specify which project (field value is actually project id) to operate. Only used when provided credential.",
             "type": "string"
           }
         },

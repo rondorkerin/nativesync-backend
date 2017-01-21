@@ -44,7 +44,7 @@
       "application/json"
     ],
     "securityDefinitions": {
-      "psirt_openvuin_api_auth": {
+      "psirt_openvuln_api_auth": {
         "authorizationUrl": "https://cloudsso.cisco.com/as/token.oauth2",
         "flow": "implicit",
         "scopes": {
@@ -75,7 +75,7 @@
           },
           "security": [
             {
-              "psirt_openvuin_api_auth": [
+              "psirt_openvuln_api_auth": [
                 "read:cvrf",
                 "read:oval"
               ]
@@ -93,7 +93,7 @@
           },
           "security": [
             {
-              "psirt_openvuin_api_auth": [
+              "psirt_openvuln_api_auth": [
                 "read:cvrf",
                 "read:oval"
               ]
@@ -121,7 +121,7 @@
           },
           "security": [
             {
-              "psirt_openvuin_api_auth": [
+              "psirt_openvuln_api_auth": [
                 "read:cvrf",
                 "read:oval"
               ]
@@ -149,7 +149,35 @@
           },
           "security": [
             {
-              "psirt_openvuin_api_auth": [
+              "psirt_openvuln_api_auth": [
+                "read:cvrf",
+                "read:oval"
+              ]
+            }
+          ]
+        }
+      },
+      "/security/advisories/cvrf/product": {
+        "get": {
+          "description": "Used to obtain all the advisories that affects the given product name.\n",
+          "parameters": [
+            {
+              "description": "An product name to obtain security advisories that matches given product name.",
+              "format": "string",
+              "in": "query",
+              "name": "product",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          },
+          "security": [
+            {
+              "psirt_openvuln_api_auth": [
                 "read:cvrf",
                 "read:oval"
               ]
@@ -162,7 +190,7 @@
           "description": "Used to obtain all security advisories for a given security impact rating (critical, high, medium, or low) in CVRF format.\n",
           "parameters": [
             {
-              "description": "Used to obtain all advisories that have a security impact rating of critical",
+              "description": "Critical, High, Medium, Low",
               "enum": [
                 "critical",
                 "high",
@@ -183,7 +211,103 @@
           },
           "security": [
             {
-              "psirt_openvuin_api_auth": [
+              "psirt_openvuln_api_auth": [
+                "read:cvrf",
+                "read:oval"
+              ]
+            }
+          ]
+        }
+      },
+      "/security/advisories/cvrf/severity/{severity}/firstpublished": {
+        "get": {
+          "description": "Used to obtain all security advisories for a given security impact rating (critical, high, medium, or low) in CVRF format and additionally filter based of firstpublished start date and enddate\n",
+          "parameters": [
+            {
+              "description": "Used to obtain all advisories that have a security impact rating of critical",
+              "enum": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "format": "enum",
+              "in": "path",
+              "name": "severity",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "in": "query",
+              "name": "startDate",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "in": "query",
+              "name": "endDate",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          },
+          "security": [
+            {
+              "psirt_openvuln_api_auth": [
+                "read:cvrf",
+                "read:oval"
+              ]
+            }
+          ]
+        }
+      },
+      "/security/advisories/cvrf/severity/{severity}/lastpublished": {
+        "get": {
+          "description": "Used to obtain all security advisories for a given security impact rating (critical, high, medium, or low) in CVRF format.\n",
+          "parameters": [
+            {
+              "description": "Used to obtain all advisories that have a security impact rating of critical",
+              "enum": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "format": "enum",
+              "in": "path",
+              "name": "severity",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "in": "query",
+              "name": "startDate",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "in": "query",
+              "name": "endDate",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          },
+          "security": [
+            {
+              "psirt_openvuln_api_auth": [
                 "read:cvrf",
                 "read:oval"
               ]
@@ -211,7 +335,63 @@
           },
           "security": [
             {
-              "psirt_openvuin_api_auth": [
+              "psirt_openvuln_api_auth": [
+                "read:cvrf",
+                "read:oval"
+              ]
+            }
+          ]
+        }
+      },
+      "/security/advisories/ios": {
+        "get": {
+          "description": "Used to obtain all advisories that affects the given ios version\n",
+          "parameters": [
+            {
+              "description": "IOS version to obtain security advisories",
+              "format": "string",
+              "in": "query",
+              "name": "version",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          },
+          "security": [
+            {
+              "psirt_openvuln_api_auth": [
+                "read:cvrf",
+                "read:oval"
+              ]
+            }
+          ]
+        }
+      },
+      "/security/advisories/iosxe": {
+        "get": {
+          "description": "Used to obtain all advisories that affects the given ios version\n",
+          "parameters": [
+            {
+              "description": "IOS version to obtain security advisories",
+              "format": "string",
+              "in": "query",
+              "name": "version",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          },
+          "security": [
+            {
+              "psirt_openvuln_api_auth": [
                 "read:cvrf",
                 "read:oval"
               ]
@@ -239,7 +419,7 @@
           },
           "security": [
             {
-              "psirt_openvuin_api_auth": [
+              "psirt_openvuln_api_auth": [
                 "read:cvrf",
                 "read:oval"
               ]
@@ -257,7 +437,7 @@
           },
           "security": [
             {
-              "psirt_openvuin_api_auth": [
+              "psirt_openvuln_api_auth": [
                 "read:cvrf",
                 "read:oval"
               ]
@@ -285,7 +465,7 @@
           },
           "security": [
             {
-              "psirt_openvuin_api_auth": [
+              "psirt_openvuln_api_auth": [
                 "read:cvrf",
                 "read:oval"
               ]
@@ -313,7 +493,35 @@
           },
           "security": [
             {
-              "psirt_openvuin_api_auth": [
+              "psirt_openvuln_api_auth": [
+                "read:cvrf",
+                "read:oval"
+              ]
+            }
+          ]
+        }
+      },
+      "/security/advisories/oval/product": {
+        "get": {
+          "description": "Used to obtain all the oval advisories that affects the given product name.\n",
+          "parameters": [
+            {
+              "description": "An product name to obtain security advisories that matches given product name.",
+              "format": "string",
+              "in": "query",
+              "name": "product",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          },
+          "security": [
+            {
+              "psirt_openvuln_api_auth": [
                 "read:cvrf",
                 "read:oval"
               ]
@@ -347,7 +555,103 @@
           },
           "security": [
             {
-              "psirt_openvuin_api_auth": [
+              "psirt_openvuln_api_auth": [
+                "read:cvrf",
+                "read:oval"
+              ]
+            }
+          ]
+        }
+      },
+      "/security/advisories/oval/severity/{severity}/firstpublished": {
+        "get": {
+          "description": "Used to obtain all security advisories for a given security impact rating (critical, high, medium, or low) in OVAL format.\n",
+          "parameters": [
+            {
+              "description": "Critical, High, Medium, Low",
+              "enum": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "format": "enum",
+              "in": "path",
+              "name": "severity",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "in": "query",
+              "name": "startDate",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "in": "query",
+              "name": "endDate",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          },
+          "security": [
+            {
+              "psirt_openvuln_api_auth": [
+                "read:cvrf",
+                "read:oval"
+              ]
+            }
+          ]
+        }
+      },
+      "/security/advisories/oval/severity/{severity}/lastpublished": {
+        "get": {
+          "description": "Used to obtain all security advisories for a given security impact rating (critical, high, medium, or low) in OVAL format.\n",
+          "parameters": [
+            {
+              "description": "Critical, High, Medium, Low",
+              "enum": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "format": "enum",
+              "in": "path",
+              "name": "severity",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "in": "query",
+              "name": "startDate",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "format": "date",
+              "in": "query",
+              "name": "endDate",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          },
+          "security": [
+            {
+              "psirt_openvuln_api_auth": [
                 "read:cvrf",
                 "read:oval"
               ]

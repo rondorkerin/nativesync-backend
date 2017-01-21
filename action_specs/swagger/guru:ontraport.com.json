@@ -1875,7 +1875,13 @@
           "operationId": "writeOff",
           "parameters": [
             {
-              "$ref": "#/parameters/idParamFormData"
+              "description": "Criteria of Transactions to write off.",
+              "in": "body",
+              "name": "criteria",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Criteria"
+              }
             }
           ],
           "responses": {

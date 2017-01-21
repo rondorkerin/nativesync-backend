@@ -1084,13 +1084,6 @@
           "operationId": "ElasticPools_ListDatabaseActivity",
           "parameters": [
             {
-              "description": "The name of the Azure SQL Elastic Pool.",
-              "in": "path",
-              "name": "elasticPoolName",
-              "required": true,
-              "type": "string"
-            },
-            {
               "$ref": "#/parameters/ApiVersionParameter"
             },
             {
@@ -1101,6 +1094,13 @@
             },
             {
               "$ref": "#/parameters/ServerNameParameter"
+            },
+            {
+              "description": "The name of the Azure SQL Elastic Pool.",
+              "in": "path",
+              "name": "elasticPoolName",
+              "required": true,
+              "type": "string"
             }
           ],
           "responses": {
@@ -2728,7 +2728,6 @@
           },
           "currentServiceLevelObjective": {
             "description": "Gets or sets currentServiceLevelObjective for service tier advisor.",
-            "format": "uuid",
             "readOnly": true,
             "type": "string"
           },
@@ -2823,11 +2822,6 @@
         }
       },
       "SloUsageMetric": {
-        "allOf": [
-          {
-            "$ref": "#/definitions/Resource"
-          }
-        ],
         "description": "Represents a Slo Usage Metric.",
         "properties": {
           "inRangeTimeRatio": {
@@ -3023,11 +3017,6 @@
         }
       },
       "UpgradeHint": {
-        "allOf": [
-          {
-            "$ref": "#/definitions/Resource"
-          }
-        ],
         "description": "Represents a Upgrade Hint.",
         "properties": {
           "targetServiceLevelObjective": {

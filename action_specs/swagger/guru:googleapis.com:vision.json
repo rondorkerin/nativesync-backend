@@ -269,10 +269,10 @@
         "properties": {
           "error": {
             "$ref": "#/definitions/Status",
-            "description": "If set, represents the error message for the operation.\nNote that filled-in image annotations are guaranteed to be\ncorrect, even when <code>error</code> is non-empty."
+            "description": "If set, represents the error message for the operation.\nNote that filled-in image annotations are guaranteed to be\ncorrect, even when `error` is set."
           },
           "faceAnnotations": {
-            "description": "If present, face detection completed successfully.",
+            "description": "If present, face detection has completed successfully.",
             "items": {
               "$ref": "#/definitions/FaceAnnotation"
             },
@@ -283,21 +283,21 @@
             "description": "If present, image properties were extracted successfully."
           },
           "labelAnnotations": {
-            "description": "If present, label detection completed successfully.",
+            "description": "If present, label detection has completed successfully.",
             "items": {
               "$ref": "#/definitions/EntityAnnotation"
             },
             "type": "array"
           },
           "landmarkAnnotations": {
-            "description": "If present, landmark detection completed successfully.",
+            "description": "If present, landmark detection has completed successfully.",
             "items": {
               "$ref": "#/definitions/EntityAnnotation"
             },
             "type": "array"
           },
           "logoAnnotations": {
-            "description": "If present, logo detection completed successfully.",
+            "description": "If present, logo detection has completed successfully.",
             "items": {
               "$ref": "#/definitions/EntityAnnotation"
             },
@@ -305,10 +305,10 @@
           },
           "safeSearchAnnotation": {
             "$ref": "#/definitions/SafeSearchAnnotation",
-            "description": "If present, safe-search annotation completed successfully."
+            "description": "If present, safe-search annotation has completed successfully."
           },
           "textAnnotations": {
-            "description": "If present, text (OCR) detection completed successfully.",
+            "description": "If present, text (OCR) detection has completed successfully.",
             "items": {
               "$ref": "#/definitions/EntityAnnotation"
             },
@@ -383,14 +383,14 @@
         "type": "object"
       },
       "ColorInfo": {
-        "description": "Color information consists of RGB channels, score and fraction of\nimage the color occupies in the image.",
+        "description": "Color information consists of RGB channels, score, and the fraction of\nthe image that the color occupies in the image.",
         "properties": {
           "color": {
             "$ref": "#/definitions/Color",
             "description": "RGB components of the color."
           },
           "pixelFraction": {
-            "description": "Stores the fraction of pixels the color occupies in the image.\nValue in range [0, 1].",
+            "description": "The fraction of pixels the color occupies in the image.\nValue in range [0, 1].",
             "format": "float",
             "type": "number"
           },
@@ -406,7 +406,7 @@
         "description": "Set of dominant colors and their corresponding scores.",
         "properties": {
           "colors": {
-            "description": "RGB color values, with their score and pixel fraction.",
+            "description": "RGB color values with their score and pixel fraction.",
             "items": {
               "$ref": "#/definitions/ColorInfo"
             },
@@ -420,34 +420,34 @@
         "properties": {
           "boundingPoly": {
             "$ref": "#/definitions/BoundingPoly",
-            "description": "Image region to which this entity belongs. Not filled currently\nfor `LABEL_DETECTION` features. For `TEXT_DETECTION` (OCR), `boundingPoly`s\nare produced for the entire text detected in an image region, followed by\n`boundingPoly`s for each word within the detected text."
+            "description": "Image region to which this entity belongs. Currently not produced\nfor `LABEL_DETECTION` features. For `TEXT_DETECTION` (OCR), `boundingPoly`s\nare produced for the entire text detected in an image region, followed by\n`boundingPoly`s for each word within the detected text."
           },
           "confidence": {
-            "description": "The accuracy of the entity detection in an image.\nFor example, for an image containing 'Eiffel Tower,' this field represents\nthe confidence that there is a tower in the query image. Range [0, 1].",
+            "description": "The accuracy of the entity detection in an image.\nFor example, for an image in which the \"Eiffel Tower\" entity is detected,\nthis field represents the confidence that there is a tower in the query\nimage. Range [0, 1].",
             "format": "float",
             "type": "number"
           },
           "description": {
-            "description": "Entity textual description, expressed in its <code>locale</code> language.",
+            "description": "Entity textual description, expressed in its `locale` language.",
             "type": "string"
           },
           "locale": {
-            "description": "The language code for the locale in which the entity textual\n<code>description</code> (next field) is expressed.",
+            "description": "The language code for the locale in which the entity textual\n`description` is expressed.",
             "type": "string"
           },
           "locations": {
-            "description": "The location information for the detected entity. Multiple\n<code>LocationInfo</code> elements can be present since one location may\nindicate the location of the scene in the query image, and another the\nlocation of the place where the query image was taken. Location information\nis usually present for landmarks.",
+            "description": "The location information for the detected entity. Multiple\n`LocationInfo` elements can be present because one location may\nindicate the location of the scene in the image, and another location\nmay indicate the location of the place where the image was taken.\nLocation information is usually present for landmarks.",
             "items": {
               "$ref": "#/definitions/LocationInfo"
             },
             "type": "array"
           },
           "mid": {
-            "description": "Opaque entity ID. Some IDs might be available in Knowledge Graph(KG).\nFor more details on KG please see:\nhttps://developers.google.com/knowledge-graph/",
+            "description": "Opaque entity ID. Some IDs may be available in\n[Google Knowledge Graph Search API](https://developers.google.com/knowledge-graph/).",
             "type": "string"
           },
           "properties": {
-            "description": "Some entities can have additional optional <code>Property</code> fields.\nFor example a different kind of score or string that qualifies the entity.",
+            "description": "Some entities may have optional user-supplied `Property` (name/value)\nfields, such a score or string that qualifies the entity.",
             "items": {
               "$ref": "#/definitions/Property"
             },
@@ -459,7 +459,7 @@
             "type": "number"
           },
           "topicality": {
-            "description": "The relevancy of the ICA (Image Content Annotation) label to the\nimage. For example, the relevancy of 'tower' to an image containing\n'Eiffel Tower' is likely higher than an image containing a distant towering\nbuilding, though the confidence that there is a tower may be the same.\nRange [0, 1].",
+            "description": "The relevancy of the ICA (Image Content Annotation) label to the\nimage. For example, the relevancy of \"tower\" is likely higher to an image\ncontaining the detected \"Eiffel Tower\" than to an image containing a\ndetected distant towering building, even though the confidence that\nthere is a tower in each image may be the same. Range [0, 1].",
             "format": "float",
             "type": "number"
           }
@@ -495,7 +495,7 @@
           },
           "boundingPoly": {
             "$ref": "#/definitions/BoundingPoly",
-            "description": "The bounding polygon around the face. The coordinates of the bounding box\nare in the original image's scale, as returned in ImageParams.\nThe bounding box is computed to \"frame\" the face in accordance with human\nexpectations. It is based on the landmarker results.\nNote that one or more x and/or y coordinates may not be generated in the\nBoundingPoly (the polygon will be unbounded) if only a partial face appears in\nthe image to be annotated."
+            "description": "The bounding polygon around the face. The coordinates of the bounding box\nare in the original image's scale, as returned in `ImageParams`.\nThe bounding box is computed to \"frame\" the face in accordance with human\nexpectations. It is based on the landmarker results.\nNote that one or more x and/or y coordinates may not be generated in the\n`BoundingPoly` (the polygon will be unbounded) if only a partial face\nappears in the image to be annotated."
           },
           "detectionConfidence": {
             "description": "Detection confidence. Range [0, 1].",
@@ -504,7 +504,7 @@
           },
           "fdBoundingPoly": {
             "$ref": "#/definitions/BoundingPoly",
-            "description": "This bounding polygon is tighter than the previous\n<code>boundingPoly</code>, and\nencloses only the skin part of the face. Typically, it is used to\neliminate the face from any image analysis that detects the\n\"amount of skin\" visible in an image. It is not based on the\nlandmarker results, only on the initial face detection, hence\nthe <code>fd</code> (face detection) prefix."
+            "description": "The `fd_bounding_poly` bounding polygon is tighter than the\n`boundingPoly`, and encloses only the skin part of the face. Typically, it\nis used to eliminate the face from any image analysis that detects the\n\"amount of skin\" visible in an image. It is not based on the\nlandmarker results, only on the initial face detection, hence\nthe <code>fd</code> (face detection) prefix."
           },
           "headwearLikelihood": {
             "description": "Headwear likelihood.",
@@ -543,12 +543,12 @@
             "type": "array"
           },
           "panAngle": {
-            "description": "Yaw angle. Indicates the leftward/rightward angle that the face is\npointing, relative to the vertical plane perpendicular to the image. Range\n[-180,180].",
+            "description": "Yaw angle, which indicates the leftward/rightward angle that the face is\npointing relative to the vertical plane perpendicular to the image. Range\n[-180,180].",
             "format": "float",
             "type": "number"
           },
           "rollAngle": {
-            "description": "Roll angle. Indicates the amount of clockwise/anti-clockwise rotation of\nthe\nface relative to the image vertical, about the axis perpendicular to the\nface. Range [-180,180].",
+            "description": "Roll angle, which indicates the amount of clockwise/anti-clockwise rotation\nof the face relative to the image vertical about the axis perpendicular to\nthe face. Range [-180,180].",
             "format": "float",
             "type": "number"
           },
@@ -577,7 +577,7 @@
             "type": "string"
           },
           "tiltAngle": {
-            "description": "Pitch angle. Indicates the upwards/downwards angle that the face is\npointing\nrelative to the image's horizontal plane. Range [-180,180].",
+            "description": "Pitch angle, which indicates the upwards/downwards angle that the face is\npointing relative to the image's horizontal plane. Range [-180,180].",
             "format": "float",
             "type": "number"
           },
@@ -597,7 +597,7 @@
         "type": "object"
       },
       "Feature": {
-        "description": "The <em>Feature</em> indicates what type of image detection task to perform.\nUsers describe the type of Google Cloud Vision API tasks to perform over\nimages by using <em>Feature</em>s. Features encode the Cloud Vision API\nvertical to operate on and the number of top-scoring results to return.",
+        "description": "Users describe the type of Google Cloud Vision API tasks to perform over\nimages by using *Feature*s. Each Feature indicates a type of image\ndetection task to perform. Features encode the Cloud Vision API\nvertical to operate on and the number of top-scoring results to return.",
         "properties": {
           "maxResults": {
             "description": "Maximum number of results of this type.",
@@ -631,7 +631,7 @@
           },
           "source": {
             "$ref": "#/definitions/ImageSource",
-            "description": "Google Cloud Storage image location. If both 'content' and 'source'\nare filled for an image, 'content' takes precedence and it will be\nused for performing the image annotation request."
+            "description": "Google Cloud Storage image location. If both `content` and `source`\nare provided for an image, `content` takes precedence and is\nused to perform the image annotation request."
           }
         },
         "type": "object"
@@ -640,7 +640,7 @@
         "description": "Image context and/or feature-specific parameters.",
         "properties": {
           "languageHints": {
-            "description": "List of languages to use for TEXT_DETECTION. In most cases, an empty value\nyields the best results since it enables automatic language detection. For\nlanguages based on the Latin alphabet, setting `language_hints` is not\nneeded. In rare cases, when the language of the text in the image is known,\nsetting a hint will help get better results (although it will be a\nsignificant hindrance if the hint is wrong). Text detection returns an\nerror if one or more of the specified languages is not one of the\n[supported\nlanguages](/vision/docs/languages).",
+            "description": "List of languages to use for TEXT_DETECTION. In most cases, an empty value\nyields the best results since it enables automatic language detection. For\nlanguages based on the Latin alphabet, setting `language_hints` is not\nneeded. In rare cases, when the language of the text in the image is known,\nsetting a hint will help get better results (although it will be a\nsignificant hindrance if the hint is wrong). Text detection returns an\nerror if one or more of the specified languages is not one of the\n[supported languages](/vision/docs/languages).",
             "items": {
               "type": "string"
             },
@@ -648,13 +648,13 @@
           },
           "latLongRect": {
             "$ref": "#/definitions/LatLongRect",
-            "description": "Lat/long rectangle that specifies the location of the image."
+            "description": "lat/long rectangle that specifies the location of the image."
           }
         },
         "type": "object"
       },
       "ImageProperties": {
-        "description": "Stores image properties (e.g. dominant colors).",
+        "description": "Stores image properties, such as dominant colors.",
         "properties": {
           "dominantColors": {
             "$ref": "#/definitions/DominantColorsAnnotation",
@@ -667,14 +667,14 @@
         "description": "External image source (Google Cloud Storage image location).",
         "properties": {
           "gcsImageUri": {
-            "description": "Google Cloud Storage image URI. It must be in the following form:\n`gs://bucket_name/object_name`. For more\ndetails, please see: https://cloud.google.com/storage/docs/reference-uris.\nNOTE: Cloud Storage object versioning is not supported!",
+            "description": "Google Cloud Storage image URI, which must be in the following form:\n`gs://bucket_name/object_name` (for details, see\n[Google Cloud Storage Request URIs](https://cloud.google.com/storage/docs/reference-uris)).\nNOTE: Cloud Storage object versioning is not supported.",
             "type": "string"
           }
         },
         "type": "object"
       },
       "Landmark": {
-        "description": "A face-specific landmark (for example, a face feature).\nLandmark positions may fall outside the bounds of the image\nwhen the face is near one or more edges of the image.\nTherefore it is NOT guaranteed that 0 <= x < width or 0 <= y < height.",
+        "description": "A face-specific landmark (for example, a face feature).\nLandmark positions may fall outside the bounds of the image\nif the face is near one or more edges of the image.\nTherefore it is NOT guaranteed that `0 <= x < width` or\n`0 <= y < height`.",
         "properties": {
           "position": {
             "$ref": "#/definitions/Position",
@@ -725,7 +725,7 @@
         "type": "object"
       },
       "LatLng": {
-        "description": "An object representing a latitude/longitude pair. This is expressed as a pair\nof doubles representing degrees latitude and degrees longitude. Unless\nspecified otherwise, this must conform to the\n<a href=\"http://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf\">WGS84\nstandard</a>. Values must be within normalized ranges.\n\nExample of normalization code in Python:\n\n    def NormalizeLongitude(longitude):\n      \"\"\"Wraps decimal degrees longitude to [-180.0, 180.0].\"\"\"\n      q, r = divmod(longitude, 360.0)\n      if r > 180.0 or (r == 180.0 and q <= -1.0):\n        return r - 360.0\n      return r\n\n    def NormalizeLatLng(latitude, longitude):\n      \"\"\"Wraps decimal degrees latitude and longitude to\n      [-90.0, 90.0] and [-180.0, 180.0], respectively.\"\"\"\n      r = latitude % 360.0\n      if r <= 90.0:\n        return r, NormalizeLongitude(longitude)\n      elif r >= 270.0:\n        return r - 360, NormalizeLongitude(longitude)\n      else:\n        return 180 - r, NormalizeLongitude(longitude + 180.0)\n\n    assert 180.0 == NormalizeLongitude(180.0)\n    assert -180.0 == NormalizeLongitude(-180.0)\n    assert -179.0 == NormalizeLongitude(181.0)\n    assert (0.0, 0.0) == NormalizeLatLng(360.0, 0.0)\n    assert (0.0, 0.0) == NormalizeLatLng(-360.0, 0.0)\n    assert (85.0, 180.0) == NormalizeLatLng(95.0, 0.0)\n    assert (-85.0, -170.0) == NormalizeLatLng(-95.0, 10.0)\n    assert (90.0, 10.0) == NormalizeLatLng(90.0, 10.0)\n    assert (-90.0, -10.0) == NormalizeLatLng(-90.0, -10.0)\n    assert (0.0, -170.0) == NormalizeLatLng(-180.0, 10.0)\n    assert (0.0, -170.0) == NormalizeLatLng(180.0, 10.0)\n    assert (-90.0, 10.0) == NormalizeLatLng(270.0, 10.0)\n    assert (90.0, 10.0) == NormalizeLatLng(-270.0, 10.0)",
+        "description": "An object representing a latitude/longitude pair. This is expressed as a pair\nof doubles representing degrees latitude and degrees longitude. Unless\nspecified otherwise, this must conform to the\n<a href=\"http://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf\">WGS84\nstandard</a>. Values must be within normalized ranges.\n\nExample of normalization code in Python:\n\n    def NormalizeLongitude(longitude):\n      \"\"\"Wraps decimal degrees longitude to [-180.0, 180.0].\"\"\"\n      q, r = divmod(longitude, 360.0)\n      if r > 180.0 or (r == 180.0 and q <= -1.0):\n        return r - 360.0\n      return r\n\n    def NormalizeLatLng(latitude, longitude):\n      \"\"\"Wraps decimal degrees latitude and longitude to\n      [-90.0, 90.0] and [-180.0, 180.0], respectively.\"\"\"\n      r = latitude % 360.0\n      if r <= 90.0:\n        return r, NormalizeLongitude(longitude)\n      elif r >= 270.0:\n        return r - 360, NormalizeLongitude(longitude)\n      else:\n        return 180 - r, NormalizeLongitude(longitude + 180.0)\n\n    assert 180.0 == NormalizeLongitude(180.0)\n    assert -180.0 == NormalizeLongitude(-180.0)\n    assert -179.0 == NormalizeLongitude(181.0)\n    assert (0.0, 0.0) == NormalizeLatLng(360.0, 0.0)\n    assert (0.0, 0.0) == NormalizeLatLng(-360.0, 0.0)\n    assert (85.0, 180.0) == NormalizeLatLng(95.0, 0.0)\n    assert (-85.0, -170.0) == NormalizeLatLng(-95.0, 10.0)\n    assert (90.0, 10.0) == NormalizeLatLng(90.0, 10.0)\n    assert (-90.0, -10.0) == NormalizeLatLng(-90.0, -10.0)\n    assert (0.0, -170.0) == NormalizeLatLng(-180.0, 10.0)\n    assert (0.0, -170.0) == NormalizeLatLng(180.0, 10.0)\n    assert (-90.0, 10.0) == NormalizeLatLng(270.0, 10.0)\n    assert (90.0, 10.0) == NormalizeLatLng(-270.0, 10.0)\n\nThe code in logs/storage/validator/logs_validator_traits.cc treats this type\nas if it were annotated as ST_LOCATION.",
         "properties": {
           "latitude": {
             "description": "The latitude in degrees. It must be in the range [-90.0, +90.0].",
@@ -741,7 +741,7 @@
         "type": "object"
       },
       "LatLongRect": {
-        "description": "Rectangle determined by min and max LatLng pairs.",
+        "description": "Rectangle determined by min and max `LatLng` pairs.",
         "properties": {
           "maxLatLng": {
             "$ref": "#/definitions/LatLng",
@@ -759,7 +759,7 @@
         "properties": {
           "latLng": {
             "$ref": "#/definitions/LatLng",
-            "description": "Lat - long location coordinates."
+            "description": "lat/long location coordinates."
           }
         },
         "type": "object"
@@ -786,7 +786,7 @@
         "type": "object"
       },
       "Property": {
-        "description": "Arbitrary name/value pair.",
+        "description": "A `Property` consists of a user-supplied name/value pair.",
         "properties": {
           "name": {
             "description": "Name of the property.",
@@ -800,10 +800,9 @@
         "type": "object"
       },
       "SafeSearchAnnotation": {
-        "description": "Set of features pertaining to the image, computed by various computer vision\nmethods over safe-search verticals (for example, adult, spoof, medical,\nviolence).",
         "properties": {
           "adult": {
-            "description": "Represents the adult contents likelihood for the image.",
+            "description": "Represents the adult content likelihood for the image.",
             "enum": [
               "UNKNOWN",
               "VERY_UNLIKELY",
@@ -815,7 +814,7 @@
             "type": "string"
           },
           "medical": {
-            "description": "Likelihood this is a medical image.",
+            "description": "Likelihood that this is a medical image.",
             "enum": [
               "UNKNOWN",
               "VERY_UNLIKELY",
@@ -827,7 +826,7 @@
             "type": "string"
           },
           "spoof": {
-            "description": "Spoof likelihood. The likelihood that an obvious modification\nwas made to the image's canonical version to make it appear\nfunny or offensive.",
+            "description": "Spoof likelihood. The likelihood that an modification\nwas made to the image's canonical version to make it appear\nfunny or offensive.",
             "enum": [
               "UNKNOWN",
               "VERY_UNLIKELY",

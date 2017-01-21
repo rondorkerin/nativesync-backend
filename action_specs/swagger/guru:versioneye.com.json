@@ -41,6 +41,9 @@
     },
     "tags": [
       {
+        "name": "facebook"
+      },
+      {
         "name": "github"
       },
       {
@@ -69,6 +72,32 @@
       }
     ],
     "paths": {
+      "/v2/facebook/ping": {
+        "get": {
+          "operationId": "GET--version-facebook-ping---format-",
+          "responses": {
+            "200": {
+              "description": "No response was specified"
+            }
+          },
+          "summary": "ping pong",
+          "tags": [
+            "facebook"
+          ]
+        },
+        "post": {
+          "operationId": "POST--version-facebook-ping---format-",
+          "responses": {
+            "200": {
+              "description": "No response was specified"
+            }
+          },
+          "summary": "ping pong",
+          "tags": [
+            "facebook"
+          ]
+        }
+      },
       "/v2/github": {
         "get": {
           "description": "\n<p>This endpoint shows all imported repositories from your Github account.</p>\n\n<p>This enpoint expects that you have a GitHub account connected and the token\nis still valid. If that is not the case please visit <strong>https://www.versioneye.com/settings/connect</strong>.\nto update your GitHub credentials.</p>\n\n<p>If it shows no or old data, then you can use the <code>github/sync</code> endpoint\nto update your account with the current meta data from GitHub.</p>\n\n",
@@ -321,6 +350,15 @@
         "get": {
           "description": "\n<p>This Endpoint returns the 30 latest notifications.</p>\n\n<p>If there are new versions out there for software packages you follow directly on VersionEye, then\neach new version is a new <strong>notification</strong> for your account.</p>\n\n",
           "operationId": "GET--version-me-notifications---format-",
+          "parameters": [
+            {
+              "description": "Specify page for paging",
+              "in": "query",
+              "name": "page",
+              "required": false,
+              "type": "integer"
+            }
+          ],
           "responses": {
             "200": {
               "description": "No response was specified"
@@ -619,6 +657,65 @@
             }
           },
           "summary": "list versions of a package",
+          "tags": [
+            "products"
+          ]
+        }
+      },
+      "/v2/products/{lang}/{prod_key}/{prod_version}/license": {
+        "post": {
+          "description": "\n<p>With this endpoint users can suggest a license for an artifact.</p>\n\n",
+          "operationId": "POST--version-products--lang--prod_key--prod_version-license---format-",
+          "parameters": [
+            {
+              "description": " programming language ",
+              "in": "path",
+              "name": "lang",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "description": " product key ",
+              "in": "path",
+              "name": "prod_key",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "description": " product version ",
+              "in": "path",
+              "name": "prod_version",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "description": " name of the license ",
+              "in": "formData",
+              "name": "license_name",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "description": " source of the license. Where did you find it? ",
+              "in": "formData",
+              "name": "license_source",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "description": " you wanna say anyting important to this license? ",
+              "in": "formData",
+              "name": "comments",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "No response was specified"
+            }
+          },
+          "summary": "suggest a license for an artifact",
           "tags": [
             "products"
           ]

@@ -10,8 +10,8 @@
     "title": "Jirafe Events",
     "version": "2.0.0",
     "x-logo": {
-      "backgroundColor": "#407C7C",
-      "url": "https://api.apis.guru/v2/cache/logo/https_jirafe.com_assets_img_logo_white.svg"
+      "backgroundColor": "#4BC9C5",
+      "url": "https://api.apis.guru/v2/cache/logo/https_docs.jirafe.com_img_jrf-logo--white-100x36.a56c.png"
     },
     "x-origin": {
       "format": "swagger",
@@ -38,8 +38,8 @@
       "title": "Jirafe Events",
       "version": "2.0.0",
       "x-logo": {
-        "backgroundColor": "#407C7C",
-        "url": "https://api.apis.guru/v2/cache/logo/https_jirafe.com_assets_img_logo_white.svg"
+        "backgroundColor": "#4BC9C5",
+        "url": "https://api.apis.guru/v2/cache/logo/https_docs.jirafe.com_img_jrf-logo--white-100x36.a56c.png"
       },
       "x-origin": {
         "format": "swagger",

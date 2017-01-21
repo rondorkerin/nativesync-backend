@@ -96,8 +96,27 @@
         "required": true,
         "type": "string"
       },
+      "mediaResourceNameParameter": {
+        "description": "Name of the Media Service.",
+        "in": "path",
+        "maxLength": 24,
+        "minLength": 3,
+        "name": "mediaServiceName",
+        "pattern": "^[a-z0-9]",
+        "required": true,
+        "type": "string",
+        "x-ms-parameter-location": "method"
+      },
+      "resourceGroupNameParameter": {
+        "description": "Name of the resource group within the Azure subscription.",
+        "in": "path",
+        "name": "resourceGroupName",
+        "required": true,
+        "type": "string",
+        "x-ms-parameter-location": "method"
+      },
       "subscriptionIdParameter": {
-        "description": "Azure subscription id.",
+        "description": "The unique identifier for a Microsoft Azure subscription.",
         "in": "path",
         "name": "subscriptionId",
         "required": true,
@@ -107,6 +126,10 @@
     "paths": {
       "/subscriptions/{subscriptionId}/providers/Microsoft.Media/CheckNameAvailability": {
         "post": {
+          "description": "Checks whether the Media Service resource name is available. The name must be globally unique.",
+          "externalDocs": {
+            "url": "https://aka.ms/media-manage"
+          },
           "operationId": "MediaService_CheckNameAvailability",
           "parameters": [
             {
@@ -127,23 +150,37 @@
           ],
           "responses": {
             "200": {
-              "description": "OK",
+              "description": "Success. Returns details about whether a Media Service resource name is available.",
+              "examples": {
+                "application/json": {
+                  "value": [
+                    {
+                      "message": "Already in use by another Media Service instance. Please try again with a name that is not likely to be in use.",
+                      "nameAvailable": false,
+                      "reason": "AlreadyExists"
+                    }
+                  ]
+                }
+              },
               "schema": {
                 "$ref": "#/definitions/CheckNameAvailabilityOutput"
               }
             },
             "default": {
-              "description": "Detailed error information.",
+              "description": "CheckNameAvailability of a Media Service failed.",
               "schema": {
                 "$ref": "#/definitions/ApiError"
               }
             }
-          },
-          "summary": "Check whether the Media Service resource name is available. The name must be globally unique."
+          }
         }
       },
       "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices": {
         "get": {
+          "description": "Lists all of the Media Services in a resource group.",
+          "externalDocs": {
+            "url": "https://aka.ms/media-manage"
+          },
           "operationId": "MediaService_ListByResourceGroup",
           "parameters": [
             {
@@ -153,33 +190,58 @@
               "$ref": "#/parameters/apiVersionParameter"
             },
             {
-              "description": "Name of the resource group within the Azure subscription.",
-              "in": "path",
-              "name": "resourceGroupName",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/resourceGroupNameParameter"
             }
           ],
           "responses": {
             "200": {
-              "description": "OK",
+              "description": "Success. Returns a list of all of the Media Services accounts in a resource group.",
+              "examples": {
+                "application/json": {
+                  "value": [
+                    {
+                      "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-media/providers/Microsoft.Media/mediaservices/contosomedia",
+                      "location": "West US",
+                      "name": "contosomedia",
+                      "properties": {
+                        "apiEndpoints": [
+                          {
+                            "endpoint": "https://wamsbayclus001rest-hs.cloudapp.net/api/",
+                            "majorVersion": "2"
+                          }
+                        ],
+                        "storageAccounts": [
+                          {
+                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-media/providers/Microsoft.Storage/storageAccounts/contosomedia",
+                            "isPrimary": true
+                          }
+                        ]
+                      },
+                      "type": "Microsoft.Media/mediaservices"
+                    }
+                  ]
+                }
+              },
               "schema": {
                 "$ref": "#/definitions/MediaServiceCollection"
               }
             },
             "default": {
-              "description": "Detailed error information.",
+              "description": "List Media Services failed.",
               "schema": {
                 "$ref": "#/definitions/ApiError"
               }
             }
           },
-          "summary": "List all of the Media Services in a resource group.",
           "x-ms-pageable": {}
         }
       },
       "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices/{mediaServiceName}": {
         "delete": {
+          "description": "Deletes a Media Service.",
+          "externalDocs": {
+            "url": "https://aka.ms/media-manage"
+          },
           "operationId": "MediaService_Delete",
           "parameters": [
             {
@@ -189,37 +251,32 @@
               "$ref": "#/parameters/apiVersionParameter"
             },
             {
-              "description": "Name of the resource group within the Azure subscription.",
-              "in": "path",
-              "name": "resourceGroupName",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/resourceGroupNameParameter"
             },
             {
-              "description": "Name of the Media Service.",
-              "in": "path",
-              "maxLength": 24,
-              "minLength": 3,
-              "name": "mediaServiceName",
-              "pattern": "^[a-z0-9]",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/mediaResourceNameParameter"
             }
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "Success. The Media Services account was deleted."
+            },
+            "204": {
+              "description": "No Content. The account name does not exist."
             },
             "default": {
-              "description": "Detailed error information.",
+              "description": "Delete Media Services failed.",
               "schema": {
                 "$ref": "#/definitions/ApiError"
               }
             }
-          },
-          "summary": "Delete a Media Service."
+          }
         },
         "get": {
+          "description": "Gets a Media Service.",
+          "externalDocs": {
+            "url": "https://aka.ms/media-manage"
+          },
           "operationId": "MediaService_Get",
           "parameters": [
             {
@@ -229,40 +286,54 @@
               "$ref": "#/parameters/apiVersionParameter"
             },
             {
-              "description": "Name of the resource group within the Azure subscription.",
-              "in": "path",
-              "name": "resourceGroupName",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/resourceGroupNameParameter"
             },
             {
-              "description": "Name of the Media Service.",
-              "in": "path",
-              "maxLength": 24,
-              "minLength": 3,
-              "name": "mediaServiceName",
-              "pattern": "^[a-z0-9]",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/mediaResourceNameParameter"
             }
           ],
           "responses": {
             "200": {
-              "description": "OK",
+              "description": "Success. Returns the details of the Media Services account.",
+              "examples": {
+                "application/json": {
+                  "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-media/providers/Microsoft.Media/mediaservices/contosomedia",
+                  "location": "West US",
+                  "name": "contosomedia",
+                  "properties": {
+                    "apiEndpoints": [
+                      {
+                        "endpoint": "https://wamsbayclus001rest-hs.cloudapp.net/api/",
+                        "majorVersion": "2"
+                      }
+                    ],
+                    "storageAccounts": [
+                      {
+                        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-media/providers/Microsoft.Storage/storageAccounts/contosomedia",
+                        "isPrimary": true
+                      }
+                    ]
+                  },
+                  "type": "Microsoft.Media/mediaservices"
+                }
+              },
               "schema": {
                 "$ref": "#/definitions/MediaService"
               }
             },
             "default": {
-              "description": "Detailed error information.",
+              "description": "Get Media Services failed.",
               "schema": {
                 "$ref": "#/definitions/ApiError"
               }
             }
-          },
-          "summary": "Get a Media Service."
+          }
         },
         "patch": {
+          "description": "Updates a Media Service.",
+          "externalDocs": {
+            "url": "https://aka.ms/media-manage"
+          },
           "operationId": "MediaService_Update",
           "parameters": [
             {
@@ -272,21 +343,10 @@
               "$ref": "#/parameters/apiVersionParameter"
             },
             {
-              "description": "Name of the resource group within the Azure subscription.",
-              "in": "path",
-              "name": "resourceGroupName",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/resourceGroupNameParameter"
             },
             {
-              "description": "Name of the Media Service.",
-              "in": "path",
-              "maxLength": 24,
-              "minLength": 3,
-              "name": "mediaServiceName",
-              "pattern": "^[a-z0-9]",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/mediaResourceNameParameter"
             },
             {
               "description": "Media Service properties needed for update.",
@@ -300,21 +360,46 @@
           ],
           "responses": {
             "200": {
-              "description": "OK",
+              "description": "Success. The Media Services account was updated.",
+              "examples": {
+                "application/json": {
+                  "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-media/providers/Microsoft.Media/mediaservices/contosomedia",
+                  "location": "West US",
+                  "name": "contosomedia",
+                  "properties": {
+                    "apiEndpoints": [
+                      {
+                        "endpoint": "https://wamsbayclus001rest-hs.cloudapp.net/api/",
+                        "majorVersion": "2"
+                      }
+                    ],
+                    "storageAccounts": [
+                      {
+                        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-media/providers/Microsoft.Storage/storageAccounts/contosomedia",
+                        "isPrimary": true
+                      }
+                    ]
+                  },
+                  "type": "Microsoft.Media/mediaservices"
+                }
+              },
               "schema": {
                 "$ref": "#/definitions/MediaService"
               }
             },
             "default": {
-              "description": "Detailed error information.",
+              "description": "Update Media Services failed.",
               "schema": {
                 "$ref": "#/definitions/ApiError"
               }
             }
-          },
-          "summary": "Update a Media Service."
+          }
         },
         "put": {
+          "description": "Creates a Media Service.",
+          "externalDocs": {
+            "url": "https://aka.ms/media-manage"
+          },
           "operationId": "MediaService_Create",
           "parameters": [
             {
@@ -324,21 +409,10 @@
               "$ref": "#/parameters/apiVersionParameter"
             },
             {
-              "description": "Name of the resource group within the Azure subscription.",
-              "in": "path",
-              "name": "resourceGroupName",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/resourceGroupNameParameter"
             },
             {
-              "description": "Name of the Media Service.",
-              "in": "path",
-              "maxLength": 24,
-              "minLength": 3,
-              "name": "mediaServiceName",
-              "pattern": "^[a-z0-9]",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/mediaResourceNameParameter"
             },
             {
               "description": "Media Service properties needed for creation.",
@@ -351,30 +425,49 @@
             }
           ],
           "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "$ref": "#/definitions/MediaService"
-              }
-            },
             "201": {
-              "description": "Created",
+              "description": "Success. Returns the new Media Services account.",
+              "examples": {
+                "application/json": {
+                  "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-media/providers/Microsoft.Media/mediaservices/contosomedia",
+                  "location": "West US",
+                  "name": "contosomedia",
+                  "properties": {
+                    "apiEndpoints": [
+                      {
+                        "endpoint": "https://wamsbayclus001rest-hs.cloudapp.net/api/",
+                        "majorVersion": "2"
+                      }
+                    ],
+                    "storageAccounts": [
+                      {
+                        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-media/providers/Microsoft.Storage/storageAccounts/contosomedia",
+                        "isPrimary": true
+                      }
+                    ]
+                  },
+                  "type": "Microsoft.Media/mediaservices"
+                }
+              },
               "schema": {
                 "$ref": "#/definitions/MediaService"
               }
             },
             "default": {
-              "description": "Detailed error information.",
+              "description": "Create Media Services failed.",
               "schema": {
                 "$ref": "#/definitions/ApiError"
               }
             }
-          },
-          "summary": "Create a Media Service."
+          }
         }
       },
       "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices/{mediaServiceName}/listKeys": {
         "post": {
+          "description": "Lists the keys for a Media Service.",
+          "externalDocs": {
+            "url": "https://aka.ms/media-manage"
+          },
           "operationId": "MediaService_ListKeys",
           "parameters": [
             {
@@ -384,45 +477,43 @@
               "$ref": "#/parameters/apiVersionParameter"
             },
             {
-              "description": "Name of the resource group within the Azure subscription.",
-              "in": "path",
-              "name": "resourceGroupName",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/resourceGroupNameParameter"
             },
             {
-              "description": "Name of the Media Service.",
-              "in": "path",
-              "maxLength": 24,
-              "minLength": 3,
-              "name": "mediaServiceName",
-              "pattern": "^[a-z0-9]",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/mediaResourceNameParameter"
             }
           ],
           "responses": {
             "200": {
-              "description": "OK",
+              "description": "Success. The keys for the Media Services account were listed.",
+              "examples": {
+                "application/json": {
+                  "primaryAuthEndpoint": "https://wamsprodglobal001acs.accesscontrol.windows.net/",
+                  "primaryKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=",
+                  "scope": "urn:windowsazuremediaservices",
+                  "secondaryAuthEndpoint": "https://wamsprodglobal002acs.accesscontrol.windows.net/",
+                  "secondaryKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx="
+                }
+              },
               "schema": {
                 "$ref": "#/definitions/ServiceKeys"
               }
             },
-            "202": {
-              "description": "Accepted"
-            },
             "default": {
-              "description": "Detailed error information.",
+              "description": "List Media Service keys failed.",
               "schema": {
                 "$ref": "#/definitions/ApiError"
               }
             }
-          },
-          "summary": "List the keys for a Media Service."
+          }
         }
       },
       "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices/{mediaServiceName}/regenerateKey": {
         "post": {
+          "description": "Regenerates a primary or secondary key for a Media Service.",
+          "externalDocs": {
+            "url": "https://aka.ms/media-manage"
+          },
           "operationId": "MediaService_RegenerateKey",
           "parameters": [
             {
@@ -432,21 +523,10 @@
               "$ref": "#/parameters/apiVersionParameter"
             },
             {
-              "description": "Name of the resource group within the Azure subscription.",
-              "in": "path",
-              "name": "resourceGroupName",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/resourceGroupNameParameter"
             },
             {
-              "description": "Name of the Media Service.",
-              "in": "path",
-              "maxLength": 24,
-              "minLength": 3,
-              "name": "mediaServiceName",
-              "pattern": "^[a-z0-9]",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/mediaResourceNameParameter"
             },
             {
               "description": "Properties needed to regenerate the Media Service key.",
@@ -460,26 +540,31 @@
           ],
           "responses": {
             "200": {
-              "description": "OK",
+              "description": "Success. The Media Services key specified in the input was regenerated.",
+              "examples": {
+                "application/json": {
+                  "key": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx="
+                }
+              },
               "schema": {
                 "$ref": "#/definitions/RegenerateKeyOutput"
               }
             },
-            "202": {
-              "description": "Accepted"
-            },
             "default": {
-              "description": "Detailed error information.",
+              "description": "Regenerate Media Service key failed.",
               "schema": {
                 "$ref": "#/definitions/ApiError"
               }
             }
-          },
-          "summary": "Regenerate the key for a Media Service."
+          }
         }
       },
       "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices/{mediaServiceName}/syncStorageKeys": {
         "post": {
+          "description": "Synchronizes storage account keys for a storage account associated with the Media Service account.",
+          "externalDocs": {
+            "url": "https://aka.ms/media-manage"
+          },
           "operationId": "MediaService_SyncStorageKeys",
           "parameters": [
             {
@@ -489,24 +574,13 @@
               "$ref": "#/parameters/apiVersionParameter"
             },
             {
-              "description": "Name of the resource group within the Azure subscription.",
-              "in": "path",
-              "name": "resourceGroupName",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/resourceGroupNameParameter"
             },
             {
-              "description": "Name of the Media Service.",
-              "in": "path",
-              "maxLength": 24,
-              "minLength": 3,
-              "name": "mediaServiceName",
-              "pattern": "^[a-z0-9]",
-              "required": true,
-              "type": "string"
+              "$ref": "#/parameters/mediaResourceNameParameter"
             },
             {
-              "description": "Properties needed to sycnronize the keys for a storage account to the Media Service.",
+              "description": "Properties needed to synchronize the keys for a storage account to the Media Service.",
               "in": "body",
               "name": "SyncStorageKeysInput",
               "required": true,
@@ -517,28 +591,25 @@
           ],
           "responses": {
             "200": {
-              "description": "OK",
-              "schema": {
-                "$ref": "#/definitions/MediaService"
-              }
-            },
-            "202": {
-              "description": "Accepted"
+              "description": "Success. The keys for the storage account were synchronized."
             },
             "default": {
-              "description": "Detailed error information.",
+              "description": "Synch Media Service storage keys failed.",
               "schema": {
                 "$ref": "#/definitions/ApiError"
               }
             }
-          },
-          "summary": "Synchronize the keys for a storage account to the Media Service."
+          }
         }
       }
     },
     "definitions": {
       "ApiEndpoint": {
         "description": "The properties for a Media Services REST API endpoint.",
+        "example": {
+          "endpoint": "https://wamsbayclus001rest-hs.cloudapp.net/api/",
+          "majorVersion": "2"
+        },
         "properties": {
           "endpoint": {
             "description": "The Media Services REST endpoint.",
@@ -552,6 +623,12 @@
       },
       "ApiError": {
         "description": "The error returned from a failed Media Services REST API call.",
+        "example": {
+          "error": {
+            "code": "BadRequest",
+            "message": "Name availability check is not supported for type Microsoft.Media/mediaservices."
+          }
+        },
         "properties": {
           "code": {
             "description": "Error code.",
@@ -565,6 +642,10 @@
       },
       "CheckNameAvailabilityInput": {
         "description": "The request body for CheckNameAvailability API.",
+        "example": {
+          "name": "contosomedia",
+          "type": "mediaservices"
+        },
         "properties": {
           "name": {
             "description": "The name of the resource. A name must be globally unique.",
@@ -575,7 +656,7 @@
           },
           "type": {
             "$ref": "#/definitions/ResourceType",
-            "description": "Specifies the type of the resource."
+            "description": "The type of the resource - mediaservices."
           }
         },
         "required": [
@@ -585,6 +666,23 @@
       },
       "CheckNameAvailabilityOutput": {
         "description": "The response body for CheckNameAvailability API.",
+        "example": {
+          "value": [
+            {
+              "NameAvailable": true
+            },
+            {
+              "Message": "Already in use by another Media Service instance. Please try again with a name that is not likely to be in use.",
+              "NameAvailable": false,
+              "Reason": "AlreadyExists"
+            },
+            {
+              "Message": "The media service name should be between 3 and 24 characters and may contain only lowercase letters and numbers.",
+              "NameAvailable": false,
+              "Reason": "Invalid"
+            }
+          ]
+        },
         "properties": {
           "Message": {
             "description": "Specifies the detailed reason if the name is not available.",
@@ -612,10 +710,21 @@
       "MediaService": {
         "allOf": [
           {
-            "$ref": "#/definitions/TrackedResource"
+            "$ref": "#/definitions/Resource"
           }
         ],
         "description": "The properties of a Media Service resource.",
+        "example": {
+          "location": "West US",
+          "properties": {
+            "storageAccounts": [
+              {
+                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-media/providers/Microsoft.Storage/storageAccounts/contosomedia",
+                "isPrimary": true
+              }
+            ]
+          }
+        },
         "properties": {
           "properties": {
             "$ref": "#/definitions/MediaServiceProperties",
@@ -638,10 +747,11 @@
         "description": "The additional properties of a Media Service resource.",
         "properties": {
           "apiEndpoints": {
-            "description": "The Media Services REST API endpoints for this resource.",
+            "description": "Read-only property that lists the Media Services REST API endpoints for this resource. If supplied on a PUT or PATCH, the value will be ignored.",
             "items": {
               "$ref": "#/definitions/ApiEndpoint"
             },
+            "readOnly": true,
             "type": "array"
           },
           "storageAccounts": {
@@ -655,6 +765,9 @@
       },
       "RegenerateKeyInput": {
         "description": "The request body for a RegenerateKey API.",
+        "example": {
+          "keyType": "Primary"
+        },
         "properties": {
           "keyType": {
             "description": "The keyType indicating which key you want to regenerate, Primary or Secondary.",
@@ -668,10 +781,16 @@
               "name": "KeyType"
             }
           }
-        }
+        },
+        "required": [
+          "keyType"
+        ]
       },
       "RegenerateKeyOutput": {
         "description": "The response body for a RegenerateKey API.",
+        "example": {
+          "key": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx="
+        },
         "properties": {
           "key": {
             "description": "The new value of either the primary or secondary key.",
@@ -680,16 +799,28 @@
         }
       },
       "Resource": {
+        "description": "The Azure Resource Manager resource.",
         "properties": {
           "id": {
             "description": "The id of the resource.",
             "readOnly": true,
             "type": "string"
           },
+          "location": {
+            "description": "The geographic location of the resource. This must be one of the supported and registered Azure Geo Regions (for example, West US, East US, Southeast Asia, and so forth).",
+            "type": "string"
+          },
           "name": {
             "description": "The name of the resource.",
             "readOnly": true,
             "type": "string"
+          },
+          "tags": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Tags to help categorize the resource in the Azure portal.",
+            "type": "object"
           },
           "type": {
             "description": "The type of the resource",
@@ -700,11 +831,10 @@
         "x-ms-azure-resource": true
       },
       "ResourceType": {
-        "description": "Type of MediaService resource used in CheckNameAvailability.",
+        "description": "Type of MediaService resource.",
         "enum": [
           "mediaservices"
         ],
-        "readOnly": true,
         "type": "string",
         "x-ms-enum": {
           "modelAsString": false,
@@ -713,13 +843,20 @@
       },
       "ServiceKeys": {
         "description": "The response body for a ListKeys API.",
+        "example": {
+          "primaryAuthEndpoint": "https://wamsprodglobal001acs.accesscontrol.windows.net/",
+          "primaryKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=",
+          "scope": "urn:windowsazuremediaservices",
+          "secondaryAuthEndpoint": "https://wamsprodglobal002acs.accesscontrol.windows.net/",
+          "secondaryKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx="
+        },
         "properties": {
           "primaryAuthEndpoint": {
-            "description": "The primary Authorization endpoint.",
+            "description": "The primary authorization endpoint.",
             "type": "string"
           },
           "primaryKey": {
-            "description": "The primary resource.",
+            "description": "The primary key for the Media Service resource.",
             "type": "string"
           },
           "scope": {
@@ -727,61 +864,50 @@
             "type": "string"
           },
           "secondaryAuthEndpoint": {
-            "description": "The secondary Authorization endpoint.",
+            "description": "The secondary authorization endpoint.",
             "type": "string"
           },
           "secondaryKey": {
-            "description": "The secondary resource.",
+            "description": "The secondary key for the Media Service resource.",
             "type": "string"
           }
         }
       },
       "StorageAccount": {
         "description": "The properties of a storage account associated with this resource.",
+        "example": {
+          "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-media/providers/Microsoft.Storage/storageAccounts/contosomedia",
+          "isPrimary": true
+        },
         "properties": {
           "id": {
-            "description": "The id of the storage account resource.",
+            "description": "The id of the storage account resource. Media Services relies on tables and queues as well as blobs, so the primary storage account must be a Standard Storage account (either Microsoft.ClassicStorage or Microsoft.Storage). Blob only storage accounts can be added as secondary storage accounts (isPrimary false).",
             "type": "string"
           },
           "isPrimary": {
-            "description": "Is this storage account resource the primary storage account for the Media Service resource.",
+            "description": "Is this storage account resource the primary storage account for the Media Service resource. Blob only storage must set this to false.",
             "type": "boolean"
           }
-        }
+        },
+        "required": [
+          "id",
+          "isPrimary"
+        ]
       },
       "SyncStorageKeysInput": {
         "description": "The request  body for a SyncStorageKeys API.",
+        "example": {
+          "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-media/providers/Microsoft.Storage/storageAccounts/contosomedia"
+        },
         "properties": {
           "id": {
             "description": "The id of the storage account resource.",
             "type": "string"
           }
-        }
-      },
-      "TrackedResource": {
-        "allOf": [
-          {
-            "$ref": "#/definitions/Resource"
-          }
-        ],
-        "description": "ARM tracked resource",
-        "properties": {
-          "location": {
-            "description": "The location of the resource.",
-            "type": "string"
-          },
-          "tags": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "The tags of the resource.",
-            "type": "object"
-          }
         },
         "required": [
-          "location"
-        ],
-        "type": "object"
+          "id"
+        ]
       }
     }
   }

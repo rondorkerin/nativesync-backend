@@ -2832,7 +2832,7 @@
         "description": "A list of changes for a user.",
         "properties": {
           "changes": {
-            "description": "The page of changes.",
+            "description": "The list of changes. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.",
             "items": {
               "$ref": "#/definitions/Change"
             },
@@ -2848,7 +2848,7 @@
             "type": "string"
           },
           "nextPageToken": {
-            "description": "The page token for the next page of changes. This will be absent if the end of the current changes list has been reached.",
+            "description": "The page token for the next page of changes. This will be absent if the end of the changes list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.",
             "type": "string"
           }
         },
@@ -2980,7 +2980,7 @@
         "description": "A list of comments on a file.",
         "properties": {
           "comments": {
-            "description": "The page of comments.",
+            "description": "The list of comments. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.",
             "items": {
               "$ref": "#/definitions/Comment"
             },
@@ -2992,7 +2992,7 @@
             "type": "string"
           },
           "nextPageToken": {
-            "description": "The page token for the next page of comments. This will be absent if the end of the comments list has been reached.",
+            "description": "The page token for the next page of comments. This will be absent if the end of the comments list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.",
             "type": "string"
           }
         },
@@ -3083,6 +3083,10 @@
           "fullFileExtension": {
             "description": "The full file extension extracted from the name field. May contain multiple concatenated extensions, such as \"tar.gz\". This is only available for files with binary content in Drive.\nThis is automatically updated when the name field changes, however it is not cleared if the new name does not contain a valid extension.",
             "type": "string"
+          },
+          "hasThumbnail": {
+            "description": "Whether this file has a thumbnail.",
+            "type": "boolean"
           },
           "headRevisionId": {
             "description": "The ID of the file's head revision. This is currently only available for files with binary content in Drive.",
@@ -3323,7 +3327,12 @@
             "type": "boolean"
           },
           "thumbnailLink": {
-            "description": "A short-lived link to the file's thumbnail, if available. Typically lasts on the order of hours.",
+            "description": "A short-lived link to the file's thumbnail, if available. Typically lasts on the order of hours. Only populated when the requesting app can access the file's content.",
+            "type": "string"
+          },
+          "thumbnailVersion": {
+            "description": "The thumbnail version for use in thumbnail cache invalidation.",
+            "format": "int64",
             "type": "string"
           },
           "trashed": {
@@ -3388,7 +3397,7 @@
         "description": "A list of files.",
         "properties": {
           "files": {
-            "description": "The page of files.",
+            "description": "The list of files. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.",
             "items": {
               "$ref": "#/definitions/File"
             },
@@ -3400,7 +3409,7 @@
             "type": "string"
           },
           "nextPageToken": {
-            "description": "The page token for the next page of files. This will be absent if the end of the files list has been reached.",
+            "description": "The page token for the next page of files. This will be absent if the end of the files list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.",
             "type": "string"
           }
         },
@@ -3485,7 +3494,7 @@
             "type": "string"
           },
           "permissions": {
-            "description": "The full list of permissions.",
+            "description": "The list of permissions.",
             "items": {
               "$ref": "#/definitions/Permission"
             },
@@ -3548,11 +3557,11 @@
             "type": "string"
           },
           "nextPageToken": {
-            "description": "The page token for the next page of replies. This will be absent if the end of the replies list has been reached.",
+            "description": "The page token for the next page of replies. This will be absent if the end of the replies list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.",
             "type": "string"
           },
           "replies": {
-            "description": "The page of replies.",
+            "description": "The list of replies. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.",
             "items": {
               "$ref": "#/definitions/Reply"
             },
@@ -3627,11 +3636,11 @@
             "type": "string"
           },
           "nextPageToken": {
-            "description": "The page token for the next page of revisions. This will be absent if the end of the revisions list has been reached.",
+            "description": "The page token for the next page of revisions. This will be absent if the end of the revisions list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.",
             "type": "string"
           },
           "revisions": {
-            "description": "The full list of revisions.",
+            "description": "The list of revisions. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.",
             "items": {
               "$ref": "#/definitions/Revision"
             },

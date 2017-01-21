@@ -1546,7 +1546,7 @@
           },
           "timeToLive": {
             "description": "Gets or sets the time to live.",
-            "format": "date-time",
+            "format": "duration",
             "type": "string"
           },
           "to": {

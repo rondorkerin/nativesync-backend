@@ -583,7 +583,7 @@
           }
         ],
         "post": {
-          "description": "Updates price and availability for multiple products or stores in a single request. This operation does not update the expiration date of the products.",
+          "description": "Updates price and availability for multiple products or stores in a single request. This operation does not update the expiration date of the products. This method can only be called for non-multi-client accounts.",
           "operationId": "content.inventory.custombatch",
           "parameters": [
             {
@@ -645,7 +645,7 @@
           }
         ],
         "post": {
-          "description": "Retrieves or modifies multiple orders in a single request.",
+          "description": "Retrieves or modifies multiple orders in a single request. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.custombatch",
           "parameters": [
             {
@@ -701,7 +701,7 @@
           }
         ],
         "post": {
-          "description": "Retrieves, inserts, and deletes multiple products in a single request.",
+          "description": "Retrieves, inserts, and deletes multiple products in a single request. This method can only be called for non-multi-client accounts.",
           "operationId": "content.products.custombatch",
           "parameters": [
             {
@@ -763,7 +763,7 @@
           }
         ],
         "post": {
-          "description": "Gets the statuses of multiple products in a single request.",
+          "description": "Gets the statuses of multiple products in a single request. This method can only be called for non-multi-client accounts.",
           "operationId": "content.productstatuses.custombatch",
           "parameters": [
             {
@@ -858,7 +858,7 @@
       },
       "/{merchantId}/accounts": {
         "get": {
-          "description": "Lists the sub-accounts in your Merchant Center account.",
+          "description": "Lists the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts.",
           "operationId": "content.accounts.list",
           "parameters": [
             {
@@ -924,7 +924,7 @@
           }
         ],
         "post": {
-          "description": "Creates a Merchant Center sub-account.",
+          "description": "Creates a Merchant Center sub-account. This method can only be called for multi-client accounts.",
           "operationId": "content.accounts.insert",
           "parameters": [
             {
@@ -970,7 +970,7 @@
       },
       "/{merchantId}/accounts/{accountId}": {
         "delete": {
-          "description": "Deletes a Merchant Center sub-account.",
+          "description": "Deletes a Merchant Center sub-account. This method can only be called for multi-client accounts.",
           "operationId": "content.accounts.delete",
           "parameters": [
             {
@@ -1011,7 +1011,7 @@
           ]
         },
         "get": {
-          "description": "Retrieves a Merchant Center account.",
+          "description": "Retrieves a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself or sub-accounts if the managing account is a multi-client account.",
           "operationId": "content.accounts.get",
           "parameters": [
             {
@@ -1072,7 +1072,7 @@
           }
         ],
         "patch": {
-          "description": "Updates a Merchant Center account. This method supports patch semantics.",
+          "description": "Updates a Merchant Center account. This method can only be called for multi-client accounts. This method supports patch semantics.",
           "operationId": "content.accounts.patch",
           "parameters": [
             {
@@ -1123,7 +1123,7 @@
           ]
         },
         "put": {
-          "description": "Updates a Merchant Center account.",
+          "description": "Updates a Merchant Center account. This method can only be called for multi-client accounts.",
           "operationId": "content.accounts.update",
           "parameters": [
             {
@@ -1176,7 +1176,7 @@
       },
       "/{merchantId}/accountshipping": {
         "get": {
-          "description": "Lists the shipping settings of the sub-accounts in your Merchant Center account.",
+          "description": "Lists the shipping settings of the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts.",
           "operationId": "content.accountshipping.list",
           "parameters": [
             {
@@ -1244,7 +1244,7 @@
       },
       "/{merchantId}/accountshipping/{accountId}": {
         "get": {
-          "description": "Retrieves the shipping settings of the account.",
+          "description": "Retrieves the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself or sub-accounts if the managing account is a multi-client account.",
           "operationId": "content.accountshipping.get",
           "parameters": [
             {
@@ -1305,7 +1305,7 @@
           }
         ],
         "patch": {
-          "description": "Updates the shipping settings of the account. This method supports patch semantics.",
+          "description": "Updates the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself or sub-accounts if the managing account is a multi-client account. This method supports patch semantics.",
           "operationId": "content.accountshipping.patch",
           "parameters": [
             {
@@ -1356,7 +1356,7 @@
           ]
         },
         "put": {
-          "description": "Updates the shipping settings of the account.",
+          "description": "Updates the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself or sub-accounts if the managing account is a multi-client account.",
           "operationId": "content.accountshipping.update",
           "parameters": [
             {
@@ -1409,7 +1409,7 @@
       },
       "/{merchantId}/accountstatuses": {
         "get": {
-          "description": "Lists the statuses of the sub-accounts in your Merchant Center account.",
+          "description": "Lists the statuses of the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts.",
           "operationId": "content.accountstatuses.list",
           "parameters": [
             {
@@ -1477,7 +1477,7 @@
       },
       "/{merchantId}/accountstatuses/{accountId}": {
         "get": {
-          "description": "Retrieves the status of a Merchant Center account.",
+          "description": "Retrieves the status of a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself or sub-accounts if the managing account is a multi-client account.",
           "operationId": "content.accountstatuses.get",
           "parameters": [
             {
@@ -1540,7 +1540,7 @@
       },
       "/{merchantId}/accounttax": {
         "get": {
-          "description": "Lists the tax settings of the sub-accounts in your Merchant Center account.",
+          "description": "Lists the tax settings of the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts.",
           "operationId": "content.accounttax.list",
           "parameters": [
             {
@@ -1608,7 +1608,7 @@
       },
       "/{merchantId}/accounttax/{accountId}": {
         "get": {
-          "description": "Retrieves the tax settings of the account.",
+          "description": "Retrieves the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself or sub-accounts if the managing account is a multi-client account.",
           "operationId": "content.accounttax.get",
           "parameters": [
             {
@@ -1669,7 +1669,7 @@
           }
         ],
         "patch": {
-          "description": "Updates the tax settings of the account. This method supports patch semantics.",
+          "description": "Updates the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself or sub-accounts if the managing account is a multi-client account. This method supports patch semantics.",
           "operationId": "content.accounttax.patch",
           "parameters": [
             {
@@ -1720,7 +1720,7 @@
           ]
         },
         "put": {
-          "description": "Updates the tax settings of the account.",
+          "description": "Updates the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself or sub-accounts if the managing account is a multi-client account.",
           "operationId": "content.accounttax.update",
           "parameters": [
             {
@@ -1773,7 +1773,7 @@
       },
       "/{merchantId}/datafeeds": {
         "get": {
-          "description": "Lists the datafeeds in your Merchant Center account.",
+          "description": "Lists the datafeeds in your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.datafeeds.list",
           "parameters": [
             {
@@ -1839,7 +1839,7 @@
           }
         ],
         "post": {
-          "description": "Registers a datafeed with your Merchant Center account.",
+          "description": "Registers a datafeed with your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.datafeeds.insert",
           "parameters": [
             {
@@ -1884,7 +1884,7 @@
       },
       "/{merchantId}/datafeeds/{datafeedId}": {
         "delete": {
-          "description": "Deletes a datafeed from your Merchant Center account.",
+          "description": "Deletes a datafeed from your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.datafeeds.delete",
           "parameters": [
             {
@@ -1923,7 +1923,7 @@
           ]
         },
         "get": {
-          "description": "Retrieves a datafeed from your Merchant Center account.",
+          "description": "Retrieves a datafeed from your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.datafeeds.get",
           "parameters": [
             {
@@ -1982,7 +1982,7 @@
           }
         ],
         "patch": {
-          "description": "Updates a datafeed of your Merchant Center account. This method supports patch semantics.",
+          "description": "Updates a datafeed of your Merchant Center account. This method can only be called for non-multi-client accounts. This method supports patch semantics.",
           "operationId": "content.datafeeds.patch",
           "parameters": [
             {
@@ -2031,7 +2031,7 @@
           ]
         },
         "put": {
-          "description": "Updates a datafeed of your Merchant Center account.",
+          "description": "Updates a datafeed of your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.datafeeds.update",
           "parameters": [
             {
@@ -2082,7 +2082,7 @@
       },
       "/{merchantId}/datafeedstatuses": {
         "get": {
-          "description": "Lists the statuses of the datafeeds in your Merchant Center account.",
+          "description": "Lists the statuses of the datafeeds in your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.datafeedstatuses.list",
           "parameters": [
             {
@@ -2150,7 +2150,7 @@
       },
       "/{merchantId}/datafeedstatuses/{datafeedId}": {
         "get": {
-          "description": "Retrieves the status of a datafeed from your Merchant Center account.",
+          "description": "Retrieves the status of a datafeed from your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.datafeedstatuses.get",
           "parameters": [
             {
@@ -2234,7 +2234,7 @@
           }
         ],
         "post": {
-          "description": "Updates price and availability of a product in your Merchant Center account. This operation does not update the expiration date of the product.",
+          "description": "Updates price and availability of a product in your Merchant Center account. This operation does not update the expiration date of the product. This method can only be called for non-multi-client accounts.",
           "operationId": "content.inventory.set",
           "parameters": [
             {
@@ -2294,7 +2294,7 @@
       },
       "/{merchantId}/orders": {
         "get": {
-          "description": "Lists the orders in your Merchant Center account.",
+          "description": "Lists the orders in your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.list",
           "parameters": [
             {
@@ -2413,7 +2413,7 @@
       },
       "/{merchantId}/orders/{orderId}": {
         "get": {
-          "description": "Retrieves an order from your Merchant Center account.",
+          "description": "Retrieves an order from your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.get",
           "parameters": [
             {
@@ -2499,7 +2499,7 @@
           }
         ],
         "post": {
-          "description": "Marks an order as acknowledged.",
+          "description": "Marks an order as acknowledged. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.acknowledge",
           "parameters": [
             {
@@ -2569,7 +2569,7 @@
           }
         ],
         "post": {
-          "description": "Cancels all line items in an order.",
+          "description": "Cancels all line items in an order. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.cancel",
           "parameters": [
             {
@@ -2639,7 +2639,7 @@
           }
         ],
         "post": {
-          "description": "Cancels a line item.",
+          "description": "Cancels a line item. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.cancellineitem",
           "parameters": [
             {
@@ -2709,7 +2709,7 @@
           }
         ],
         "post": {
-          "description": "Refund a portion of the order, up to the full amount paid.",
+          "description": "Refund a portion of the order, up to the full amount paid. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.refund",
           "parameters": [
             {
@@ -2779,7 +2779,7 @@
           }
         ],
         "post": {
-          "description": "Returns a line item.",
+          "description": "Returns a line item. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.returnlineitem",
           "parameters": [
             {
@@ -2849,7 +2849,7 @@
           }
         ],
         "post": {
-          "description": "Marks line item(s) as shipped.",
+          "description": "Marks line item(s) as shipped. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.shiplineitems",
           "parameters": [
             {
@@ -2919,7 +2919,7 @@
           }
         ],
         "post": {
-          "description": "Updates the merchant order ID for a given order.",
+          "description": "Updates the merchant order ID for a given order. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.updatemerchantorderid",
           "parameters": [
             {
@@ -2989,7 +2989,7 @@
           }
         ],
         "post": {
-          "description": "Updates a shipment's status, carrier, and/or tracking ID.",
+          "description": "Updates a shipment's status, carrier, and/or tracking ID. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.updateshipment",
           "parameters": [
             {
@@ -3036,7 +3036,7 @@
       },
       "/{merchantId}/ordersbymerchantid/{merchantOrderId}": {
         "get": {
-          "description": "Retrieves an order using merchant order id.",
+          "description": "Retrieves an order using merchant order id. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.getbymerchantorderid",
           "parameters": [
             {
@@ -3099,7 +3099,7 @@
       },
       "/{merchantId}/products": {
         "get": {
-          "description": "Lists the products in your Merchant Center account.",
+          "description": "Lists the products in your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.products.list",
           "parameters": [
             {
@@ -3171,7 +3171,7 @@
           }
         ],
         "post": {
-          "description": "Uploads a product to your Merchant Center account.",
+          "description": "Uploads a product to your Merchant Center account. If an item with the same channel, contentLanguage, offerId, and targetCountry already exists, this method updates that entry. This method can only be called for non-multi-client accounts.",
           "operationId": "content.products.insert",
           "parameters": [
             {
@@ -3217,7 +3217,7 @@
       },
       "/{merchantId}/products/{productId}": {
         "delete": {
-          "description": "Deletes a product from your Merchant Center account.",
+          "description": "Deletes a product from your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.products.delete",
           "parameters": [
             {
@@ -3258,7 +3258,7 @@
           ]
         },
         "get": {
-          "description": "Retrieves a product from your Merchant Center account.",
+          "description": "Retrieves a product from your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.products.get",
           "parameters": [
             {
@@ -3321,7 +3321,7 @@
       },
       "/{merchantId}/productstatuses": {
         "get": {
-          "description": "Lists the statuses of the products in your Merchant Center account.",
+          "description": "Lists the statuses of the products in your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.productstatuses.list",
           "parameters": [
             {
@@ -3395,7 +3395,7 @@
       },
       "/{merchantId}/productstatuses/{productId}": {
         "get": {
-          "description": "Gets the status of a product from your Merchant Center account.",
+          "description": "Gets the status of a product from your Merchant Center account. This method can only be called for non-multi-client accounts.",
           "operationId": "content.productstatuses.get",
           "parameters": [
             {
@@ -3458,7 +3458,7 @@
       },
       "/{merchantId}/shippingsettings": {
         "get": {
-          "description": "Lists the shipping settings of the sub-accounts in your Merchant Center account.",
+          "description": "Lists the shipping settings of the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts.",
           "operationId": "content.shippingsettings.list",
           "parameters": [
             {
@@ -3526,7 +3526,7 @@
       },
       "/{merchantId}/shippingsettings/{accountId}": {
         "get": {
-          "description": "Retrieves the shipping settings of the account.",
+          "description": "Retrieves the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself or sub-accounts if the managing account is a multi-client account.",
           "operationId": "content.shippingsettings.get",
           "parameters": [
             {
@@ -3587,7 +3587,7 @@
           }
         ],
         "patch": {
-          "description": "Updates the shipping settings of the account. This method supports patch semantics.",
+          "description": "Updates the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself or sub-accounts if the managing account is a multi-client account. This method supports patch semantics.",
           "operationId": "content.shippingsettings.patch",
           "parameters": [
             {
@@ -3638,7 +3638,7 @@
           ]
         },
         "put": {
-          "description": "Updates the shipping settings of the account.",
+          "description": "Updates the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself or sub-accounts if the managing account is a multi-client account.",
           "operationId": "content.shippingsettings.update",
           "parameters": [
             {
@@ -3770,7 +3770,7 @@
           }
         ],
         "post": {
-          "description": "Sandbox only. Creates a test order.",
+          "description": "Sandbox only. Creates a test order. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.createtestorder",
           "parameters": [
             {
@@ -3833,7 +3833,7 @@
           }
         ],
         "post": {
-          "description": "Sandbox only. Moves a test order from state \"inProgress\" to state \"pendingShipment\".",
+          "description": "Sandbox only. Moves a test order from state \"inProgress\" to state \"pendingShipment\". This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.advancetestorder",
           "parameters": [
             {
@@ -3873,7 +3873,7 @@
       },
       "/{merchantId}/testordertemplates/{templateName}": {
         "get": {
-          "description": "Sandbox only. Retrieves an order template that can be used to quickly create a new order in sandbox.",
+          "description": "Sandbox only. Retrieves an order template that can be used to quickly create a new order in sandbox. This method can only be called for non-multi-client accounts.",
           "operationId": "content.orders.gettestordertemplate",
           "parameters": [
             {
@@ -5814,7 +5814,7 @@
             "type": "string"
           },
           "explicitMarketingPreference": {
-            "description": "If set, this indicates the user explicitly chose to opt in or out of providing marketing rights to the merchant. If unset, this indicates the user has already made this choice in a previous purchase, and was thus not shown the marketing right opt in/out checkbox during the Purchases on Google checkout flow.",
+            "description": "If set, this indicates the user explicitly chose to opt in or out of providing marketing rights to the merchant. If unset, this indicates the user has already made this choice in a previous purchase, and was thus not shown the marketing right opt in/out checkbox during the checkout flow.",
             "type": "boolean"
           },
           "fullName": {
@@ -8017,7 +8017,7 @@
             "type": "string"
           },
           "explicitMarketingPreference": {
-            "description": "If set, this indicates the user explicitly chose to opt in or out of providing marketing rights to the merchant. If unset, this indicates the user has already made this choice in a previous purchase, and was thus not shown the marketing right opt in/out checkbox during the Purchases on Google checkout flow. Optional.",
+            "description": "If set, this indicates the user explicitly chose to opt in or out of providing marketing rights to the merchant. If unset, this indicates the user has already made this choice in a previous purchase, and was thus not shown the marketing right opt in/out checkbox during the checkout flow. Optional.",
             "type": "boolean"
           },
           "fullName": {

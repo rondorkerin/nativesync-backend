@@ -76,7 +76,7 @@
             },
             {
               "collectionFormat": "multi",
-              "description": "Filter the openhouses returned by a list of valid cities. A\nlist of valid cities can be found by making an OPTIONS\nrequest to the `/openhouses` endpoint.\n",
+              "description": "Filter the openhouses returned by a list of valid cities. A\nlist of valid cities can be found by making an OPTIONS\nrequest to the `/openhouses` endpoint.\n\nThe `cities` query parameter is case-insensitive.\n",
               "in": "query",
               "items": {
                 "type": "string"
@@ -487,7 +487,7 @@
             },
             {
               "collectionFormat": "multi",
-              "description": "Filter the listings returned by specific neighborhoods and\nsubdivisions. You can specify multiple.\n",
+              "description": "Filter the listings returned by specific neighborhoods and\nsubdivisions. You can specify multiple `neighborhoods` by\nusing the query parameter multiple times.\n\nThe `neighborhoods` query parameter is case-insensitive.\n",
               "in": "query",
               "items": {
                 "type": "string"
@@ -498,7 +498,7 @@
             },
             {
               "collectionFormat": "multi",
-              "description": "Filter the listings returned by specific cities. You can\nspecify multiple.\n",
+              "description": "Filter the listings returned by specific cities. You can\nspecify multiple `cities` query parameters.\n\nThe `cities` query parameter is case-insensitive.\n",
               "in": "query",
               "items": {
                 "type": "string"
@@ -509,7 +509,7 @@
             },
             {
               "collectionFormat": "multi",
-              "description": "Filter the listings returned by specific counties. You can\nspecify multiple.\n",
+              "description": "Filter the listings returned by specific counties. You can\nspecify multiple `counties` parameters.\n\nThe `counties` query parameter is case-insensitive.\n",
               "in": "query",
               "items": {
                 "type": "string"

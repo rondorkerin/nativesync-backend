@@ -542,6 +542,10 @@
           "databaseAccountOfferType": {
             "$ref": "#/definitions/DatabaseAccountOfferType"
           },
+          "ipRangeFilter": {
+            "$ref": "#/definitions/IPRangeFilter",
+            "description": "DocumentDB Firewall Support: This value specifies the set of IP addresses or IP address ranges in CIDR form to be included as the allowed list of client IPs for a given database account. IP addresses/ranges must be comma separated and must not contain any spaces."
+          },
           "locations": {
             "description": "An array that contains the georeplication locations enabled for the DocumentDB account.",
             "items": {
@@ -638,6 +642,10 @@
             "readOnly": true,
             "type": "array"
           },
+          "ipRangeFilter": {
+            "$ref": "#/definitions/IPRangeFilter",
+            "description": "DocumentDB Firewall Support: This value specifies the set of IP addresses or IP address ranges in CIDR form to be included as the allowed list of client IPs for a given database account. IP addresses/ranges must be comma separated and must not contain any spaces."
+          },
           "provisioningState": {
             "$ref": "#/definitions/ProvisioningState"
           },
@@ -728,6 +736,10 @@
           }
         },
         "type": "object"
+      },
+      "IPRangeFilter": {
+        "description": "DocumentDB Firewall Support: This value specifies the set of IP addresses or IP address ranges in CIDR form to be included as the allowed list of client IPs for a given database account. IP addresses/ranges must be comma separated and must not contain any spaces.",
+        "type": "string"
       },
       "Location": {
         "description": "A region in which the Azure DocumentDB database account is deployed.",

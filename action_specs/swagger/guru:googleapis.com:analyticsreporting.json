@@ -740,6 +740,11 @@
       "ReportData": {
         "description": "The data part of the report.",
         "properties": {
+          "dataLastRefreshed": {
+            "description": "The last time the data in the report was refreshed. All the hits received\nbefore this timestamp are included in the calculation of the report.",
+            "format": "google-datetime",
+            "type": "string"
+          },
           "isDataGolden": {
             "description": "Indicates if response to this request is golden or not. Data is\ngolden when the exact same request will not produce any new results if\nasked at a later point in time.",
             "type": "boolean"

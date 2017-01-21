@@ -273,6 +273,7 @@
             {
               "enum": [
                 "csv",
+                "tsv",
                 "txt",
                 "tab",
                 "xlsx",
@@ -628,6 +629,7 @@
             {
               "enum": [
                 "csv",
+                "tsv",
                 "txt",
                 "tab",
                 "xlsx",
