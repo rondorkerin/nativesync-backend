@@ -4,6 +4,7 @@ var _ = require('underscore');
 let postgres = require('../drivers/postgres');
 let Sequelize = require('sequelize')
 var await = require('asyncawait/await');
+var helpers = require('../helpers')();
 
 // NOTE: if adding/removing fields from action make sure to add them to the cloneFrom function
 
@@ -112,6 +113,10 @@ Action.cloneFrom = function(oldAction, user, org) {
   let oldServiceAuths = await(oldAction.getServiceAuths());
   await(newAction.setServiceAuths(oldServiceAuths));
   return newAction;
+}
+
+Action.getInternalName = function(action) {
+  return helpers.internalize(`${action.organization_name}_${action.service_name}_${action.function_name}_v${action.version}`);
 }
 
 module.exports = Action
