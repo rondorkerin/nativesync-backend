@@ -33,6 +33,9 @@ var buildSecurityDefinition = function(service, name, securityDefinition) {
     } else {
       serviceAuthObject.details = {};
     }
+  } else if (securityDefinition.type == 'basic') {
+    serviceAuthObject.type = 'basic';
+    serviceAuthObject.details = {"usernameFieldLabel":"Username","passwordFieldLabel":"Password"}
   } else {
     debugger;
   }
@@ -48,41 +51,6 @@ var buildServiceDefinition = function(service, name, definition) {
   }
 }
 
-var translateSchemaToParams = function(schema) {
-  var params = [];
-  if (!schema) {
-    return [];
-  }
-  if (schema.type == 'object') {
-    var properties = schema.properties ? schema.properties : {};
-    var additionalProperties = schema.additionalProperties ? schema.additionalProperties : {};
-    if (additionalProperties && additionalProperties.properties) {
-      properties = Object.assign(properties, additionalProperties);
-    }
-    for (var name in properties) {
-      var property = properties[name];
-      var param = {name: name, description: property.description, type: property.type}
-      if (property.type == 'array') {
-        param.params = translateSchemaToParams(property.items);
-      } else if (property.type == 'object') {
-        param.params = translateSchemaToParams(property.schema);
-      }
-      params.push(param);
-    }
-  } else if (schema.type == 'file') {
-    // no-op.
-  } else if (schema.allOf) {
-    var translated = _.map(schema.allOf, translateSchemaToParams);
-    return _.reduce(translated, function(all, current) { return all.concat(current); }, []);
-  } else if (schema.type == 'array') {
-    return [{type: 'array', params: translateSchemaToParams(schema.items)}];
-  } else if (schema.type) {
-    return [{type: schema.type, name: 'result'}]
-  } else {
-
-  }
-  return params;
-}
 
 var compile = async(function(file) {
   var parsed = JSON.parse(file);
@@ -113,32 +81,28 @@ var compile = async(function(file) {
   await(Service.upsert(service))
   service = await(Service.findOne({where: {name: service_name}}));
   for (var name in api.securityDefinitions) {
+    console.log('creating security def', name, 'for service', service.name);
     var definition = buildSecurityDefinition(service, name, api.securityDefinitions[name]);
     await(Models.ServiceAuth.upsert(definition))
   }
   for (var name in api.definitions) {
-    var definition = buildServiceDefinition(service, name, api.definitions[name]);
-    await(Models.ServiceDefinition.upsert(definition))
+    console.log('creating definition', name, 'for service', service.name);
+    // var definition = buildServiceDefinition(service, name, api.definitions[name]);
+    // await(Models.ServiceDefinition.upsert(definition))
   }
+
+  var serviceAuthsByName = _.indexBy(await(Models.ServiceAuth.findOne({where: {service_id: service.id}})), 'name');
   for (var path in api.paths) {
     var params = api.paths[path].parameters || [];
     for (var method in api.paths[path]) {
       if (method == 'parameters' || !path || !parsed['swagger']['basePath']) { continue; }
       var op = api.paths[path][method];
       var parameters = (op.parameters || []).concat(params);
-      var body = _.findWhere(parameters, {in: 'body'});
-      // grab all params out of the body object.
-      // If the body is a list, craete a code snippet that pulls the
-      // body param into a list. If its an object, pull it out into params.
-      // question: can we do this automatically on the backend, by checking if body type = list?
-      // think the answer is yes.
-      if (body && body['type'] == 'array')  {
-        debugger;
-      }
       var output = [];
       if (op['responses']['200'] && op['responses']['200']['schema']) {
-        var opSchema = op['responses']['200']['schema'];
-        output = translateSchemaToParams(opSchema);
+        var output = op['responses']['200']['schema'];
+      } else if (op['responses']['200'] && op['responses']['200']['type']) {
+        debugger;
       }
 
       let action = {
@@ -171,6 +135,17 @@ var compile = async(function(file) {
         let result = await(Action.upsert(action));
       } catch(e) {
         console.log(e);
+      }
+      if (api.paths[path][method].security && api.paths[path][method].security.length > 1) {
+        action = Action.findOne({where: {internal_name: action.internal_name}});
+        _.each(api.paths[path][method].security, (securityObject) => {
+          var name = Object.keys(securityObject);
+          var serviceAuth = serviceAuthsByName[name];
+          if (serviceAuth) {
+            var actionServiceAuth = {service_auth_id: serviceAuth.id, action_id: action.id}
+            await(Models.ActionServiceAuth.upsert(actionServiceAuth))
+          }
+        });
       }
     }
   }

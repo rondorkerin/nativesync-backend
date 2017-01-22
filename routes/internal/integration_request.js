@@ -32,10 +32,9 @@ module.exports = (app, helpers) => {
 
   })
 
-  app.post('/integration_requests', helpers.checkauth('user'), (req, res) => {
+  app.post('/integration_requests', async((req, res) => {
     var integrationRequest = req.body.integrationRequest;
     integrationRequest.jobStatus = 'unassigned';
-    integrationRequest.organization_id = req.user.org.id;
     try {
       // verify discount code.
       integrationRequest = await(IntegrationRequest.getPricing(integrationRequest));
@@ -45,5 +44,5 @@ module.exports = (app, helpers) => {
       console.log('error', e);
       return res.status(500).send(e);
     }
-  });
+  }));
 }
