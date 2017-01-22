@@ -58,6 +58,9 @@ var IntegrationRequest = postgres.define('integration_request', {
   discountCode: {
     type: Sequelize.STRING
   },
+  details: {
+    type: Sequelize.TEXT
+  },
   createdAt: {
     type: Sequelize.DATE
   },
