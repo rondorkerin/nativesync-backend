@@ -3,3 +3,5 @@
 
 A project I worked on several months ago, released for educational purposes. Documentation coming soon.
 
+See also https://github.com/sbryant31/nativesync-frontend
+
